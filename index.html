@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<head>
+
+<html lang=“ja”>
+  <title>ReBlog</title>
+  <link rel="shortcut icon" href="img/R.png" type="image/png">
+  <meta http-equiv="content-type" charset="utf-8">
+<link rel="stylesheet" type="text/css" href="reblog.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" type="text/css" href="blog/20200201.css">
+
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+<script>
+$(function() {
+    $('.navToggle').click(function() {
+        $(this).toggleClass('active');
+ 
+        if ($(this).hasClass('active')) {
+            $('.globalMenuSp').addClass('active');
+        } else {
+            $('.globalMenuSp').removeClass('active');
+        }
+    });
+});
+</script>
+<script data-ad-client="ca-pub-1225917527285093" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ <style>
+
+
+</style>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-N4TWRR7');</script>
+  <!-- End Google Tag Manager -->
+</head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<body>
+  
+  <div id="pagebody">
+  <div id="headline">
+    <nav class="globalMenuSp">
+      <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="news.html">ニュース</a></li>
+          <li><a href="pickup.html">ピックアップ</a></li> 
+　　　　　　<li><a href="check.html">お知らせ</a></li>
+          <li><a href="about.html">ReBlogについて</a></li>
+      </ul>
+  </nav>
+  <div class="navToggle">
+    <span></span><span></span><span></span><span>menu</span>
+</div>
+
+      <div class="reblog_center">
+        <a href="index.html">
+      <img src="img/reblog.png" alt="ReBlog" class="reblog_image">
+    </a>
+    </div>
+  </div>
+   <class="main">
+    <ul class="topnav">
+      <li><a class="active" href="index.html">ホーム</a></li>
+      <li><a href="news.html">ニュース</a></li>
+      <li><a href="pickup.html">ピックアップ</a></li>
+      <li><a href="check.html">お知らせ</a></li>
+      <li class="right"><a href="about.html">ReBlogについて</a></li>
+    </ul>
+    <div id="left_bar">
+      <h2>カレンダー<hr></h2>
+      <script type="text/javascript">
+
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var today = now.getDate();
+        now.setDate(1);
+        var startDay = now.getDay();
+        var monthdays = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+        var dateMax = monthdays[month - 1];
+        if (month == 2 && ((year%4 == 0 && year%100 != 0) || year%400 == 0)) dateMax = 29;
+        // 休日配列の初期化
+        var holidays = new Array();
+        for (var i = 0; i <= dateMax; i++) holidays[i] = 0;
+        // 祝日1：何月の何日か？
+        var Holidays1 = new Array(1,1, 2,11, 3,21, 4,29, 5,3, 5,4, 5,5, 9,23, 11,3, 11,23, 12,23);
+        var firstSunday = (startDay == 0) ? 1: 8 - startDay;
+        for (i = 0; i < Holidays1.length; i += 2) {
+          if (Holidays1[i] == month) {
+            holidays[Holidays1[i+1]] = 1;
+            for (var j = firstSunday; j < dateMax; j += 7)
+              if (Holidays1[i+1] == j ) { holidays[j+1] = 1; break; }  // 振替休日
+          }
+        }
+        // 祝日2：何月の第何月曜日か？
+        var Holidays2 = new Array(1,2, 7,3, 9,3, 10,2);
+        var firstMonday = (startDay < 2) ? 2 - startDay: 9 - startDay;
+        for (i = 0; i < Holidays2.length; i += 2)
+          if (Holidays2[i] == month) holidays[(Holidays2[i+1] - 1) * 7 + firstMonday] = 1;
+        var days = new Array("日", "月", "火", "水", "木", "金", "土");
+        document.write("<table class='calen'>\n<tr class='bg1'><th colspan=7>"
+          + year + "年 " + month + "月</th></tr>\n");
+        document.write("<tr class='bg2'><th class='sun'>" + days[0] + "</th>");
+        for (i = 1; i < 6; i++) document.write("<th>" + days[i] + "</th>");
+        document.write("<th class='sat'>" + days[6] + "</th></tr>\n");
+        var col = 0, s1;
+        if (startDay > 0) {
+          document.write("<tr>");
+          for ( ; col < startDay; col++) document.write("<td>&nbsp;</td>");
+        }
+        for (i = 1; i <= dateMax; i++) {
+          if (col == 0) document.write("<tr>");
+          if (i == today) {
+            if (holidays[i] == 1 || col == 0) s1 = "<td class='today sun'>";
+            else if (col == 6) s1 = "<td class='today sat'>";
+            else s1 = "<td class='today'>";
+          }
+          else if (holidays[i] == 1 || col == 0) s1 = "<td class='sun'>";
+          else if (col == 6) s1 = "<td class='sat'>";
+          else s1 = "<td>";
+          document.write(s1 + i + "</td>");
+          if (col == 6) { document.write("</tr>\n"); col = 0; } else col++;
+        }
+        if (col != 0) {
+          for ( ; col < 7; col++) document.write("<td>&nbsp;</td>");
+          document.write("</tr>");
+        }
+        document.write("</table>");
+        //-->
+        </script>
+        <h2>提携サイト<hr></h2>
+        <h3><a href="http://www.kk58web.xyz/">KKWeb</a></h3>
+		</div>
+  <h1><font color=blue>ようこそ！ReBlogへ!!</font></h1>
+  <div class="box2">
+    <p><i class="fas fa-info-circle" _mstvisible="2"></i>お知らせ</p>
+    <p>新しい記事が作られました！<a href="news.html">今すぐチェック</a>する</p>
+</div>
+  <div class="box3">
+    <p><i class="fab fa-angellist"></i>提携サイトについて</p>
+    <p>この度、提携サイト「<a href="http://www.kk58web.xyz/">KKWeb</a>」と提携することになりました！よかったらこちらのサイトも覗いてみてください！</p>
+  </div>
+  
+  <h5>
+    Copyright © 2020 ReBlog All Rights Reserved.
+  </h5>
+  </div>
+</div>
+ <!-- Google Tag Manager (noscript) -->
+ <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4TWRR7"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+</body>
+</html>
