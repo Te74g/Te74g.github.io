@@ -1,160 +1,327 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="ja">
+
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>あにあめもりあ | イベント</title>
+  <meta name="description" content="あにあめもりあ公式サイト：イベント情報・人間紹介・お問い合わせ" />
 
-<html lang=“ja”>
-  <title>ReBlog</title>
-  <link rel="shortcut icon" href="img/R.png" type="image/png">
-  <meta http-equiv="content-type" charset="utf-8">
-<link rel="stylesheet" type="text/css" href="reblog.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-<link rel="stylesheet" type="text/css" href="blog/20200201.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
+    rel="stylesheet">
 
-<script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
-<script>
-$(function() {
-    $('.navToggle').click(function() {
-        $(this).toggleClass('active');
- 
-        if ($(this).hasClass('active')) {
-            $('.globalMenuSp').addClass('active');
-        } else {
-            $('.globalMenuSp').removeClass('active');
-        }
-    });
-});
-</script>
-<script data-ad-client="ca-pub-1225917527285093" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <style>
-
-
-</style>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-N4TWRR7');</script>
-  <!-- End Google Tag Manager -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+
 <body>
-  
-  <div id="pagebody">
-  <div id="headline">
-    <nav class="globalMenuSp">
-      <ul>
-          <li><a href="index.html">ホーム</a></li>
-          <li><a href="news.html">ニュース</a></li>
-          <li><a href="pickup.html">ピックアップ</a></li> 
-　　　　　　<li><a href="check.html">お知らせ</a></li>
-          <li><a href="about.html">ReBlogについて</a></li>
-      </ul>
-  </nav>
-  <div class="navToggle">
-    <span></span><span></span><span></span><span>menu</span>
-</div>
+  <a class="skip-link" href="#main">本文へスキップ</a>
 
-      <div class="reblog_center">
-        <a href="index.html">
-      <img src="img/reblog.png" alt="ReBlog" class="reblog_image">
-    </a>
+  <!-- Header: MENUオーバーレイ型 -->
+  <header class="site-header" data-elevate>
+    <div class="container header-inner">
+      <a class="brand" href="./index.html" aria-label="あにあめもりあ（イベント）">
+        <picture>
+          <source srcset="./assets/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+          <img src="./assets/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+        </picture>
+      </a>
+
+      <nav class="pc-nav hide-sm">
+        <a href="./index.html" class="nav-item">イベント</a>
+        <a href="./people.html" class="nav-item">人間紹介</a>
+        <a href="./contact.html" class="nav-item">お問い合わせ</a>
+      </nav>
+
+      <div class="header-socials hide-sm">
+        <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener" class="social-link" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+          </svg>
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
+          <img src="./assets/VRChat Logo Black.png" alt="VRChat"
+            style="width: 32px; height: 32px; object-fit: contain;">
+        </a>
+      </div>
+
+      <button class="menu-btn hide-md" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-btn__label">MENU</span>
+        <span class="menu-btn__icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
     </div>
-  </div>
-   <class="main">
-    <ul class="topnav">
-      <li><a class="active" href="index.html">ホーム</a></li>
-      <li><a href="news.html">ニュース</a></li>
-      <li><a href="pickup.html">ピックアップ</a></li>
-      <li><a href="check.html">お知らせ</a></li>
-      <li class="right"><a href="about.html">ReBlogについて</a></li>
-    </ul>
-    <div id="left_bar">
-      <h2>カレンダー<hr></h2>
-      <script type="text/javascript">
 
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = now.getMonth() + 1;
-        var today = now.getDate();
-        now.setDate(1);
-        var startDay = now.getDay();
-        var monthdays = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-        var dateMax = monthdays[month - 1];
-        if (month == 2 && ((year%4 == 0 && year%100 != 0) || year%400 == 0)) dateMax = 29;
-        // 休日配列の初期化
-        var holidays = new Array();
-        for (var i = 0; i <= dateMax; i++) holidays[i] = 0;
-        // 祝日1：何月の何日か？
-        var Holidays1 = new Array(1,1, 2,11, 3,21, 4,29, 5,3, 5,4, 5,5, 9,23, 11,3, 11,23, 12,23);
-        var firstSunday = (startDay == 0) ? 1: 8 - startDay;
-        for (i = 0; i < Holidays1.length; i += 2) {
-          if (Holidays1[i] == month) {
-            holidays[Holidays1[i+1]] = 1;
-            for (var j = firstSunday; j < dateMax; j += 7)
-              if (Holidays1[i+1] == j ) { holidays[j+1] = 1; break; }  // 振替休日
-          }
-        }
-        // 祝日2：何月の第何月曜日か？
-        var Holidays2 = new Array(1,2, 7,3, 9,3, 10,2);
-        var firstMonday = (startDay < 2) ? 2 - startDay: 9 - startDay;
-        for (i = 0; i < Holidays2.length; i += 2)
-          if (Holidays2[i] == month) holidays[(Holidays2[i+1] - 1) * 7 + firstMonday] = 1;
-        var days = new Array("日", "月", "火", "水", "木", "金", "土");
-        document.write("<table class='calen'>\n<tr class='bg1'><th colspan=7>"
-          + year + "年 " + month + "月</th></tr>\n");
-        document.write("<tr class='bg2'><th class='sun'>" + days[0] + "</th>");
-        for (i = 1; i < 6; i++) document.write("<th>" + days[i] + "</th>");
-        document.write("<th class='sat'>" + days[6] + "</th></tr>\n");
-        var col = 0, s1;
-        if (startDay > 0) {
-          document.write("<tr>");
-          for ( ; col < startDay; col++) document.write("<td>&nbsp;</td>");
-        }
-        for (i = 1; i <= dateMax; i++) {
-          if (col == 0) document.write("<tr>");
-          if (i == today) {
-            if (holidays[i] == 1 || col == 0) s1 = "<td class='today sun'>";
-            else if (col == 6) s1 = "<td class='today sat'>";
-            else s1 = "<td class='today'>";
-          }
-          else if (holidays[i] == 1 || col == 0) s1 = "<td class='sun'>";
-          else if (col == 6) s1 = "<td class='sat'>";
-          else s1 = "<td>";
-          document.write(s1 + i + "</td>");
-          if (col == 6) { document.write("</tr>\n"); col = 0; } else col++;
-        }
-        if (col != 0) {
-          for ( ; col < 7; col++) document.write("<td>&nbsp;</td>");
-          document.write("</tr>");
-        }
-        document.write("</table>");
-        //-->
-        </script>
-        <h2>提携サイト<hr></h2>
-        <h3><a href="http://www.kk58web.xyz/">KKWeb</a></h3>
-		</div>
-  <h1><font color=blue>ようこそ！ReBlogへ!!</font></h1>
-  <div class="box2">
-    <p><i class="fas fa-info-circle" _mstvisible="2"></i>お知らせ</p>
-    <p>新しい記事が作られました！<a href="news.html">今すぐチェック</a>する</p>
-</div>
-  <div class="box3">
-    <p><i class="fab fa-angellist"></i>提携サイトについて</p>
-    <p>この度、提携サイト「<a href="http://www.kk58web.xyz/">KKWeb</a>」と提携することになりました！よかったらこちらのサイトも覗いてみてください！</p>
-  </div>
-  
-  <h5>
-    Copyright © 2020 ReBlog All Rights Reserved.
-  </h5>
-  </div>
-</div>
- <!-- Google Tag Manager (noscript) -->
- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4TWRR7"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <nav id="site-nav" class="menu" aria-label="メインメニュー" aria-hidden="true">
+      <div class="menu-inner container">
+        <div class="menu-head">
+          <p class="menu-title">MENU</p>
+          <button class="menu-close" type="button" aria-label="メニューを閉じる">×</button>
+        </div>
 
+        <div class="menu-links">
+          <a class="menu-link is-active" href="./index.html">
+            <span class="menu-link__jp">イベント</span>
+            <span class="menu-link__sub">EVENTS</span>
+          </a>
+          <a class="menu-link" href="./people.html">
+            <span class="menu-link__jp">人間紹介</span>
+            <span class="menu-link__sub">PEOPLE</span>
+          </a>
+          <a class="menu-link" href="./contact.html">
+            <span class="menu-link__jp">お問い合わせ</span>
+            <span class="menu-link__sub">CONTACT</span>
+          </a>
+        </div>
+
+        <div class="menu-foot">
+          <div class="menu-socials">
+            <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener" class="social-link" aria-label="X">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+              </svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="VRChat">
+              <img src="./assets/VRChat Logo Black.png" alt="VRChat"
+                style="width: 32px; height: 32px; object-fit: contain;">
+            </a>
+          </div>
+          <a class="btn btn--primary" href="./contact.html">まず相談</a>
+          <p class="menu-note">※ここはUIだけ。文言は自由に差し替えOK</p>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-label="イベント紹介">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="kicker">
+            <span class="kicker-dot" aria-hidden="true"></span>
+            公式サイト / EVENTS
+          </p>
+
+          <h1 class="hero-title">イベントのご案内</h1>
+
+          <p class="hero-lead">
+            開催中・開催予定のイベントをまとめています。<br />
+            詳細は各カードの「もっとみる→」から。
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#events">開催予定へ</a>
+            <a class="btn btn--ghost" href="./people.html">人間紹介へ</a>
+          </div>
+
+          <div class="hero-badges" aria-label="特徴">
+            <span class="chip chip--a">かわいく整理</span>
+            <span class="chip chip--b">チップで見分け</span>
+            <span class="chip chip--c">スマホ最優先</span>
+          </div>
+        </div>
+
+        <aside class="hero-visual reveal" aria-label="ビジュアル枠">
+          <div class="illus">
+            <div class="illus-inner">
+              <p class="illus-title">イラスト/写真枠</p>
+              <img src="./assets/VRChat_main.png" alt="VRChat_main.png" />
+              <div class="sticker-row" aria-hidden="true">
+                <span class="sticker">NEW</span>
+                <span class="sticker">POP</span>
+                <span class="sticker">FUN</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            <p class="notice-title">おしらせ</p>
+            <ul class="notice-list">
+              <li>開催情報は随時更新</li>
+              <li>注意事項はイベントごとに確認</li>
+              <li>不明点はお問い合わせへ</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Events -->
+    <section id="events" class="section" aria-label="イベント一覧">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2 class="section-title">開催予定</h2>
+          <p class="section-lead">検索と状態フィルタで、カードを絞り込みできるにゃん。</p>
+        </header>
+
+        <div class="toolbar reveal" aria-label="絞り込み">
+          <label class="field">
+            <span>検索</span>
+            <input id="q" type="search" placeholder="例：交流会 / 配信 / 展示" autocomplete="off" />
+          </label>
+
+          <label class="field">
+            <span>状態</span>
+            <select id="status">
+              <option value="all">すべて</option>
+              <option value="open">受付中</option>
+              <option value="soon">予定</option>
+              <option value="closed">終了</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="eventGrid" class="grid" role="list">
+          <article class="card reveal" role="listitem" data-status="open" data-keywords="交流会 オフライン 撮影OK">
+            <div class="card-top">
+              <span class="tag tag--open">受付中</span>
+              <span class="tag tag--soft">オフライン</span>
+            </div>
+            <h3 class="card-title">あにあめ交流会 vol.1</h3>
+            <p class="card-desc">はじめての人でも入りやすい、短時間の交流イベント。</p>
+
+            <dl class="meta">
+              <div>
+                <dt>日時</dt>
+                <dd>2026-02-xx 19:00〜</dd>
+              </div>
+              <div>
+                <dt>場所</dt>
+                <dd>都内（詳細は後日）</dd>
+              </div>
+              <div>
+                <dt>参加</dt>
+                <dd>事前申込</dd>
+              </div>
+            </dl>
+
+            <div class="card-actions">
+              <a class="more" href="./contact.html">もっとみる→</a>
+              <a class="btn btn--sm btn--ghost" href="./contact.html">申込/質問</a>
+            </div>
+          </article>
+
+          <article class="card reveal" role="listitem" data-status="soon" data-keywords="配信 オンライン トーク">
+            <div class="card-top">
+              <span class="tag tag--soon">予定</span>
+              <span class="tag tag--soft">オンライン</span>
+            </div>
+            <h3 class="card-title">配信：あにあめラジオ</h3>
+            <p class="card-desc">近況と企画の話。コメント拾いあり（アーカイブは当日告知）。</p>
+
+            <dl class="meta">
+              <div>
+                <dt>日時</dt>
+                <dd>2026-03-xx 21:00〜</dd>
+              </div>
+              <div>
+                <dt>場所</dt>
+                <dd>配信（リンク後日）</dd>
+              </div>
+              <div>
+                <dt>参加</dt>
+                <dd>視聴無料</dd>
+              </div>
+            </dl>
+
+            <div class="card-actions">
+              <a class="more" href="./people.html">出演を見る→</a>
+              <a class="btn btn--sm btn--ghost" href="./contact.html">通知希望</a>
+            </div>
+          </article>
+
+          <article class="card reveal" role="listitem" data-status="closed" data-keywords="展示 写真 記録">
+            <div class="card-top">
+              <span class="tag tag--closed">終了</span>
+              <span class="tag tag--soft">アーカイブ</span>
+            </div>
+            <h3 class="card-title">小展示：あにあめの記録</h3>
+            <p class="card-desc">写真と短文の展示。次回開催の要望が多ければ再演も検討。</p>
+
+            <dl class="meta">
+              <div>
+                <dt>日時</dt>
+                <dd>2025-12-xx</dd>
+              </div>
+              <div>
+                <dt>場所</dt>
+                <dd>某所</dd>
+              </div>
+              <div>
+                <dt>参加</dt>
+                <dd>終了</dd>
+              </div>
+            </dl>
+
+            <div class="card-actions">
+              <a class="more" href="./contact.html">再演リクエスト→</a>
+            </div>
+          </article>
+        </div>
+
+        <div id="empty" class="empty reveal" hidden>
+          <p class="empty-title">条件に合うイベントが見つからないにゃん</p>
+          <p class="empty-desc">検索語や状態フィルタを変えてみてね。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-label="導線">
+      <div class="container">
+        <div class="cta reveal">
+          <div>
+            <h2 class="cta-title">次は、人間紹介も見ていく？</h2>
+            <p class="cta-lead">②ではタグで絞り込みできる設計にするにゃん。</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn--primary" href="./people.html">人間紹介へ</a>
+            <a class="btn btn--ghost" href="./contact.html">お問い合わせへ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">
+        <picture>
+          <source srcset="./assets/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+          <img src="./assets/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+        </picture>
+      </p>
+      <p class="footer-links">
+        <a href="./privacy.html">プライバシーポリシー</a>
+        <a href="./terms.html">利用規約</a>
+      </p>
+      <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
+      <a class="to-top" href="#top" aria-label="上へ戻る">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 15l-6-6-6 6" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+  <script src="./script.js"></script>
 </body>
+
 </html>
