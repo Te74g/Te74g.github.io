@@ -109,6 +109,55 @@
   </header>
 
   <main id="main">
+    <!-- News Section (Carousel) -->
+    <section class="section" style="padding-top: 0; padding-bottom: 20px;">
+      <div class="container" style="max-width: 1000px;">
+        <header class="section-head reveal" style="margin-bottom: 0;">
+          <h2 class="section-title" style="text-align: center;">News</h2>
+        </header>
+
+        <div class="news-carousel-container reveal">
+          <button class="carousel-nav-btn carousel-prev" id="carousel-prev" aria-label="Previous">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div class="news-carousel-track" id="news-carousel-track">
+            <!-- Items will be injected by script.js -->
+          </div>
+
+          <button class="carousel-nav-btn carousel-next" id="carousel-next" aria-label="Next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+
+        <div style="text-align:right; margin-top:0px; padding-right: 20px;">
+          <a href="./news/index.html" class="btn btn--ghost">もっとみる</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Random Pickup Section -->
+    <section class="section section--alt" style="padding-bottom: 10px;">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2 class="section-title">Random Pickup</h2>
+          <p class="section-lead">本日のピックアップキャスト（ランダム）</p>
+        </header>
+        <div id="random-pickup-grid" class="cheki-grid">
+          <!-- Populated by script.js -->
+        </div>
+        <div class="cta-actions" style="justify-content:center; margin-top:20px;">
+          <a class="btn btn--ghost" href="./people.html">全員を見る</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Hero -->
     <section class="hero" aria-label="イベント紹介">
       <div class="container hero-grid">
@@ -147,17 +196,12 @@
             </div>
           </div>
 
-          <div class="notice">
-            <p class="notice-title">おしらせ</p>
-            <ul class="notice-list">
-              <li>ここにお知らせを入れます</li>
-              <li>注意事項はイベントごとに確認</li>
-              <li>不明点はお問い合わせへ</li>
-            </ul>
-          </div>
+
         </aside>
       </div>
     </section>
+
+
 
     <!-- Events -->
     <section id="events" class="section" aria-label="イベント一覧">

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>あにあめもりあ | ダミーニュース2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../assets/favicon/multi_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../styles.css" />
+</head>
+
+<body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+
+    <header class='site-header' data-elevate>
+        <div class='container header-inner'>
+            <a class='brand' href='../index.html' aria-label='あにあめもりあ（イベント）'>
+                <picture>
+                    <source srcset='../assets/aniamemoria_logo_darktheme.png' media='(prefers-color-scheme: dark)'>
+                    <img src='../assets/aniamemoria_logo.png' alt='あにあめもりあ' class='brand-logo' />
+                </picture>
+            </a>
+            <nav class='pc-nav hide-sm'>
+                <a href='../index.html' class='nav-item'>イベント</a>
+                <a href='../people.html' class='nav-item'>キャスト紹介</a>
+                <a href='../contact.html' class='nav-item'>お問い合わせ</a>
+            </nav>
+            <div class='header-socials hide-sm'>
+                <a href='https://x.com/ANIAMEMORIA' target='_blank' rel='noopener' class='social-link' aria-label='X'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'
+                        fill='currentColor'>
+                        <path
+                            d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' />
+                    </svg>
+                </a>
+                <a href='#' target='_blank' rel='noopener' class='social-link' aria-label='YouTube'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'
+                        fill='currentColor'>
+                        <path
+                            d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z' />
+                    </svg>
+                </a>
+                <a href='#' target='_blank' rel='noopener' class='social-link' aria-label='VRChat Group'>
+                    <img src='../assets/VRChat Logo Black.png' alt='VRChat'
+                        style='width: 32px; height: 32px; object-fit: contain;'>
+                </a>
+            </div>
+            <button class='menu-btn hide-md' type='button' aria-expanded='false' aria-controls='site-nav'>
+                <span class='menu-btn__label'>MENU</span>
+                <span class='menu-btn__icon' aria-hidden='true'><span></span><span></span><span></span></span>
+            </button>
+        </div>
+        <nav id='site-nav' class='menu' aria-label='メインメニュー' aria-hidden='true'>
+            <div class='menu-inner container'>
+                <div class='menu-head'>
+                    <p class='menu-title'>MENU</p>
+                    <button class='menu-close' type='button' aria-label='メニューを閉じる'>×</button>
+                </div>
+                <!-- Standard Menu Links -->
+                <div class='menu-links'>
+                    <a class='menu-link' href='../index.html'>
+                        <span class='menu-link__jp'>イベント</span>
+                        <span class='menu-link__sub'>EVENTS</span>
+                    </a>
+                    <a class='menu-link' href='../people.html'>
+                        <span class='menu-link__jp'>キャスト紹介</span>
+                        <span class='menu-link__sub'>PEOPLE</span>
+                    </a>
+                    <a class='menu-link' href='../contact.html'>
+                        <span class='menu-link__jp'>お問い合わせ</span>
+                        <span class='menu-link__sub'>CONTACT</span>
+                    </a>
+                </div>
+                <div class='menu-foot'>
+                    <div class='menu-socials'>
+                        <a href='https://x.com/ANIAMEMORIA' target='_blank' rel='noopener' class='social-link'
+                            aria-label='X'>
+                            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'
+                                fill='currentColor'>
+                                <path
+                                    d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' />
+                            </svg>
+                        </a>
+                        <a href='#' target='_blank' rel='noopener' class='social-link' aria-label='YouTube'>
+                            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'
+                                fill='currentColor'>
+                                <path
+                                    d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z' />
+                            </svg>
+                        </a>
+                        <a href='#' target='_blank' rel='noopener' class='social-link' aria-label='VRChat'>
+                            <img src='../assets/VRChat Logo Black.png' alt='VRChat'
+                                style='width: 32px; height: 32px; object-fit: contain;'>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="section">
+            <div class="container" style="max-width: 800px;">
+                <article class="reveal">
+                    <header style="margin-bottom: 24px; text-align: center;">
+                        <div style="margin-bottom: 10px; color: var(--muted); font-weight: 700;">
+                            <time datetime="2026-01-20">2026.01.20</time>
+                            <span class="tag tag--soft" style="margin-left: 10px;">お知らせ</span>
+                        </div>
+                        <h1 style="font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; margin-bottom: 0;">
+                            ダミーニュース2</h1>
+                    </header>
+
+                    <div style="margin-bottom: 32px;">
+                        <img src="../assets/news/test2026-01-20.png" alt="記事画像"
+                            style="width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow);">
+                    </div>
+
+                    <div
+                        style="font-size: 1.1rem; line-height: 1.9; background: var(--paper); padding: 30px; border-radius: 12px; border: 1px solid var(--line);">
+                        <p>これはダミーニュース2の本文です。テスト表示用です。</p>
+                    </div>
+
+                    <div style="margin-top: 40px; text-align: center;">
+                        <a href="../index.html" class="btn btn--ghost">トップへ戻る</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class='site-footer'>
+        <div class='container footer-inner'>
+            <p class='footer-brand'>
+                <picture>
+                    <source srcset='../assets/aniamemoria_logo_darktheme.png' media='(prefers-color-scheme: dark)'>
+                    <img src='../assets/aniamemoria_logo.png' alt='あにあめもりあ' class='brand-logo' />
+                </picture>
+            </p>
+            <p class='footer-links'>
+                <a href='../privacy.html'>プライバシーポリシー</a>
+                <a href='../terms.html'>利用規約</a>
+            </p>
+            <p class='footer-note'>© <span id='year'></span> AniameMoria.</p>
+            <a class='to-top' href='#top' aria-label='上へ戻る'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
+                    stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                    <path d='M18 15l-6-6-6 6' />
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
