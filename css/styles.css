@@ -1080,15 +1080,29 @@ body.nav-open .menu-close {
 }
 
 /* Reveal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .reveal {
     opacity: 0;
-    transform: translateY(12px);
-    transition: opacity .55s ease, transform .55s ease;
+    /* Initial state before animation */
+    animation: fadeIn 0.8s ease forwards;
 }
 
 .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+    /* This rule might be overridden by animation: forwards,
+       but kept for clarity or if animation is removed */
 }
 
 /* Responsive */
@@ -1579,7 +1593,9 @@ body.nav-open .menu-close {
     .cheki-card {
         padding: 8px 8px 40px 8px;
     }
-}@media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .section-title {
         font-size: 24px;
     }
@@ -1712,9 +1728,17 @@ body.nav-open .menu-close {
 
 /* モバイル調整 */
 @media (max-width: 768px) {
-    .gallery-nav.prev { left: 0; }
-    .gallery-nav.next { right: 0; }
-    .gallery-slider { height: 60vh; }
+    .gallery-nav.prev {
+        left: 0;
+    }
+
+    .gallery-nav.next {
+        right: 0;
+    }
+
+    .gallery-slider {
+        height: 60vh;
+    }
 }
 
 .gallery-info {
@@ -1737,20 +1761,25 @@ body.nav-open .menu-close {
 /* PC表示で文字数が多すぎる（メニューが増えた）場合の調整 */
 @media (min-width: 921px) and (max-width: 1200px) {
     .container {
-        width: 96%; /* コンテナ幅をギリギリまで広げる */
+        width: 96%;
+        /* コンテナ幅をギリギリまで広げる */
     }
-    
+
     .pc-nav {
-        gap: 8px; /* Navの間隔を詰める */
+        gap: 8px;
+        /* Navの間隔を詰める */
     }
-    
+
     .nav-item {
-        padding: 6px 10px; /* パディングを減らす */
-        font-size: 0.9rem; /*文字サイズを少し下げる */
+        padding: 6px 10px;
+        /* パディングを減らす */
+        font-size: 0.9rem;
+        /*文字サイズを少し下げる */
     }
-    
+
     .brand-logo {
-        height: 40px; /* ブランドロゴを少し小さく */
+        height: 40px;
+        /* ブランドロゴを少し小さく */
     }
 }
 
@@ -1761,3 +1790,420 @@ body.nav-open .menu-close {
     }
 }
 
+
+/* ===== Profile Image Switcher ===== */
+.profile-switcher {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: crosshair;
+    /* Indicate interactivity */
+}
+
+/* Indicators container */
+.profile-indicators {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to image if needed */
+}
+
+/* Individual dot */
+.profile-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-dot.is-active {
+    background: #fff;
+    transform: scale(1.2);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+
+/* ===== Profile Switcher (Carousel Update) ===== */
+.profile-switcher {
+    /* Ensure container hides overflow */
+    overflow: hidden;
+    position: relative;
+    /* User selection off */
+    user-select: none;
+}
+
+.profile-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* Transition handled in JS or default here */
+    transition: transform 0.4s ease;
+}
+
+.profile-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Indicators z-index boost */
+.profile-indicators {
+    z-index: 20;
+    bottom: 20px;
+    /* Slight lift */
+    background: rgba(0, 0, 0, 0.3);
+    /* Legibility pill */
+    padding: 6px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.profile-dot {
+    background: rgba(255, 255, 255, 0.5);
+    width: 8px;
+    height: 8px;
+}
+
+.profile-dot.is-active {
+    background: #fff;
+    transform: scale(1.3);
+}
+
+
+/* ===== Profile Switcher (Cross-fade Update) ===== */
+/* Override track to just be a container, not a flex row */
+.profile-switcher .profile-track {
+    display: block;
+    /* No longer flex */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+    /* Disable slide transform */
+    transition: none;
+}
+
+/* Slides are absolute and stacked */
+.profile-switcher .profile-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.1s ease-in-out;
+    /* Cross-fade duration */
+}
+
+/* Active slide is visible */
+.profile-switcher .profile-slide.is-active {
+    opacity: 1;
+    z-index: 2;
+}
+
+
+/* ===== Profile Switcher (Cross-fade Timing Fix - REMOVED for Flash Effect) ===== */
+/* .profile-switcher .profile-slide { transition: opacity 0.8s ease 0.2s; } */
+/* .profile-switcher .profile-slide.is-active { transition: opacity 0.5s ease 0s; } */
+
+/* Flash Overlay (Brightness Filter) */
+.profile-switcher.is-flashing .profile-slide img {
+    filter: brightness(1.5);
+    transition: filter 0.1s ease-out;
+}
+
+/* Ensure default transition exists so it can be overridden */
+.profile-slide img {
+    transition: filter 0.2s ease;
+}
+
+
+/* Dip-to-White specific */
+/* Dip-to-White specific */
+.profile-switcher {
+    background-color: transparent;
+    /* Ensure white background for the dip */
+}
+
+/* ==========================================================================
+   Profile Ten Expansion Styles (2026-01-22)
+   ========================================================================== */
+
+/* --- Block 1: Parchment Frame --- */
+.parchment-frame {
+    position: relative;
+    background-color: #fdf5e6;
+    /* AntiqueWhite-like */
+    border: 4px double var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 24px;
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        /* Inner aging effect */
+        var(--shadow);
+    color: #3e2723;
+    /* Dark brown text */
+    overflow: hidden;
+    /* For watermark cropping */
+    margin-bottom: 24px;
+}
+
+.parchment-frame .watermark-logo {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 140px;
+    height: auto;
+    opacity: 0.08;
+    pointer-events: none;
+    user-select: none;
+    transform: rotate(-15deg);
+}
+
+/* --- Block 2: Goals Section --- */
+.goals-section {
+    margin-bottom: 24px;
+}
+
+.goals-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--ink);
+    padding-left: 10px;
+    line-height: 1.2;
+}
+
+.goals-text {
+    background-color: #e0e0e0;
+    /* Gray band */
+    color: #333;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-weight: 700;
+    min-height: 3.5rem;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Block 3: Footer Structuring --- */
+
+/* Social Icons */
+.social-icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--paper);
+    border: 2px solid var(--line);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    color: #fff;
+    /* Icon color usually white on brand bg */
+}
+
+.social-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.social-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+/* Color Variants */
+.social-icon--blue {
+    background-color: #1DA1F2;
+    /* Twitter Blue */
+    border-color: #1DA1F2;
+    color: white;
+}
+
+.social-icon--ocher {
+    background-color: #d4af37;
+    /* Gold/Ocher */
+    border-color: #d4af37;
+    color: white;
+}
+
+.social-icon--brown {
+    background-color: #8B4513;
+    /* SaddleBrown */
+    border-color: #8B4513;
+    color: white;
+}
+
+.social-icon--purple {
+    background-color: #800080;
+    /* Purple */
+    border-color: #800080;
+    color: white;
+}
+
+/* Related Cast */
+.related-cast {
+    display: flex;
+    flex-direction: column;
+    /* Stack label and slots */
+    gap: 8px;
+    border-top: 1px dashed var(--line-strong);
+    padding-top: 16px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.related-label {
+    writing-mode: horizontal-tb;
+    /* Horizontal text */
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    /* Clearer text color */
+    border-right: none;
+    padding-right: 0;
+    height: auto;
+    display: block;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.related-slots {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+.cast-slot {
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--line);
+    /* Placeholder bg */
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--line-strong);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.cast-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Silhouette effect */
+    filter: brightness(0) opacity(0.5);
+    transition: filter 0.2s;
+}
+
+.cast-slot:hover {
+    transform: scale(1.1);
+}
+
+.cast-slot:hover img {
+    filter: brightness(1) opacity(1);
+}
+
+/* --- Layout Adjustment (PC: Related Cast on Left, Text on Right) --- */
+@media (min-width: 921px) {
+    .profile-layout-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        grid-template-rows: auto 1fr;
+        gap: 24px 40px;
+        /* row gap, col gap */
+        align-items: start;
+    }
+
+    .profile-visual-area {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+
+    .profile-text-area {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+    }
+
+    .profile-related-area {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        margin-top: 0 !important;
+        /* Reset margin since grid handles gap */
+        border-top: none;
+        /* Optional: Remove border if grid separation is enough, or keep it */
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 920px) {
+    .profile-layout-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /* Mobile Order: Visual -> Text -> Related */
+    .profile-visual-area {
+        order: 1;
+    }
+
+    .profile-text-area {
+        order: 2;
+    }
+
+    .profile-related-area {
+        order: 3;
+    }
+}
+
+/* ==========================================================================
+   Dark Mode Adjustments
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+
+    /* Darken the Parchment Frame */
+    .parchment-frame {
+        background-color: #2b2b2b;
+        color: #e0e0e0;
+        border-color: #555;
+        box-shadow: var(--shadow);
+        /* Remove inner glow/aging if desired, or keep it subtle */
+    }
+
+    /* Darken Goals Text */
+    .goals-text {
+        background-color: #333;
+        color: #e0e0e0;
+        border: 1px solid #444;
+        box-shadow: none;
+    }
+
+    /* Goals Title */
+    .goals-title {
+        color: #fff;
+        border-left-color: #fff;
+    }
+}

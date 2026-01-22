@@ -213,7 +213,8 @@
                     const link = document.createElement("a");
                     link.href = fixPath(m.link); // パス補正は本来data.jsで./入ってるので不要かもしれないが一応
                     link.className = "cheki-card reveal is-visible";
-                    link.setAttribute("data-name", m.name);
+                    const displayName = m.name.replace(/（.*?）/g, ''); // Clean name for display
+                    link.setAttribute("data-name", displayName);
                     link.setAttribute("data-tags", m.tags);
 
                     link.innerHTML = `
@@ -221,7 +222,7 @@
                             <img src="${fixPath(m.image)}" alt="${m.name}" class="cheki-img">
                             <span class="cheki-tag-badge">${m.tagLabel}</span>
                         </div>
-                        <div class="cheki-name">${m.name}</div>
+                        <div class="cheki-name">${displayName}</div>
                     `;
                     grid.appendChild(link);
                 });
@@ -358,18 +359,63 @@
         const shuffled = membersData.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
 
-        selected.forEach(m => {
+        selected.forEach((m, index) => {
             const a = document.createElement("a");
             a.className = "cheki-card reveal";
-            a.href = fixPath(m.link); // data.jsのパスは ./member/...
-            a.innerHTML = `
-                <div class="cheki-visual">
-                    <img src="${fixPath(m.image)}" alt="${m.name}" class="cheki-img">
-                    <span class="cheki-tag-badge">${m.tagLabel}</span>
-                </div>
-                <div class="cheki-name">${m.name}</div>
-            `;
+            a.href = fixPath(m.link);
+
+            // Create container for image
+            const visualDiv = document.createElement('div');
+            visualDiv.className = "cheki-visual";
+
+            // Just placeholder for structure
+            a.appendChild(visualDiv);
+
+            // Name label
+            const nameDiv = document.createElement('div');
+            nameDiv.className = "cheki-name";
+            nameDiv.textContent = m.name;
+            a.appendChild(nameDiv);
+
             pickupContainer.appendChild(a);
+
+            // Initialize Switcher or Static Image
+            let images = [];
+            if (m.profileImages && m.profileImages.length > 0) {
+                images = m.profileImages.map(p => fixPath(p));
+            } else if (m.image) {
+                images = [fixPath(m.image)];
+            }
+
+            if (images.length > 0) {
+                // If multiple, interactive switcher without indicators
+                if (images.length > 1) {
+                    visualDiv.classList.add('profile-switcher');
+                    // Ensure ProfileImageSwitcher is available
+                    if (window.ProfileImageSwitcher) {
+                        new ProfileImageSwitcher(visualDiv, images, { showIndicators: false });
+                    } else {
+                        // Fallback if class not loaded
+                        visualDiv.innerHTML = `<img src="${images[0]}" alt="${m.name}" class="cheki-img"><span class="cheki-tag-badge">${m.tagLabel}</span>`;
+                    }
+                } else {
+                    // Single image standard
+                    visualDiv.innerHTML = `<img src="${images[0]}" alt="${m.name}" class="cheki-img"><span class="cheki-tag-badge">${m.tagLabel}</span>`;
+                }
+
+                // Add badge manually if switcher is active (switcher clears content)
+                // But wait, switcher clears content. We need the badge ON TOP.
+                // ProfileImageSwitcher appends track/indicators. We can append badge after.
+
+                // Re-append badge
+                const badge = document.createElement('span');
+                badge.className = "cheki-tag-badge";
+                badge.textContent = m.tagLabel;
+                // Ensure z-index is higher than switcher slides (which are 1 or 2)
+                badge.style.zIndex = "5";
+                visualDiv.appendChild(badge);
+            }
+
             setTimeout(() => a.classList.add('is-visible'), 100);
         });
     }
