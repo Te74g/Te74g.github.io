@@ -33,11 +33,11 @@
       </a>
 
       <nav class="pc-nav hide-sm">
+        <a href="${rootPath}news/index.html" class="nav-item">ニュース</a>
         <a href="${rootPath}pages/people.html" class="nav-item">キャスト紹介</a>
         <a href="${rootPath}gallery/index.html" class="nav-item">ギャラリー</a>
         <a href="${rootPath}pages/partner_events.html" class="nav-item">提携イベント</a>
         <a href="${rootPath}pages/links.html" class="nav-item">関連リンク</a>
-        <a href="${rootPath}pages/contact.html" class="nav-item">お問い合わせ</a>
       </nav>
 
       <div class="header-socials hide-sm">
@@ -72,6 +72,10 @@
         </div>
 
         <div class="menu-links">
+          <a class="menu-link" href="${rootPath}news/index.html">
+            <span class="menu-link__jp">ニュース</span>
+            <span class="menu-link__sub">NEWS</span>
+          </a>
           <a class="menu-link" href="${rootPath}pages/people.html">
             <span class="menu-link__jp">キャスト紹介</span>
             <span class="menu-link__sub">PEOPLE</span>
@@ -87,10 +91,6 @@
           <a class="menu-link" href="${rootPath}pages/links.html">
             <span class="menu-link__jp">関連リンク</span>
             <span class="menu-link__sub">LINKS</span>
-          </a>
-          <a class="menu-link" href="${rootPath}pages/contact.html">
-            <span class="menu-link__jp">お問い合わせ</span>
-            <span class="menu-link__sub">CONTACT</span>
           </a>
         </div>
 
@@ -131,6 +131,7 @@
       <p class="footer-links">
         <a href="${rootPath}privacy.html">プライバシーポリシー</a>
         <a href="${rootPath}terms.html">利用規約</a>
+        <a href="${rootPath}pages/contact.html">お問い合わせ</a>
       </p>
       <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
       <a class="to-top" href="#top" aria-label="上へ戻る">
