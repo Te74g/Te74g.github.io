@@ -57,6 +57,10 @@
                                 display: none; /* Show when loaded */
                             ">
                         </div>
+                        <!-- Motif Animal Display -->
+                        <div id="dynamic-motif-container" style="display: none; margin-top: 16px; width: 100%;">
+                            <!-- Injected via JS -->
+                        </div>
                     </div>
 
                     <!-- 2. Text Area -->
@@ -170,14 +174,35 @@
                         if (goalsSection) goalsSection.style.display = 'block';
                         const goalsContainer = document.getElementById('dynamic-goals-container');
                         if (goalsContainer) {
-                            let html = '';
-                            member.goals.forEach(goal => {
-                                html += `<div class="goals-text" style="margin-bottom:8px;">${goal}</div>`;
-                            });
-                            goalsContainer.innerHTML = html;
+                            const randomGoal = member.goals[Math.floor(Math.random() * member.goals.length)];
+                            goalsContainer.innerHTML = `<div class="goals-text" style="margin-bottom:8px;">${randomGoal}</div>`;
                         }
                     } else {
                         if (goalsSection) goalsSection.style.display = 'none';
+                    }
+
+                    // 1.5 Motif Animal
+                    if (member.motifAnimal && member.motifIcon) {
+                        const motifContainer = document.getElementById('dynamic-motif-container');
+                        if (motifContainer) {
+                            // Fix path for icon
+                            let iconPath = member.motifIcon;
+                            if (!iconPath.startsWith('http') && !iconPath.startsWith('../') && !iconPath.startsWith('/')) {
+                                iconPath = '../' + iconPath;
+                            }
+
+                            motifContainer.innerHTML = `
+                                <div class="motif-container">
+                                    <div class="motif-icon-box">
+                                        <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                    <div class="motif-text-box">
+                                        <span>モチーフにしている動物：${member.motifAnimal}</span>
+                                    </div>
+                                </div>
+                            `;
+                            motifContainer.style.display = 'block';
+                        }
                     }
 
                     // 2. Sign

@@ -2207,3 +2207,45 @@ body.nav-open .menu-close {
         border-left-color: #fff;
     }
 }
+/* Motif Animal Section */
+.motif-container {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    height: 60px;
+    /* margin-top: 16px;  <-- Handled by inline style or container logic usually, but let's put it here if consistent. Actually JS set inline margin-top. I will move it to CSS */
+    margin-top: 16px;
+    width: 100%;
+}
+.motif-icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #000080;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.motif-text-box {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-weight: bold;
+    color: #000;
+}
+.motif-text-box span {
+    color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+    .motif-text-box {
+        background-color: var(--paper);
+        color: var(--ink);
+    }
+    /* Ensure icon box is visible? #000080 is dark. Let's keep it for now as it is the brand color requested. */
+}
