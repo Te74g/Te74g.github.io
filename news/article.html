@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>あにあめもりあ | ダミーニュース3</title>
+    <title>あにあめもりあ | ニュース</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,46 +17,50 @@
 <body>
     <a class="skip-link" href="#main">本文へスキップ</a>
 
-        <div id="header-placeholder"></div>
+    <div id="header-placeholder"></div>
 
     <main id="main">
         <section class="section">
             <div class="container" style="max-width: 800px;">
                 <article class="reveal">
-                    <header style="margin-bottom: 24px; text-align: center;">
-                        <div style="margin-bottom: 10px; color: var(--muted); font-weight: 700;">
-                            <time datetime="2026-01-20">2026.01.20</time>
-                            <span class="tag tag--soft" style="margin-left: 10px;">お知らせ</span>
-                        </div>
-                        <h1 style="font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; margin-bottom: 0;">
-                            ダミーニュース3</h1>
+
+                    <header id="dynamic-article-header" style="margin-bottom: 24px; text-align: center;">
+                        <!-- JS Injected -->
                     </header>
 
-                    <div style="margin-bottom: 32px;">
-                        <img src="../assets/news/test2026-01-20.png" alt="記事画像"
-                            style="width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow);">
+                    <div id="dynamic-article-image">
+                        <!-- JS Injected -->
                     </div>
 
-                    <div
+                    <div id="dynamic-article-content"
                         style="font-size: 1.1rem; line-height: 1.9; background: var(--paper); padding: 30px; border-radius: 12px; border: 1px solid var(--line);">
-                        <p>これはダミーニュース3の本文です。テスト表示用です。</p>
+                        <!-- JS Injected -->
+                        <p>読み込み中...</p>
                     </div>
 
                     <div style="margin-top: 40px; text-align: center;">
                         <a href="../index.html" class="btn btn--ghost">トップへ戻る</a>
+                        <!-- If needed, a link to news list page (index.html#news or similar) -->
                     </div>
                 </article>
             </div>
         </section>
     </main>
 
-        <div id="footer-placeholder"></div>
+    <div id="footer-placeholder"></div>
     <script src="../js/common-layout.js"></script>
     <script>
         renderLayout('../');
     </script>
 
+    <!-- Data Files -->
+    <script src="../_config/data_members.js"></script>
+    <script src="../_config/data_news.js"></script>
+    <script src="../_config/data_events.js"></script>
+    <script src="../_config/data_gallery.js"></script>
+    <script src="../_config/data_links.js"></script>
     <script src="../js/script.js"></script>
+    <script src="../js/news_loader.js"></script>
 </body>
 
 </html>

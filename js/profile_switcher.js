@@ -64,6 +64,7 @@ class ProfileImageSwitcher {
                 if (images.length > 0) {
                     // Add class for styling if not present
                     container.classList.add('profile-switcher');
+
                     // Default options for page-embedded switchers
                     new ProfileImageSwitcher(container, images, { showIndicators: true });
                 }
@@ -212,3 +213,81 @@ class ProfileImageSwitcher {
 window.addEventListener('DOMContentLoaded', () => {
     ProfileImageSwitcher.initAll();
 });
+
+
+/* =========================================
+   PROFILE BACKGROUND DYNAMIC SWITCHER
+   メンバーのタグに応じて背景画像を切り替える処理
+   ========================================= */
+(function () {
+    window.addEventListener('DOMContentLoaded', () => {
+        // ターゲット要素 (背景テクスチャ) を取得
+        // クラス名 .profile-bg-texture を想定
+        const bgElement = document.querySelector('.profile-bg-texture');
+        if (!bgElement || typeof membersData === 'undefined') return;
+
+        // メンバーIDの特定
+        // 1. data-member-id 属性を探す (.profile-switcher-container など)
+        let memberId = null;
+        const switcher = document.querySelector('[data-member-id]');
+        if (switcher) {
+            memberId = switcher.getAttribute('data-member-id');
+        } else {
+            // 2. なければURLから推測 (例: profile_ten.html -> ten)
+            const match = window.location.pathname.match(/profile_([a-zA-Z0-9]+)\.html/);
+            if (match) {
+                memberId = match[1];
+            }
+        }
+
+        if (!memberId) return;
+
+        // データ照合
+        const member = membersData.find(m => m.id === memberId);
+        if (!member) return;
+
+        // --- 背景画像定義 ---
+        const BG_MAP = {
+            'A': '../assets/aniamemoria_member_background_A.png', // 飼育
+            'B': '../assets/aniamemoria_member_background_B.png', // 妖怪
+            'C': '../assets/aniamemoria_member_background_C.png', // 野生
+            'D': '../assets/aniamemoria_member_background_D.png', // スタッフ
+            'E': '../assets/aniamemoria_member_background_E.png'  // 運営
+        };
+
+        // --- 判定ロジック ---
+        // 順位: 運営(E) > 飼育(A) = 野生(C) = 妖怪(B) > スタッフ(D)
+
+        const tags = member.tags || "";
+
+        let selectedBg = null;
+
+        if (tags.includes("運営")) {
+            selectedBg = BG_MAP['E'];
+        } else if (tags.includes("飼育")) {
+            selectedBg = BG_MAP['A'];
+        } else if (tags.includes("野生")) {
+            selectedBg = BG_MAP['C'];
+        } else if (tags.includes("妖怪")) {
+            selectedBg = BG_MAP['B'];
+        } else if (tags.includes("スタッフ")) {
+            selectedBg = BG_MAP['D'];
+        }
+
+        // --- 適用 ---
+        if (selectedBg) {
+            // パス補正 (念のため)
+            // 現在のページが member/profile_ten.html (1階層深い) と仮定
+            // BG_MAPの定義は '../' 始まりなのでそのまま適用可能
+
+            // ただし、もしトップページなどで使う場合は補正が必要だが、
+            // これはプロフィールページ専用の処理とする
+
+            bgElement.style.backgroundImage = `url('${selectedBg}')`;
+
+            // ログ出力 (確認用)
+            // console.log(`Profile Background Applied: ${selectedBg} for ${member.name}`);
+        }
+    });
+})();
+
