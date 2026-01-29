@@ -41,7 +41,7 @@ window.membersData = [
         ],
         motifAnimal: "貂",
         motifIcon: "assets/member/てん/motif_animal_ten.png",
-        sign: "assets/member/てん/testSign.png",
+        sign: "assets/member/てん/ten_sign.png",
         introduction: `あにあめもりあの店長。<br>
 元々野生の貂だったが、十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
 死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
@@ -56,16 +56,28 @@ window.membersData = [
         ]
     },
     {
-        id: "inumonekomosuki",
-        name: "犬も猫も好き（副店長）",
-        pickupName: "犬も猫も好き",
+        id: "momo",
+        name: "もも（副店長）",
+        pickupName: "もも",
         tagLabel: "副店長",
         tags: "運営 キャスト 飼育",
-        image: "assets/member/犬も猫も好き/profile.png",
-        link: "member/profile.html?id=inumonekomosuki",
+        image: "assets/member/もも/profile2.png",
+        profileImages: [
+            "assets/member/もも/profile1.png",
+            "assets/member/もも/profile2.png",
+            "assets/member/もも/profile3.png"
+        ],
         section: "運営部",
-        introduction: "自己紹介がここに入ります。<br>未設定です。",
-        socials: []
+        goals: [
+            "デカい猫（飼い主）の作った本やスタンプを広めて、外で暮らす仲間たちのご飯を豪華にすること",
+        ],
+        motifAnimal: "猫",
+        motifIcon: "assets/member/もも/motif_animal_neko.png",
+        introduction: "あにあめもりあの副店長。<br>元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>飼い主の「ももと話してみたい」という身勝手で切実な願いを聞き届けた店長（てん）から人語を話す能力を授かり、その対価として店で情報収集を手伝うことになった。<br>現在は、飼い主から託された「本とLINEスタンプの宣伝」という任務も遂行中。売上が動物保護活動に使われると知り、「外」を知る身として「まぁ、悪くない」と承諾している。<br><br>猫基準の価値観で生きているため、人間の常識には疎く、うんちの話などを臆することなく話す。",
+        socials: [
+            { type: "twitter", url: "https://x.com/necomoinumosuki" },
+            { type: "kindle", url: "https://www.amazon.co.jp/stores/author/B0FCCMNWNL" },
+        ]
     },
 
     // --- 飼育区画 ---
@@ -80,7 +92,6 @@ window.membersData = [
         introduction: "自己紹介がここに入ります。<br>未設定です。",
         socials: []
     },
-
     // --- 野生区画 ---
     {
         id: "uruhunojon",

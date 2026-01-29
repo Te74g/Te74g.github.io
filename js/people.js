@@ -39,7 +39,8 @@
 
                 list.forEach(m => {
                     const link = document.createElement("a");
-                    link.href = window.fixPath(m.link);
+                    const url = m.link || `member/profile.html?id=${m.id}`;
+                    link.href = window.fixPath(url);
                     link.className = "cheki-card reveal is-visible";
                     const displayName = m.pickupName || m.name;
                     link.setAttribute("data-name", m.name); // Keep original name for search if needed, or use displayName? Usually search should match what's seen. Let's use m.name for search for now as it might be more complete, or maybe both. The prompt asked for separate *display*.
