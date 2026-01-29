@@ -4,7 +4,7 @@
  * Requires: site_data.js (newsData)
  */
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof newsData === 'undefined') {
+    if (!window.newsData) {
         console.error('newsData is not defined.');
         return;
     }
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const article = newsData.find(item => item.id === id);
+    const article = window.newsData.find(item => item.id === id);
 
     if (article) {
         // Update Title

@@ -4,7 +4,7 @@
  * Requires: site_data.js (partnerEventsData)
  */
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof partnerEventsData === 'undefined') {
+    if (!window.partnerEventsData) {
         console.error('partnerEventsData is not defined.');
         return;
     }
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const eventItem = partnerEventsData.find(item => item.id === id);
+    const eventItem = window.partnerEventsData.find(item => item.id === id);
 
     if (eventItem) {
         // Update Title

@@ -23,7 +23,7 @@
 
   <main id="main">
     <!-- News Section (Carousel) -->
-    <section class="section" style="padding-top: 0; padding-bottom: 20px;">
+    <section class="section">
       <div class="container" style="max-width: 1000px;">
 
         <div class="news-carousel-container reveal">
@@ -50,7 +50,7 @@
     </section>
 
     <!-- Random Pickup Section -->
-    <section class="section section--alt" style="padding-bottom: 10px;">
+    <section class="section section--alt">
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title">Random Pickup</h2>
@@ -85,6 +85,7 @@
             <a class="btn btn--primary" href="#events">開催予定へ</a>
             <a class="btn btn--ghost" href="./pages/people.html">キャスト紹介へ</a>
             <a class="btn btn--ghost" href="./pages/partner_events.html" style="margin-left:8px;">提携イベント</a>
+            <a class="btn btn--ghost" href="./pages/aikotoba.html" style="margin-left:8px;">合言葉</a>
           </div>
 
           <div class="hero-badges" aria-label="特徴">
@@ -252,9 +253,16 @@
   <script>
     renderLayout('./');
   </script>
-  <script src="./_config/site_data.js"></script>
+  <script src="./_config/data_members.js"></script>
+  <script src="./_config/data_news.js"></script>
+  <script src="./_config/data_events.js"></script>
+  <script src="./_config/data_gallery.js"></script>
+  <script src="./_config/data_links.js"></script>
   <script src="./js/profile_switcher.js"></script>
-  <script src="./js/script.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/home.js"></script>
+  <script src="./js/news.js"></script>
 </body>
 
 </html>

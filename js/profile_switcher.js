@@ -26,7 +26,7 @@ class ProfileImageSwitcher {
        Finds all containers and Inits them based on data
        ---------------------------------------------------- */
     static initAll() {
-        if (typeof membersData === 'undefined') return;
+        if (!window.membersData) return;
 
         // Helper to fix paths relative to current page
         const fixPath = (path) => {
@@ -50,7 +50,7 @@ class ProfileImageSwitcher {
         const containers = document.querySelectorAll('.profile-switcher-container[data-member-id]');
         containers.forEach(container => {
             const id = container.getAttribute('data-member-id');
-            const member = membersData.find(m => m.id === id);
+            const member = window.membersData.find(m => m.id === id);
 
             if (member) {
                 // Priority: profileImages array > single image
@@ -224,7 +224,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // ターゲット要素 (背景テクスチャ) を取得
         // クラス名 .profile-bg-texture を想定
         const bgElement = document.querySelector('.profile-bg-texture');
-        if (!bgElement || typeof membersData === 'undefined') return;
+        if (!bgElement || !window.membersData) return;
 
         // メンバーIDの特定
         // 1. data-member-id 属性を探す (.profile-switcher-container など)
@@ -237,13 +237,17 @@ window.addEventListener('DOMContentLoaded', () => {
             const match = window.location.pathname.match(/profile_([a-zA-Z0-9]+)\.html/);
             if (match) {
                 memberId = match[1];
+            } else {
+                // 3. New URL format: profile.html?id=ten
+                const params = new URLSearchParams(window.location.search);
+                memberId = params.get('id');
             }
         }
 
         if (!memberId) return;
 
         // データ照合
-        const member = membersData.find(m => m.id === memberId);
+        const member = window.membersData.find(m => m.id === memberId);
         if (!member) return;
 
         // --- 背景画像定義 ---

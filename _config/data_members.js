@@ -6,7 +6,8 @@
  * 
  * 【項目の説明】
  * id:       他と被らない英数字（例: "ten", "rayno"）。システム内部で使います。
- * name:     表示される名前（例: "てん"）。
+ * name:     プロフィールページで表示される名前（例: "てん（店長）"）。
+ * pickupName: 一覧（ランダムピックアップ、キャスト紹介）で表示される名前（例: "てん"）。省略時は name が使われます。 (任意)
  * tagLabel: 写真の右下に表示される肩書き（例: "店長", "飼育"）。
  * tags:     検索用タグ。スペース区切りで複数書けます（例: "店長 キャスト 運営 妖怪"）。
  * image:    画像の場所（例: "./assets/member/てん/profile.png"）。
@@ -17,11 +18,12 @@
  * socials:  SNSリンクのリスト。 { type: "youtube|twitter|booth|facebook|vrchat|other", url: "..." } (任意)
  * --------------------------------------------------------------------------
  */
-const membersData = [
+window.membersData = [
     // --- 運営部 ---
     {
         id: "ten",
         name: "てん（店長）",
+        pickupName: "てん",
         tagLabel: "店長",
         tags: "店長 キャスト 運営 妖怪",
         image: "assets/member/てん/profile.png",
@@ -45,17 +47,18 @@ const membersData = [
 死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
 現在は人間の家で暮らしている。<br>
 妖怪としてはかなりの若輩者で、俗物的。<br>
-貂という動物の知名度が低いことを気にしている。<br>動物ː貂`,
+貂という動物の知名度が低いことを気にしている。`,
         socials: [
             { type: "youtube", url: "https://www.youtube.com/@tanakamaikeru" },
             { type: "twitter", url: "https://x.com/tetenpuipui" },
             { type: "booth", url: "https://polygonlatency.booth.pm/" },
-            { type: "other", url: "https://note.com/anyten" }
+            { type: "note", url: "https://note.com/anyten" }
         ]
     },
     {
         id: "inumonekomosuki",
         name: "犬も猫も好き（副店長）",
+        pickupName: "犬も猫も好き",
         tagLabel: "副店長",
         tags: "運営 キャスト 飼育",
         image: "assets/member/犬も猫も好き/profile.png",

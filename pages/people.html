@@ -23,12 +23,12 @@
     <div id="header-placeholder"></div>
 
     <main id="main">
-        <section class="hero">
-            <div class="container hero-grid" style="display:block; text-align:center;">
-                <div class="hero-copy reveal">
-                    <h1 class="hero-title">キャスト紹介</h1>
-                    <p class="hero-lead">あにあめもりあを作る人たち。</p>
-                </div>
+        <section class="section">
+            <div class="container">
+                <header class="section-head reveal">
+                    <h1 class="section-title">キャスト紹介</h1>
+                    <p class="section-lead">あにあめもりあを作る人たち。</p>
+                </header>
 
                 <!-- Search & Filter Toolbar -->
                 <div class="toolbar reveal" style="margin-top: 40px; justify-content: center;">
@@ -61,7 +61,7 @@
                 <div id="people-list-container"></div>
 
                 <!-- 
-                     Below is the original structure reference, but now everything is generated from data.js 
+                     Below is the original structure reference, but now everything is generated from data_members.js 
                 -->
 
 
@@ -81,7 +81,9 @@
     <script src="../_config/data_events.js"></script>
     <script src="../_config/data_gallery.js"></script>
     <script src="../_config/data_links.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/people.js"></script>
 </body>
 
 </html>
