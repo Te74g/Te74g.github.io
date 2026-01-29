@@ -101,7 +101,7 @@ window.membersData = [
         image: "assets/member/ウルフのジョン/profile.png",
         link: "member/profile.html?id=uruhunojon",
         section: "野生区画",
-        introduction: "自己紹介がここに入ります。<br>未設定です。",
+        introduction: "ウルフのジョンです。ワイルドに盛り上げます。※実在しません。",
         socials: []
     },
 
@@ -121,24 +121,38 @@ window.membersData = [
     // --- スタッフ ---
     {
         id: "hinekure",
-        name: "ひねくれ",
+        name: "hinekure",
         tagLabel: "スタッフ",
         tags: "スタッフ",
+        motifAnimal: "ヒト",
+        motifIcon: "assets/member/ひねくれ/motif_animal_hito.png",
         image: "assets/member/ひねくれ/profile.png",
         link: "member/profile.html?id=hinekure",
         section: "スタッフ",
-        introduction: "自己紹介がここに入ります。<br>未設定です。",
-        socials: []
+        goals: [
+            "動物達の楽園を築くこと",
+        ],
+        introduction: "唯一の人間スタッフ。<br>店長とは長い付き合いで、とても信用されている。<br>名前とは裏腹に真っすぐで思いやりがある性格で、動物達の保護がおしごと。<br>瞬間記憶能力を持っており、あらゆる特徴を把握する事が出来る。<br>誠実な姿勢から尊敬されており、普段は親しみを込めて飼育員さん、人間さんと呼ばれている。<br>目立たないポジションだけど、誇りを持って重大なお仕事に取り組んでいる立派な人。<br>店長からは「夜行性のひねくれ」と呼ばれているが、一体……？",
+        socials: [
+            { type: "twitter", url: "https://x.com/https://x.com/hinekure_vrc" },
+        ]
     },
     {
         id: "wikira",
         name: "Wikira",
         tagLabel: "スタッフ",
         tags: "スタッフ",
-        image: "assets/member/Wikira/profile.png",
+        image: "assets/member/Wikira/profile1.png",
         link: "member/profile.html?id=wikira",
         section: "スタッフ",
-        introduction: "自己紹介がここに入ります。<br>未設定です。",
-        socials: []
+        motifAnimal: "ロボット",
+        motifIcon: "assets/member/Wikira/motif_animal_robot.png",
+        goals: [
+            "人間っぽくなりたい",
+        ],
+        introduction: "デザイン担当<br>自我の芽生えたただのロボ",
+        socials: [
+            { type: "twitter", url: "https://x.com/lllWikiralll" },
+        ]
     }
 ];
