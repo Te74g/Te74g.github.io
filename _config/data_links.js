@@ -10,7 +10,7 @@
  * desc:     簡単な説明
  * --------------------------------------------------------------------------
  */
-const linksData = [
+window.linksData = [
     {
         title: "あにあめもりあ 公式X",
         url: "https://x.com/ANIAMEMORIA",

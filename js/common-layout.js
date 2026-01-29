@@ -38,6 +38,7 @@
         <a href="${rootPath}gallery/index.html" class="nav-item">ギャラリー</a>
         <a href="${rootPath}pages/partner_events.html" class="nav-item">提携イベント</a>
         <a href="${rootPath}pages/links.html" class="nav-item">関連リンク</a>
+        <a href="${rootPath}pages/aikotoba.html" class="nav-item">合言葉</a>
       </nav>
 
       <div class="header-socials hide-sm">
@@ -91,6 +92,10 @@
           <a class="menu-link" href="${rootPath}pages/links.html">
             <span class="menu-link__jp">関連リンク</span>
             <span class="menu-link__sub">LINKS</span>
+          </a>
+          <a class="menu-link" href="${rootPath}pages/aikotoba.html">
+            <span class="menu-link__jp">合言葉</span>
+            <span class="menu-link__sub">AIKOTOBA</span>
           </a>
         </div>
 

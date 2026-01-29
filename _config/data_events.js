@@ -15,7 +15,7 @@
  * content:  イベントの詳細本文（HTML）。
  * --------------------------------------------------------------------------
  */
-const partnerEventsData = [
+window.partnerEventsData = [
     {
         id: "event_01",
         name: "第1回 提携イベント",

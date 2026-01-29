@@ -271,6 +271,7 @@ main,
     font-family: "Zen Kaku Gothic New", sans-serif;
     /* ナビは読みやすさ優先 */
     letter-spacing: 0.05em;
+    white-space: nowrap;
 }
 
 .nav-item:hover {
@@ -792,6 +793,7 @@ body.nav-open .menu-close {
 
 .section-head {
     margin-bottom: 12px;
+    text-align: center;
 }
 
 .section-title {
@@ -1269,7 +1271,7 @@ body.nav-open .menu-close {
     font-size: 14px;
     padding: 6px 16px;
     border-bottom-left-radius: 8px;
-    z-index: 2;
+    z-index: 10;
     box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -2207,6 +2209,7 @@ body.nav-open .menu-close {
         border-left-color: #fff;
     }
 }
+
 /* Motif Animal Section */
 .motif-container {
     display: flex;
@@ -2217,6 +2220,7 @@ body.nav-open .menu-close {
     margin-top: 16px;
     width: 100%;
 }
+
 .motif-icon-box {
     width: 60px;
     height: 60px;
@@ -2228,6 +2232,7 @@ body.nav-open .menu-close {
     justify-content: center;
     overflow: hidden;
 }
+
 .motif-text-box {
     flex: 1;
     background-color: #fff;
@@ -2238,6 +2243,7 @@ body.nav-open .menu-close {
     font-weight: bold;
     color: #000;
 }
+
 .motif-text-box span {
     color: inherit;
 }
@@ -2247,5 +2253,58 @@ body.nav-open .menu-close {
         background-color: var(--paper);
         color: var(--ink);
     }
+
     /* Ensure icon box is visible? #000080 is dark. Let's keep it for now as it is the brand color requested. */
+}
+
+/* ===== Aikotoba Page ===== */
+.aikotoba-grid {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.aikotoba-card {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.aikotoba-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    color: #fff;
+}
+
+.aikotoba-card__icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 16px;
+    background: #fff;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+}
+
+.aikotoba-card__icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.aikotoba-card__text {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.05em;
 }

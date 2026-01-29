@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     <div class="motif-text-box">
-                        <span>モチーフにしている動物：${member.motifAnimal}</span>
+                        <span>動物ː${member.motifAnimal}</span>
                     </div>
                 </div>
             `;
@@ -143,6 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (type === 'booth') {
                     colorClass = 'social-icon--red';
                     iconHtml = '<img src="../assets/Booth_logo_icon.svg" alt="Booth" style="width: 45px; height: 45px; object-fit: contain;">';
+                } else if (type === 'note') {
+                    colorClass = 'social-icon--white'; // Custom class or style handling below
+                    iconHtml = '<img src="../assets/icon/note_icon.svg" alt="note" style="width: 85%; height: 85%; object-fit: contain;">';
                 } else {
                     iconHtml = '<svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>';
                 }
@@ -151,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (type === 'youtube') style = 'background-color: #FF0000; border-color: #FF0000; color: white;';
                 if (type === 'x') style = 'background-color: #000000; border-color: #000000; color: white;';
                 if (type === 'vrchat') style = 'background-color: #ffffff; border-color: #ccc;';
+                if (type === 'note') style = 'background-color: #ffffff; border-color: #ccc; display: flex; align-items: center; justify-content: center;';
 
                 html += `<a href="${url}" class="social-icon ${colorClass}" target="_blank" aria-label="${type}" style="${style}">
                     ${iconHtml}
@@ -232,6 +236,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (selectedBg) {
                 bgElement.style.backgroundImage = `url('${selectedBg}')`;
+            }
+
+            // Frame Overlay Logic
+            // Clean up existing frame if any (though usually re-render cleans page, but to be safe)
+            const existingFrame = document.querySelector('.profile-frame-overlay');
+            if (existingFrame) existingFrame.remove();
+
+            const framePath = window.getMemberFrame(tags);
+            let frameImage = framePath ? window.fixPath(framePath) : null;
+
+            if (frameImage) {
+                const visualArea = document.querySelector('.cheki-visual');
+                if (visualArea) {
+                    const frameEl = document.createElement('div');
+                    frameEl.className = 'profile-frame-overlay';
+                    frameEl.style.position = 'absolute';
+                    frameEl.style.inset = '0';
+                    frameEl.style.backgroundImage = `url('${frameImage}')`;
+                    frameEl.style.backgroundSize = '100% 100%';
+                    frameEl.style.pointerEvents = 'none'; // Click-through to switcher
+                    frameEl.style.zIndex = '3'; // Above switcher (z=1) and sign (z=2 usually, but sign might need to be on top? User said "Frame on top". Let's try 3.)
+                    // Sign is z-index: 2 in HTML. So 3 covers sign. 
+                    // If user wants Frame > Sign > Person > Background, then 3 is correct.
+                    // If Sign > Frame > Person, then 3 is too high. 
+                    // Usually frame is top-most.
+                    visualArea.appendChild(frameEl);
+                }
             }
         }
 
