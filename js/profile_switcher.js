@@ -252,11 +252,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // --- 背景画像定義 ---
         const BG_MAP = {
-            'A': '../assets/aniamemoria_member_background_A.png', // 飼育
-            'B': '../assets/aniamemoria_member_background_B.png', // 妖怪
-            'C': '../assets/aniamemoria_member_background_C.png', // 野生
-            'D': '../assets/aniamemoria_member_background_D.png', // スタッフ
-            'E': '../assets/aniamemoria_member_background_E.png'  // 運営
+            'A': '../assets/member_parts/aniamemoria_member_background_A.png', // 飼育
+            'B': '../assets/member_parts/aniamemoria_member_background_B.png', // 妖怪
+            'C': '../assets/member_parts/aniamemoria_member_background_C.png', // 野生
+            'D': '../assets/member_parts/aniamemoria_member_background_D.png', // スタッフ
+            'E': '../assets/member_parts/aniamemoria_member_background_E.png'  // 運営
         };
 
         // --- 判定ロジック ---

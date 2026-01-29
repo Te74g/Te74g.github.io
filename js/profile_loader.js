@@ -139,10 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     iconHtml = '<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
                 } else if (type === 'vrchat') {
                     colorClass = 'social-icon--dark';
-                    iconHtml = '<img src="../assets/VRChat Logo Black.png" alt="VRChat" style="width: 50px; height: 50x; object-fit: contain;">';
+                    iconHtml = '<img src="../assets/logo/VRChat Logo Black.png" alt="VRChat" style="width: 50px; height: 50x; object-fit: contain;">';
                 } else if (type === 'booth') {
                     colorClass = 'social-icon--red';
-                    iconHtml = '<img src="../assets/Booth_logo_icon.svg" alt="Booth" style="width: 45px; height: 45px; object-fit: contain;">';
+                    iconHtml = '<img src="../assets/logo/Booth_logo_icon.svg" alt="Booth" style="width: 45px; height: 45px; object-fit: contain;">';
                 } else if (type === 'note') {
                     colorClass = 'social-icon--white'; // Custom class or style handling below
                     iconHtml = '<img src="../assets/icon/note_icon.svg" alt="note" style="width: 85%; height: 85%; object-fit: contain;">';
@@ -216,53 +216,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (switcherContainer) {
         switcherContainer.setAttribute('data-member-id', member.id);
 
-        // Background Logic (Ported from profile_switcher.js)
+        // Background Logic using utils.js helper
         const bgElement = document.querySelector('.profile-bg-texture');
-        if (bgElement) {
-            const BG_MAP = {
-                'A': '../assets/aniamemoria_member_background_A.png',
-                'B': '../assets/aniamemoria_member_background_B.png',
-                'C': '../assets/aniamemoria_member_background_C.png',
-                'D': '../assets/aniamemoria_member_background_D.png',
-                'E': '../assets/aniamemoria_member_background_E.png'
-            };
-            const tags = member.tags || "";
-            let selectedBg = null;
-            if (tags.includes("運営")) selectedBg = BG_MAP['E'];
-            else if (tags.includes("飼育")) selectedBg = BG_MAP['A'];
-            else if (tags.includes("野生")) selectedBg = BG_MAP['C'];
-            else if (tags.includes("妖怪")) selectedBg = BG_MAP['B'];
-            else if (tags.includes("スタッフ")) selectedBg = BG_MAP['D'];
+        const bgPath = window.getMemberBackground(member.tags);
+        if (bgPath && bgElement) {
+            bgElement.style.backgroundImage = `url('${window.fixPath(bgPath)}')`;
+            console.log('Applied background:', bgPath);
+        }
 
-            if (selectedBg) {
-                bgElement.style.backgroundImage = `url('${selectedBg}')`;
-            }
+        // Frame Overlay Logic
+        const existingFrame = document.querySelector('.profile-frame-overlay');
+        if (existingFrame) existingFrame.remove();
 
-            // Frame Overlay Logic
-            // Clean up existing frame if any (though usually re-render cleans page, but to be safe)
-            const existingFrame = document.querySelector('.profile-frame-overlay');
-            if (existingFrame) existingFrame.remove();
-
-            const framePath = window.getMemberFrame(tags);
-            let frameImage = framePath ? window.fixPath(framePath) : null;
-
-            if (frameImage) {
-                const visualArea = document.querySelector('.cheki-visual');
-                if (visualArea) {
-                    const frameEl = document.createElement('div');
-                    frameEl.className = 'profile-frame-overlay';
-                    frameEl.style.position = 'absolute';
-                    frameEl.style.inset = '0';
-                    frameEl.style.backgroundImage = `url('${frameImage}')`;
-                    frameEl.style.backgroundSize = '100% 100%';
-                    frameEl.style.pointerEvents = 'none'; // Click-through to switcher
-                    frameEl.style.zIndex = '3'; // Above switcher (z=1) and sign (z=2 usually, but sign might need to be on top? User said "Frame on top". Let's try 3.)
-                    // Sign is z-index: 2 in HTML. So 3 covers sign. 
-                    // If user wants Frame > Sign > Person > Background, then 3 is correct.
-                    // If Sign > Frame > Person, then 3 is too high. 
-                    // Usually frame is top-most.
-                    visualArea.appendChild(frameEl);
-                }
+        const framePath = window.getMemberFrame(member.tags);
+        if (framePath) {
+            const visualArea = document.querySelector('.cheki-visual');
+            if (visualArea) {
+                const frameEl = document.createElement('div');
+                frameEl.className = 'profile-frame-overlay';
+                frameEl.style.position = 'absolute';
+                frameEl.style.inset = '0';
+                frameEl.style.backgroundImage = `url('${window.fixPath(framePath)}')`;
+                frameEl.style.backgroundSize = '100% 100%';
+                frameEl.style.pointerEvents = 'none';
+                frameEl.style.zIndex = '3';
+                visualArea.appendChild(frameEl);
+                console.log('Applied frame:', framePath);
+            } else {
+                console.warn('.cheki-visual not found');
             }
         }
 

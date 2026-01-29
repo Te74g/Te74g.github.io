@@ -27,8 +27,8 @@
     <div class="container header-inner">
       <a class="brand" href="${rootPath}index.html" aria-label="あにあめもりあ（イベント）">
         <picture>
-          <source srcset="${rootPath}assets/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
-          <img src="${rootPath}assets/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+          <source srcset="${rootPath}assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+          <img src="${rootPath}assets/logo/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
         </picture>
       </a>
 
@@ -53,7 +53,7 @@
           </svg>
         </a>
         <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
-          <img src="${rootPath}assets/VRChat Logo Black.png" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
+          <img src="${rootPath}assets/logo/VRChat Logo Black.png" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
         </a>
       </div>
 
@@ -112,7 +112,7 @@
               </svg>
             </a>
             <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="VRChat">
-              <img src="${rootPath}assets/VRChat Logo Black.png" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
+              <img src="${rootPath}assets/logo/VRChat Logo Black.png" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
             </a>
           </div>
         </div>
@@ -129,8 +129,8 @@
     <div class="container footer-inner">
       <p class="footer-brand">
         <picture>
-          <source srcset="${rootPath}assets/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
-          <img src="${rootPath}assets/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+          <source srcset="${rootPath}assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+          <img src="${rootPath}assets/logo/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
         </picture>
       </p>
       <p class="footer-links">
