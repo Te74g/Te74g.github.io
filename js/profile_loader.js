@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
             imgPath = fixPath(imgPath);
 
             // Link path fix
-            let linkPath = relatedMember.link;
+            let linkPath = relatedMember.link || `member/profile.html?id=${relatedMember.id}`;
             // Assuming we are in member/ directory, we want links to be like "profile.html?id=rayno"
             // BUT existing links in data are "member/profile_rayno.html".
             // We should ideally convert these to the new format if we want fully dynamic,

@@ -17,7 +17,8 @@
         selected.forEach((m, index) => {
             const a = document.createElement("a");
             a.className = "cheki-card reveal";
-            a.href = window.fixPath(m.link);
+            const url = m.link || `member/profile.html?id=${m.id}`;
+            a.href = window.fixPath(url);
 
             // Create container for image
             const visualDiv = document.createElement('div');
