@@ -1,0 +1,495 @@
+/* ===== Buttons ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    box-shadow: 4px 4px 0 rgba(26, 26, 26, 0.08);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0 rgba(26, 26, 26, 0.12);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 2px 2px 0 rgba(26, 26, 26, 0.08);
+}
+
+.btn--primary {
+    background: linear-gradient(135deg, rgba(232, 107, 121, 0.25), rgba(230, 180, 34, 0.20));
+    border-color: var(--a);
+    color: var(--a);
+}
+
+.btn--ghost {
+    background: rgba(255, 255, 255, 0.40);
+    border-color: var(--line);
+}
+
+.btn--sm {
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+/* Chips */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 2px solid var(--line);
+    background: var(--paper);
+    box-shadow: 4px 4px 0 rgba(31, 31, 31, 0.10);
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.chip--a {
+    background: rgba(255, 79, 216, 0.16);
+}
+
+.chip--b {
+    background: rgba(57, 198, 255, 0.18);
+}
+
+.chip--c {
+    background: rgba(124, 92, 255, 0.16);
+}
+
+/* Notice */
+.notice {
+    border-radius: var(--r-lg);
+    border: 2px solid rgba(31, 31, 31, 0.20);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    padding: 14px 14px;
+}
+
+.notice-title {
+    margin: 0 0 8px;
+    font-weight: 900;
+}
+
+.notice-list {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+/* Toolbar */
+.toolbar {
+    margin-top: 14px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.field input,
+.field select {
+    width: 260px;
+    padding: 10px 12px;
+    border-radius: 16px;
+    border: 2px solid rgba(31, 31, 31, 0.20);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 4px 4px 0 rgba(31, 31, 31, 0.10);
+    font-weight: 800;
+}
+
+.field input::placeholder {
+    color: rgba(31, 31, 31, 0.45);
+}
+
+/* Card (Generic) */
+.card {
+    border-radius: var(--r-lg);
+    border: 2px solid rgba(31, 31, 31, 0.20);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    padding: 14px;
+    transition: transform .12s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-top {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    margin: 0 0 6px;
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.card-desc {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 2px solid var(--line);
+    background: rgba(255, 79, 216, 0.10);
+    box-shadow: 3px 3px 0 rgba(31, 31, 31, 0.10);
+}
+
+.more:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+/* Tags */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 2px solid var(--line);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 3px 3px 0 rgba(31, 31, 31, 0.10);
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.tag--soft {
+    background: rgba(57, 198, 255, 0.14);
+}
+
+.tag--open {
+    background: rgba(57, 198, 255, 0.18);
+}
+
+.tag--soon {
+    background: rgba(255, 210, 74, 0.24);
+}
+
+.tag--closed {
+    background: rgba(31, 31, 31, 0.06);
+    color: rgba(31, 31, 31, 0.65);
+}
+
+/* Meta */
+.meta {
+    margin: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.meta div {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 10px;
+}
+
+.meta dt {
+    color: var(--muted);
+    font-weight: 900;
+}
+
+.meta dd {
+    margin: 0;
+    font-weight: 800;
+}
+
+/* Empty */
+.empty {
+    margin-top: 14px;
+    border-radius: var(--r-lg);
+    border: 2px dashed rgba(31, 31, 31, 0.22);
+    background: rgba(255, 255, 255, 0.70);
+    padding: 14px;
+    box-shadow: 4px 4px 0 rgba(31, 31, 31, 0.10);
+}
+
+.empty-title {
+    margin: 0 0 6px;
+    font-weight: 900;
+}
+
+.empty-desc {
+    margin: 0;
+    color: rgba(31, 31, 31, 0.65);
+    font-weight: 700;
+}
+
+/* CTA */
+.cta {
+    border-radius: var(--r-lg);
+    border: 2px solid rgba(31, 31, 31, 0.20);
+    background: linear-gradient(135deg, rgba(255, 79, 216, 0.14), rgba(57, 198, 255, 0.12), rgba(255, 210, 74, 0.14));
+    box-shadow: var(--shadow);
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.cta-title {
+    margin: 0 0 4px;
+    font-weight: 900;
+}
+
+.cta-lead {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* Cheki Card Styles */
+.cheki-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding: 20px 0;
+}
+
+/* Responsive queries removed to force 3 columns as requested */
+
+
+.cheki-card {
+    display: block;
+    background: #fff;
+    padding: 14px 14px 64px 14px;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    text-decoration: none;
+    color: #1a1a1a;
+    position: relative;
+    transform-origin: center 20%;
+    cursor: pointer;
+    border-radius: 12px;
+    /* Soften edges */
+    max-width: 380px;
+    margin-inline: auto;
+    width: 100%;
+}
+
+.cheki-card:hover {
+    transform: translateY(-12px) scale(1.02) rotate(1deg);
+    box-shadow: 4px 20px 30px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.cheki-visual {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f0f0f0;
+    position: relative;
+}
+
+.cheki-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.cheki-card:hover .cheki-img {
+    transform: scale(1.05);
+}
+
+.cheki-tag-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #000;
+    color: #fff;
+    font-weight: 900;
+    font-size: 14px;
+    padding: 6px 16px;
+    border-bottom-left-radius: 8px;
+    z-index: 10;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cheki-name {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: "Zen Old Mincho", serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 8px;
+}
+
+.cheki-card:nth-child(3n+1) {
+    transform: rotate(-1deg);
+}
+
+.cheki-card:nth-child(3n+2) {
+    transform: rotate(1.5deg);
+}
+
+.cheki-card:nth-child(3n+0) {
+    transform: rotate(-0.5deg);
+}
+
+/* Rotation-preserving hover effects */
+.cheki-card:hover {
+    z-index: 10;
+}
+
+/* Base list (People page - direct children) */
+.cheki-card:nth-child(3n+1) {
+    transform: rotate(-1deg);
+}
+
+.cheki-card:nth-child(3n+2) {
+    transform: rotate(1.5deg);
+}
+
+.cheki-card:nth-child(3n+0) {
+    transform: rotate(-0.5deg);
+}
+
+.cheki-card:nth-child(3n+1):hover {
+    transform: translateY(-12px) scale(1.02) rotate(-1deg) !important;
+}
+
+.cheki-card:nth-child(3n+2):hover {
+    transform: translateY(-12px) scale(1.02) rotate(1.5deg) !important;
+}
+
+.cheki-card:nth-child(3n+0):hover {
+    transform: translateY(-12px) scale(1.02) rotate(-0.5deg) !important;
+}
+
+/* Random Pickup Grid (Home page - wrapped in div.reveal) */
+/* Wrapper is the direct child, so we target wrapper's position to style the inner card */
+#random-pickup-grid>div:nth-child(3n+1)>.cheki-card {
+    transform: rotate(-1deg);
+}
+
+#random-pickup-grid>div:nth-child(3n+2)>.cheki-card {
+    transform: rotate(1.5deg);
+}
+
+#random-pickup-grid>div:nth-child(3n+0)>.cheki-card {
+    transform: rotate(-0.5deg);
+}
+
+#random-pickup-grid>div:nth-child(3n+1)>.cheki-card:hover {
+    transform: translateY(-12px) scale(1.02) rotate(-1deg) !important;
+}
+
+#random-pickup-grid>div:nth-child(3n+2)>.cheki-card:hover {
+    transform: translateY(-12px) scale(1.02) rotate(1.5deg) !important;
+}
+
+#random-pickup-grid>div:nth-child(3n+0)>.cheki-card:hover {
+    transform: translateY(-12px) scale(1.02) rotate(-0.5deg) !important;
+}
+
+/* Responsive Utilities */
+@media (min-width: 921px) {
+    .hide-md {
+        display: none;
+    }
+}
+
+@media (max-width: 920px) {
+    .hide-sm {
+        display: none;
+    }
+
+    .field input,
+    .field select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hide-sm {
+        display: none !important;
+    }
+}
+
+/* Tablet & Mobile: Scale down text and spacings */
+@media (max-width: 1024px) {
+    .cheki-name {
+        font-size: 1.25rem;
+        bottom: 12px;
+    }
+
+    .cheki-card {
+        padding: 10px 10px 50px 10px;
+    }
+}
+
+/* Mobile: Compact View */
+@media (max-width: 600px) {
+    .cheki-grid {
+        gap: 14px;
+        /* Reduced gap for mobile 3-col layout */
+    }
+
+    .cheki-name {
+        font-size: 1rem;
+        bottom: 8px;
+    }
+
+    .cheki-tag-badge {
+        display: none;
+    }
+
+    .cheki-card {
+        padding: 8px 8px 40px 8px;
+    }
+}

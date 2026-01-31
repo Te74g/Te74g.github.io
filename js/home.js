@@ -19,8 +19,15 @@
         const selected = shuffled.slice(0, 3);
 
         selected.forEach((m, index) => {
+            // Create Wrapper for Animation
+            const wrapper = document.createElement("div");
+            wrapper.className = "reveal";
+            wrapper.style.width = "100%"; // Ensure it fills grid cell
+            wrapper.style.display = "flex"; // Ensure centering if needed
+            wrapper.style.justifyContent = "center";
+
             const a = document.createElement("a");
-            a.className = "cheki-card reveal";
+            a.className = "cheki-card"; // Removed reveal from here
             const url = m.link || `member/profile.html?id=${m.id}`;
             a.href = window.fixPath(url);
 
@@ -43,7 +50,10 @@
             nameDiv.textContent = m.pickupName || m.name;
             a.appendChild(nameDiv);
 
-            pickupContainer.appendChild(a);
+            a.appendChild(nameDiv);
+
+            wrapper.appendChild(a);
+            pickupContainer.appendChild(wrapper);
 
             // Initialize Switcher or Static Image
             let images = [];
@@ -92,7 +102,11 @@
                 visualDiv.appendChild(frameEl);
             }
 
-            setTimeout(() => a.classList.add('is-visible'), 100);
+            // Staggered Entry (Animates the wrapper)
+            const delay = 100 + index * 200;
+            setTimeout(() => {
+                wrapper.classList.add('is-visible');
+            }, delay);
         });
     }
 

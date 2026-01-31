@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     <div class="motif-text-box">
-                        <span>動物ː${member.motifAnimal}</span>
+                        <span>種族ː${member.motifAnimal}</span>
                     </div>
                 </div>
             `;
@@ -170,9 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const relatedMembers = getRelatedMembers(member, membersData);
         let html = '';
         relatedMembers.forEach(relatedMember => {
-            let imgPath = relatedMember.profileImages && relatedMember.profileImages.length > 0
-                ? relatedMember.profileImages[0]
-                : relatedMember.image;
+            let imgPath;
+            if (relatedMember.profileImages && relatedMember.profileImages.length > 0) {
+                // Randomly select one image
+                const randomIndex = Math.floor(Math.random() * relatedMember.profileImages.length);
+                imgPath = relatedMember.profileImages[randomIndex];
+            } else {
+                imgPath = relatedMember.image;
+            }
             imgPath = fixPath(imgPath);
 
             // Link path fix

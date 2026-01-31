@@ -27,13 +27,36 @@
         sectionOrder.forEach(sec => {
             const list = grouped[sec];
             if (list && list.length > 0) {
-                // セクション見出し
-                const divider = document.createElement("div");
-                divider.className = "section-divider reveal is-visible";
-                divider.innerHTML = `<span class="section-label">${sec}</span>`;
-                peopleContainer.appendChild(divider);
+                // Section Background Map
+                const bgMap = {
+                    "運営部": "../assets/page/unei_low_res.png",
+                    "飼育区画": "../assets/page/shiiku_low_res.png",
+                    "野生区画": "../assets/page/yasei_low_res.png",
+                    "妖怪区画": "../assets/page/yo-kai_low_res.png",
+                    "スタッフ": "../assets/page/staff_low_res.png"
+                };
 
-                // グリッド
+                // Create Wrapper
+                const wrapper = document.createElement("section");
+                wrapper.className = "people-section-wrapper reveal"; // Added reveal for animation
+                const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : "";
+                if (bgPath) {
+                    wrapper.style.backgroundImage = `url('${bgPath}')`;
+                } else {
+                    wrapper.style.backgroundColor = "#222"; // Fallback
+                }
+
+                // Inner Container
+                const innerContainer = document.createElement("div");
+                innerContainer.className = "container";
+
+                // Section Header
+                const divider = document.createElement("div");
+                divider.className = "section-divider"; // Removed reveal here as wrapper handles it
+                divider.innerHTML = `<span class="section-label">${sec}</span>`;
+                innerContainer.appendChild(divider);
+
+                // Grid
                 const grid = document.createElement("div");
                 grid.className = "cheki-grid";
 
@@ -41,9 +64,9 @@
                     const link = document.createElement("a");
                     const url = m.link || `member/profile.html?id=${m.id}`;
                     link.href = window.fixPath(url);
-                    link.className = "cheki-card reveal is-visible";
+                    link.className = "cheki-card"; // Removed reveal as wrapper handles large block animation
                     const displayName = m.pickupName || m.name;
-                    link.setAttribute("data-name", m.name); // Keep original name for search if needed, or use displayName? Usually search should match what's seen. Let's use m.name for search for now as it might be more complete, or maybe both. The prompt asked for separate *display*.
+                    link.setAttribute("data-name", m.name);
                     link.setAttribute("data-tags", m.tags);
 
                     // Random Image Selection
@@ -67,9 +90,32 @@
                     `;
                     grid.appendChild(link);
                 });
-                peopleContainer.appendChild(grid);
+                innerContainer.appendChild(grid);
+                wrapper.appendChild(innerContainer);
+                peopleContainer.appendChild(wrapper);
             }
         });
+
+        // Initialize Observer for the newly created sections
+        const wrappers = document.querySelectorAll('.people-section-wrapper.reveal');
+        if ("IntersectionObserver" in window && wrappers.length > 0) {
+            const io = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add("is-visible");
+                            // Optional: Stop observing once visible to save resources
+                            io.unobserve(e.target);
+                        }
+                    });
+                },
+                { threshold: 0.15 } // 15% visible to trigger
+            );
+            wrappers.forEach(w => io.observe(w));
+        } else {
+            // Fallback
+            wrappers.forEach(w => w.classList.add('is-visible'));
+        }
     }
 
     /* -------------------------------------------------------
@@ -106,6 +152,8 @@
         // 2. 空になったセクションを隠す
         dividers.forEach(divider => {
             const nextGrid = divider.nextElementSibling;
+            const wrapper = divider.closest('.people-section-wrapper');
+
             if (nextGrid && nextGrid.classList.contains('cheki-grid')) {
                 const visibleCards = Array.from(nextGrid.querySelectorAll('.cheki-card'))
                     .filter(c => c.style.display !== 'none');
@@ -113,9 +161,11 @@
                 if (visibleCards.length > 0) {
                     divider.style.display = '';
                     nextGrid.style.display = '';
+                    if (wrapper) wrapper.style.display = '';
                 } else {
                     divider.style.display = 'none';
                     nextGrid.style.display = 'none';
+                    if (wrapper) wrapper.style.display = 'none';
                 }
             }
         });
