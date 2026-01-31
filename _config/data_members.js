@@ -95,7 +95,7 @@ window.membersData = [
         id: "ray",
         name: "れい",
         tagLabel: "飼育",
-        tags: "キャスト スタッフ 飼育",
+        tags: "運営 キャスト スタッフ 飼育",
         profileImages: [
             "assets/member/れい/profile1.png",
             "assets/member/れい/profile2.png",
