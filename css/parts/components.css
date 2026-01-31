@@ -318,6 +318,54 @@
     z-index: 10;
 }
 
+/* Push Pin Decoration */
+.cheki-card::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    /* Pin sits on top edge */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    /* Red Pin Style (Default) */
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+    pointer-events: none;
+}
+
+/* Pin Color Variants */
+.cheki-card.pin-red::before {
+    background: radial-gradient(circle at 30% 30%, #b30000, #5c0000);
+}
+
+.cheki-card.pin-brown::before {
+    background: radial-gradient(circle at 30% 30%, #8b4513, #4a250a);
+}
+
+.cheki-card.pin-green::before {
+    background: radial-gradient(circle at 30% 30%, #228b22, #004d00);
+}
+
+.cheki-card.pin-gray::before {
+    background: radial-gradient(circle at 30% 30%, #f5f5f5, #b0b0b0);
+}
+
+.cheki-card.pin-black::before {
+    background: radial-gradient(circle at 30% 30%, #4d4d4d, #1a1a1a);
+}
+
+/* Clear Irregular Rotation for Pin (Pins are round/upright) */
+.cheki-card:nth-child(n)::before {
+    transform: translateX(-50%);
+}
+
+#random-pickup-grid>div:nth-child(n)>.cheki-card::before {
+    transform: translateX(-50%);
+}
+
 .cheki-visual {
     width: 100%;
     aspect-ratio: 1 / 1;

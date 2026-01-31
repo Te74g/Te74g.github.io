@@ -27,7 +27,8 @@
             wrapper.style.justifyContent = "center";
 
             const a = document.createElement("a");
-            a.className = "cheki-card"; // Removed reveal from here
+            const pinClass = window.getPinClass(m.tags);
+            a.className = `cheki-card ${pinClass}`; // Add specific pin color class
             const url = m.link || `member/profile.html?id=${m.id}`;
             a.href = window.fixPath(url);
 
