@@ -6,27 +6,39 @@
     position: relative;
     width: 100%;
     min-height: auto;
-    /* Fit to content */
     width: 100%;
-    /* Full width for seamless connection */
     margin: 0;
-    /* No gaps */
-    border-radius: 0;
     /* No rounded corners to ensure seam hiding */
+    border-radius: 0;
 
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: 100% 100%;
-    /* Force fit entire image */
-    /* background-attachment: fixed; Removed to prevent zoom perception */
-    /* Center content vertically if desired, or just top padded */
+    /* Background properties removed - handled by .people-section-bg */
+    background: none;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Changed from center to flex-start to reduce top gap */
     align-items: center;
     padding-top: 20px;
     padding-bottom: 50px;
+    overflow: hidden;
+    /* Crop blurred edges */
+}
+
+.people-section-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Behind overlay (z-index 1) and content (z-index 2) */
+    background-size: 100% 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    filter: blur(4px);
+    /* Blur effect */
+    transform: scale(1.1);
+    /* Scale to hide edges */
 }
 
 /* Divider image removed as requested */
