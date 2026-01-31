@@ -16,6 +16,7 @@
  *           "運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"
  * introduction: 自己紹介文（HTMLタグ使用可）。改行は <br> を使ってください。 (任意)
  * socials:  SNSリンクのリスト。 { type: "youtube|twitter|booth|facebook|vrchat|other", url: "..." } (任意)
+ * related:  関連キャストのIDリスト。固定で表示したいメンバーのIDを指定します（例: ["ten", "momo"]）。指定がない場合や5人に満たない場合は自動で選ばれます。(任意)
  * --------------------------------------------------------------------------
  */
 window.membersData = [
@@ -53,7 +54,8 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/tetenpuipui" },
             { type: "booth", url: "https://polygonlatency.booth.pm/" },
             { type: "note", url: "https://note.com/anyten" }
-        ]
+        ],
+        related: ["momo", "rayno"],
     },
     {
         id: "momo",
@@ -77,7 +79,8 @@ window.membersData = [
         socials: [
             { type: "twitter", url: "https://x.com/necomoinumosuki" },
             { type: "kindle", url: "https://www.amazon.co.jp/stores/author/B0FCCMNWNL" },
-        ]
+        ],
+        related: ["ten"]
     },
 
     // --- 飼育区画 ---
@@ -90,7 +93,8 @@ window.membersData = [
         link: "member/profile.html?id=rayno",
         section: "飼育区画",
         introduction: "自己紹介がここに入ります。<br>未設定です。",
-        socials: []
+        socials: [],
+        related: ["ten", "momo"]
     },
     // --- 野生区画 ---
     {
@@ -107,15 +111,15 @@ window.membersData = [
 
     // --- 妖怪区画 ---
     {
-        id: "amaou",
-        name: "あまおう",
+        id: "kanibasiri",
+        name: "蟹走 椛",
         tagLabel: "妖怪",
-        tags: "キャスト スタッフ 妖怪",
-        image: "assets/member/あまおう/profile.png",
-        link: "member/profile.html?id=amaou",
+        tags: "キャスト 妖怪",
+        image: "assets/member/蟹走 椛/profile1.png",
+        link: "member/profile.html?id=kanibasiri",
         section: "妖怪区画",
-        introduction: "自己紹介がここに入ります。<br>未設定です。",
-        socials: []
+        introduction: "横歩きで世を渡り歩く、あにあめもりあのはぐれ妖怪、蟹走椛（カニバシリ モミジ）だカニ。<br>ハサミで切れない縁はない…なんて嘘嘘！<br>仲良くしてくれないとチョッキンしちゃうぞ〜V",
+        socials: [] // 架空のため空
     },
 
     // --- スタッフ ---

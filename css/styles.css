@@ -2116,7 +2116,9 @@ body.nav-open .menu-close {
     height: 100%;
     object-fit: cover;
     /* Silhouette effect */
-    filter: brightness(0) opacity(0.5);
+    /* filter: brightness(0) opacity(0.5); Original: Silhouette */
+    filter: brightness(0.8) opacity(0.9);
+    /* Updated: Colored but slightly dimmed */
     transition: filter 0.2s;
 }
 
