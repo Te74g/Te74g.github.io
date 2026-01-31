@@ -39,12 +39,18 @@
                 // Create Wrapper
                 const wrapper = document.createElement("section");
                 wrapper.className = "people-section-wrapper reveal"; // Added reveal for animation
+
+                // Create Background Element (for blur effect)
+                const bgDiv = document.createElement("div");
+                bgDiv.className = "people-section-bg";
+
                 const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : "";
                 if (bgPath) {
-                    wrapper.style.backgroundImage = `url('${bgPath}')`;
+                    bgDiv.style.backgroundImage = `url('${bgPath}')`;
                 } else {
-                    wrapper.style.backgroundColor = "#222"; // Fallback
+                    bgDiv.style.backgroundColor = "#222"; // Fallback
                 }
+                wrapper.appendChild(bgDiv);
 
                 // Inner Container
                 const innerContainer = document.createElement("div");

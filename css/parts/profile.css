@@ -469,3 +469,23 @@
         color: #ffffff;
     }
 }
+
+/* ==========================================================================
+   Fixed Background with Blur
+   ========================================================================== */
+#fixed-page-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -10;
+    /* Behind everything */
+    background-size: 100% 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    filter: blur(4px);
+    /* Blur effect */
+    transform: scale(1.1);
+    /* Slight scale to prevent blurred edges */
+}

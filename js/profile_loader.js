@@ -262,12 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. Page Background (Section-based)
     const pageBgPath = window.getPageBackground(member.tags);
     if (pageBgPath) {
-        document.body.style.backgroundImage = `url('${fixPath(pageBgPath)}')`;
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center top';
-        document.body.style.backgroundAttachment = 'fixed';
-        document.body.style.backgroundRepeat = 'no-repeat';
-        console.log('Applied page background:', pageBgPath);
+        const bgEl = document.getElementById('fixed-page-background');
+        if (bgEl) {
+            bgEl.style.backgroundImage = `url('${fixPath(pageBgPath)}')`;
+            console.log('Applied page background to #fixed-page-background:', pageBgPath);
+        } else {
+            // Fallback if element missing
+            document.body.style.backgroundImage = `url('${fixPath(pageBgPath)}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundAttachment = 'fixed';
+        }
     }
 });
 
