@@ -85,4 +85,47 @@
 
         return null;
     };
+    /**
+     * getPinClass
+     * Returns the CSS class for the push pin color based on tags.
+     * @param {string} tags - Space-separated tags string
+     * @returns {string} - The CSS class name (e.g., "pin-red")
+     */
+    window.getPinClass = (tags) => {
+        if (!tags) return 'pin-red'; // Default
+
+        if (tags.includes("運営")) return 'pin-red'; // Dark Red
+        if (tags.includes("飼育")) return 'pin-brown'; // Brown
+        if (tags.includes("野生")) return 'pin-green'; // Green
+        if (tags.includes("妖怪")) return 'pin-gray'; // Gray/White
+        if (tags.includes("スタッフ")) return 'pin-black'; // Black/Dark
+
+        return 'pin-red'; // Fallback
+    };
+
+    /**
+     * getPageBackground
+     * Returns the background image path for the page body based on member tags.
+     * @param {string} tags - Space-separated tags string
+     * @returns {string|null} - The path to the background image (needs fixPath) or null
+     */
+    window.getPageBackground = (tags) => {
+        if (!tags) return null;
+
+        const BG_MAP = {
+            'A': 'assets/page/shiiku_low_res.png', // Keeper
+            'B': 'assets/page/yo-kai_low_res.png', // Yokai
+            'C': 'assets/page/yasei_low_res.png', // Wild
+            'D': 'assets/page/staff_low_res.png', // Staff
+            'E': 'assets/page/unei_low_res.png'   // Operation
+        };
+
+        if (tags.includes("運営")) return BG_MAP['E'];
+        if (tags.includes("飼育")) return BG_MAP['A'];
+        if (tags.includes("野生")) return BG_MAP['C'];
+        if (tags.includes("妖怪")) return BG_MAP['B'];
+        if (tags.includes("スタッフ")) return BG_MAP['D'];
+
+        return null;
+    };
 })();

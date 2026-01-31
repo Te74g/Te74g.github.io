@@ -94,6 +94,36 @@
     transition: filter 0.2s ease;
 }
 
+/* ==========================================================================
+   Legibility Fix (Force White Text)
+   ========================================================================== */
+.profile-layout-grid,
+.profile-layout-grid h1,
+.profile-layout-grid .related-label,
+.profile-layout-grid .goals-title {
+    color: #ffffff !important;
+}
+
+/* Ensure Parchment Frame and Goals Text retain their readable colors */
+.parchment-frame {
+    color: #3e2723 !important;
+    /* Keep dark brown on parchment */
+}
+
+.goals-title {
+    border-left-color: #ffffff !important;
+}
+
+.goals-text {
+    color: #333 !important;
+    /* Keep dark text on gray goal box */
+}
+
+.motif-text-box {
+    color: #000 !important;
+    /* Keep black text on white motif box */
+}
+
 
 /* ==========================================================================
    Profile Ten Expansion Styles (2026-01-22)
@@ -378,6 +408,27 @@
     .profile-related-area {
         order: 3;
     }
+
+    /* Limit Related Cast to 4 on Mobile */
+    .related-slots .cast-slot:nth-child(n+5) {
+        display: none;
+    }
+
+    .related-slots {
+        flex-wrap: wrap;
+    }
+
+    /* Social Icons Wrap if too many */
+    .social-icons-container {
+        flex-wrap: wrap;
+    }
+}
+
+/* Very small screens (iPhone SE etc.) -> Show 3 items */
+@media (max-width: 420px) {
+    .related-slots .cast-slot:nth-child(n+4) {
+        display: none;
+    }
 }
 
 /* Dark Mode Adjustments */
@@ -386,16 +437,17 @@
     /* Darken the Parchment Frame */
     .parchment-frame {
         background-color: #2b2b2b;
-        color: #e0e0e0;
+        color: #e0e0e0 !important;
+        /* Force light text in dark mode */
         border-color: #555;
         box-shadow: var(--shadow);
-        /* Remove inner glow/aging if desired, or keep it subtle */
     }
 
     /* Darken Goals Text */
     .goals-text {
         background-color: #333;
-        color: #e0e0e0;
+        color: #e0e0e0 !important;
+        /* Force light text in dark mode */
         border: 1px solid #444;
         box-shadow: none;
     }
@@ -407,8 +459,9 @@
     }
 
     .motif-text-box {
-        background-color: var(--paper);
-        color: var(--ink);
+        background-color: #333;
+        color: #e0e0e0 !important;
+        /* Force light text */
     }
 
     .motif-icon-box {

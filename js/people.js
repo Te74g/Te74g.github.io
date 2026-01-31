@@ -64,7 +64,8 @@
                     const link = document.createElement("a");
                     const url = m.link || `member/profile.html?id=${m.id}`;
                     link.href = window.fixPath(url);
-                    link.className = "cheki-card"; // Removed reveal as wrapper handles large block animation
+                    const pinClass = window.getPinClass(m.tags);
+                    link.className = `cheki-card ${pinClass}`;
                     const displayName = m.pickupName || m.name;
                     link.setAttribute("data-name", m.name);
                     link.setAttribute("data-tags", m.tags);

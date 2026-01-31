@@ -259,6 +259,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 9. Page Background (Section-based)
+    const pageBgPath = window.getPageBackground(member.tags);
+    if (pageBgPath) {
+        document.body.style.backgroundImage = `url('${fixPath(pageBgPath)}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center top';
+        document.body.style.backgroundAttachment = 'fixed';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        console.log('Applied page background:', pageBgPath);
+    }
 });
 
 // ==========================================
