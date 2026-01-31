@@ -10,8 +10,12 @@
        ------------------------------------------------------- */
     const pickupContainer = document.getElementById("random-pickup-grid");
     if (pickupContainer && window.membersData) {
+        // Filter members by allowed roles (exclude 'スタッフ')
+        const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
+        const filteredMembers = window.membersData.filter(m => allowedRoles.includes(m.tagLabel));
+
         // シャッフルして3人選ぶ
-        const shuffled = [...window.membersData].sort(() => 0.5 - Math.random());
+        const shuffled = [...filteredMembers].sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 3);
 
         selected.forEach((m, index) => {
