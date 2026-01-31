@@ -15,6 +15,8 @@
  * section:  所属する区画（セクション）。以下のいずれかを指定してください。
  *           "運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"
  * introduction: 自己紹介文（HTMLタグ使用可）。改行は <br> を使ってください。 (任意)
+ *               ※ " (ダブルクォーテーション) で囲むと1行で書く必要があります。
+ *               ※ ` (バッククォート) で囲むと改行を含めて書くことができます（見やすくなります）。
  * socials:  SNSリンクのリスト。 { type: "youtube|twitter|booth|facebook|vrchat|other", url: "..." } (任意)
  * related:  関連キャストのIDリスト。固定で表示したいメンバーのIDを指定します（例: ["ten", "momo"]）。指定がない場合や5人に満たない場合は自動で選ばれます。(任意)
  * --------------------------------------------------------------------------
@@ -33,7 +35,7 @@ window.membersData = [
             "assets/member/てん/profile2.png",
             "assets/member/てん/profile3.png"
         ],
-        link: "member/profile.html?id=ten",
+
         section: "運営部",
         goals: [
             "人間のお金を稼ぐこと",
@@ -44,11 +46,11 @@ window.membersData = [
         motifIcon: "assets/member/てん/motif_animal_ten.png",
         sign: "assets/member/てん/ten_sign.png",
         introduction: `あにあめもりあの店長。<br>
-元々野生の貂だったが、十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
-死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
-現在は人間の家で暮らしている。<br>
-妖怪としてはかなりの若輩者で、俗物的。<br>
-貂という動物の知名度が低いことを気にしている。`,
+        元々野生の貂だったが、十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
+        死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
+        現在は人間の家で暮らしている。<br>
+        妖怪としてはかなりの若輩者で、俗物的。<br>
+        責という動物の知名度が低いことを気にしている。`,
         socials: [
             { type: "youtube", url: "https://www.youtube.com/@tanakamaikeru" },
             { type: "twitter", url: "https://x.com/tetenpuipui" },
@@ -75,7 +77,12 @@ window.membersData = [
         ],
         motifAnimal: "猫",
         motifIcon: "assets/member/もも/motif_animal_neko.png",
-        introduction: "あにあめもりあの副店長。<br>元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>飼い主の「ももと話してみたい」という身勝手で切実な願いを聞き届けた店長（てん）から人語を話す能力を授かり、その対価として店で情報収集を手伝うことになった。<br>現在は、飼い主から託された「本とLINEスタンプの宣伝」という任務も遂行中。売上が動物保護活動に使われると知り、「外」を知る身として「まぁ、悪くない」と承諾している。<br><br>猫基準の価値観で生きているため、人間の常識には疎く、うんちの話などを臆することなく話す。",
+        introduction: `あにあめもりあの副店長。<br>
+        元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>
+        同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>
+        飼い主の「ももと話してみたい」という身勝手で切実な願いを聞き届けた店長（てん）から人語を話す能力を授かり、その対価として店で情報収集を手伝うことになった。<br>
+        現在は、飼い主から託された「本とLINEスタンプの宣伝」という任務も遂行中。売上が動物保護活動に使われると知り、「外」を知る身として「まぁ、悪くない」と承諾している。<br><br>
+        猫基準の価値観で生きているため、人間の常識には疎く、うんちの話などを臆することなく話す。`,
         socials: [
             { type: "twitter", url: "https://x.com/necomoinumosuki" },
             { type: "kindle", url: "https://www.amazon.co.jp/stores/author/B0FCCMNWNL" },
@@ -85,15 +92,38 @@ window.membersData = [
 
     // --- 飼育区画 ---
     {
-        id: "rayno",
-        name: "レイノ",
+        id: "ray",
+        name: "れい",
         tagLabel: "飼育",
         tags: "キャスト スタッフ 飼育",
-        image: "assets/member/レイノ/profile.png",
-        link: "member/profile.html?id=rayno",
+        profileImages: [
+            "assets/member/れい/profile1.png",
+            "assets/member/れい/profile2.png",
+            "assets/member/れい/profile3.png"
+        ],
+
         section: "飼育区画",
-        introduction: "自己紹介がここに入ります。<br>未設定です。",
-        socials: [],
+        goals: [
+            "人間からたくさんの情報をもらうこと～",
+            "飼い主の作ったショップを広めること～",
+            "仲間と幸せな暮らしができるようにすること～"
+        ],
+        motifAnimal: "猫",
+        motifIcon: "assets/member/れい/motif_animal_neko2.png",
+        introduction: `元々は飼い猫だったが、大好きな飼い主の言葉を理解したい一心で、店長に直談判。<br>
+        その愛くるしいフォルムと声を認められ、あにあめもりあの一員として迎え入れられた。<br><br>
+        当初の目的は飼い主との意思疎通だったはずが、最近では採用してくれた店長への忠誠心と愛が爆発。<br>
+        「店長のためなら！」と奔走しているうちに、いつの間にかプログラミングスキルやモデリングスキルまで習得してしまったという努力家。<br>
+        現在は飼い主よりも店長に夢中らしいが、そのひたむきな働きぶりは仲間内でも一目置かれている。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/Ray_9618_VRC" },
+            { type: "twitter", url: "https://x.com/Ray_9618_2" },
+            { type: "twitter", url: "https://x.com/PoriRayTen" },
+            { type: "youtube", url: "https://www.youtube.com/@ray_9618" },
+            { type: "note", url: "https://note.com/ray_9618" },
+            { type: "booth", url: "https://ray9618.booth.pm/" },
+            { type: "booth", url: "https://polygonlatency.booth.pm/" }
+        ],
         related: ["ten", "momo"]
     },
     // --- 野生区画 ---
@@ -103,9 +133,9 @@ window.membersData = [
         tagLabel: "野生",
         tags: "キャスト 野生",
         image: "assets/member/ウルフのジョン/profile.png",
-        link: "member/profile.html?id=uruhunojon",
+
         section: "野生区画",
-        introduction: "ウルフのジョンです。ワイルドに盛り上げます。※実在しません。",
+        introduction: "野生区画のウルフのジョンです。ワイルドに盛り上げます。<br>※実在しません。",
         socials: []
     },
 
@@ -116,9 +146,9 @@ window.membersData = [
         tagLabel: "妖怪",
         tags: "キャスト 妖怪",
         image: "assets/member/蟹走 椛/profile1.png",
-        link: "member/profile.html?id=kanibasiri",
+
         section: "妖怪区画",
-        introduction: "横歩きで世を渡り歩く、あにあめもりあのはぐれ妖怪、蟹走椛（カニバシリ モミジ）だカニ。<br>ハサミで切れない縁はない…なんて嘘嘘！<br>仲良くしてくれないとチョッキンしちゃうぞ〜V",
+        introduction: "横歩きで世を渡り歩く、あにあめもりあのはぐれ妖怪、蟹走椛（カニバシリ モミジ）だカニ。<br>ハサミで切れない縁はない…なんて嘘嘘！<br>仲良くしてくれないとチョッキンしちゃうぞ〜V<br>※実在しません",
         socials: [] // 架空のため空
     },
 
@@ -131,7 +161,7 @@ window.membersData = [
         motifAnimal: "ヒト",
         motifIcon: "assets/member/ひねくれ/motif_animal_hito.png",
         image: "assets/member/ひねくれ/profile.png",
-        link: "member/profile.html?id=hinekure",
+
         section: "スタッフ",
         goals: [
             "動物達の楽園を築くこと",
@@ -147,7 +177,7 @@ window.membersData = [
         tagLabel: "スタッフ",
         tags: "スタッフ",
         image: "assets/member/Wikira/profile1.png",
-        link: "member/profile.html?id=wikira",
+
         section: "スタッフ",
         motifAnimal: "ロボット",
         motifIcon: "assets/member/Wikira/motif_animal_robot.png",

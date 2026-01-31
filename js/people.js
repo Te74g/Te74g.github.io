@@ -46,12 +46,17 @@
                     link.setAttribute("data-name", m.name); // Keep original name for search if needed, or use displayName? Usually search should match what's seen. Let's use m.name for search for now as it might be more complete, or maybe both. The prompt asked for separate *display*.
                     link.setAttribute("data-tags", m.tags);
 
+                    // Random Image Selection
+                    const targetImage = (m.profileImages && m.profileImages.length > 0)
+                        ? m.profileImages[Math.floor(Math.random() * m.profileImages.length)]
+                        : m.image;
+
                     link.innerHTML = `
                         <div class="cheki-visual" style="${(() => {
                             const bgPath = window.getMemberBackground(m.tags);
                             return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
                         })()}">
-                            <img src="${window.fixPath(m.image)}" alt="${m.name}" class="cheki-img">
+                            <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img">
                             <span class="cheki-tag-badge">${m.tagLabel}</span>
                             ${(() => {
                             const fPath = window.getMemberFrame(m.tags);
