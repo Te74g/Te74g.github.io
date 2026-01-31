@@ -1,0 +1,80 @@
+:root {
+    --container: 1100px;
+
+    /* Light Theme (和風モダン) */
+    --bg: #fcfaf2;
+    /* 生成り色 */
+    /* 和紙の白（少し温かみを持たせる） */
+    --paper: #fffffb;
+    --ink: #1a1a1a;
+    /* 墨色 */
+    --muted: rgba(26, 26, 26, 0.68);
+    --line: rgba(26, 26, 26, 0.15);
+    --line-strong: rgba(26, 26, 26, 0.35);
+
+    /* 伝統色アクセント */
+    --a: #e86b79;
+    /* 撫子色 (なでしこ) */
+    --b: #38a1db;
+    /* 露草色 (つゆくさ) */
+    --c: #a59aca;
+    /* 藤紫 (ふじむらさき) */
+    --d: #e6b422;
+    /* 黄金色 (こがね) */
+
+    --shadow: 6px 6px 0 rgba(26, 26, 26, 0.08);
+    --shadow-strong: 8px 8px 0 rgba(26, 26, 26, 0.12);
+
+    /* 代替セクション背景色（和風：薄紅梅 うすこうばい） */
+    --bg-alt: rgba(243, 166, 140, 0.12);
+    --border-alt: rgba(232, 107, 121, 0.25);
+
+    /* 和柄パターン色の定義（ライトモード） */
+    --p-red-1: rgba(232, 107, 121, 0.04);
+    /* Asanoha */
+    --p-red-2: rgba(232, 107, 121, 0.07);
+    /* Ichimatsu */
+    --p-blue-1: rgba(56, 161, 219, 0.03);
+    /* Asanoha */
+    --p-blue-2: rgba(56, 161, 219, 0.06);
+    /* Ichimatsu */
+
+    --r-lg: 12px;
+    /* 丸みを少し抑える */
+    --r-md: 8px;
+    --r-sm: 6px;
+
+    --focus: 0 0 0 4px rgba(56, 161, 219, 0.25);
+}
+
+/* Dark mode variables and specific overrides moved to end of file to ensure they take precedence */
+/* Dark mode (和風モダン・夜) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1a1a1a;
+        /* 濡羽色に近い黒 */
+        --paper: #242424;
+        /* 消炭色 */
+        --ink: #f5f5f5;
+        /* 胡粉色 */
+        --muted: rgba(245, 245, 245, 0.65);
+        --line: rgba(255, 255, 255, 0.15);
+        --line-strong: rgba(255, 255, 255, 0.3);
+        --shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+        --shadow-strong: 8px 8px 0 rgba(0, 0, 0, 0.5);
+
+        /* 代替セクション背景色（ダークモード：薄墨桜的な暗色） */
+        --bg-alt: rgba(232, 107, 121, 0.08);
+        --border-alt: rgba(232, 107, 121, 0.2);
+
+        /* 和柄パターン色の定義（ダークモード：少し濃くする） -> 主張を抑えるために調整 */
+        --p-red-1: rgba(232, 107, 121, 0.08);
+        /* 0.12 -> 0.08 */
+        --p-red-2: rgba(232, 107, 121, 0.09);
+        /* 0.15 -> 0.09 */
+        --p-blue-1: rgba(56, 161, 219, 0.06);
+        /* 0.10 -> 0.06 */
+        --p-blue-2: rgba(56, 161, 219, 0.07);
+        /* 0.12 -> 0.07 */
+    }
+}

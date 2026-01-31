@@ -1,0 +1,140 @@
+/* Main starts */
+main,
+#main {
+    flex: 1;
+}
+
+.container {
+    width: min(var(--container), calc(100% - 40px));
+    margin-inline: auto;
+}
+
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    left: 16px;
+    top: 16px;
+    width: auto;
+    height: auto;
+    padding: 10px 12px;
+    background: #fff;
+    color: #000;
+    border-radius: 14px;
+    border: 2px solid var(--line-strong);
+    box-shadow: var(--shadow);
+    z-index: 9999;
+}
+
+/* ===== Section ===== */
+.section {
+    padding: 42px 0;
+}
+
+.section--alt {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border-alt);
+    border-bottom: 1px solid var(--border-alt);
+}
+
+.section-head {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.section-title {
+    margin: 0 0 6px;
+    font-weight: 900;
+    font-size: clamp(22px, 2.6vw, 30px);
+}
+
+.section-lead {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+}
+
+/* Section Dividers */
+.section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 60px 0 40px;
+    position: relative;
+    width: 100%;
+}
+
+.section-divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-top: 2px dashed var(--line-strong);
+    z-index: 0;
+}
+
+.section-label {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    /* Match background to hide line */
+    padding: 0 24px;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    display: inline-block;
+}
+
+/* Reveal Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal {
+    opacity: 0;
+    /* Initial state before animation */
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 920px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+    }
+}

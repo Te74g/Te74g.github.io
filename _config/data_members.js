@@ -28,7 +28,7 @@ window.membersData = [
         name: "てん（店長）",
         pickupName: "てん",
         tagLabel: "店長",
-        tags: "店長 キャスト 運営 妖怪",
+        tags: "店長 運営 キャスト 妖怪",
         image: "assets/member/てん/profile.png",
         profileImages: [
             "assets/member/てん/profile1.png",
@@ -50,14 +50,14 @@ window.membersData = [
         死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
         現在は人間の家で暮らしている。<br>
         妖怪としてはかなりの若輩者で、俗物的。<br>
-        責という動物の知名度が低いことを気にしている。`,
+        貂という動物の知名度が低いことを気にしている。`,
         socials: [
             { type: "youtube", url: "https://www.youtube.com/@tanakamaikeru" },
             { type: "twitter", url: "https://x.com/tetenpuipui" },
             { type: "booth", url: "https://polygonlatency.booth.pm/" },
             { type: "note", url: "https://note.com/anyten" }
         ],
-        related: ["momo", "rayno"],
+        related: ["momo", "ray"],
     },
     {
         id: "momo",
@@ -87,7 +87,7 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/necomoinumosuki" },
             { type: "kindle", url: "https://www.amazon.co.jp/stores/author/B0FCCMNWNL" },
         ],
-        related: ["ten"]
+        related: ["ten", "ray"]
     },
 
     // --- 飼育区画 ---
@@ -95,7 +95,7 @@ window.membersData = [
         id: "ray",
         name: "れい",
         tagLabel: "飼育",
-        tags: "運営 キャスト スタッフ 飼育",
+        tags: "運営 キャスト 飼育",
         profileImages: [
             "assets/member/れい/profile1.png",
             "assets/member/れい/profile2.png",
