@@ -15,8 +15,18 @@
             card.className = "card reveal is-visible";
             card.setAttribute("role", "listitem");
 
-            const imgUrl = window.fixPath(item.image);
-            const linkUrl = window.fixPath(item.link);
+            let imgUrl = item.image;
+            if (!imgUrl && item.images && item.images.length > 0) {
+                imgUrl = item.images[0];
+            }
+            imgUrl = window.fixPath(imgUrl);
+
+            let linkUrl = item.link;
+            if (!linkUrl && item.id) {
+                linkUrl = `partner_events/event.html?id=${item.id}`;
+            }
+            linkUrl = window.fixPath(linkUrl);
+
             const isExternal = linkUrl.startsWith('http');
             const targetAttr = isExternal ? 'target="_blank" rel="noopener"' : '';
 

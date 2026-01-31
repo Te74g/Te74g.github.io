@@ -1,0 +1,192 @@
+/* Event Page Styles */
+
+/* Event Page Styles */
+
+/* Wide Container for Event Page (WQHD Optimization) */
+.container--event-wide {
+    --container: 1600px;
+    /* Use wider max-width for this page */
+}
+
+/* Split Layout (Poster + Content) */
+.event-split-layout {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+    /* Mobile default: stacked */
+}
+
+.event-col-poster {
+    /* Mobile: Poster at top */
+    order: -1;
+}
+
+.event-col-content {
+    min-width: 0;
+    /* Prevent flex overflow */
+}
+
+/* Poster Image Styling */
+.event-poster-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    cursor: zoom-in;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.event-poster-img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    /* Premium depth */
+}
+
+/* Image Selector Container */
+.event-image-container {
+    padding: 0px;
+    position: relative;
+    width: 100%;
+    /* Fixed height for gallery images */
+    height: 400px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--background-secondary, #222);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+}
+
+.event-image-bg {
+    position: absolute;
+    inset: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.6);
+    z-index: 1;
+    transition: background-image 0.3s ease;
+}
+
+.event-main-img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-fit: contain;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    /* Fix: Limit transition to avoid size skewing */
+    cursor: zoom-in;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Desktop Adjustment */
+@media (min-width: 768px) {
+    .event-split-layout {
+        grid-template-columns: 50% 1fr;
+        /* Poster takes ~45% (Maximizing size) */
+        align-items: start;
+    }
+
+    .event-col-poster {
+        position: sticky;
+        top: 24px;
+        /* Optional: Sticky poster on scroll */
+    }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .event-image-container {
+        height: 300px;
+    }
+}
+
+/* Event Content Box */
+.event-description-box {
+    background: var(--paper);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    font-size: 1.1rem;
+    line-height: 1.9;
+    box-shadow: var(--shadow);
+    margin-top: 24px;
+}
+
+/* Slideshow Progress Bar */
+.event-progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.event-progress-bar {
+    height: 100%;
+    background: var(--primary, #e86b79);
+    /* Find a valid color variable if needed, using fallback */
+    width: 0%;
+}
+
+.event-progress-bar.is-running {
+    animation: progressFill 10s linear forwards;
+}
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Header Layout */
+.event-header-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    /* Wraps on mobile */
+}
+
+@media (max-width: 768px) {
+    .event-header-layout {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+.organizer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-gothic);
+    font-weight: 700;
+    color: var(--text-main);
+    background: var(--paper-translucent);
+    /* Optional: slight bg for readability */
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+}
+
+.organizer-info img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
