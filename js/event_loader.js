@@ -247,19 +247,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // If multiple images, render thumbnails
                 if (images.length > 1) {
-                    galleryHtml += `<div class="event-thumbnails" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;">`;
+                    galleryHtml += `<div class="event-thumbnails">`;
 
                     images.forEach((img, index) => {
                         let thumbPath = img;
                         if (!thumbPath.startsWith('http') && (!thumbPath.startsWith('../') && !thumbPath.startsWith('/'))) {
                             thumbPath = '../' + thumbPath;
                         }
-                        const isActive = index === 0 ? 'border-color: var(--primary); opacity: 1;' : 'border-color: transparent; opacity: 0.6;';
+                        const isActive = index === 0 ? 'is-active' : '';
 
                         galleryHtml += `
-                                <div class="thumbnail-item" onclick="switchEventImage(this, '${thumbPath}', ${index}, true)" 
-                                     style="flex: 0 0 80px; width: 80px; height: 80px; cursor: pointer; border: 3px solid; border-radius: 8px; overflow: hidden; transition: all 0.2s; ${isActive}">
-                                    <img src="${thumbPath}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="thumbnail-item ${isActive}" onclick="switchEventImage(this, '${thumbPath}', ${index}, true)">
+                                    <img src="${thumbPath}" alt="Thumbnail ${index + 1}">
                                 </div>
                             `;
                     });
@@ -276,6 +275,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // --- Layout Assembly ---
+            // Prepare Description HTML
+            let descriptionHtml = '';
+            if (eventItem.description) {
+                // New separated description
+                descriptionHtml = `<div class="event-description-box" style="margin-top:0;">${eventItem.description}</div>`;
+            } else if (eventItem.content) {
+                // Fallback to old single content
+                descriptionHtml = `<div class="event-description-box" style="margin-top:0;">${eventItem.content}</div>`;
+            }
+
+            // Prepare Details HTML (Second Card)
+            let detailsHtml = '';
+            if (eventItem.details) {
+                let socialHtml = '';
+                if (eventItem.organizerSocials && eventItem.organizerSocials.length > 0) {
+                    socialHtml = renderOrganizerSocials(eventItem.organizerSocials);
+                }
+
+                detailsHtml = `
+                    <div class="event-description-box">
+                        ${eventItem.details}
+                        ${socialHtml}
+                    </div>
+                `;
+            }
+
+            // Assembly
             if (posterHtml) {
                 // Split Layout
                 imageContainer.innerHTML = `
@@ -283,13 +309,22 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${posterHtml}
                             <div class="event-col-content">
                                 ${galleryHtml}
-                                <div id="dynamic-event-content-injected" class="event-description-box"></div> 
+                                <div id="dynamic-event-content-injected" style="display:flex; flex-direction:column; gap:24px; margin-top:24px;">
+                                    ${descriptionHtml}
+                                    ${detailsHtml}
+                                </div> 
                             </div>
                         </div>
                      `;
             } else {
-                // Standard Layout (No split)
-                imageContainer.innerHTML = galleryHtml + `<div id="dynamic-event-content-injected" class="event-description-box"></div>`;
+                // Standard Layout
+                imageContainer.innerHTML = `
+                    ${galleryHtml}
+                    <div id="dynamic-event-content-injected" style="display:flex; flex-direction:column; gap:24px; margin-top:24px;">
+                        ${descriptionHtml}
+                        ${detailsHtml}
+                    </div>
+                `;
             }
 
             // Inject Content into the placeholder
@@ -297,8 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const injectedContainer = document.getElementById('dynamic-event-content-injected');
 
             if (contentEl && injectedContainer) {
-                injectedContainer.innerHTML = eventItem.content || '<p>詳細情報がありません。</p>';
-                injectedContainer.style.marginTop = '20px';
+                // Content is already injected via HTML construction above
+                // Just hide the old element
                 contentEl.innerHTML = '';
                 contentEl.style.display = 'none';
             }
@@ -445,3 +480,40 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('main').innerHTML = '<div class="container"><p>イベントが見つかりませんでした。</p></div>';
     }
 });
+
+// Helper: Render Organizer Social Icons
+function renderOrganizerSocials(socials) {
+    if (!socials || socials.length === 0) return '';
+    let html = '<div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--line);">';
+    html += '<p style="font-size: 0.9rem; font-weight: bold; margin-bottom: 8px;">主催者リンク</p>';
+    html += '<div style="display: flex; gap: 10px; flex-wrap: wrap;">';
+
+    socials.forEach(s => {
+        let iconHtml = '';
+        let colorStyle = 'background:#333; color:#fff;';
+        const type = s.type.toLowerCase();
+
+        if (type === 'twitter' || type === 'x') {
+            colorStyle = 'background:#000; color:#fff;';
+            iconHtml = '<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+        } else if (type === 'note') {
+            colorStyle = 'background:#fff; color:#333; border:1px solid #ddd;';
+            iconHtml = '<img src="../assets/icon/note_icon.svg" alt="note" style="width:16px;height:16px;" onerror="this.src=\'../assets/icon/link_icon.svg\'">';
+        } else {
+            iconHtml = '🔗';
+        }
+
+        html += `
+            <a href="${s.url}" target="_blank" rel="noopener" style="
+                display:flex; align-items:center; justify-content:center;
+                width:36px; height:36px; border-radius:50%; ${colorStyle}
+                text-decoration:none;
+            ">
+                ${iconHtml}
+            </a>
+        `;
+    });
+
+    html += '</div></div>';
+    return html;
+}

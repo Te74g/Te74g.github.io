@@ -17,6 +17,10 @@
 </head>
 
 <body>
+  <div id="opening-door">
+    <div class="door-panel door-left"></div>
+    <div class="door-panel door-right"></div>
+  </div>
   <a class="skip-link" href="#main">本文へスキップ</a>
 
   <div id="header-placeholder"></div>
@@ -65,187 +69,7 @@
       </div>
     </section>
 
-    <!-- Hero -->
-    <section class="hero" aria-label="イベント紹介">
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="kicker">
-            <span class="kicker-dot" aria-hidden="true"></span>
-            公式サイト / EVENTS
-          </p>
 
-          <h1 class="hero-title">イベントのご案内</h1>
-
-          <p class="hero-lead">
-            開催中・開催予定のイベントをまとめています。<br />
-            詳細は各カードの「もっとみる→」から。
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn--primary" href="#events">開催予定へ</a>
-            <a class="btn btn--ghost" href="./pages/people.html">キャスト紹介へ</a>
-            <a class="btn btn--ghost" href="./pages/partner_events.html" style="margin-left:8px;">提携イベント</a>
-            <a class="btn btn--ghost" href="./pages/aikotoba.html" style="margin-left:8px;">合言葉</a>
-          </div>
-
-          <div class="hero-badges" aria-label="特徴">
-            <span class="chip chip--a">test</span>
-            <span class="chip chip--b">test1</span>
-            <span class="chip chip--c">test2</span>
-          </div>
-        </div>
-
-        <aside class="hero-visual reveal" aria-label="ビジュアル枠">
-          <div class="illus">
-            <div class="illus-inner">
-              <p class="illus-title">イラスト/写真枠</p>
-              <img src="./assets/logo/VRChat_main.png" alt="VRChat_main.png" />
-              <div class="sticker-row" aria-hidden="true">
-              </div>
-            </div>
-          </div>
-
-
-        </aside>
-      </div>
-    </section>
-
-
-
-    <!-- Events -->
-    <section id="events" class="section" aria-label="イベント一覧">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 class="section-title">開催予定</h2>
-          <p class="section-lead">検索と状態フィルタで、カードを絞り込みできる。</p>
-        </header>
-
-        <div class="toolbar reveal" aria-label="絞り込み">
-          <label class="field">
-            <span>検索</span>
-            <input id="q" type="search" placeholder="例：test" autocomplete="off" />
-          </label>
-
-          <label class="field">
-            <span>状態</span>
-            <select id="status">
-              <option value="all">すべて</option>
-              <option value="open">受付中</option>
-              <option value="soon">予定</option>
-              <option value="closed">終了</option>
-            </select>
-          </label>
-        </div>
-
-        <div id="eventGrid" class="grid" role="list">
-          <article class="card reveal" role="listitem" data-status="open" data-keywords="交流会 オフライン 撮影OK">
-            <div class="card-top">
-              <span class="tag tag--open">test</span>
-              <span class="tag tag--soft">test</span>
-            </div>
-            <h3 class="card-title">test1</h3>
-            <p class="card-desc">testtext</p>
-
-            <dl class="meta">
-              <div>
-                <dt>日時</dt>
-                <dd>20xx-xx-xx xx:xx〜</dd>
-              </div>
-              <div>
-                <dt>場所</dt>
-                <dd>test</dd>
-              </div>
-              <div>
-                <dt>参加</dt>
-                <dd>test</dd>
-              </div>
-            </dl>
-
-            <div class="card-actions">
-              <a class="more" href="./pages/contact.html">もっとみる→</a>
-              <a class="btn btn--sm btn--ghost" href="./pages/contact.html">申込/質問</a>
-            </div>
-          </article>
-
-          <article class="card reveal" role="listitem" data-status="soon" data-keywords="配信 オンライン トーク">
-            <div class="card-top">
-              <span class="tag tag--soon">test</span>
-              <span class="tag tag--soft">test</span>
-            </div>
-            <h3 class="card-title">test2</h3>
-            <p class="card-desc">testtext</p>
-
-            <dl class="meta">
-              <div>
-                <dt>日時</dt>
-                <dd>20xx-xx-xx xx:xx〜</dd>
-              </div>
-              <div>
-                <dt>場所</dt>
-                <dd>test</dd>
-              </div>
-              <div>
-                <dt>参加</dt>
-                <dd>test</dd>
-              </div>
-            </dl>
-
-            <div class="card-actions">
-              <a class="more" href="./pages/people.html">もっとみる→</a>
-              <a class="btn btn--sm btn--ghost" href="./pages/contact.html">通知希望</a>
-            </div>
-          </article>
-
-          <article class="card reveal" role="listitem" data-status="closed" data-keywords="展示 写真 記録">
-            <div class="card-top">
-              <span class="tag tag--closed">test</span>
-              <span class="tag tag--soft">test</span>
-            </div>
-            <h3 class="card-title">test3</h3>
-            <p class="card-desc">testtext</p>
-
-            <dl class="meta">
-              <div>
-                <dt>日時</dt>
-                <dd>20xx-xx-xx xx:xx〜</dd>
-              </div>
-              <div>
-                <dt>場所</dt>
-                <dd>test</dd>
-              </div>
-              <div>
-                <dt>参加</dt>
-                <dd>test</dd>
-              </div>
-            </dl>
-
-            <div class="card-actions">
-              <a class="more" href="./pages/contact.html">もっとみる→</a>
-            </div>
-          </article>
-        </div>
-
-        <div id="empty" class="empty reveal" hidden>
-          <p class="empty-title">条件に合うイベントが見つかりません。</p>
-          <p class="empty-desc">検索語や状態フィルタを変えてみてください。</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--alt" aria-label="導線">
-      <div class="container">
-        <div class="cta reveal">
-          <div>
-            <h2 class="cta-title">TESTTEXT</h2>
-            <p class="cta-lead">Text</p>
-          </div>
-          <div class="cta-actions">
-            <a class="btn btn--primary" href="./pages/people.html">キャスト紹介へ</a>
-            <a class="btn btn--ghost" href="./pages/contact.html">お問い合わせへ</a>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <div id="footer-placeholder"></div>
@@ -263,6 +87,15 @@
   <script src="./js/ui.js"></script>
   <script src="./js/home.js"></script>
   <script src="./js/news.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      // Trigger animation after load (plus small delay usually looks better)
+      setTimeout(() => {
+        const door = document.getElementById('opening-door');
+        if (door) door.classList.add('door-open');
+      }, 500);
+    });
+  </script>
 </body>
 
 </html>
