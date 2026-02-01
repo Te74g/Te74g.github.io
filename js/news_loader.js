@@ -27,13 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerEl = document.getElementById('dynamic-article-header');
         if (headerEl) {
             headerEl.innerHTML = `
-                <div style="margin-bottom: 10px; color: var(--muted); font-weight: 700;">
+                <h1 class="cafe-signboard" style="font-size: clamp(1.4rem, 4vw, 2.0rem); margin-bottom: 0;">
+                    ${article.title}
+                </h1>
+                <div class="cafe-separator">
+                    <span class="cafe-separator-icon"></span>
+                </div>
+                <div style="margin-bottom: 10px; color: var(--muted); font-weight: 700; font-family: 'Zen Old Mincho', serif; letter-spacing: 0.1em;">
                     <time datetime="${article.date.replace(/\./g, '-')}">${article.date}</time>
                     <span class="tag tag--soft" style="margin-left: 10px;">${article.category}</span>
                 </div>
-                <h1 style="font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; margin-bottom: 0;">
-                    ${article.title}
-                </h1>
             `;
         }
 

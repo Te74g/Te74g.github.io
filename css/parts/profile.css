@@ -148,18 +148,6 @@
     margin-bottom: 24px;
 }
 
-.parchment-frame .watermark-logo {
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    width: 140px;
-    height: auto;
-    opacity: 0.08;
-    pointer-events: none;
-    user-select: none;
-    transform: rotate(-15deg);
-}
-
 .parchment-frame p {
     margin-top: 0;
     line-height: 1.8;
