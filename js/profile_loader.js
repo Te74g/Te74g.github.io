@@ -259,19 +259,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 9. Page Background (Section-based)
+    // 9. Page Background (Section-based) & Loading Sequence
     const pageBgPath = window.getPageBackground(member.tags);
+
+    // Elements to reveal after background loads
+    const contentElements = document.querySelectorAll('.profile-visual-area, .profile-text-area, .profile-related-area');
+
+    // Initially hide content (if not already handled by CSS)
+    contentElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.8s ease';
+        el.classList.remove('reveal'); // Remove default reveal if present to control manually
+    });
+
+    const revealContent = () => {
+        // Add a slight delay for dramatic effect
+        setTimeout(() => {
+            contentElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.classList.add('is-visible'); // If using CSS animations
+                }, index * 200); // Staggered fade in
+            });
+        }, 300);
+    };
+
     if (pageBgPath) {
-        const bgEl = document.getElementById('fixed-page-background');
-        if (bgEl) {
-            bgEl.style.backgroundImage = `url('${fixPath(pageBgPath)}')`;
-            console.log('Applied page background to #fixed-page-background:', pageBgPath);
-        } else {
-            // Fallback if element missing
-            document.body.style.backgroundImage = `url('${fixPath(pageBgPath)}')`;
-            document.body.style.backgroundSize = 'cover';
-            document.body.style.backgroundAttachment = 'fixed';
-        }
+        const fixedBgEl = document.getElementById('fixed-page-background');
+        const bgUrl = fixPath(pageBgPath);
+
+        // Preload Image
+        const img = new Image();
+        img.src = bgUrl;
+
+        img.onload = () => {
+            if (fixedBgEl) {
+                fixedBgEl.style.backgroundImage = `url('${bgUrl}')`;
+            } else {
+                document.body.style.backgroundImage = `url('${bgUrl}')`;
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundAttachment = 'fixed';
+            }
+            console.log('Background loaded:', bgUrl);
+            revealContent();
+        };
+
+        img.onerror = () => {
+            console.warn('Failed to load background:', bgUrl);
+            revealContent(); // Show content anyway
+        };
+
+        // Safety timeout in case onload never fires
+        setTimeout(() => {
+            if (contentElements[0].style.opacity === '0') {
+                console.log('Background load timeout, forcing reveal.');
+                revealContent();
+            }
+        }, 3000);
+
+    } else {
+        // No background to load, show content immediately
+        revealContent();
     }
 });
 

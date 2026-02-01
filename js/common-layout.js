@@ -134,8 +134,8 @@
         </picture>
       </p>
       <p class="footer-links">
-        <a href="${rootPath}privacy.html">プライバシーポリシー</a>
-        <a href="${rootPath}terms.html">利用規約</a>
+        <a href="${rootPath}pages/privacy.html">プライバシーポリシー</a>
+        <a href="${rootPath}pages/terms.html">利用規約</a>
         <a href="${rootPath}pages/contact.html">お問い合わせ</a>
       </p>
       <p class="footer-note">© <span id="year"></span> AniameMoria.</p>

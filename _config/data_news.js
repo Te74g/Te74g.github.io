@@ -11,7 +11,6 @@
  * category: カテゴリ（例: "お知らせ"）。
  * image:    サムネイル画像の場所（将来的な拡張用）。
  * imagePath: サムネイル画像のパス（assets/news/...）。
- * linkPath: 記事ページの場所（変更不要）。
  * desc:     （一覧ページ用）簡単な説明文。
  * content:  記事の本文（HTML）。
  * --------------------------------------------------------------------------
@@ -23,7 +22,6 @@ window.newsData = [
         date: "2026.01.20",
         category: "お知らせ",
         imagePath: "assets/news/2026-01-20/test2026-01-20.png",
-        linkPath: "news/article.html?id=news_20260120",
         desc: "公式サイトのデザインを大幅にリニューアルいたしました。より見やすく、魅力的なサイトを目指して改修を行いました。",
         content: `
             <p>いつもあにあめもりあを応援いただきありがとうございます。</p>
@@ -45,7 +43,6 @@ window.newsData = [
         date: "2026.01.20",
         category: "お知らせ",
         imagePath: "assets/news/2026-01-20/test2026-01-20.png",
-        linkPath: "news/article.html?id=news_dummy4",
         desc: "これはダミーニュース4の本文です。テスト表示用です。",
         content: `<p>これはダミーニュース4の本文です。テスト表示用です。</p>`
     },
@@ -55,7 +52,6 @@ window.newsData = [
         date: "2026.01.20",
         category: "お知らせ",
         imagePath: "assets/news/2026-01-20/test2026-01-20.png",
-        linkPath: "news/article.html?id=news_dummy3",
         desc: "これはダミーニュース3の本文です。テスト表示用です。",
         content: `<p>これはダミーニュース3の本文です。テスト表示用です。</p>`
     },
@@ -65,7 +61,6 @@ window.newsData = [
         date: "2026.01.20",
         category: "お知らせ",
         imagePath: "assets/news/2026-01-20/test2026-01-20.png",
-        linkPath: "news/article.html?id=news_dummy2",
         desc: "これはダミーニュース2の本文です。テスト表示用です。",
         content: `<p>これはダミーニュース2の本文です。テスト表示用です。</p>`
     },
@@ -75,7 +70,6 @@ window.newsData = [
         date: "2026.01.20",
         category: "お知らせ",
         imagePath: "assets/news/2026-01-20/test2026-01-20.png",
-        linkPath: "news/article.html?id=news_dummy1",
         desc: "これはダミーニュース1の本文です。テスト表示用です。",
         content: `<p>これはダミーニュース1の本文です。テスト表示用です。</p>`
     }
