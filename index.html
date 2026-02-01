@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
-<body>
+<body class="bg-texture">
   <a class="skip-link" href="#main">本文へスキップ</a>
 
   <!-- Header: MENUオーバーレイ型 -->
@@ -39,30 +39,39 @@
   <main id="main">
     <section class="section section--full reveal" style="padding: 160px 0 120px;">
       <div class="container" style="text-align: center;">
-        <div class="maintenance-box"
-          style="max-width: 600px; margin: 0 auto; padding: 48px 24px; border: 1px solid var(--line); border-radius: 32px; background: var(--paper); box-shadow: var(--shadow); position: relative; overflow: hidden;">
-          <picture style="display: block; margin-bottom: 32px; opacity: 0.8;">
+
+        <!-- Updated to Card Style -->
+        <div class="maintenance-box card"
+          style="max-width: 600px; margin: 0 auto; padding: 48px 24px; position: relative; overflow: hidden; text-align: center;">
+
+          <picture style="display: block; margin-bottom: 32px; opacity: 0.8; position: relative; z-index: 2;">
             <source srcset="./assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
             <img src="./assets/logo/aniamemoria_logo.png" alt="あにあめもりあ"
-              style="width: 180px; height: auto; margin: 0 auto;" />
+              style="width: 280px; height: 120px; object-fit: contain; margin: 0 auto;" />
           </picture>
 
           <p class="kicker"
-            style="color: var(--a); font-weight: 700; letter-spacing: 0.15em; font-size: 0.85rem; margin-bottom: 12px;">
+            style="display: block; width: 100%; color: var(--primary); font-weight: 700; letter-spacing: 0.15em; font-size: 0.85rem; margin-bottom: 12px; position: relative; z-index: 2; text-align: center; line-height: 1.2;">
             SYSTEM MAINTENANCE</p>
           <h1 class="hero-title"
-            style="font-family: 'Zen Old Mincho', serif; margin-bottom: 24px; font-size: 1.75rem; line-height: 1.4;">
+            style="font-family: 'Zen Old Mincho', serif; margin-bottom: 24px; font-size: 1.75rem; line-height: 1.4; position: relative; z-index: 2; text-align: center;">
             ただいまメンテナンス中です</h1>
-          <p class="hero-lead" style="color: var(--muted); line-height: 1.8; font-size: 0.95rem;">
+          <p class="hero-lead"
+            style="line-height: 1.8; font-size: 0.95rem; margin-bottom: 30px; position: relative; z-index: 2; text-align: center;">
             より良い体験をお届けするため、サイトの更新を行っております。<br />
             作業完了まで今しばらくお待ちください。
           </p>
 
-          <div style="margin-top: 48px; border-top: 1px solid var(--line); padding-top: 32px;">
-            <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 16px;">お急ぎのご連絡はこちらまで</p>
-            <a href="https://x.com/ANIAMEMORIA" class="btn btn--ghost" style="padding: 10px 32px;">お問い合わせ</a>
+          <div
+            style="margin-top: 48px; border-top: 1px dashed var(--line-strong); padding-top: 32px; position: relative; z-index: 2;">
+            <p style="font-size: 0.85rem; margin-bottom: 16px;">お急ぎのご連絡はこちらまで</p>
+            <a href="https://x.com/ANIAMEMORIA" class="btn btn--primary" style="padding: 10px 32px;">お問い合わせ</a>
           </div>
+
+          <!-- Watermark -->
+          <img src="./assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
         </div>
+
       </div>
     </section>
   </main>

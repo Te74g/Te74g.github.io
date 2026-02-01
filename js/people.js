@@ -40,7 +40,6 @@
                 const wrapper = document.createElement("section");
                 wrapper.className = "people-section-wrapper reveal"; // Added reveal for animation
 
-                // Create Background Element (for blur effect)
                 const bgDiv = document.createElement("div");
                 bgDiv.className = "people-section-bg";
 
@@ -48,7 +47,8 @@
                 if (bgPath) {
                     bgDiv.style.backgroundImage = `url('${bgPath}')`;
                 } else {
-                    bgDiv.style.backgroundColor = "#222"; // Fallback
+                    // Transparent fallback to let wood grain show
+                    bgDiv.style.backgroundColor = "transparent";
                 }
                 wrapper.appendChild(bgDiv);
 

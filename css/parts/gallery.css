@@ -1,6 +1,57 @@
 /* =========================================
    GALLERY / LIGHTBOX STYLES
+/* =========================================
+   GALLERY / LIGHTBOX STYLES
    ========================================= */
+
+/* Gallery Card (Parchment Style) */
+.card {
+    position: relative;
+    background: #fdf5e6;
+    /* AntiqueWhite */
+    border: 4px double var(--line-strong);
+    border-radius: 12px;
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    overflow: hidden;
+    color: #3e2723;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card .watermark-logo {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    width: 150px;
+    height: auto;
+    opacity: 0.08;
+    pointer-events: none;
+    transform: rotate(-15deg);
+    z-index: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: #2b2b2b;
+        color: #e0e0e0;
+        border-color: #555;
+    }
+
+    .card:hover {
+        background: #332a25;
+    }
+}
+
 .gallery-modal {
     position: fixed;
     inset: 0;

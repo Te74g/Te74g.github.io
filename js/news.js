@@ -23,7 +23,7 @@
                     <span class="news-date">${item.date}</span>
                     <span class="news-tag-label">${item.category}</span>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 140px; gap: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 140px; gap: 20px; position:relative; z-index:2;">
                     <div style="display:flex; flex-direction:column; justify-content:center;">
                         <h3 style="margin:0 0 8px; font-weight:900; font-size:1.2rem;">${item.title}</h3>
                         <p style="margin:0; font-size:0.9rem; color:var(--muted); line-height:1.6;">
@@ -31,9 +31,11 @@
                         </p>
                     </div>
                     <div>
-                        <img src="${imgUrl}" alt="" style="width:100%; height:100px; object-fit:cover; border-radius:8px;">
+                        <img src="${imgUrl}" alt="" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border: 1px solid rgba(0,0,0,0.1);">
                     </div>
                 </div>
+                <!-- Watermark Logo -->
+                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
             `;
             newsContainer.appendChild(link);
         });
@@ -63,6 +65,8 @@
                     <div class="title">${item.title}</div>
                     <div style="font-size:0.85em; text-align:right; margin-top:auto; font-weight:bold;">もっとみる &rarr;</div>
                 </div>
+                <!-- Watermark Logo -->
+                <img src="./assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
             `;
             track.appendChild(card);
         });

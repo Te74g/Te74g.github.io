@@ -23,6 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Title
         document.title = `あにあめもりあ | ${eventItem.name}`;
 
+        // --- Loader Injection ---
+        // --- Loader Logic ---
+        // Use existing static loader from HTML (to support random text & early display)
+        const loaderEl = document.getElementById('opening-loader-overlay');
+        const mainEl = document.querySelector('main');
+
+        if (mainEl) {
+            mainEl.classList.add('is-preloading');
+        }
+
+        // Helper to hide loader
+        const hideLoader = () => {
+            if (loaderEl) loaderEl.classList.add('is-hidden');
+            if (mainEl) mainEl.classList.remove('is-preloading');
+            document.body.classList.remove('is-preloading');
+        };
+
         // Render Header
         const headerEl = document.getElementById('dynamic-event-header');
         if (headerEl) {
@@ -127,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const style = document.createElement('style');
                 style.id = styleId;
                 style.textContent = `
-                    body.is-preloading main { opacity: 0; }
+                    body.is-preloading { overflow: hidden; }
                     body.is-preloading .reveal { animation: none !important; opacity: 0 !important; }
                 `;
                 document.head.appendChild(style);
@@ -170,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Small delay to ensure background renders
                 requestAnimationFrame(() => {
-                    document.body.classList.remove('is-preloading');
+                    hideLoader();
                 });
             };
 
@@ -186,11 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Fallback timeout (3s)
-            setTimeout(revealContent, 3000);
+            setTimeout(hideLoader, 3000);
 
         } else {
-            // No background image, show content immediately (if it was hidden by default, but here we assume it's visible unless JS hides it)
-            // We didn't hide it by CSS default, so nothing to do.
+            // No background image, hide loader immediately
+            hideLoader();
         }
 
         // Render Image with Selector
@@ -278,11 +295,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Prepare Description HTML
             let descriptionHtml = '';
             if (eventItem.description) {
-                // New separated description
-                descriptionHtml = `<div class="event-description-box" style="margin-top:0;">${eventItem.description}</div>`;
+                // New separated description with Parchment Frame
+                descriptionHtml = `
+                    <div class="parchment-frame" style="margin-top:0;">
+                        ${eventItem.description}
+                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                    </div>
+                `;
             } else if (eventItem.content) {
                 // Fallback to old single content
-                descriptionHtml = `<div class="event-description-box" style="margin-top:0;">${eventItem.content}</div>`;
+                descriptionHtml = `
+                    <div class="parchment-frame" style="margin-top:0;">
+                        ${eventItem.content}
+                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                    </div>
+                `;
             }
 
             // Prepare Details HTML (Second Card)
@@ -294,9 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 detailsHtml = `
-                    <div class="event-description-box">
+                    <div class="parchment-frame">
                         ${eventItem.details}
                         ${socialHtml}
+                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
                     </div>
                 `;
             }

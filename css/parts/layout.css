@@ -1,7 +1,16 @@
+/* Global Layout Reset */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* Main starts */
 main,
 #main {
     flex: 1;
+    position: relative;
+    /* Context for loader overlay */
 }
 
 .container {
@@ -56,9 +65,36 @@ main,
 }
 
 .section-lead {
-    margin: 0;
-    color: var(--muted);
-    font-weight: 700;
+    margin: 8px 0 0;
+    color: #5d4037;
+    /* Dark Brown for Light Wood */
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Decorative lines for subtitle */
+.section-lead::before,
+.section-lead::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.6;
+}
+
+@media (prefers-color-scheme: dark) {
+    .section-lead {
+        color: #d7ccc8;
+        /* Pale Brown/Gold for Dark Wood */
+    }
 }
 
 /* Grid */
@@ -136,5 +172,210 @@ main,
 @media (max-width: 768px) {
     .section-title {
         font-size: 24px;
+    }
+}
+
+/* Cafe Signboard Style */
+.cafe-signboard {
+    display: inline-block;
+    position: relative;
+    padding: 0.5em 2em;
+    margin-bottom: 0.5em;
+
+    background-color: #4e342e;
+    /* Dark Wood Brown */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+
+    color: #f3e5ab;
+    /* Cream/Gold text */
+    border: 2px solid #d4af37;
+    /* Gold border */
+    border-radius: 8px;
+
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.4),
+        inset 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Inner depth */
+
+    font-family: 'Zen Old Mincho', serif;
+    /* Elegant font */
+    letter-spacing: 0.1em;
+}
+
+/* Screws/Rivets */
+.cafe-signboard::before,
+.cafe-signboard::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    background: #d4af37;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    transform: translateY(-50%);
+}
+
+.cafe-signboard::before {
+    left: 10px;
+}
+
+.cafe-signboard::after {
+    right: 10px;
+}
+
+/* Cafe Separator (Between Sections) */
+.cafe-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin: 40px auto;
+    /* Vertical spacing */
+    opacity: 0.8;
+}
+
+.cafe-separator::before,
+.cafe-separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    margin: 0 15px;
+}
+
+.cafe-separator-icon {
+    color: #d4af37;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+/* Diamond Icon via CSS/HTML or just text */
+.cafe-separator-icon::before {
+    content: "◆";
+    /* Simple unicode diamond fits the theme well. 
+       Alternatively could be a graphic. */
+}
+
+/* Wood Grain Texture (Moved from Index) */
+.bg-texture {
+    background-color: #f0e6ce;
+    /* Light Wood Base */
+    /* Wood Grain Texturing using CSS */
+    background-image:
+        repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(160, 100, 50, 0.04) 4px, rgba(160, 100, 50, 0.04) 6px),
+        repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(160, 100, 50, 0.03) 10px, rgba(160, 100, 50, 0.03) 24px),
+        repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(160, 100, 50, 0.03) 15px, rgba(160, 100, 50, 0.03) 30px);
+    background-size: 100% 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bg-texture {
+        background-color: #2a231e;
+        /* Dark Wood Base */
+        background-image:
+            repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.2) 4px, rgba(0, 0, 0, 0.2) 6px),
+            repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 24px),
+            repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(0, 0, 0, 0.1) 15px, rgba(0, 0, 0, 0.1) 30px);
+    }
+}
+
+/* =========================================
+   Global Loading Screen (Opening Loader)
+   ========================================= */
+
+/* Overlay - Blocks Content */
+#opening-loader-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    /* Default: Max z-index (Top Page) */
+    background-color: var(--bg);
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+/* Subpage Variant: Below Header (z-index 50) */
+.loader-overlay--subpage {
+    z-index: 40 !important;
+    /* Below Header */
+}
+
+#opening-loader-overlay.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Logo Container */
+.loader-logo-container {
+    position: absolute;
+    top: calc(50vh - 80px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(360px, 80vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.loader-logo-back {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0.15;
+    filter: grayscale(100%);
+}
+
+.loader-logo-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    clip-path: inset(0 100% 0 0);
+    animation: loader-fill 3.0s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes loader-fill {
+    0% {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    100% {
+        clip-path: inset(0 0% 0 0);
+    }
+}
+
+.loader-text {
+    margin-top: 15px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--text-main);
+    opacity: 0;
+    animation: fadeInText 1s ease 0.5s forwards;
+    text-align: center;
+}
+
+@keyframes fadeInText {
+    to {
+        opacity: 0.7;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+
+    .loader-logo-back,
+    .loader-logo-front {
+        content: url('../../assets/logo/aniamemoria_logo_darktheme.png');
     }
 }
