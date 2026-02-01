@@ -352,6 +352,14 @@ main,
 .logo-wrapper {
     position: relative;
     width: 100%;
+    opacity: 0;
+    /* Hidden until JS sets correct logo */
+    transition: opacity 0.3s ease;
+}
+
+.logo-wrapper.is-ready {
+    opacity: 1;
+    /* Revealed by JS after logo is set */
 }
 
 .loader-logo-back {
@@ -403,9 +411,5 @@ main,
 }
 
 @media (prefers-color-scheme: dark) {
-
-    .loader-logo-back,
-    .loader-logo-front {
-        content: url('../../assets/logo/aniamemoria_logo_darktheme.png');
-    }
+    /* Logo asset switching is handled entirely via JS for dynamic control. */
 }

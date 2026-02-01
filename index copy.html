@@ -321,6 +321,25 @@
     window.siteConfig.loadingMessages :
     ["Loading..."]; // Fallback
 
+  // Theme-aware Logo Selection from Config
+  const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const logoBack = document.querySelector('.loader-logo-back');
+  const logoFront = document.querySelector('.loader-logo-front');
+
+  // Use config or fallback to hardcoded paths
+  const loaderConfig = window.siteConfig?.loaderLogos?.opening || {
+    light: './assets/logo/aniamemoria_logo.png',
+    dark: './assets/logo/aniamemoria_logo_darktheme.png'
+  };
+  const defaultLogo = isDark ? loaderConfig.dark : loaderConfig.light;
+
+  if (logoBack) logoBack.src = defaultLogo;
+  if (logoFront) logoFront.src = defaultLogo;
+
+  // Reveal the logo after setting src
+  const logoWrapper = document.querySelector('.logo-wrapper');
+  if (logoWrapper) logoWrapper.classList.add('is-ready');
+
   const textEl = document.querySelector('.loader-text');
   if (textEl) {
     textEl.textContent = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];

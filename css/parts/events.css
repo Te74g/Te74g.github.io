@@ -425,13 +425,6 @@
     }
 }
 
-/* Dark Mode Support for Loader */
-@media (prefers-color-scheme: dark) {
-
-    .loader-logo-back,
-    .loader-logo-front {
-        content: url('../../assets/logo/aniamemoria_logo_darktheme.png');
-    }
-}
+/* Dark Mode Support for Loader - handled by JS */
 
 /* End of file */
