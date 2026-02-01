@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/styles.css" />
 </head>
 
-<body>
+<body class="bg-texture">
     <a class="skip-link" href="#main">本文へスキップ</a>
 
     <div id="header-placeholder"></div>
@@ -24,7 +24,8 @@
             <div class="container" style="max-width: 800px;">
                 <article class="reveal">
 
-                    <header id="dynamic-article-header" style="margin-bottom: 24px; text-align: center;">
+                    <header id="dynamic-article-header" class="section-head reveal"
+                        style="text-align: center; margin-bottom: 40px;">
                         <!-- JS Injected -->
                     </header>
 
@@ -32,10 +33,13 @@
                         <!-- JS Injected -->
                     </div>
 
-                    <div id="dynamic-article-content"
-                        style="font-size: 1.1rem; line-height: 1.9; background: var(--paper); padding: 30px; border-radius: 12px; border: 1px solid var(--line);">
-                        <!-- JS Injected -->
-                        <p>読み込み中...</p>
+                    <div class="parchment-frame reveal" style="margin-top: 24px;">
+                        <div id="dynamic-article-content">
+                            <!-- JS Injected -->
+                            <p>読み込み中...</p>
+                        </div>
+                        <!-- Watermark -->
+                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
                     </div>
 
                     <div style="margin-top: 40px; text-align: center;">

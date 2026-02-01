@@ -262,12 +262,12 @@ main,
 .bg-texture {
     background-color: #f0e6ce;
     /* Light Wood Base */
-    /* Wood Grain Texturing using CSS */
     background-image:
         repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(160, 100, 50, 0.04) 4px, rgba(160, 100, 50, 0.04) 6px),
         repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(160, 100, 50, 0.03) 10px, rgba(160, 100, 50, 0.03) 24px),
         repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(160, 100, 50, 0.03) 15px, rgba(160, 100, 50, 0.03) 30px);
-    background-size: 100% 100%;
+    background-size: 400px 400px;
+    background-attachment: fixed;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -278,6 +278,36 @@ main,
             repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.2) 4px, rgba(0, 0, 0, 0.2) 6px),
             repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 24px),
             repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(0, 0, 0, 0.1) 15px, rgba(0, 0, 0, 0.1) 30px);
+        background-size: 400px 400px;
+    }
+}
+
+/* =========================================
+   Watermark Logo (Global Decoration)
+   ========================================= */
+.watermark-logo {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 140px;
+    height: auto;
+    opacity: 0.08;
+    pointer-events: none;
+    user-select: none;
+    transform: rotate(-15deg);
+    z-index: 0;
+    /* Behind text but inside card */
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Dark Mode Watermark Asset Switch */
+@media (prefers-color-scheme: dark) {
+    .watermark-logo {
+        content: url('../../assets/logo/aniamemoria_logo_darktheme.png');
+        opacity: 0.12;
+        /* Slightly more visible on dark */
     }
 }
 
