@@ -42,5 +42,19 @@ window.siteConfig = {
             "個性豊かなキャストたちが、あなたのご来店を心待ちしております。"
         ],
         image: "./assets/opening/Tatie3.png" // Aboutセクションの画像
+    },
+
+    // ローダーのロゴ設定
+    loaderLogos: {
+        // オープニングページ用ローダー
+        opening: {
+            light: "./assets/logo/aniamemoria_logo.png",
+            dark: "./assets/logo/aniamemoria_logo_darktheme.png"
+        },
+        // サブページ用ローダー
+        subpage: {
+            light: "./assets/logo/aniamemoria_logo.png",
+            dark: "./assets/logo/aniamemoria_logo_darktheme.png"
+        }
     }
 };

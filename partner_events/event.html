@@ -68,6 +68,52 @@
     <script src="../_config/data_members.js"></script>
     <script src="../_config/data_news.js"></script>
     <script src="../_config/data_events.js"></script>
+    <!-- Custom Loader Logo Swap (MUST run BEFORE event_loader.js) -->
+    <script>
+        (function () {
+            const loaderOverlay = document.getElementById('opening-loader-overlay');
+            const loaderText = document.getElementById('loader-text');
+            const params = new URLSearchParams(window.location.search);
+            const eventId = params.get('id');
+
+            if (eventId && window.partnerEventsData) {
+                const eventItem = window.partnerEventsData.find(item => item.id === eventId);
+                const loaderBack = loaderOverlay?.querySelector('.loader-logo-back');
+                const loaderFront = loaderOverlay?.querySelector('.loader-logo-front');
+                const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (eventItem && eventItem.titleImage) {
+                    let titleLogoPath = eventItem.titleImage;
+                    if (!titleLogoPath.startsWith('http') && !titleLogoPath.startsWith('../') && !titleLogoPath.startsWith('/')) {
+                        titleLogoPath = '../' + titleLogoPath;
+                    }
+
+                    if (loaderBack) loaderBack.src = titleLogoPath;
+                    if (loaderFront) loaderFront.src = titleLogoPath;
+
+                    // Set text color based on theme for custom logos
+                    if (loaderText) {
+                        loaderText.style.color = isDarkMode ? '#ddd' : '#333';
+                    }
+                } else {
+                    // Default logo selection based on theme using config
+                    const loaderConfig = window.siteConfig?.loaderLogos?.subpage || {
+                        light: '../assets/logo/aniamemoria_logo.png',
+                        dark: '../assets/logo/aniamemoria_logo_darktheme.png'
+                    };
+                    const defaultLogo = isDarkMode ? loaderConfig.dark : loaderConfig.light;
+                    // Adjust path for subpage context
+                    const adjustedPath = defaultLogo.startsWith('../') ? defaultLogo : '../' + defaultLogo.replace('./', '');
+                    if (loaderBack) loaderBack.src = adjustedPath;
+                    if (loaderFront) loaderFront.src = adjustedPath;
+                }
+
+                // Reveal the logo after setting src
+                const logoWrapper = loaderOverlay?.querySelector('.logo-wrapper');
+                if (logoWrapper) logoWrapper.classList.add('is-ready');
+            }
+        })();
+    </script>
     <script src="../_config/data_gallery.js"></script>
     <script src="../_config/data_links.js"></script>
     <!-- Common UI Script -->
@@ -75,13 +121,12 @@
     <script src="../js/event_loader.js"></script>
 
     <script>
-        // Loader Logic (Inline to ensure early execution if possible, but strictly after data_site.js)
+        // Loader Logic (Random message + Fallback hide)
         (function () {
             const loaderOverlay = document.getElementById('opening-loader-overlay');
             const loaderText = document.getElementById('loader-text');
 
             // Set random message
-            // Wait for siteConfig to be available
             if (typeof siteConfig !== 'undefined' && siteConfig.loadingMessages) {
                 const msg = siteConfig.loadingMessages[Math.floor(Math.random() * siteConfig.loadingMessages.length)];
                 loaderText.textContent = msg;
