@@ -95,7 +95,7 @@
 
     .event-col-poster {
         position: sticky;
-        top: 24px;
+        top: 110px;
         /* Optional: Sticky poster on scroll */
     }
 }

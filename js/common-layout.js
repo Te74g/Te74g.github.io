@@ -154,7 +154,9 @@
     const headerPlaceholder = document.getElementById('header-placeholder');
     const footerPlaceholder = document.getElementById('footer-placeholder');
 
-    if (headerPlaceholder) headerPlaceholder.innerHTML = headerHTML;
+
+    if (headerPlaceholder) headerPlaceholder.outerHTML = headerHTML;
+
     if (footerPlaceholder) footerPlaceholder.innerHTML = footerHTML;
 
     // -----------------------------------------------------------
