@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${imgSrc}" alt="${item.name}" class="aikotoba-card__icon">
                 </div>
                 <div class="aikotoba-card__text">${item.text}</div>
+                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
             </a>
         `;
     });

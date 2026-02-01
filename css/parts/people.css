@@ -62,12 +62,14 @@
 }
 
 /* Restyle Divider for inside the wrapper */
+/* Restyle Divider for inside the wrapper */
+/* Restyle Divider for inside the wrapper */
 .people-section-wrapper .section-divider {
-    color: #fff;
+    color: #e0e0e0;
+    /* Use Dark Mode White for all themes */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     margin: 0 0 40px;
-    /* Remove top margin (was 60px in layout.css) */
 }
 
 /* Force divider line (::before from layout.css) to be white */
@@ -77,10 +79,17 @@
 
 .people-section-wrapper .section-label {
     background: rgba(0, 0, 0, 0.6);
+    /* Dark semi-transparent bg for all themes */
     padding: 5px 20px;
     border-radius: 4px;
     color: #fff;
-    /* Force white text */
+    /* White text */
+    font-weight: 900;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    /* Styles are now consistent with default */
 }
 
 /* Animation */

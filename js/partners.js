@@ -53,6 +53,8 @@
                         <a class="more" href="${linkUrl}" ${targetAttr}>もっとみる→</a>
                     </div>
                 </div>
+                <!-- Watermark -->
+                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
             `;
             partnerContainer.appendChild(card);
         });

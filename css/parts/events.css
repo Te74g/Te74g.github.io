@@ -16,6 +16,65 @@
     /* Mobile default: stacked */
 }
 
+/* Partner Events Card - Parchment Style */
+.card {
+    position: relative;
+    /* Context for watermark */
+    background: #fdf5e6;
+    /* AntiqueWhite */
+    border: 4px double var(--line-strong);
+    border-radius: 12px;
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    overflow: hidden;
+    color: #3e2723;
+    /* Dark Brown Text */
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card .watermark-logo {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    width: 150px;
+    height: auto;
+    opacity: 0.08;
+    pointer-events: none;
+    transform: rotate(-15deg);
+    z-index: 0;
+}
+
+.card-top {
+    /* Ensure border radius matches card */
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid rgba(139, 69, 19, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: #2b2b2b;
+        color: #e0e0e0;
+        border-color: #555;
+    }
+
+    .card:hover {
+        background: #332a25;
+        /* Soft dark hover */
+    }
+
+    .card-top {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
 .event-col-poster {
     /* Mobile: Poster at top */
     order: -1;
@@ -107,15 +166,19 @@
     }
 }
 
-/* Event Content Box */
-.event-description-box {
-    background: var(--paper);
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid var(--line);
-    font-size: 1.1rem;
-    line-height: 1.9;
-    box-shadow: var(--shadow);
+/* --- Content Area --- */
+.event-col-content {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Replaced by .parchment-frame from profile.css */
+.event-col-content .parchment-frame {
+    /* Ensure it behaves well in flex container */
+    width: 100%;
+    margin-bottom: 24px;
     margin-top: 24px;
 }
 
@@ -277,3 +340,98 @@
     object-fit: cover;
     display: block;
 }
+
+/* ==========================================================================
+   Event Page Loader Overlay (Logo Gauge)
+   ========================================================================== */
+#event-loader-overlay {
+    position: absolute;
+    /* Replaces fixed, relative to main */
+    inset: 0;
+    z-index: 40;
+    /* Below Header (50), Above Content */
+    background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#event-loader-overlay.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Ensure overlay fills the relative main container */
+#event-loader-overlay {
+    /* Absolute handled by previous rule, just ensure dimensions */
+    width: 100%;
+    height: 100%;
+    /* Removed flex centering and padding-bottom */
+}
+
+/* Logo Container */
+.loader-logo-container {
+    position: absolute;
+    /* Absolute positioning for precise placement */
+    top: calc(50vh - 80px);
+    /* Visual center */
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: min(360px, 80vw);
+    /* Larger size: 360px PC / 80% Mobile */
+    height: auto;
+    max-width: 100%;
+    /* Allow full use of min() constraint */
+
+    /* Ensure aspect ratio is maintained by image content */
+}
+
+/* Base Logo (Dim Background) */
+.loader-logo-back {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0.15;
+    /* Dim state */
+    filter: grayscale(100%);
+}
+
+/* Front Logo (Bright/Colored) using Clip-Path */
+.loader-logo-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    /* Matches container strictly */
+    height: 100%;
+    /* Ensure height matches too */
+    opacity: 1;
+    clip-path: inset(0 100% 0 0);
+    /* Start hidden (clipped from right) */
+    animation: loader-fill 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes loader-fill {
+    0% {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    100% {
+        clip-path: inset(0 0% 0 0);
+    }
+}
+
+/* Dark Mode Support for Loader */
+@media (prefers-color-scheme: dark) {
+
+    .loader-logo-back,
+    .loader-logo-front {
+        content: url('../../assets/logo/aniamemoria_logo_darktheme.png');
+    }
+}
+
+/* End of file */

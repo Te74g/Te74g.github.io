@@ -19,6 +19,17 @@
 
     <div id="header-placeholder"></div>
 
+    <!-- Opening Loader (Subpage Variant) -->
+    <div id="opening-loader-overlay" class="loader-overlay--subpage">
+        <div class="loader-logo-container">
+            <div class="logo-wrapper">
+                <img class="loader-logo-back" src="../assets/logo/aniamemoria_logo.png" alt="Aniamemoria Logo Back">
+                <img class="loader-logo-front" src="../assets/logo/aniamemoria_logo.png" alt="Aniamemoria Logo Front">
+            </div>
+            <div class="loader-text" id="loader-text">Loading...</div>
+        </div>
+    </div>
+
     <main id="main">
         <section class="section">
             <div class="container container--event-wide">
@@ -53,6 +64,7 @@
     </script>
 
     <!-- Data Files -->
+    <script src="../_config/data_site.js"></script>
     <script src="../_config/data_members.js"></script>
     <script src="../_config/data_news.js"></script>
     <script src="../_config/data_events.js"></script>
@@ -61,6 +73,35 @@
     <!-- Common UI Script -->
     <script src="../js/ui.js"></script>
     <script src="../js/event_loader.js"></script>
+
+    <script>
+        // Loader Logic (Inline to ensure early execution if possible, but strictly after data_site.js)
+        (function () {
+            const loaderOverlay = document.getElementById('opening-loader-overlay');
+            const loaderText = document.getElementById('loader-text');
+
+            // Set random message
+            // Wait for siteConfig to be available
+            if (typeof siteConfig !== 'undefined' && siteConfig.loadingMessages) {
+                const msg = siteConfig.loadingMessages[Math.floor(Math.random() * siteConfig.loadingMessages.length)];
+                loaderText.textContent = msg;
+            } else {
+                console.warn("siteConfig not found or no loadingMessages");
+            }
+
+            function hideLoader() {
+                if (loaderOverlay.classList.contains('is-hidden')) return;
+                loaderOverlay.classList.add('is-hidden');
+                setTimeout(() => {
+                    loaderOverlay.style.display = 'none';
+                }, 800);
+            }
+
+            // Note: Hiding is mainly handled by event_loader.js when content is ready.
+            // Fallback safety (10s) just in case
+            setTimeout(hideLoader, 10000);
+        })();
+    </script>
     <!-- Lightbox / Modal for viewing images -->
     <div id="gallery-modal" class="gallery-modal" aria-hidden="true" style="display:none;">
         <div class="gallery-modal-overlay"></div>
