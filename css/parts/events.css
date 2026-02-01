@@ -190,3 +190,90 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+/* ==========================================================================
+   Premium Thumbnail Gallery (Horizontal Scroll)
+   ========================================================================== */
+.event-thumbnails {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 4px 4px 16px 4px;
+    /* Bottom padding for shadow/focus */
+    margin-bottom: 0;
+
+    /* Premium Scroll */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    /* Firefox: Thin */
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    /* Firefox: Thumb Track */
+
+    /* Fade Masks (Experimental - usage depends on background) */
+    /* mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); */
+}
+
+/* Custom Scrollbar for Webkit */
+.event-thumbnails::-webkit-scrollbar {
+    height: 6px;
+    /* Thin horizontal scrollbar */
+    display: block;
+}
+
+.event-thumbnails::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.event-thumbnails::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.event-thumbnails::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.thumbnail-item {
+    flex: 0 0 80px;
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+
+    /* Styles */
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transform: scale(0.95);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    scroll-snap-align: start;
+}
+
+/* Hover State */
+.thumbnail-item:hover {
+    opacity: 0.9;
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Active State */
+.thumbnail-item.is-active {
+    opacity: 1;
+    transform: scale(1.05);
+    /* Pop out */
+    border-color: var(--primary, #e86b79);
+    box-shadow: 0 4px 12px rgba(232, 107, 121, 0.3);
+    /* Glow effect */
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}

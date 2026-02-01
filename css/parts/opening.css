@@ -1,0 +1,111 @@
+/* Door Opening Animation */
+#opening-door {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    pointer-events: auto;
+    /* Block interaction initially */
+    perspective: 1500px;
+    /* Essential for 3D swing effect */
+    overflow: hidden;
+    /* Prevent horizontal scroll bar during animation if needed */
+    justify-content: center;
+    /* Ensure overlap happens at center */
+}
+
+.door-panel {
+    width: 51%;
+    /* Reason 3: Overlap to prevent 1px gap */
+    height: 100%;
+    position: relative;
+    /* 
+       Updated Transition for "Inertia" (Heavy Feel):
+       Starts slow (overcoming weight), accelerates, then smooth stop.
+       cubic-bezier(0.4, 0, 0.2, 1) is a good "heavy ease-out" / "standard ease".
+       Or try (0.3, 0, 0.1, 1).
+    */
+    transition: transform 2.5s cubic-bezier(0.4, 0.05, 0.2, 1);
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Shared Background Settings */
+    /* Reason 1: Force fit to ensure seam alignment even if aspect ratio differs */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    /* Handle borders correctly */
+}
+
+/* 3D Transform Origins & Images */
+.door-left {
+    transform-origin: left center;
+    background-image: url('../../assets/opening/door_left.png');
+    margin-right: -1px;
+    z-index: 100;
+    /* Ensure it floats above */
+
+    /* 
+       Reason 1: Drop Shadow (Depth) - Right side shadow
+    */
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.5);
+
+    /* Reason 2: Thickness (Pseudo-3D) - Border on right edge */
+    border-right: 8px solid #3e2b14;
+    /* Dark Wood Color */
+}
+
+.door-right {
+    transform-origin: right center;
+    background-image: url('../../assets/opening/door_right.png');
+    z-index: 100;
+
+    /* 
+       Reason 1: Drop Shadow (Depth) - Left side shadow
+    */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.5);
+
+    /* Reason 2: Thickness (Pseudo-3D) - Border on left edge */
+    border-left: 8px solid #3e2b14;
+    /* Dark Wood Color */
+}
+
+
+/* Open State - Swing Outwards (or Inwards) */
+/* Trying "Open Outwards" towards the viewer usually requires negative Z logic or just rotation away.
+   "Open Inwards" (away from viewer) is standard for entering a site.
+   RotateY(-90deg) for left, RotateY(90deg) for right opens "away" from viewer. */
+
+#opening-door.door-open .door-left {
+    transform: rotateY(-105deg);
+    /* Go a bit past 90 for effect */
+}
+
+#opening-door.door-open .door-right {
+    transform: rotateY(105deg);
+}
+
+/* Fade out the container and disable interactions */
+/* Using ID selector to ensure override of pointer-events: auto */
+#opening-door.door-open {
+    opacity: 0;
+    transition: opacity 0.8s ease-out 1.5s;
+    pointer-events: none;
+}
+
+/* Logo or Text in the middle (Optional) */
+.door-content {
+    color: white;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.door-open .door-content {
+    opacity: 0;
+}

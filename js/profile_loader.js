@@ -314,7 +314,8 @@ function getRelatedMembers(currentMember, allMembers) {
                 score += overlap * 10;
             }
             if (c.section === currentMember.section) {
-                score += 5;
+                // Prioritize same section heavily
+                score += 100;
             }
             return { member: c, score: score };
         });

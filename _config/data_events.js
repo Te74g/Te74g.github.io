@@ -25,36 +25,56 @@ window.partnerEventsData = [
     {
         id: "kitsunekotan",
         name: "休憩処 キツネコタン",
-        date: "第1・3・5 木曜日、第2・4水曜日 22:00～23:00",
+        date: "第1・3・5 木曜日<br>第2・4水曜日<br>22:00～23:00<br>※詳しくはXをご確認してください。",
         organizer: "あきあき",
-        organizerLogo: "assets/partner_events/akiaki_400x400.png", // Placeholder for Organizer Logo
+        organizerLogo: "assets/partner_events/organizers/akiaki.png", // Moved to organizers folder
         headerTextColor: "white", // Option to force white text
-        titleImage: "assets/partner_events/kitsunekotan_title_logo.png",
-        image: "assets/partner_events/kitsunekotan_logo.png",
+        titleImage: "assets/partner_events/kitsunekotan/title_logo.png",
+        image: "assets/partner_events/kitsunekotan/logo.png",
         link: "partner_events/event.html?id=kitsunekotan",
         desc: "休憩処 キツネコタンの提携ページです。",
-        poster: "assets/partner_events/kitsunekotan.png", // New Poster Field
-        backgroundImage: "assets/partner_events/kitsunekotan_Floor.png", // Test Background Image
+        poster: "assets/partner_events/kitsunekotan/poster.png", // Moved to subfolder
+        backgroundImage: "assets/partner_events/kitsunekotan/bg_floor.png", // Moved to subfolder
         images: [
-            "assets/partner_events/kitsunekotan_group_photo.png",
-            "assets/partner_events/kitsunekotan_group_photo2.png"
+            "assets/partner_events/kitsunekotan/group_00.png",
+            "assets/partner_events/kitsunekotan/group_01.png",
+            "assets/partner_events/kitsunekotan/group_02.png",
+            "assets/partner_events/kitsunekotan/group_03.png",
+            "assets/partner_events/kitsunekotan/group_04.png",
+            "assets/partner_events/kitsunekotan/group_05.png"
         ],
-        content: `
+
+        description: `
             <p>ここはきつねの住む休憩処。<br>
             くつろぎと団欒の空間。<br>
             <br>
-            「コタン」とは、アイヌ語で「集落」や「村落」を意味する言葉です。<br>
+            「コタン」とは、アイヌ語で「集落」や<br>
+            「村落」を意味する言葉です。<br>
+            <br>
+            雑談交流をメインとしています。<br>
             <br>
             ゆったりとおしゃべりをしたり、<br>
-            横になってくつろいだりする処です。<br>
-            おくつろげる服装をおすすめしております。<br>
+            横になってくつろいだり、<br>
+            ドリンクやお酒を飲んだり、<br>
+            ダーツやクレーンゲームで遊んだり、<br>
+            待ち時間の待機や待ち合わせなど、<br>
+            様々な用途でご利用いただけます。<br>
             <br>
-            ごゆるりとした時間をお過ごしください。</p>
-
+            また、おくつろげる服装をおすすめしております。<br>
+            ごゆるりとした時間をお過ごしください。<br>
+            <br>
+            ＃Kitsunekotan_VRC
+            </p>
+        `,
+        details: `
             <h3>イベント詳細</h3>
             <ul>
-                <li>主催者：あきあき</li>
-                <li>日時：第1・3・5 木曜日、第2・4水曜日 22:00～23:00</li>
+                <li>
+                    主催者：
+                    <img src="../assets/partner_events/organizers/akiaki.png" alt="あきあき" style="width: 28px; height: 28px; border-radius: 50%; vertical-align: middle; margin-right: 4px; object-fit: cover; border: 1px solid #ddd;">
+                    あきあき
+                </li>
+                <li>日時：第1・3・5 木曜日、第2・4水曜日 22:00～23:00<br>※詳しくはXをご確認してください。</li>
                 <li>場所：休憩処 キツネコタン Group＋インスタンス</li>
                 <li>参加条件：グループKTNKTN.4638に参加</li>
             </ul>
@@ -72,14 +92,14 @@ window.partnerEventsData = [
         name: "複数画像テスト(ポスター分離)",
         date: "2026.03.20",
         organizer: "テスト主催",
-        titleImage: "assets/partner_events/kitsunekotan_title_logo.png", // Test Title Image
-        titleImageDark: "assets/partner_events/kitsunekotan_title_logo.png", // Test Dark Mode Title Image (Optional)
-        titleImageLight: "assets/partner_events/kitsunekotan_title_logo.png", // Explicit light mode title (optional if same as titleImage)
-        poster: "assets/partner_events/kitsunekotan_logo.png", // New Poster Field
-        backgroundImage: "assets/partner_events/kitsunekotan.png", // Test Background Image
+        titleImage: "assets/partner_events/kitsunekotan/title_logo.png", // Test Title Image
+        titleImageDark: "assets/partner_events/kitsunekotan/title_logo.png", // Test Dark Mode Title Image (Optional)
+        titleImageLight: "assets/partner_events/kitsunekotan/title_logo.png", // Explicit light mode title (optional if same as titleImage)
+        poster: "assets/partner_events/kitsunekotan/logo.png", // New Poster Field (was logo)
+        backgroundImage: "assets/partner_events/kitsunekotan/poster.png", // Test Background Image (was poster)
         images: [
             // "assets/partner_events/kitsunekotan.png", // Moved to poster
-            "assets/partner_events/kitsunekotan_group_photo2.png"
+            "assets/partner_events/kitsunekotan/group_02.png"
         ],
         // No explicit link, should be generated automatically
         desc: "ポスターと画像を分離したレイアウトのテストです。",

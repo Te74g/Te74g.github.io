@@ -160,6 +160,11 @@
     transform: rotate(-15deg);
 }
 
+.parchment-frame p {
+    margin-top: 0;
+    line-height: 1.8;
+}
+
 /* --- Block 2: Goals Section --- */
 .goals-section {
     margin-bottom: 24px;
