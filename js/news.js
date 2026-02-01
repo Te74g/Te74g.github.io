@@ -12,7 +12,7 @@
     if (newsContainer && window.newsData) {
         window.newsData.forEach(item => {
             const link = document.createElement("a");
-            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.link || "#");
+            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
             const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
 
             link.href = pageUrl;
@@ -50,7 +50,7 @@
 
         carouselItems.forEach((item, i) => {
             const card = document.createElement("a");
-            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.link || "#");
+            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
             const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
 
             card.href = pageUrl;
