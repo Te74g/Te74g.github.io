@@ -120,11 +120,77 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!bgPath.startsWith('http') && !bgPath.startsWith('../') && !bgPath.startsWith('/')) {
                 bgPath = '../' + bgPath;
             }
-            document.body.style.backgroundImage = `url('${bgPath}')`;
-            document.body.style.backgroundSize = 'cover';
-            document.body.style.backgroundPosition = 'center';
-            document.body.style.backgroundAttachment = 'fixed';
-            document.body.style.backgroundRepeat = 'no-repeat';
+
+            // Preloader Logic using Class State (to match site animation)
+            const styleId = 'preloader-style';
+            if (!document.getElementById(styleId)) {
+                const style = document.createElement('style');
+                style.id = styleId;
+                style.textContent = `
+                    body.is-preloading main { opacity: 0; }
+                    body.is-preloading .reveal { animation: none !important; opacity: 0 !important; }
+                `;
+                document.head.appendChild(style);
+            }
+
+            document.body.classList.add('is-preloading');
+
+            const bgImg = new Image();
+
+            const revealContent = () => {
+                // Prevent double execution
+                if (bgImg.dataset.loaded) return;
+                bgImg.dataset.loaded = "true";
+
+                // Create Fixed Background Element with Blur
+                let bgContainer = document.getElementById('fixed-bg-container');
+                if (!bgContainer) {
+                    bgContainer = document.createElement('div');
+                    bgContainer.id = 'fixed-bg-container';
+                    bgContainer.style.position = 'fixed';
+                    bgContainer.style.top = '0';
+                    bgContainer.style.left = '0';
+                    bgContainer.style.width = '100VW';
+                    bgContainer.style.height = '100VH';
+                    bgContainer.style.zIndex = '-999';
+                    bgContainer.style.filter = 'blur(4px)';
+                    bgContainer.style.transform = 'scale(1.05)'; // Scale up slightly to avoid blurred edges
+                    bgContainer.style.pointerEvents = 'none'; // Click-through
+                    document.body.prepend(bgContainer);
+                }
+
+                bgContainer.style.backgroundImage = `url('${bgPath}')`;
+                bgContainer.style.backgroundSize = 'cover';
+                bgContainer.style.backgroundPosition = 'center';
+                bgContainer.style.backgroundAttachment = 'fixed'; // Keep it fixed
+                bgContainer.style.backgroundRepeat = 'no-repeat';
+
+                // Cleanup body background if set previously
+                document.body.style.backgroundImage = 'none';
+
+                // Small delay to ensure background renders
+                requestAnimationFrame(() => {
+                    document.body.classList.remove('is-preloading');
+                });
+            };
+
+            bgImg.onload = revealContent;
+            bgImg.onerror = revealContent; // Show anyway if error
+
+            // Start load
+            bgImg.src = bgPath;
+
+            // Check if already complete (cached)
+            if (bgImg.complete) {
+                revealContent();
+            }
+
+            // Fallback timeout (3s)
+            setTimeout(revealContent, 3000);
+
+        } else {
+            // No background image, show content immediately (if it was hidden by default, but here we assume it's visible unless JS hides it)
+            // We didn't hide it by CSS default, so nothing to do.
         }
 
         // Render Image with Selector
