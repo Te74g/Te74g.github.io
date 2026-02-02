@@ -42,14 +42,22 @@
 
 .card .watermark-logo {
     position: absolute;
-    bottom: -20px;
+    top: auto;
+    left: auto;
+    bottom: -10px;
     right: -10px;
     width: 150px;
-    height: auto;
-    opacity: 0.08;
+    height: 85px;
+    /* Fixed height to prevent stretching */
+    opacity: 0.15;
     pointer-events: none;
     transform: rotate(-15deg);
     z-index: 0;
+
+    /* Ensure aspect ratio is preserved */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
 }
 
 .card-top {

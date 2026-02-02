@@ -31,7 +31,8 @@
                         写真を見る (${item.images ? item.images.length : 0}枚) &rarr;
                     </div>
                 </div>
-                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                </div>
+                <div class="watermark-logo"></div>
             `;
 
             // Click event to open lightbox
