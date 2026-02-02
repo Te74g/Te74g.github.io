@@ -101,7 +101,8 @@
     z-index: 50;
     pointer-events: none;
     /* CSS Animation for smooth fade out on iOS */
-    animation: flashFadeOut 0.8s ease-out 0.5s forwards;
+    /* Speed up: 0.1s delay, 0.4s duration */
+    animation: flashFadeOut 0.4s ease-out 0.1s forwards;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
@@ -229,8 +230,8 @@
     }
 
     .hero-content {
-        padding-bottom: 10vh;
-        /* Less space to keep logo low */
+        padding-bottom: 6vh;
+        /* Reduce padding to lower the content */
     }
 
     .hero-logo {
