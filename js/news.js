@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <!-- Watermark Logo -->
-                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                <div class="watermark-logo"></div>
             `;
             newsContainer.appendChild(link);
         });
@@ -66,7 +66,7 @@
                     <div style="font-size:0.85em; text-align:right; margin-top:auto; font-weight:bold;">もっとみる &rarr;</div>
                 </div>
                 <!-- Watermark Logo -->
-                <img src="./assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                <div class="watermark-logo"></div>
             `;
             track.appendChild(card);
         });
