@@ -332,10 +332,11 @@ main,
 
     /* iOS Safari Optimization */
     will-change: opacity, visibility;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 
-    transition: opacity 0.5s linear, visibility 0.5s linear;
+    transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.3s;
 }
 
 /* Subpage Variant: Below Header (z-index 50) */
