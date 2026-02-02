@@ -423,9 +423,16 @@
     }
   }
 
+  // Start timer immediately to run in parallel with loading
+  const startTime = Date.now();
+  const MIN_DISPLAY_TIME = 3000; // Minimum time to show loader (ms)
+
   window.addEventListener('load', () => {
-    // Minimal delay of 3 seconds for effect
-    // Minimal delay of 3 seconds for effect
+    // Calculate how much time has passed since script started
+    const elapsedTime = Date.now() - startTime;
+    // Wait only the remaining time needed to reach MIN_DISPLAY_TIME
+    const remainingTime = Math.max(0, MIN_DISPLAY_TIME - elapsedTime);
+
     setTimeout(() => {
       const loader = document.getElementById('opening-loader-overlay');
       if (loader) {
@@ -460,7 +467,7 @@
           document.body.classList.remove('is-preloading');
         }, 800);
       }
-    }, 3000); // 3000ms delay
+    }, remainingTime);
   });
 
   // --- Animation Logic ---
