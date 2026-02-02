@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 descriptionHtml = `
                     <div class="parchment-frame" style="margin-top:0;">
                         ${eventItem.description}
-                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                        <div class="watermark-logo"></div>
                     </div>
                 `;
             } else if (eventItem.content) {
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 descriptionHtml = `
                     <div class="parchment-frame" style="margin-top:0;">
                         ${eventItem.content}
-                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                        <div class="watermark-logo"></div>
                     </div>
                 `;
             }
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="parchment-frame">
                         ${eventItem.details}
                         ${socialHtml}
-                        <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                        <div class="watermark-logo"></div>
                     </div>
                 `;
             }

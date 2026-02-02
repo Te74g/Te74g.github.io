@@ -32,7 +32,8 @@
                         ${item.url}
                     </div>
                 </div>
-                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                </div>
+                <div class="watermark-logo"></div>
             `;
             linksContainer.appendChild(link);
         });

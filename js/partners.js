@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!-- Watermark -->
-                <img src="../assets/logo/aniamemoria_logo.png" class="watermark-logo" alt="">
+                <div class="watermark-logo"></div>
             `;
             partnerContainer.appendChild(card);
         });

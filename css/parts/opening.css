@@ -12,7 +12,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
+    /* Use dvh for iOS address bar */
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,9 +98,23 @@
     position: absolute;
     inset: 0;
     background-color: white;
-    opacity: 0;
-    pointer-events: none;
     z-index: 50;
+    pointer-events: none;
+    /* CSS Animation for smooth fade out on iOS */
+    animation: flashFadeOut 0.8s ease-out 0.5s forwards;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes flashFadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 /* Content Wrapper */
@@ -224,6 +240,9 @@
 
     .hero-subtitle {
         font-size: clamp(12px, 4vw, 16px);
+        margin-top: 1.5rem;
+        /* iOS fallback spacing */
+        line-height: 1.8;
     }
 }
 
