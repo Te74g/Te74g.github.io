@@ -242,12 +242,12 @@
 
     .hero-logo {
         width: 90vw;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
     }
 
     .hero-subtitle {
         font-size: clamp(12px, 4vw, 16px);
-        margin-top: 1.5rem;
+        margin-top: 0.5rem;
         /* iOS fallback spacing */
         line-height: 1.8;
     }
