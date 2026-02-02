@@ -430,6 +430,11 @@
       if (loader) {
         loader.classList.add('is-hidden');
 
+        // FORCE DISPLAY NONE AFTER TRANSITION (For iOS performance)
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500); // Match CSS transition duration
+
         // Trigger Hero Animation (Delayed)
         const hero = document.getElementById('hero-section');
         if (hero) {
