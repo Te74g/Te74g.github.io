@@ -63,9 +63,9 @@
 }
 
 /* Triggered by JS after opening */
-.animate-start .scroll-down {
-    animation: fadeInScroll 1s ease 2.5s forwards;
-    /* Delay 2.5s */
+.scroll-down.is-visible {
+    opacity: 1;
+    transition: opacity 1s ease;
 }
 
 @keyframes fadeInScroll {
