@@ -154,7 +154,7 @@
     transform-origin: center bottom;
     z-index: 10;
 
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
     backface-visibility: hidden;
 
     /* Gradient Mask to fade feet */
@@ -187,7 +187,7 @@
     z-index: 20;
 
     /* Performance Hints */
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
     backface-visibility: hidden;
 }
 
@@ -332,7 +332,7 @@
     0% {
         opacity: 0;
         transform: translateX(-50%) scale(1.15);
-        filter: brightness(20) drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+        filter: brightness(3);
     }
 
     15% {
@@ -340,13 +340,13 @@
     }
 
     20% {
-        filter: brightness(5) drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+        filter: brightness(1.5);
     }
 
     100% {
         opacity: 1;
         transform: translateX(-50%) scale(1);
-        filter: brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+        filter: brightness(1);
     }
 }
 
@@ -355,7 +355,7 @@
     0% {
         opacity: 0;
         transform: scale(1.15);
-        filter: brightness(20) drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+        filter: brightness(3);
     }
 
     15% {
@@ -363,7 +363,7 @@
     }
 
     20% {
-        filter: brightness(5);
+        filter: brightness(1.5);
     }
 
     100% {
