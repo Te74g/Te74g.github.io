@@ -236,6 +236,10 @@
         /* Reduce padding to lower the content */
     }
 
+    .scroll-down {
+        bottom: 10px;
+    }
+
     .hero-logo {
         width: 90vw;
         margin-bottom: 0.5rem;
@@ -347,6 +351,22 @@
         opacity: 1;
         transform: translateX(-50%) scale(1);
         filter: brightness(1);
+    }
+}
+
+.hero-character.with-shadow {
+    animation: fade-in-shadow 1s ease forwards;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+@keyframes fade-in-shadow {
+    0% {
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
     }
 }
 

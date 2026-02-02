@@ -454,6 +454,12 @@
           setTimeout(() => {
             hero.classList.add('animate-start');
 
+            // Trigger Shadow after animation (0.8s) + buffer -> 1000ms
+            setTimeout(() => {
+              const charEl = document.querySelector('.hero-character');
+              if (charEl) charEl.classList.add('with-shadow');
+            }, 1000);
+
             // Trigger Subtitle Typewriter + Sparkle (Synced with Logo: ~1.0s delay + anim)
             // Logo starts at 1.0s delay. Let's start text slightly after.
             setTimeout(() => {
