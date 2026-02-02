@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>あにあめもりあ | イベント</title>
   <meta name="description" content="あにあめもりあ公式サイト：イベント情報・キャスト紹介・お問い合わせ" />
 
@@ -479,6 +479,14 @@
   // --- Animation Logic ---
   function animateSubtitle() {
     const chars = document.querySelectorAll('.hero-subtitle .char');
+    const totalDuration = chars.length * 100;
+
+    // Show scroll indicator after text finishes + 500ms pause
+    setTimeout(() => {
+      const scroll = document.querySelector('.scroll-down');
+      if (scroll) scroll.classList.add('is-visible');
+    }, totalDuration + 500);
+
     chars.forEach((char, index) => {
       setTimeout(() => {
         char.classList.add('is-visible');
