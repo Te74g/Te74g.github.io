@@ -425,15 +425,21 @@
 
   window.addEventListener('load', () => {
     // Minimal delay of 3 seconds for effect
+    // Minimal delay of 3 seconds for effect
     setTimeout(() => {
       const loader = document.getElementById('opening-loader-overlay');
       if (loader) {
-        loader.classList.add('is-hidden');
+        // Optimized for Safari: Double RAF to ensure layout is ready
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            loader.classList.add('is-hidden');
+          });
+        });
 
         // FORCE DISPLAY NONE AFTER TRANSITION (For iOS performance)
         setTimeout(() => {
           loader.style.display = 'none';
-        }, 500); // Match CSS transition duration
+        }, 500); // Wait slightly longer than transition (0.3s) just in case
 
         // Trigger Hero Animation (Delayed)
         const hero = document.getElementById('hero-section');
@@ -446,7 +452,7 @@
             setTimeout(() => {
               animateSubtitle();
             }, 1800);
-          }, 1250); // Wait a little after loader starts fading
+          }, 1000); // Reduced delay slightly due to faster loader fade
         }
 
         // Remove scroll lock after fade

@@ -101,10 +101,12 @@
     z-index: 50;
     pointer-events: none;
     /* CSS Animation for smooth fade out on iOS */
-    /* Speed up: 0.1s delay, 0.4s duration */
-    animation: flashFadeOut 0.4s ease-out 0.1s forwards;
+    /* Speed up: 0.1s delay, 0.3s duration */
+    animation: flashFadeOut 0.3s ease-out 0.1s forwards;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: opacity;
 }
 
 @keyframes flashFadeOut {
@@ -338,13 +340,13 @@
     }
 
     20% {
-        filter: brightness(5);
+        filter: brightness(5) drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
     }
 
     100% {
         opacity: 1;
         transform: translateX(-50%) scale(1);
-        filter: brightness(1);
+        filter: brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
     }
 }
 
