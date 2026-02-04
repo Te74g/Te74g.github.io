@@ -47,7 +47,24 @@ async function convertImage(filePath) {
     const outputFilename = `${filename}.webp`;
     const outputPath = path.join(outputDir, outputFilename);
 
-    // 既に存在し、更新日時が新しければスキップなどの判定も可能だが、今回は常に上書きまたは生成
+    // 既に存在し、更新日時が新しければスキップ
+    if (fs.existsSync(outputPath)) {
+        const sourceStats = fs.statSync(filePath);
+        const outputStats = fs.statSync(outputPath);
+
+        if (outputStats.mtime > sourceStats.mtime) {
+            // WebPの方が新しい場合、変換をスキップしてマニフェスト登録だけ行う
+            // console.log(`Skipping (Already up-to-date): ${relativePath}`);
+
+            // マニフェストへの登録処理（スキップ時も必須）
+            const normalize = (p) => p.split(path.sep).join('/');
+            const originalKey = `assets/${normalize(relativePath)}`;
+            const webpValue = `assets_webp/${normalize(path.join(subDir, outputFilename))}`;
+            imageManifest[originalKey] = webpValue;
+            return;
+        }
+    }
+
     try {
         await sharp(filePath)
             .resize(1200, null, { withoutEnlargement: true })
