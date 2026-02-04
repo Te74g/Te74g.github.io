@@ -26,10 +26,10 @@ window.siteConfig = {
 
     // ヒーローセクションの画像設定（ここで画像パスを変更できます）
     heroImages: {
-        character: "./assets/opening/Tatie3.png", // 立ち絵
-        logo: "./assets/logo/aniamemoria_logo.png", // ロゴ（ライトモード）
-        logoDark: "./assets/opening/aniamemoria_logo_darktheme_shadow.png", // ロゴ（ダークモード）
-        background: "./assets/page/unei_low_res.png" // 背景画像
+        character: "./assets_webp/opening/Tatie3.webp", // 立ち絵
+        logo: "./assets_webp/logo/aniamemoria_logo.webp", // ロゴ（ライトモード）
+        logoDark: "./assets_webp/opening/aniamemoria_logo_darktheme_shadow.webp", // ロゴ（ダークモード）
+        background: "./assets_webp/page/unei_low_res.webp" // 背景画像
     },
 
     // Aboutセクションの設定
@@ -41,20 +41,20 @@ window.siteConfig = {
             "当イベントは、接客を通じて人間界の情報を集めるイベントです。",
             "個性豊かなキャストたちが、あなたのご来店を心待ちしております。"
         ],
-        image: "./assets/opening/Tatie3.png" // Aboutセクションの画像
+        image: "./assets_webp/opening/Tatie3.webp" // Aboutセクションの画像
     },
 
     // ローダーのロゴ設定
     loaderLogos: {
         // オープニングページ用ローダー
         opening: {
-            light: "./assets/logo/aniamemoria_logo.png",
-            dark: "./assets/logo/aniamemoria_logo_darktheme.png"
+            light: "./assets_webp/logo/aniamemoria_logo.webp",
+            dark: "./assets_webp/logo/aniamemoria_logo_darktheme.webp"
         },
         // サブページ用ローダー
         subpage: {
-            light: "./assets/logo/aniamemoria_logo.png",
-            dark: "./assets/logo/aniamemoria_logo_darktheme.png"
+            light: "./assets_webp/logo/aniamemoria_logo.webp",
+            dark: "./assets_webp/logo/aniamemoria_logo_darktheme.webp"
         }
     }
 };

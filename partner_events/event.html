@@ -58,6 +58,7 @@
 
     <div id="footer-placeholder"></div>
     <script src="../js/common-layout.js"></script>
+    <script src="../js/utils.js"></script>
     <script>
         renderLayout('../');
     </script>
@@ -83,7 +84,9 @@
 
                 if (eventItem && eventItem.titleImage) {
                     let titleLogoPath = eventItem.titleImage;
-                    if (!titleLogoPath.startsWith('http') && !titleLogoPath.startsWith('../') && !titleLogoPath.startsWith('/')) {
+                    if (window.fixPath) {
+                        titleLogoPath = window.fixPath(titleLogoPath);
+                    } else if (!titleLogoPath.startsWith('http') && !titleLogoPath.startsWith('../') && !titleLogoPath.startsWith('/')) {
                         titleLogoPath = '../' + titleLogoPath;
                     }
 
@@ -102,7 +105,14 @@
                     };
                     const defaultLogo = isDarkMode ? loaderConfig.dark : loaderConfig.light;
                     // Adjust path for subpage context
-                    const adjustedPath = defaultLogo.startsWith('../') ? defaultLogo : '../' + defaultLogo.replace('./', '');
+                    let adjustedPath = defaultLogo;
+                    if (window.fixPath) {
+                        adjustedPath = window.fixPath(defaultLogo);
+                    } else if (defaultLogo.startsWith('./')) {
+                        adjustedPath = '../' + defaultLogo.replace('./', '');
+                    } else if (!defaultLogo.startsWith('../')) {
+                        adjustedPath = '../' + defaultLogo;
+                    }
                     if (loaderBack) loaderBack.src = adjustedPath;
                     if (loaderFront) loaderFront.src = adjustedPath;
                 }

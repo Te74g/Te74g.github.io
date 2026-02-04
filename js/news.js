@@ -4,7 +4,12 @@
  * Depends on: utils.js, data_news.js
  */
 
-(function () {
+(async function () {
+    // Wait for Manifest
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     /* -------------------------------------------------------
        1. ニュース一覧ページ (news/index.html) の生成
        ------------------------------------------------------- */

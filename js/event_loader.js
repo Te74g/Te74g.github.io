@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    // Wait for Manifest to ensure WebP paths are resolved
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
@@ -77,13 +82,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         };
 
-        // Helper: Path Normalizer
+        // Helper: Path Normalizer -> Use global fixPath for WebP support
         const normalizePath = (path) => {
-            if (!path) return '';
-            if (!path.startsWith('http') && !path.startsWith('../') && !path.startsWith('/')) {
-                return '../' + path;
-            }
-            return path;
+            return window.fixPath ? window.fixPath(path) : path;
         };
 
         // Initialize Progress (0%)

@@ -20,7 +20,7 @@
     align-items: center;
     overflow: hidden;
     /* User requested background */
-    background: url('../../assets/page/unei_low_res.png') no-repeat center center/cover;
+    background: url('../../assets_webp/page/unei_low_res.webp') no-repeat center center/cover;
     z-index: -1;
     /* Behind main content */
 

@@ -4,7 +4,12 @@
  * Requires: site_data.js (membersData), profile_switcher.js (ProfileImageSwitcher)
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Wait for Manifest to ensure WebP paths are resolved
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     if (typeof membersData === 'undefined') {
         console.error('membersData is not defined. Make sure site_data.js is loaded.');
         return;
@@ -89,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (member.motifAnimal && member.motifIcon) {
         const motifContainer = document.getElementById('dynamic-motif-container');
         if (motifContainer) {
-            let iconPath = fixPath(member.motifIcon);
+            let iconPath = window.fixPath(member.motifIcon);
             motifContainer.innerHTML = `
                 <div class="motif-container">
                     <div class="motif-icon-box">
@@ -108,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (member.sign) {
         const signImg = document.getElementById('profile-sign-img');
         if (signImg) {
-            signImg.src = fixPath(member.sign);
+            signImg.src = window.fixPath(member.sign);
             signImg.style.display = 'block';
         }
     }
@@ -178,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 imgPath = relatedMember.image;
             }
-            imgPath = fixPath(imgPath);
+            imgPath = window.fixPath(imgPath);
 
             // Link path fix
             let linkPath = relatedMember.link || `member/profile.html?id=${relatedMember.id}`;
@@ -286,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (pageBgPath) {
         const fixedBgEl = document.getElementById('fixed-page-background');
-        const bgUrl = fixPath(pageBgPath);
+        const bgUrl = window.fixPath(pageBgPath);
 
         // Preload Image
         const img = new Image();
@@ -327,18 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Helper Functions
 // ==========================================
 
-function fixPath(path) {
-    if (!path) return "";
-    if (path.match(/^(http|\/\/)/)) return path;
-
-    // We are in /member/ folder usually.
-    // Data paths are like "assets/member/..."
-    // We need "../assets/member/..."
-    if (!path.startsWith('../') && !path.startsWith('/')) {
-        return '../' + path;
-    }
-    return path;
-}
+// function fixPath(path) { ... } -> Removed to use window.fixPath from utils.js
 
 function getRelatedMembers(currentMember, allMembers) {
     let results = [];

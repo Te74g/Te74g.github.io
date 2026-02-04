@@ -1,0 +1,37 @@
+name: Deploy Optimized Site
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # キャッシュを使ってビルドを高速化
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Assets
+        # jsフォルダ内のスクリプトを実行 (assets -> assets_webp変換 & manifest生成)
+        run: node js/convert.js
+
+      - name: Prepare Public Files
+        # distフォルダを作成し、必要な全ファイルをコピー
+        # node_modules, .git, .github, dist自身は除外
+        run: |
+          mkdir -p dist
+          rsync -av --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='dist' . dist/
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages

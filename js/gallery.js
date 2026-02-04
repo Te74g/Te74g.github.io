@@ -4,7 +4,12 @@
  * Depends on: utils.js, data_gallery.js
  */
 
-(function () {
+(async function () {
+    // Wait for Manifest
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     /* -------------------------------------------------------
        GALLERY GENERATION
        ------------------------------------------------------- */

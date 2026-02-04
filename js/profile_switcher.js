@@ -25,27 +25,15 @@ class ProfileImageSwitcher {
        STATIC INITIALIZER
        Finds all containers and Inits them based on data
        ---------------------------------------------------- */
-    static initAll() {
+    static async initAll() {
         if (!window.membersData) return;
 
-        // Helper to fix paths relative to current page
-        const fixPath = (path) => {
-            if (!path) return "";
-            if (path.match(/^(http|\/\/)/)) return path;
+        // Wait for Manifest
+        if (window.manifestPromise) {
+            try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+        }
 
-            // Remove ./ if present
-            let cleanPath = path;
-            if (cleanPath.startsWith("./")) cleanPath = cleanPath.slice(2);
-
-            // Check if we are in a sub-directory
-            const subDirs = ["/member/", "/news/", "/partner_events/", "/pages/", "/gallery/"];
-            const isSubDir = subDirs.some(dir => window.location.pathname.includes(dir));
-
-            if (isSubDir) {
-                return "../" + cleanPath;
-            }
-            return "./" + cleanPath;
-        };
+        // Using global window.fixPath instead of local definition
 
         const containers = document.querySelectorAll('.profile-switcher-container[data-member-id]');
         containers.forEach(container => {
@@ -56,9 +44,9 @@ class ProfileImageSwitcher {
                 // Priority: profileImages array > single image
                 let images = [];
                 if (member.profileImages && member.profileImages.length > 0) {
-                    images = member.profileImages.map(p => fixPath(p));
+                    images = member.profileImages.map(p => window.fixPath(p));
                 } else if (member.image) {
-                    images = [fixPath(member.image)];
+                    images = [window.fixPath(member.image)];
                 }
 
                 if (images.length > 0) {
@@ -210,88 +198,14 @@ class ProfileImageSwitcher {
 }
 
 // Auto-init on load
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+    // Wait for manifest here too just in case
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { }
+    }
     ProfileImageSwitcher.initAll();
 });
 
 
-/* =========================================
-   PROFILE BACKGROUND DYNAMIC SWITCHER
-   メンバーのタグに応じて背景画像を切り替える処理
-   ========================================= */
-(function () {
-    window.addEventListener('DOMContentLoaded', () => {
-        // ターゲット要素 (背景テクスチャ) を取得
-        // クラス名 .profile-bg-texture を想定
-        const bgElement = document.querySelector('.profile-bg-texture');
-        if (!bgElement || !window.membersData) return;
 
-        // メンバーIDの特定
-        // 1. data-member-id 属性を探す (.profile-switcher-container など)
-        let memberId = null;
-        const switcher = document.querySelector('[data-member-id]');
-        if (switcher) {
-            memberId = switcher.getAttribute('data-member-id');
-        } else {
-            // 2. なければURLから推測 (例: profile_ten.html -> ten)
-            const match = window.location.pathname.match(/profile_([a-zA-Z0-9]+)\.html/);
-            if (match) {
-                memberId = match[1];
-            } else {
-                // 3. New URL format: profile.html?id=ten
-                const params = new URLSearchParams(window.location.search);
-                memberId = params.get('id');
-            }
-        }
-
-        if (!memberId) return;
-
-        // データ照合
-        const member = window.membersData.find(m => m.id === memberId);
-        if (!member) return;
-
-        // --- 背景画像定義 ---
-        const BG_MAP = {
-            'A': '../assets/member_parts/aniamemoria_member_background_A.png', // 飼育
-            'B': '../assets/member_parts/aniamemoria_member_background_B.png', // 妖怪
-            'C': '../assets/member_parts/aniamemoria_member_background_C.png', // 野生
-            'D': '../assets/member_parts/aniamemoria_member_background_D.png', // スタッフ
-            'E': '../assets/member_parts/aniamemoria_member_background_E.png'  // 運営
-        };
-
-        // --- 判定ロジック ---
-        // 順位: 運営(E) > 飼育(A) = 野生(C) = 妖怪(B) > スタッフ(D)
-
-        const tags = member.tags || "";
-
-        let selectedBg = null;
-
-        if (tags.includes("運営")) {
-            selectedBg = BG_MAP['E'];
-        } else if (tags.includes("飼育")) {
-            selectedBg = BG_MAP['A'];
-        } else if (tags.includes("野生")) {
-            selectedBg = BG_MAP['C'];
-        } else if (tags.includes("妖怪")) {
-            selectedBg = BG_MAP['B'];
-        } else if (tags.includes("スタッフ")) {
-            selectedBg = BG_MAP['D'];
-        }
-
-        // --- 適用 ---
-        if (selectedBg) {
-            // パス補正 (念のため)
-            // 現在のページが member/profile_ten.html (1階層深い) と仮定
-            // BG_MAPの定義は '../' 始まりなのでそのまま適用可能
-
-            // ただし、もしトップページなどで使う場合は補正が必要だが、
-            // これはプロフィールページ専用の処理とする
-
-            bgElement.style.backgroundImage = `url('${selectedBg}')`;
-
-            // ログ出力 (確認用)
-            // console.log(`Profile Background Applied: ${selectedBg} for ${member.name}`);
-        }
-    });
-})();
 

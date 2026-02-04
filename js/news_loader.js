@@ -3,7 +3,12 @@
  * Dynamically loads news article content based on URL query parameter `?id=...`
  * Requires: site_data.js (newsData)
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Wait for Manifest
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     if (!window.newsData) {
         console.error('newsData is not defined.');
         return;
@@ -44,13 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageContainer = document.getElementById('dynamic-article-image');
         if (imageContainer) {
             if (article.imagePath || article.image) {
-                // Use imagePath if available, else image (but handle relative paths)
-                let imgPath = article.imagePath || article.image;
-
-                // Fix path helper (simple version)
-                if (!imgPath.startsWith('http') && !imgPath.startsWith('../') && !imgPath.startsWith('/')) {
-                    imgPath = '../' + imgPath;
-                }
+                // Use imagePath if available, else image
+                let rawPath = article.imagePath || article.image;
+                let imgPath = window.fixPath(rawPath);
 
                 imageContainer.innerHTML = `
                     <div style="margin-bottom: 32px;">
