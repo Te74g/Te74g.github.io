@@ -168,6 +168,32 @@ window.membersData = [
         introduction: "野生区画のウルフのジョンです。ワイルドに盛り上げます。",
         socials: []
     },
+    {
+        id: "kirara",
+        name: "キララ",
+        tagLabel: "野生",
+        tags: "キャスト 野生",
+        profileImages: [
+            "assets/member/キララ/profile1.png",
+            "assets/member/キララ/profile2.png",
+            "assets/member/キララ/profile3.png",
+        ],
+        goals: [
+            "キラキラになること",
+            "愛されること",
+            "あにあめもりあの成功"
+        ],
+        motifAnimal: "猫",
+        motifIcon: "assets/member/キララ/motif_animal_neko3.png",
+        section: "野生区画",
+        introduction: `あにあめもりあの一員。もともとペットショップで売れ残っていたところ、
+        脱走し路頭に迷っていたところを店長に見つけられ拾われる。    
+        衣食住を提供してもらう代わりにあにあめもりあで働くことに。<br><br>
+        「黒猫はSNSで映えない」という言葉を聞いてから、“ばえ”や“ばず”にこだわってしまうことも……。（いつもうまくいかず失敗している）<br><br>
+        キラキラとしたものに憧れており、いつか自分もキラキラになると豪語している。<br><br>
+        ツンデレなのにチョロく、騙されやすい。`,
+        socials: []
+    },
 
     // --- 妖怪区画 ---
     {
@@ -182,6 +208,33 @@ window.membersData = [
         ハサミで切れない縁はない…なんて嘘嘘！<br>
         仲良くしてくれないとチョッキンしちゃうぞ〜V`,
         socials: [] // 架空のため空
+    },
+    {
+        id: "kyosu",
+        name: "きょすー！",
+        tagLabel: "妖怪",
+        tags: "キャスト 妖怪",
+        profileImages: [
+            "assets/member/きょすー！/profile1.png",
+            "assets/member/きょすー！/profile2.png",
+            "assets/member/きょすー！/profile3.png",
+            "assets/member/きょすー！/profile4.png",
+        ],
+        goals: [
+            "人間と仲良くして、神社に遊びに来てもらう。",
+            "音楽でちょっと成功してみたい。",
+        ],
+        motifAnimal: "狐",
+        motifIcon: "assets/member/きょすー！/motif_animal_kitsune.png",
+        section: "妖怪区画",
+        introduction: `音楽を祀る神社の音楽ができる妖怪。<br>
+ちゃらんぽらんでとても頼りないが好奇心旺盛で人の話を聞くことが好き。<br>
+神社での生活が暇になり山を下りては音楽を求め人間の姿をしてクラブに通う。<br><br>
+500年ぐらいは生きているが、九尾としてはまだまだ若者であるため普通にSNSや掲示板も使ったりする。<br>
+そのせいか若者言葉が出てきてしまうこともあるが、それはご愛敬。`,
+        socials: [
+            { type: "linktr.ee", url: "https://linktr.ee/kyosuu_maginary" },
+        ]
     },
 
     // --- スタッフ ---
