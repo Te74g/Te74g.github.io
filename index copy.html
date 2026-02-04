@@ -19,8 +19,8 @@
 <div id="opening-loader-overlay">
   <div class="loader-logo-container">
     <div class="logo-wrapper">
-      <img src="./assets/logo/aniamemoria_logo.png" alt="Loading..." class="loader-logo-back">
-      <img src="./assets/logo/aniamemoria_logo.png" alt="" class="loader-logo-front">
+      <img src="./assets_webp/logo/aniamemoria_logo.webp" alt="Loading..." class="loader-logo-back">
+      <img src="./assets_webp/logo/aniamemoria_logo.webp" alt="" class="loader-logo-front">
     </div>
     <p class="loader-text">Loading...</p>
   </div>
@@ -36,8 +36,8 @@
     <div class="hero-flash"></div>
 
     <div class="hero-content">
-      <img class="hero-character" src="./assets/opening/Tatie.png" alt="Character">
-      <img class="hero-logo" src="./assets/logo/aniamemoria_logo.png" alt="AniameMoria">
+      <img class="hero-character" src="./assets_webp/opening/Tatie.webp" alt="Character">
+      <img class="hero-logo" src="./assets_webp/logo/aniamemoria_logo.webp" alt="AniameMoria">
       <p class="hero-subtitle">AniameMoria</p>
 
       <!-- Scroll Down Indicator -->
@@ -328,8 +328,8 @@
 
   // Use config or fallback to hardcoded paths
   const loaderConfig = window.siteConfig?.loaderLogos?.opening || {
-    light: './assets/logo/aniamemoria_logo.png',
-    dark: './assets/logo/aniamemoria_logo_darktheme.png'
+    light: './assets_webp/logo/aniamemoria_logo.webp',
+    dark: './assets_webp/logo/aniamemoria_logo_darktheme.webp'
   };
   const defaultLogo = isDark ? loaderConfig.dark : loaderConfig.light;
 

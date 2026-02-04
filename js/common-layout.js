@@ -11,24 +11,28 @@
   //    scriptタグのdata属性などで渡すことも検討できますが、
   //    今回はシンプルに renderLayout('relative/path/to/root') で呼び出す方式を想定。
 
-  window.renderLayout = function (rootPath) {
-    // rootPathの末尾にスラッシュがない場合は補完（空文字以外）
-    if (rootPath && !rootPath.endsWith('/') && rootPath !== '') {
-      rootPath += '/';
-    }
-    // rootPathが空文字や undefined の場合は "./" とみなす
-    if (!rootPath) rootPath = './';
+  // Helper to resolve path if manifest is ready (best effort)
+  const resolvePath = (path) => {
+    if (window.fixPath && window.imageManifest) return window.fixPath(path);
+    return path;
+  };
 
-    // -----------------------------------------------------------
-    // 2. HTMLテンプレート (Header)
-    // -----------------------------------------------------------
+  window.renderLayout = function (rootPath) {
+    // ... (rest of logic)
+
+    // Construct paths
+    const logoDark = resolvePath(rootPath + 'assets_webp/logo/aniamemoria_logo_darktheme.webp');
+    const logoLight = resolvePath(rootPath + 'assets_webp/logo/aniamemoria_logo.webp');
+
+    // ... 
+
     const headerHTML = `
   <header class="site-header" data-elevate>
     <div class="container header-inner">
       <a class="brand" href="${rootPath}index.html" aria-label="あにあめもりあ（イベント）">
         <picture>
-          <source srcset="${rootPath}assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
-          <img src="${rootPath}assets/logo/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+          <source srcset="${logoDark}" media="(prefers-color-scheme: dark)">
+          <img src="${logoLight}" alt="あにあめもりあ" class="brand-logo" />
         </picture>
       </a>
 
@@ -53,7 +57,7 @@
           </svg>
         </a>
         <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
-          <img src="${rootPath}assets/logo/VRChat Logo Black.png" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
+          <img src="${rootPath}assets_webp/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
         </a>
       </div>
 
@@ -112,7 +116,7 @@
               </svg>
             </a>
             <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener" class="social-link" aria-label="VRChat">
-              <img src="${rootPath}assets/logo/VRChat Logo Black.png" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
+              <img src="${rootPath}assets_webp/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
             </a>
           </div>
         </div>
@@ -129,8 +133,8 @@
     <div class="container footer-inner">
       <p class="footer-brand">
         <picture>
-          <source srcset="${rootPath}assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
-          <img src="${rootPath}assets/logo/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+          <source srcset="${logoDark}" media="(prefers-color-scheme: dark)">
+          <img src="${logoLight}" alt="あにあめもりあ" class="brand-logo" />
         </picture>
       </p>
       <p class="footer-links">

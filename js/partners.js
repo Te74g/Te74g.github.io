@@ -4,7 +4,12 @@
  * Depends on: utils.js, data_events.js
  */
 
-(function () {
+(async function () {
+    // Wait for Manifest
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     /* -------------------------------------------------------
        提携イベント一覧 (partner_events.html) の生成
        ------------------------------------------------------- */

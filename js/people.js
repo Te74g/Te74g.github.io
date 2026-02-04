@@ -4,7 +4,12 @@
  * Depends on: utils.js, data_members.js
  */
 
-(function () {
+(async function () {
+    // Wait for Manifest
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
     /* -------------------------------------------------------
        1. キャスト一覧ページ (people.html) の生成
        ------------------------------------------------------- */
@@ -84,7 +89,7 @@
                         const bgPath = window.getMemberBackground(m.tags);
                         return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
                     })()}">
-                        <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img">
+                        <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img" loading="lazy">
                         <span class="cheki-tag-badge">${m.tagLabel}</span>
                         ${(() => {
                         const fPath = window.getMemberFrame(m.tags);
