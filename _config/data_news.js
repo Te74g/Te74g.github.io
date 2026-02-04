@@ -49,9 +49,9 @@ window.newsData = [
     {
         id: "news_dummy3",
         title: "ダミーニュース3",
-        date: "2026.01.20",
+        date: "2026.01.15",
         category: "お知らせ",
-        imagePath: "assets/news/2026-01-20/test2026-01-20.png",
+        imagePath: "assets/news/2026-01-15/test2026-01-15.png",
         desc: "これはダミーニュース3の本文です。テスト表示用です。",
         content: `<p>これはダミーニュース3の本文です。テスト表示用です。</p>`
     },
