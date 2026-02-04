@@ -24,105 +24,120 @@
         });
 
         // HTML生成
-        sectionOrder.forEach(sec => {
-            const list = grouped[sec];
-            if (list && list.length > 0) {
-                // Section Background Map
-                const bgMap = {
-                    "運営部": "../assets/page/unei_low_res.png",
-                    "飼育区画": "../assets/page/shiiku_low_res.png",
-                    "野生区画": "../assets/page/yasei_low_res.png",
-                    "妖怪区画": "../assets/page/yo-kai_low_res.png",
-                    "スタッフ": "../assets/page/staff_low_res.png"
-                };
+        // HTML生成関数
+        const createSectionElement = (sec, list) => {
+            // Section Background Map
+            const bgMap = {
+                "運営部": "../assets/page/unei_low_res.png",
+                "飼育区画": "../assets/page/shiiku_low_res.png",
+                "野生区画": "../assets/page/yasei_low_res.png",
+                "妖怪区画": "../assets/page/yo-kai_low_res.png",
+                "スタッフ": "../assets/page/staff_low_res.png"
+            };
 
-                // Create Wrapper
-                const wrapper = document.createElement("section");
-                wrapper.className = "people-section-wrapper reveal"; // Added reveal for animation
+            // Create Wrapper
+            const wrapper = document.createElement("section");
+            wrapper.className = "people-section-wrapper reveal"; // reveal class triggers fadeIn animation
 
-                const bgDiv = document.createElement("div");
-                bgDiv.className = "people-section-bg";
+            const bgDiv = document.createElement("div");
+            bgDiv.className = "people-section-bg";
 
-                const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : "";
-                if (bgPath) {
-                    bgDiv.style.backgroundImage = `url('${bgPath}')`;
-                } else {
-                    // Transparent fallback to let wood grain show
-                    bgDiv.style.backgroundColor = "transparent";
-                }
-                wrapper.appendChild(bgDiv);
-
-                // Inner Container
-                const innerContainer = document.createElement("div");
-                innerContainer.className = "container";
-
-                // Section Header
-                const divider = document.createElement("div");
-                divider.className = "section-divider"; // Removed reveal here as wrapper handles it
-                divider.innerHTML = `<span class="section-label">${sec}</span>`;
-                innerContainer.appendChild(divider);
-
-                // Grid
-                const grid = document.createElement("div");
-                grid.className = "cheki-grid";
-
-                list.forEach(m => {
-                    const link = document.createElement("a");
-                    const url = m.link || `member/profile.html?id=${m.id}`;
-                    link.href = window.fixPath(url);
-                    const pinClass = window.getPinClass(m.tags);
-                    link.className = `cheki-card ${pinClass}`;
-                    const displayName = m.pickupName || m.name;
-                    link.setAttribute("data-name", m.name);
-                    link.setAttribute("data-tags", m.tags);
-
-                    // Random Image Selection
-                    const targetImage = (m.profileImages && m.profileImages.length > 0)
-                        ? m.profileImages[Math.floor(Math.random() * m.profileImages.length)]
-                        : m.image;
-
-                    link.innerHTML = `
-                        <div class="cheki-visual" style="${(() => {
-                            const bgPath = window.getMemberBackground(m.tags);
-                            return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
-                        })()}">
-                            <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img">
-                            <span class="cheki-tag-badge">${m.tagLabel}</span>
-                            ${(() => {
-                            const fPath = window.getMemberFrame(m.tags);
-                            return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
-                        })()}
-                        </div>
-                        <div class="cheki-name">${displayName}</div>
-                    `;
-                    grid.appendChild(link);
-                });
-                innerContainer.appendChild(grid);
-                wrapper.appendChild(innerContainer);
-                peopleContainer.appendChild(wrapper);
+            const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : "";
+            if (bgPath) {
+                bgDiv.style.backgroundImage = `url('${bgPath}')`;
+            } else {
+                bgDiv.style.backgroundColor = "transparent";
             }
-        });
+            wrapper.appendChild(bgDiv);
 
-        // Initialize Observer for the newly created sections
-        const wrappers = document.querySelectorAll('.people-section-wrapper.reveal');
-        if ("IntersectionObserver" in window && wrappers.length > 0) {
-            const io = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((e) => {
-                        if (e.isIntersecting) {
-                            e.target.classList.add("is-visible");
-                            // Optional: Stop observing once visible to save resources
-                            io.unobserve(e.target);
-                        }
+            // Inner Container
+            const innerContainer = document.createElement("div");
+            innerContainer.className = "container";
+
+            // Section Header
+            const divider = document.createElement("div");
+            divider.className = "section-divider";
+            divider.innerHTML = `<span class="section-label">${sec}</span>`;
+            innerContainer.appendChild(divider);
+
+            // Grid
+            const grid = document.createElement("div");
+            grid.className = "cheki-grid";
+
+            list.forEach(m => {
+                const link = document.createElement("a");
+                const url = m.link || `member/profile.html?id=${m.id}`;
+                link.href = window.fixPath(url);
+                const pinClass = window.getPinClass(m.tags);
+                link.className = `cheki-card ${pinClass}`;
+                const displayName = m.pickupName || m.name;
+                link.setAttribute("data-name", m.name);
+                link.setAttribute("data-tags", m.tags);
+
+                // Random Image Selection
+                const targetImage = (m.profileImages && m.profileImages.length > 0)
+                    ? m.profileImages[Math.floor(Math.random() * m.profileImages.length)]
+                    : m.image;
+
+                link.innerHTML = `
+                    <div class="cheki-visual" style="${(() => {
+                        const bgPath = window.getMemberBackground(m.tags);
+                        return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
+                    })()}">
+                        <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img">
+                        <span class="cheki-tag-badge">${m.tagLabel}</span>
+                        ${(() => {
+                        const fPath = window.getMemberFrame(m.tags);
+                        return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
+                    })()}
+                    </div>
+                    <div class="cheki-name">${displayName}</div>
+                `;
+                grid.appendChild(link);
+            });
+            innerContainer.appendChild(grid);
+            wrapper.appendChild(innerContainer);
+
+            return wrapper;
+        };
+
+        // 順次読み込み (Async Sequential Loading)
+        const renderSequentially = async () => {
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            for (const sec of sectionOrder) {
+                const list = grouped[sec];
+                if (list && list.length > 0) {
+                    const sectionEl = createSectionElement(sec, list);
+                    peopleContainer.appendChild(sectionEl);
+
+                    // アニメーション用クラス付与 (Force reflow to ensure animation triggers if needed, though reveal handles it)
+                    // existing .reveal in CSS handles fadeIn. 
+                    // We can also add 'is-visible' to match existing logic explicitly if needed, but .reveal handles it.
+                    // Adding is-visible for consistency with text/other reveal elements.
+                    requestAnimationFrame(() => {
+                        sectionEl.classList.add('is-visible');
                     });
-                },
-                { threshold: 0.15 } // 15% visible to trigger
-            );
-            wrappers.forEach(w => io.observe(w));
-        } else {
-            // Fallback
-            wrappers.forEach(w => w.classList.add('is-visible'));
-        }
+
+                    // Wait before showing next section
+                    await delay(300);
+                }
+            }
+
+            // 全て読み込み終わったら絞り込み機能を適用（初期化）
+            // Initialize filter after all contents are loaded
+            if (typeof applyPeopleFilter === 'function') {
+                applyPeopleFilter();
+            }
+        };
+
+        // Start Loading
+        renderSequentially();
+
+        // Note: IntersectionObserver is removed because we are forcing visibility sequentially.
+        // If we want to keep scroll-triggering for sections *outside* the initial viewport, 
+        // we might need a hybrid approach. But the user request specifically asked to 
+        // "load Management, Breeding... in order with animation", which implies a sequence.
     }
 
     /* -------------------------------------------------------
