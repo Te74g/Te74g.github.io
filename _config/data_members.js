@@ -156,6 +156,32 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/mireiyu_dayon" },
         ]
     },
+    {
+        id: "faria",
+        name: "フィリア",
+        tagLabel: "飼育",
+        tags: "キャスト 飼育",
+        profileImages: [
+            "assets/member/フィリア/profile1.png",
+            "assets/member/フィリア/profile2.png",
+            "assets/member/フィリア/profile3.png",
+            "assets/member/フィリア/profile4.png"
+        ],
+        goals: [
+            "恩人に恩を返すこと",
+            "ごはんをいっぱい食べること",
+        ],
+        motifAnimal: "カーバンクル",
+        motifIcon: "assets/member/フィリア/motif_animal_carabanku.png",
+        section: "飼育区画",
+        introduction: `とある国のマモノ村に棲息していたカーバンクル。<br>
+昔、自分を命の危機から救ってくれた魔力を持った人間に恩を返すべく、村飛び出し旅へ。<br>
+旅の途中、とある森の中で店長と遭遇。魔力を持った人間の情報を集めるため、あにあめもりあで働くことに。<br>
+子供っぽい(カーバンクル界では子供)だが義理堅い性格。ごはんである魔力を持った宝石が大好き。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/gg_ampm" },
+        ]
+    },
     // --- 野生区画 ---
     {
         id: "uruhunojon",
@@ -194,7 +220,37 @@ window.membersData = [
         ツンデレなのにチョロく、騙されやすい。`,
         socials: []
     },
+    {
+        id: "pino",
+        name: "ピノ",
+        pickupName: "ピノ",
+        tagLabel: "野生",
+        tags: "野生 キャスト",
+        profileImages: [
+            "assets/member/ピノ/profile1.png",
+            "assets/member/ピノ/profile2.png",
+            "assets/member/ピノ/profile3.png",
+            "assets/member/ピノ/profile4.png"
+        ],
 
+        section: "野生区画",
+        goals: [
+            "人間の食べ物全制覇",
+            "森の蛇仲間たちに人間のおいしいご飯をたくさん届けること",
+        ],
+        motifAnimal: "蛇",
+        motifIcon: "assets/member/ピノ/motif_animal_snake.png",
+        sign: "assets/member/ピノ/pino_sign.png",
+        introduction: `森の小動物たちをすべて食べつくし、街へ出て店の食べ物を漁っているところを見られ捕まる。<br>
+仕事内容を聞いたところ、店長にご飯が出てくる仕事だと言われ、「ご飯を食べる仕事」だと勘違いし今に至る。<br><br>
+最初は小動物ばかりを食べていたが、人間の食べ物を初めて食べたとき衝撃を受ける。<br>
+そのため食べ物の話をすると非常に食いつき、食べ物の話じゃなくても「それって食べ物？」と一応確認する。<br><br>
+可愛い見た目や落ち着いた喋り方とは裏腹に、時々ちょいサイコパスな一面も見せることがある。<br>
+本人はそれを隠そうとしているらしいが全然隠しきれていない。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/raza_karaage" },
+        ]
+    },
     // --- 妖怪区画 ---
     {
         id: "kanibasiri",
