@@ -221,16 +221,16 @@ window.membersData = [
         socials: []
     },
     {
-        id: "pino",
-        name: "ピノ",
-        pickupName: "ピノ",
+        id: "bino",
+        name: "ビノ",
+        pickupName: "ビノ",
         tagLabel: "野生",
         tags: "野生 キャスト",
         profileImages: [
-            "assets/member/ピノ/profile1.png",
-            "assets/member/ピノ/profile2.png",
-            "assets/member/ピノ/profile3.png",
-            "assets/member/ピノ/profile4.png"
+            "assets/member/ビノ/profile1.png",
+            "assets/member/ビノ/profile2.png",
+            "assets/member/ビノ/profile3.png",
+            "assets/member/ビノ/profile4.png"
         ],
 
         section: "野生区画",
@@ -239,7 +239,7 @@ window.membersData = [
             "森の蛇仲間たちに人間のおいしいご飯をたくさん届けること",
         ],
         motifAnimal: "蛇",
-        motifIcon: "assets/member/ピノ/motif_animal_snake.png",
+        motifIcon: "assets/member/ビノ/motif_animal_snake.png",
         introduction: `森の小動物たちをすべて食べつくし、街へ出て店の食べ物を漁っているところを見られ捕まる。<br>
 仕事内容を聞いたところ、店長にご飯が出てくる仕事だと言われ、「ご飯を食べる仕事」だと勘違いし今に至る。<br><br>
 最初は小動物ばかりを食べていたが、人間の食べ物を初めて食べたとき衝撃を受ける。<br>
