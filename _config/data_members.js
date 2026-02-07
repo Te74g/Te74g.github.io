@@ -203,6 +203,7 @@ window.membersData = [
             "assets/member/キララ/profile1.png",
             "assets/member/キララ/profile2.png",
             "assets/member/キララ/profile3.png",
+            "assets/member/キララ/profile4.png",
         ],
         goals: [
             "キラキラになること",
@@ -252,6 +253,34 @@ window.membersData = [
         本人はそれを隠そうとしているらしいが、全く隠しきれていない。 `,
         socials: [
             { type: "twitter", url: "https://x.com/raza_karaage" },
+        ]
+    },
+    {
+        id: "azu",
+        name: "あず",
+        tagLabel: "野生",
+        tags: "キャスト 野生",
+        profileImages: [
+            "assets/member/あず/profile1.png",
+            "assets/member/あず/profile2.png",
+            "assets/member/あず/profile3.png",
+        ],
+        goals: [
+            "居るかもしれない仲間たちを見つける",
+            "にんげんのことをいっぱい知る"
+        ],
+        motifAnimal: "サカバンバスピス",
+        motifIcon: "assets/member/あず/motif_animal_sakabanbasupisu.png",
+        section: "野生区画",
+        introduction: `太古の海に生息していた「サカバンバスピス」。<br>
+        ある日ぐっすり眠っていたら、気づけば数億年の時が経過しており、目覚めた時には仲間は絶滅、海は遥か彼方に…。<br>
+        長い眠りの間に肺呼吸を獲得していたことに驚きつつも、まだどこかにいるかもしれない仲間を探して地上を彷徨っていたところを店長に保護される。<br><br>
+
+        「あにあめもりあ」を活動拠点として仲間の情報を集めることに決めたものの、人間と話すのが想像以上に楽しく、今ではすっかり接客がお気に入りに。<br>
+        数億年前の常識で行動するため、たまにズレたことを言うが、本人は至って真剣。<br>
+        どこかほんわかしたマイペースな性格で、現代の文化や食べ物に新鮮な驚きを見せる姿が周囲を和ませている。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/azuse_vrc" },
         ]
     },
     // --- 妖怪区画 ---
