@@ -182,6 +182,33 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/gg_ampm" },
         ]
     },
+    {
+        id: "nagi",
+        name: "凪（なぎ）",
+        tagLabel: "飼育",
+        tags: "キャスト 飼育",
+        profileImages: [
+            "assets/member/凪/profile1.png",
+            "assets/member/凪/profile2.png",
+            "assets/member/凪/profile3.png",
+        ],
+        goals: [
+            "ハンドラーと一緒に寝る",
+            "人についての理解を深める",
+            "ご飯をいっぱい食べる",
+        ],
+        motifAnimal: "犬（ジャーマンシェパード）",
+        motifIcon: "assets/member/凪/motif_animal_german_shepherd.png",
+        section: "飼育区画",
+        introduction: `ある組織に所属し軍用犬や救助犬として活躍しているジャーマンシェパード。<br>
+        ハンドラーと呼ばれるパートナーとともに厳しい訓練を乗り越え、多くの功績の残した。<br><br>
+        そんなある日、人間に対する理解を深め、色々な経験を積ませるという名目で、キャスト募集をしていた「あにあめもりあ」へ働きに出ることになった。<br><br>
+        同組織には多くの犬が在籍しており、その中でも比較的古参であるため面倒見が良く頼もしい存在。<br>
+        厳しい訓練のおかげか並大抵のことには動じず、真面目で大人しい性格ではあったものの、人の姿を得てからは割と自由奔放な一面が見られる。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/inukoro0813" },
+        ]
+    },
     // --- 野生区画 ---
     {
         id: "uruhunojon",
@@ -283,6 +310,7 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/azuse_vrc" },
         ]
     },
+
     // --- 妖怪区画 ---
     {
         id: "kanibasiri",
