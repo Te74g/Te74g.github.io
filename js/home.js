@@ -91,9 +91,15 @@
                 pickupContainer.appendChild(wrapper);
 
                 // Initialize Switcher or Static Image
+                // forms を持つメンバーの場合、最初のフォームの画像を使用
+                let effectiveImages = m.profileImages;
+                if (m.forms && m.forms.length > 0 && m.forms[0].profileImages && m.forms[0].profileImages.length > 0) {
+                    effectiveImages = m.forms[0].profileImages;
+                }
+
                 let images = [];
-                if (m.profileImages && m.profileImages.length > 0) {
-                    images = m.profileImages.map(p => window.fixPath(p));
+                if (effectiveImages && effectiveImages.length > 0) {
+                    images = effectiveImages.map(p => window.fixPath(p));
                 } else if (m.image) {
                     images = [window.fixPath(m.image)];
                 }
