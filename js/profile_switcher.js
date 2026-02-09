@@ -45,20 +45,33 @@ class ProfileImageSwitcher {
                 const revealLevel = window.getRevealLevel ? window.getRevealLevel(member) : 3;
                 const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(member) : null;
 
+                // forms を持つメンバーの場合、最初のフォームのデータを取得
+                let effectiveMember = member;
+                if (member.forms && member.forms.length > 0) {
+                    const firstForm = member.forms[0];
+                    effectiveMember = {
+                        ...member,
+                        profileImages: (firstForm.profileImages && firstForm.profileImages.length > 0)
+                            ? firstForm.profileImages
+                            : member.profileImages,
+                        image: firstForm.image || member.image,
+                    };
+                }
+
                 // revealLevel 2（シルエット）の場合、シルエット画像のみ使用
                 let images = [];
                 if (revealLevel === 2) {
                     // シルエット画像を使用
                     const silhouetteImg = displayInfo && displayInfo.imagePath
                         ? displayInfo.imagePath[0]
-                        : (window.siteConfig?.castDisplay?.placeholderImage || member.image);
+                        : (window.siteConfig?.castDisplay?.placeholderImage || effectiveMember.image);
                     images = [window.fixPath(silhouetteImg)];
                 } else if (revealLevel >= 3) {
-                    // 完全公開: 通常の画像を使用
-                    if (member.profileImages && member.profileImages.length > 0) {
-                        images = member.profileImages.map(p => window.fixPath(p));
-                    } else if (member.image) {
-                        images = [window.fixPath(member.image)];
+                    // 完全公開: フォームの画像を優先して使用
+                    if (effectiveMember.profileImages && effectiveMember.profileImages.length > 0) {
+                        images = effectiveMember.profileImages.map(p => window.fixPath(p));
+                    } else if (effectiveMember.image) {
+                        images = [window.fixPath(effectiveMember.image)];
                     }
                 }
                 // revealLevel 0-1 はプロフィールページにリダイレクトされるはずなので処理不要

@@ -85,43 +85,52 @@
                 return visibleList.includes(member.id);
             };
 
-            list.forEach(m => {
-                // revealLevelを確認（0の場合は表示しない）
-                const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
-                const revealLevel = displayInfo ? displayInfo.level : 3;
-
-                // Level 0 は完全非表示
-                if (revealLevel === 0) return;
-
+            // カード生成関数
+            const createMemberCard = (m, form, formIndex, revealLevel) => {
                 const link = document.createElement("a");
+
+                // form がある場合は画像だけマージ（名前は親のnameを使用）
+                const effectiveMember = form ? {
+                    ...m,
+                    // 表示名は親のnameを維持（一覧では「えの / エノ」のような統合名を使用）
+                    name: m.name,
+                    pickupName: m.pickupName || m.name,
+                    tagLabel: m.tagLabel,  // 親のタグを使用
+                    // 画像だけフォームから取得
+                    profileImages: (form.profileImages && form.profileImages.length > 0) ? form.profileImages : m.profileImages,
+                    image: form.image || m.image,
+                } : m;
+
                 const pinClass = window.getPinClass(m.tags);
                 link.className = `cheki-card ${pinClass}`;
-                link.setAttribute("data-name", displayInfo ? displayInfo.name : m.name);
+                link.setAttribute("data-name", effectiveMember.name);
                 link.setAttribute("data-tags", m.tags);
 
                 // 既存の表示許可チェック（互換性のため残す）
                 const visible = isMemberVisible(m);
 
                 // revealLevel 3（完全公開）の場合
-                // 注意: revealLevel >= 3 であれば既存のvisible制限は適用しない
                 if (revealLevel >= 3) {
-                    // 完全公開表示
-                    const url = m.link || `member/profile.html?id=${m.id}`;
+                    // forms がある場合は form パラメータを URL に追加
+                    let url = m.link || `member/profile.html?id=${m.id}`;
+                    if (form && formIndex !== undefined) {
+                        url += `${url.includes('?') ? '&' : '?'}form=${formIndex}`;
+                    }
                     link.href = window.fixPath(url);
-                    const displayName = displayInfo ? displayInfo.name : (m.pickupName || m.name);
+                    const displayName = effectiveMember.pickupName || effectiveMember.name;
 
                     // Random Image Selection
-                    const targetImage = (m.profileImages && m.profileImages.length > 0)
-                        ? m.profileImages[Math.floor(Math.random() * m.profileImages.length)]
-                        : m.image;
+                    const targetImage = (effectiveMember.profileImages && effectiveMember.profileImages.length > 0)
+                        ? effectiveMember.profileImages[Math.floor(Math.random() * effectiveMember.profileImages.length)]
+                        : effectiveMember.image;
 
                     link.innerHTML = `
                         <div class="cheki-visual" style="${(() => {
                             const bgPath = window.getMemberBackground(m.tags);
                             return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
                         })()}">
-                            <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img" loading="lazy">
-                            <span class="cheki-tag-badge">${m.tagLabel}</span>
+                            <img src="${window.fixPath(targetImage)}" alt="${effectiveMember.name}" class="cheki-img" loading="lazy">
+                            <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                             ${(() => {
                             const fPath = window.getMemberFrame(m.tags);
                             return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
@@ -130,21 +139,22 @@
                         <div class="cheki-name">${displayName}</div>
                     `;
                 } else if (revealLevel === 2) {
-                    // シルエット表示（名前・タグは表示、画像はシルエット）
+                    // シルエット表示
                     const url = m.link || `member/profile.html?id=${m.id}`;
                     link.href = window.fixPath(url);
                     link.classList.add("silhouette-mode");
 
+                    const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
                     const silhouetteImg = displayInfo && displayInfo.imagePath
                         ? displayInfo.imagePath[0]
                         : (castConfig.placeholderImage || m.image);
 
                     link.innerHTML = `
                         <div class="cheki-visual silhouette-mode">
-                            <img src="${window.fixPath(silhouetteImg)}" alt="${displayInfo ? displayInfo.name : m.name}" class="cheki-img silhouette" loading="lazy">
-                            <span class="cheki-tag-badge">${displayInfo ? displayInfo.tagLabel : m.tagLabel}</span>
+                            <img src="${window.fixPath(silhouetteImg)}" alt="${effectiveMember.name}" class="cheki-img silhouette" loading="lazy">
+                            <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                         </div>
-                        <div class="cheki-name">${displayInfo ? displayInfo.name : m.name}</div>
+                        <div class="cheki-name">${effectiveMember.name}</div>
                     `;
                 } else if (revealLevel === 1) {
                     // Coming Soon表示
@@ -181,7 +191,22 @@
                         <div class="cheki-name">???</div>
                     `;
                 }
-                grid.appendChild(link);
+
+                return link;
+            };
+
+            list.forEach(m => {
+                // revealLevelを確認（0の場合は表示しない）
+                const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
+                const revealLevel = displayInfo ? displayInfo.level : 3;
+
+                // Level 0 は完全非表示
+                if (revealLevel === 0) return;
+
+                // forms を持つメンバーの場合、最初の形態のデータを使用（1枚のカードで表示）
+                const firstForm = (m.forms && m.forms.length > 0) ? m.forms[0] : null;
+                const card = createMemberCard(m, firstForm, 0, revealLevel);
+                grid.appendChild(card);
             });
             innerContainer.appendChild(grid);
             wrapper.appendChild(innerContainer);

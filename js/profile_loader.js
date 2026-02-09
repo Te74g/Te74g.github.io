@@ -61,7 +61,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ==========================================
 
     // 現在の形態を取得（forms がある場合）
-    let currentFormIndex = 0;
+    // URLパラメータから form インデックスを読み取る
+    const formParam = params.get('form');
+    let currentFormIndex = formParam !== null ? parseInt(formParam, 10) : 0;
+    if (isNaN(currentFormIndex) || currentFormIndex < 0) currentFormIndex = 0;
+    // forms 配列の範囲内に制限
+    if (member.forms && member.forms.length > 0) {
+        currentFormIndex = Math.min(currentFormIndex, member.forms.length - 1);
+    }
     let activeForm = null;
 
     // 形態に基づいてメンバー情報をマージする関数
@@ -89,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const formSwitcherContainer = document.createElement('div');
         formSwitcherContainer.className = 'form-switcher';
         formSwitcherContainer.innerHTML = member.forms.map((form, index) =>
-            `<button class="form-switcher-btn${index === 0 ? ' is-active' : ''}" data-form-index="${index}">${form.label}</button>`
+            `<button class="form-switcher-btn${index === currentFormIndex ? ' is-active' : ''}" data-form-index="${index}">${form.label}</button>`
         ).join('');
 
         // h1 の下に挿入

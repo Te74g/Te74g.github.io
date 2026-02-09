@@ -397,6 +397,8 @@ window.membersData = [
                 profileImages: [
                     "assets/member/えの/fox_profile1.png",
                     "assets/member/えの/fox_profile2.png",
+                    "assets/member/えの/fox_profile3.png",
+                    "assets/member/えの/fox_profile4.png",
                 ],
                 motifAnimal: "狐",
                 motifIcon: "assets/member/えの/motif_kitsune.png",
@@ -409,6 +411,9 @@ window.membersData = [
                 profileImages: [
                     "assets/member/えの/cat_profile1.png",
                     "assets/member/えの/cat_profile2.png",
+                    "assets/member/えの/cat_profile3.png",
+                    "assets/member/えの/cat_profile4.png",
+                    "assets/member/えの/cat_profile5.png",
                 ],
                 motifAnimal: "猫",
                 motifIcon: "assets/member/えの/motif_neko.png",
@@ -417,9 +422,10 @@ window.membersData = [
 
         // フォールバック用（forms がない場合や画像未設定時に使用）
         profileImages: [
-            "assets/member/えの/profile1.png",
-            "assets/member/えの/profile2.png",
-            "assets/member/えの/profile3.png",
+            "assets/member/えの/fox_profile1.png",
+            "assets/member/えの/fox_profile2.png",
+            "assets/member/えの/fox_profile3.png",
+            "assets/member/えの/fox_profile4.png",
         ],
         goals: [
             "人間の「好き」という感情を知ること",
