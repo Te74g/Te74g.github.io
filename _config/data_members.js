@@ -6,6 +6,13 @@
  * 
  * 【項目の説明】
  * id:       他と被らない英数字（例: "ten", "rayno"）。システム内部で使います。
+ * hidden:   true にすると本番環境で非表示になります（マスター環境では表示）。 (任意)
+ * revealLevel: 公開レベル（0〜3）。省略時は 3（完全公開）扱いになります。(任意)
+ *              0 = hidden（完全非表示、リストにも出ない）
+ *              1 = coming_soon（Coming Soon画像、名前は「???」）
+ *              2 = silhouette（シルエット画像、名前と担当動物を表示、プロフィールは一部公開）
+ *              3 = full（完全公開）
+ * silhouetteImage: シルエット画像の場所。revealLevel: 2 のときに使用。(任意)
  * name:     プロフィールページで表示される名前（例: "てん（店長）"）。
  * pickupName: 一覧（ランダムピックアップ、キャスト紹介）で表示される名前（例: "てん"）。省略時は name が使われます。 (任意)
  * tagLabel: 写真の右下に表示される肩書き（例: "店長", "飼育"）。
@@ -19,6 +26,15 @@
  *               ※ ` (バッククォート) で囲むと改行を含めて書くことができます（見やすくなります）。
  * socials:  SNSリンクのリスト。 { type: "youtube|twitter|booth|facebook|vrchat|other", url: "..." } (任意)
  * related:  関連キャストのIDリスト。固定で表示したいメンバーのIDを指定します（例: ["ten", "momo"]）。指定がない場合や5人に満たない場合は自動で選ばれます。(任意)
+ * 
+ * 【複数形態（フォーム）を持つキャラクター】
+ * forms: 複数の姿を持つキャラクター用。各形態で異なる情報を設定できます。(任意)
+ *        省略した項目は共通（親）の値が使われます。
+ *        例:
+ *        forms: [
+ *            { id: "fox", label: "🦊 狐", name: "エノ", tagLabel: "妖怪", profileImages: [...], motifAnimal: "狐" },
+ *            { id: "cat", label: "🐱 猫", name: "えの", tagLabel: "飼育", profileImages: [...], motifAnimal: "猫" }
+ *        ]
  * --------------------------------------------------------------------------
  */
 window.membersData = [
@@ -96,6 +112,7 @@ window.membersData = [
         name: "レイノ",
         tagLabel: "飼育",
         tags: "運営 キャスト 飼育",
+        revealLevel: 3,
         profileImages: [
             "assets/member/レイノ/profile1.png",
             "assets/member/レイノ/profile2.png",
@@ -131,6 +148,8 @@ window.membersData = [
         name: "麗（れい）",
         tagLabel: "飼育",
         tags: "キャスト 飼育",
+        revealLevel: 1,
+        silhouetteImage: "assets/member/麗/silhouette_test.png",
         profileImages: [
             "assets/member/麗/profile1.png",
             "assets/member/麗/profile2.png",
@@ -161,6 +180,7 @@ window.membersData = [
         name: "フィリア",
         tagLabel: "飼育",
         tags: "キャスト 飼育",
+        revealLevel: 1,
         profileImages: [
             "assets/member/フィリア/profile1.png",
             "assets/member/フィリア/profile2.png",
@@ -187,6 +207,8 @@ window.membersData = [
         name: "凪（なぎ）",
         tagLabel: "飼育",
         tags: "キャスト 飼育",
+        revealLevel: 1,
+        silhouetteImage: "assets/member/凪/silhouette_test.png",
         profileImages: [
             "assets/member/凪/profile1.png",
             "assets/member/凪/profile2.png",
@@ -215,6 +237,7 @@ window.membersData = [
         name: "ウルフのジョン",
         tagLabel: "野生",
         tags: "キャスト 野生",
+        revealLevel: 0,
         image: "assets/member/ウルフのジョン/profile.png",
 
         section: "野生区画",
@@ -226,6 +249,7 @@ window.membersData = [
         name: "キララ",
         tagLabel: "野生",
         tags: "キャスト 野生",
+        revealLevel: 1,
         profileImages: [
             "assets/member/キララ/profile1.png",
             "assets/member/キララ/profile2.png",
@@ -254,6 +278,7 @@ window.membersData = [
         pickupName: "ビノ",
         tagLabel: "野生",
         tags: "野生 キャスト",
+        revealLevel: 1,
         profileImages: [
             "assets/member/ビノ/profile1.png",
             "assets/member/ビノ/profile2.png",
@@ -287,6 +312,7 @@ window.membersData = [
         name: "あず",
         tagLabel: "野生",
         tags: "キャスト 野生",
+        revealLevel: 1,
         profileImages: [
             "assets/member/あず/profile1.png",
             "assets/member/あず/profile2.png",
@@ -317,6 +343,7 @@ window.membersData = [
         name: "蟹走 椛",
         tagLabel: "妖怪",
         tags: "キャスト 妖怪",
+        revealLevel: 0,
         image: "assets/member/蟹走 椛/profile1.png",
 
         section: "妖怪区画",
@@ -330,6 +357,7 @@ window.membersData = [
         name: "きょすー！",
         tagLabel: "妖怪",
         tags: "キャスト 妖怪",
+        revealLevel: 1,
         profileImages: [
             "assets/member/きょすー！/profile1.png",
             "assets/member/きょすー！/profile2.png",
@@ -344,13 +372,76 @@ window.membersData = [
         motifIcon: "assets/member/きょすー！/motif_animal_kitsune.png",
         section: "妖怪区画",
         introduction: `音楽を祀る神社の音楽ができる妖怪。<br>
-ちゃらんぽらんでとても頼りないが好奇心旺盛で人の話を聞くことが好き。<br>
-神社での生活が暇になり山を下りては音楽を求め人間の姿をしてクラブに通う。<br><br>
-500年ぐらいは生きているが、九尾としてはまだまだ若者であるため普通にSNSや掲示板も使ったりする。<br>
-そのせいか若者言葉が出てきてしまうこともあるが、それはご愛敬。`,
+        ちゃらんぽらんでとても頼りないが好奇心旺盛で人の話を聞くことが好き。<br>
+        神社での生活が暇になり山を下りては音楽を求め人間の姿をしてクラブに通う。<br><br>
+        500年ぐらいは生きているが、九尾としてはまだまだ若者であるため普通にSNSや掲示板も使ったりする。<br>
+        そのせいか若者言葉が出てきてしまうこともあるが、それはご愛敬。`,
         socials: [
             { type: "linktr.ee", url: "https://linktr.ee/kyosuu_maginary" },
         ]
+    },
+    {
+        id: "eno",
+        name: "えの / エノ",  // デフォルト表示名
+        tagLabel: "妖怪",
+        tags: "妖怪 飼育 キャスト",
+        revealLevel: 1,
+
+        // 複数形態（フォーム）の定義
+        forms: [
+            {
+                id: "fox",
+                label: "🦊 狐",
+                name: "エノ",
+                tagLabel: "妖怪",
+                profileImages: [
+                    "assets/member/えの/fox_profile1.png",
+                    "assets/member/えの/fox_profile2.png",
+                ],
+                motifAnimal: "狐",
+                motifIcon: "assets/member/えの/motif_kitsune.png",
+            },
+            {
+                id: "cat",
+                label: "🐱 猫",
+                name: "えの",
+                tagLabel: "飼育",
+                profileImages: [
+                    "assets/member/えの/cat_profile1.png",
+                    "assets/member/えの/cat_profile2.png",
+                ],
+                motifAnimal: "猫",
+                motifIcon: "assets/member/えの/motif_neko.png",
+            }
+        ],
+
+        // フォールバック用（forms がない場合や画像未設定時に使用）
+        profileImages: [
+            "assets/member/えの/profile1.png",
+            "assets/member/えの/profile2.png",
+            "assets/member/えの/profile3.png",
+        ],
+        goals: [
+            "人間の「好き」という感情を知ること",
+            "忘れられない思い出を集めること",
+            "喫茶店を、物語で満たされた場所にすること",
+        ],
+        motifAnimal: "狐（猫化）",
+        motifIcon: "assets/member/えの/motif_animal_kitsune.png",
+        section: "妖怪区画",
+        introduction: `人間の「好き」や思い出を集める狐の妖怪。<br>
+        人に近づくため、猫の姿に擬態し、喫茶店に身を置いている。<br><br>
+
+        この喫茶店を、狐は「人間の物語が集まる図書館」と捉えている。<br>
+        人間が語る好きなことや思い出を聞いて頭の中で一冊の本として整理している。<br><br>
+
+        猫の姿は別人格ではなく、人間に近づくための擬態らしい。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/en2951669A" },
+        ],
+        related: [
+            "kyosu",
+        ],
     },
 
     // --- スタッフ ---

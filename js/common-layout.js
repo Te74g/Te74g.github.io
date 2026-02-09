@@ -18,7 +18,19 @@
   };
 
   window.renderLayout = function (rootPath) {
-    // ... (rest of logic)
+    // Determine Navigation Root Path
+    // For master site, navigation should stay within /master/ directory,
+    // while assets (rootPath) point to the shared root.
+    // Logic: Remove one "../" from rootPath if in master site.
+    let navRootPath = rootPath;
+    if (window.location.pathname.includes('/master/')) {
+      if (navRootPath.startsWith('../')) {
+        navRootPath = navRootPath.substring(3);
+      }
+      if (navRootPath === '') navRootPath = './';
+    }
+
+    // Helper: Use rootPath for assets, navRootPath for links
 
     // Construct paths
     const logoDark = resolvePath(rootPath + 'assets_webp/logo/aniamemoria_logo_darktheme.webp');
@@ -29,20 +41,21 @@
     const headerHTML = `
   <header class="site-header" data-elevate>
     <div class="container header-inner">
-      <a class="brand" href="${rootPath}index.html" aria-label="あにあめもりあ（イベント）">
+      <a class="brand" href="${navRootPath}index.html" aria-label="あにあめもりあ（イベント）">
         <picture>
           <source srcset="${logoDark}" media="(prefers-color-scheme: dark)">
           <img src="${logoLight}" alt="あにあめもりあ" class="brand-logo" />
         </picture>
+        ${window.location.pathname.includes('/master/') ? '<span style="background:#e74c3c; color:white; font-size:0.7em; padding:2px 5px; border-radius:4px; margin-left:8px; vertical-align:middle; font-weight:bold;">MASTER</span>' : ''}
       </a>
 
       <nav class="pc-nav hide-sm">
-        <a href="${rootPath}news/index.html" class="nav-item">ニュース</a>
-        <a href="${rootPath}pages/people.html" class="nav-item">キャスト紹介</a>
-        <a href="${rootPath}gallery/index.html" class="nav-item">ギャラリー</a>
-        <a href="${rootPath}pages/partner_events.html" class="nav-item">提携イベント</a>
-        <a href="${rootPath}pages/links.html" class="nav-item">関連リンク</a>
-        <a href="${rootPath}pages/aikotoba.html" class="nav-item">合言葉</a>
+        <a href="${navRootPath}news/index.html" class="nav-item">ニュース</a>
+        <a href="${navRootPath}pages/people.html" class="nav-item">キャスト紹介</a>
+        <a href="${navRootPath}gallery/index.html" class="nav-item">ギャラリー</a>
+        <a href="${navRootPath}pages/partner_events.html" class="nav-item">提携イベント</a>
+        <a href="${navRootPath}pages/links.html" class="nav-item">関連リンク</a>
+        <a href="${navRootPath}pages/aikotoba.html" class="nav-item">合言葉</a>
       </nav>
 
       <div class="header-socials hide-sm">
@@ -56,7 +69,7 @@
             <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
           </svg>
         </a>
-        <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
+        <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
           <img src="${rootPath}assets_webp/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
         </a>
       </div>
@@ -77,27 +90,27 @@
         </div>
 
         <div class="menu-links">
-          <a class="menu-link" href="${rootPath}news/index.html">
+          <a class="menu-link" href="${navRootPath}news/index.html">
             <span class="menu-link__jp">ニュース</span>
             <span class="menu-link__sub">NEWS</span>
           </a>
-          <a class="menu-link" href="${rootPath}pages/people.html">
+          <a class="menu-link" href="${navRootPath}pages/people.html">
             <span class="menu-link__jp">キャスト紹介</span>
             <span class="menu-link__sub">PEOPLE</span>
           </a>
-          <a class="menu-link" href="${rootPath}gallery/index.html">
+          <a class="menu-link" href="${navRootPath}gallery/index.html">
             <span class="menu-link__jp">ギャラリー</span>
             <span class="menu-link__sub">GALLERY</span>
           </a>
-          <a class="menu-link" href="${rootPath}pages/partner_events.html">
+          <a class="menu-link" href="${navRootPath}pages/partner_events.html">
             <span class="menu-link__jp">提携イベント</span>
             <span class="menu-link__sub">PARTNER</span>
           </a>
-          <a class="menu-link" href="${rootPath}pages/links.html">
+          <a class="menu-link" href="${navRootPath}pages/links.html">
             <span class="menu-link__jp">関連リンク</span>
             <span class="menu-link__sub">LINKS</span>
           </a>
-          <a class="menu-link" href="${rootPath}pages/aikotoba.html">
+          <a class="menu-link" href="${navRootPath}pages/aikotoba.html">
             <span class="menu-link__jp">合言葉</span>
             <span class="menu-link__sub">AIKOTOBA</span>
           </a>
@@ -138,9 +151,9 @@
         </picture>
       </p>
       <p class="footer-links">
-        <a href="${rootPath}pages/privacy.html">プライバシーポリシー</a>
-        <a href="${rootPath}pages/terms.html">利用規約</a>
-        <a href="${rootPath}pages/contact.html">お問い合わせ</a>
+        <a href="${navRootPath}pages/privacy.html">プライバシーポリシー</a>
+        <a href="${navRootPath}pages/terms.html">利用規約</a>
+        <a href="${navRootPath}pages/contact.html">お問い合わせ</a>
       </p>
       <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
       <a class="to-top" href="#top" aria-label="上へ戻る">

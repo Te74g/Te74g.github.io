@@ -1,0 +1,5 @@
+# マスターサイト用 robots.txt
+# 検索エンジンのインデックスを拒否
+
+User-agent: *
+Disallow: /

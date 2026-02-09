@@ -3,6 +3,23 @@
  * Common UI interactions (Menu, Header, Reveal, etc.)
  */
 
+// =======================================================
+// メンテナンスモードリダイレクト
+// =======================================================
+(function () {
+    // メンテナンスページ自身はスキップ
+    if (window.location.pathname.includes('maintenance.html')) return;
+    // マスターサイトはスキップ
+    if (window.location.pathname.includes('/master/')) return;
+
+    // siteConfigのメンテナンスモードをチェック
+    if (window.siteConfig?.maintenanceMode) {
+        // 相対パスでmaintenance.htmlにリダイレクト
+        const basePath = window.fixPath ? window.fixPath('maintenance.html') : './maintenance.html';
+        window.location.href = basePath;
+    }
+})();
+
 (function () {
     const prefersReducedMotion =
         window.matchMedia &&

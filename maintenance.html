@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<!-- このページはメンテナンス用ページです-->
+<!-- ⚠管理者以外は絶対に書き換えないでください。-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あにあめもりあ | イベント</title>
+  <meta name="description" content="あにあめもりあ公式サイト：イベント情報・キャスト紹介・お問い合わせ" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="./assets/favicon/multi_favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body class="bg-texture">
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <!-- Header: MENUオーバーレイ型 -->
+  <header class="site-header" data-elevate>
+    <div class="container header-inner">
+      <a class="brand" href="./index.html" aria-label="あにあめもりあ（イベント）">
+        <picture>
+          <source srcset="./assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+          <img src="./assets/logo/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+        </picture>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section section--full reveal" style="padding: 160px 0 120px;">
+      <div class="container" style="text-align: center;">
+
+        <!-- Updated to Card Style -->
+        <div class="maintenance-box card"
+          style="max-width: 600px; margin: 0 auto; padding: 48px 24px; position: relative; overflow: hidden; text-align: center;">
+
+          <picture style="display: block; margin-bottom: 32px; opacity: 0.8; position: relative; z-index: 2;">
+            <source srcset="./assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+            <img src="./assets/logo/aniamemoria_logo.png" alt="あにあめもりあ"
+              style="width: 280px; height: 120px; object-fit: contain; margin: 0 auto;" />
+          </picture>
+
+          <p class="kicker"
+            style="display: block; width: 100%; color: var(--primary); font-weight: 700; letter-spacing: 0.15em; font-size: 0.85rem; margin-bottom: 12px; position: relative; z-index: 2; text-align: center; line-height: 1.2;">
+            SYSTEM MAINTENANCE</p>
+          <h1 class="hero-title"
+            style="font-family: 'Zen Old Mincho', serif; margin-bottom: 24px; font-size: 1.75rem; line-height: 1.4; position: relative; z-index: 2; text-align: center;">
+            ただいまメンテナンス中です</h1>
+          <p class="hero-lead"
+            style="line-height: 1.8; font-size: 0.95rem; margin-bottom: 30px; position: relative; z-index: 2; text-align: center;">
+            より良い体験をお届けするため、サイトの更新を行っております。<br />
+            作業完了まで今しばらくお待ちください。
+          </p>
+
+          <div
+            style="margin-top: 48px; border-top: 1px dashed var(--line-strong); padding-top: 32px; position: relative; z-index: 2;">
+            <p style="font-size: 0.85rem; margin-bottom: 16px;">お急ぎのご連絡はこちらまで</p>
+            <a href="https://x.com/ANIAMEMORIA" class="btn btn--primary" style="padding: 10px 32px;">お問い合わせ</a>
+          </div>
+
+          <!-- Watermark -->
+          <div class="watermark-logo"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">
+        <picture>
+          <source srcset="./assets/logo/aniamemoria_logo_darktheme.png" media="(prefers-color-scheme: dark)">
+          <img src="./assets/logo/aniamemoria_logo.png" alt="あにあめもりあ" class="brand-logo" />
+        </picture>
+      </p>
+      <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
+      <a class="to-top" href="#top" aria-label="上へ戻る">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 15l-6-6-6 6" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+  <!-- Data Files -->
+  <script src="./_config/data_members.js"></script>
+  <script src="./_config/data_news.js"></script>
+  <script src="./_config/data_events.js"></script>
+  <script src="./_config/data_gallery.js"></script>
+  <script src="./_config/data_links.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/home.js"></script>
+</body>
+
+</html>

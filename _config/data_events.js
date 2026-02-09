@@ -6,6 +6,7 @@
  * 
  * 【項目の説明】
  * id:       イベントのID（英数字）。URLの一部になります。
+ * hidden:   true にすると本番環境で非表示になります（マスター環境では表示）。 (任意)
  * name:     イベント名
  * date:     開催日（例: "2026.02.15"）
  * organizer: 主催者名
@@ -85,26 +86,6 @@ window.partnerEventsData = [
                 <a href="https://vrc.group/KTNKTN.4638" class="btn btn--primary" target="_blank"
                     rel="noopener">グループ情報</a>
             </div>
-        `
-    },
-    {
-        id: "multi_image_test",
-        name: "複数画像テスト(ポスター分離)",
-        date: "2026.03.20",
-        organizer: "テスト主催",
-        titleImage: "assets/partner_events/kitsunekotan/title_logo.png", // Test Title Image
-        titleImageDark: "assets/partner_events/kitsunekotan/title_logo.png", // Test Dark Mode Title Image (Optional)
-        titleImageLight: "assets/partner_events/kitsunekotan/title_logo.png", // Explicit light mode title (optional if same as titleImage)
-        poster: "assets/partner_events/kitsunekotan/logo.png", // New Poster Field (was logo)
-        backgroundImage: "assets/partner_events/kitsunekotan/poster.png", // Test Background Image (was poster)
-        images: [
-            // "assets/partner_events/kitsunekotan.png", // Moved to poster
-            "assets/partner_events/kitsunekotan/group_02.png"
-        ],
-        // No explicit link, should be generated automatically
-        desc: "ポスターと画像を分離したレイアウトのテストです。",
-        content: `
-            <p>PCでは左にポスター、右に画像ギャラリー。<br>スマホでは上にポスター、下に画像ギャラリーが表示されます。</p>
         `
     }
 ];
