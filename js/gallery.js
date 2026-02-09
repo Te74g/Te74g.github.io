@@ -14,36 +14,52 @@
        GALLERY GENERATION
        ------------------------------------------------------- */
     const galleryContainer = document.getElementById("gallery-grid");
-    if (galleryContainer && window.galleryData) {
-        window.galleryData.forEach((item, index) => {
-            const card = document.createElement("article");
-            card.className = "card reveal is-visible";
-            card.style.cursor = "pointer";
 
-            // Thumbnail is either explicit thumb or first image
-            const thumbUrl = window.fixPath(item.thumb || (item.images && item.images[0]) || "");
+    // Filtered Data (Scope to share with lightbox)
+    let displayGalleryData = [];
 
-            card.innerHTML = `
-                <div class="card-top" style="background-image: url('${thumbUrl}'); background-size: cover; background-position: center; height: 200px; border-radius: 8px 8px 0 0;">
+    if (galleryContainer) {
+        // フィルタリング
+        displayGalleryData = (window.galleryData || []).filter(item => window.shouldShowItem(item));
+
+        // データが空の場合
+        if (displayGalleryData.length === 0) {
+            galleryContainer.innerHTML = `
+                <div class="empty-content" style="grid-column: 1 / -1;">
+                    <p>現在ギャラリーに掲載されている写真はありません。</p>
                 </div>
-                <div style="padding: 1.5rem;">
-                    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
-                        <h3 class="card-title" style="margin:0; font-size:1.1rem;">${item.title}</h3>
-                        <span style="font-size:0.85rem; color:var(--muted);">${item.date}</span>
-                    </div>
-                    <p class="card-desc" style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0;">${item.desc || ""}</p>
-                    <div style="margin-top:10px; font-size:0.8rem; color:var(--a); font-weight:bold;">
-                        写真を見る (${item.images ? item.images.length : 0}枚) &rarr;
-                    </div>
-                </div>
-                </div>
-                <div class="watermark-logo"></div>
             `;
+        } else {
+            displayGalleryData.forEach((item, index) => {
+                const card = document.createElement("article");
+                card.className = "card reveal is-visible";
+                card.style.cursor = "pointer";
 
-            // Click event to open lightbox
-            card.addEventListener("click", () => openLightbox(index));
-            galleryContainer.appendChild(card);
-        });
+                // Thumbnail is either explicit thumb or first image
+                const thumbUrl = window.fixPath(item.thumb || (item.images && item.images[0]) || "");
+
+                card.innerHTML = `
+                    <div class="card-top" style="background-image: url('${thumbUrl}'); background-size: cover; background-position: center; height: 200px; border-radius: 8px 8px 0 0;">
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+                            <h3 class="card-title" style="margin:0; font-size:1.1rem;">${item.title}</h3>
+                            <span style="font-size:0.85rem; color:var(--muted);">${item.date}</span>
+                        </div>
+                        <p class="card-desc" style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0;">${item.desc || ""}</p>
+                        <div style="margin-top:10px; font-size:0.8rem; color:var(--a); font-weight:bold;">
+                            写真を見る (${item.images ? item.images.length : 0}枚) &rarr;
+                        </div>
+                    </div>
+                    </div>
+                    <div class="watermark-logo"></div>
+                `;
+
+                // Click event to open lightbox
+                card.addEventListener("click", () => openLightbox(index));
+                galleryContainer.appendChild(card);
+            });
+        }
     }
 
     /* -------------------------------------------------------
@@ -71,9 +87,9 @@
     let startY = 0;
 
     function openLightbox(galleryIndex) {
-        if (!modal || !track || !window.galleryData) return;
+        if (!modal || !track || !displayGalleryData) return;
 
-        const item = window.galleryData[galleryIndex];
+        const item = displayGalleryData[galleryIndex];
         if (!item || !item.images || item.images.length === 0) return;
 
         currentGalleryIndex = galleryIndex;

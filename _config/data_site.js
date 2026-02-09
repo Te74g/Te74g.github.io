@@ -56,5 +56,46 @@ window.siteConfig = {
             light: "./assets_webp/logo/aniamemoria_logo.webp",
             dark: "./assets_webp/logo/aniamemoria_logo_darktheme.webp"
         }
+    },
+
+    // =======================================================
+    // サイト運用制御
+    // =======================================================
+
+    // メンテナンスモード（true: 全ページをメンテナンスページにリダイレクト）
+    // ※ master/ ディレクトリはリダイレクト対象外
+    maintenanceMode: true,
+
+    // キャスト表示制御
+    castDisplay: {
+        // 全メンバー表示フラグ（trueなら全員表示、falseならvisibleMembersで制御）
+        showAllMembers: false,
+
+        // 表示許可するメンバーIDのリスト
+        // ※ 運営部・スタッフは常に表示されます
+        // ※ 準備ができたメンバーのIDをここに追加してください
+        visibleMembers: [
+            "ten",      // 店長（運営部）
+            "momo",     // 副店長（運営部）
+            "rayno"     // レイノ（飼育区画）
+            // 準備ができたら以下のようにIDを追加:
+            // "rei",
+            // "faria",
+            // "nagi",
+            // ...
+        ],
+
+        // === revealLevel 用画像設定 ===
+        // revealLevel: 1（Coming Soon）のときの共通画像
+        comingSoonImage: "assets/member/silhouette.png",
+
+        // revealLevel: 1 のときの表示名
+        comingSoonName: "???",
+
+        // 準備中メンバーに表示するシルエット画像（revealLevel: 2 用のフォールバック）
+        placeholderImage: "assets/member/silhouette.png",
+
+        // 準備中テキスト
+        preparingText: "準備中"
     }
 };

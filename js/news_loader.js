@@ -72,4 +72,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         document.querySelector('main').innerHTML = '<div class="container"><p>記事が見つかりませんでした。</p></div>';
     }
+
+    // Initialize Lightbox
+    if (window.initLightbox) {
+        // Target both main image and content images
+        window.initLightbox('#dynamic-article-image img, #dynamic-article-content img');
+    }
 });

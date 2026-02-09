@@ -14,36 +14,48 @@
        1. ニュース一覧ページ (news/index.html) の生成
        ------------------------------------------------------- */
     const newsContainer = document.getElementById("news-list-container");
-    if (newsContainer && window.newsData) {
-        window.newsData.forEach(item => {
-            const link = document.createElement("a");
-            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
-            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
+    if (newsContainer) {
+        // フィルタリング
+        const visibleNews = (window.newsData || []).filter(item => window.shouldShowItem(item));
 
-            link.href = pageUrl;
-            link.className = "news-link reveal is-visible";
-
-            link.innerHTML = `
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                    <span class="news-date">${item.date}</span>
-                    <span class="news-tag-label">${item.category}</span>
+        // データが空の場合
+        if (visibleNews.length === 0) {
+            newsContainer.innerHTML = `
+                <div class="empty-content">
+                    <p>現在お知らせはありません。</p>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 140px; gap: 20px; position:relative; z-index:2;">
-                    <div style="display:flex; flex-direction:column; justify-content:center;">
-                        <h3 style="margin:0 0 8px; font-weight:900; font-size:1.2rem;">${item.title}</h3>
-                        <p style="margin:0; font-size:0.9rem; color:var(--muted); line-height:1.6;">
-                            ${item.desc || ""}
-                        </p>
-                    </div>
-                    <div>
-                        <img src="${imgUrl}" alt="" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border: 1px solid rgba(0,0,0,0.1);">
-                    </div>
-                </div>
-                <!-- Watermark Logo -->
-                <div class="watermark-logo"></div>
             `;
-            newsContainer.appendChild(link);
-        });
+        } else {
+            visibleNews.forEach(item => {
+                const link = document.createElement("a");
+                const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
+                const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
+
+                link.href = pageUrl;
+                link.className = "news-link reveal is-visible";
+
+                link.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                        <span class="news-date">${item.date}</span>
+                        <span class="news-tag-label">${item.category}</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 140px; gap: 20px; position:relative; z-index:2;">
+                        <div style="display:flex; flex-direction:column; justify-content:center;">
+                            <h3 style="margin:0 0 8px; font-weight:900; font-size:1.2rem;">${item.title}</h3>
+                            <p style="margin:0; font-size:0.9rem; color:var(--muted); line-height:1.6;">
+                                ${item.desc || ""}
+                            </p>
+                        </div>
+                        <div>
+                            <img src="${imgUrl}" alt="" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border: 1px solid rgba(0,0,0,0.1);">
+                        </div>
+                    </div>
+                    <!-- Watermark Logo -->
+                    <div class="watermark-logo"></div>
+                `;
+                newsContainer.appendChild(link);
+            });
+        }
     }
 
     /* -------------------------------------------------------
@@ -51,7 +63,9 @@
        ------------------------------------------------------- */
     const track = document.getElementById("news-carousel-track");
     if (track && window.newsData) {
-        const carouselItems = window.newsData.slice(0, 5); // 最新5件
+        // フィルタリング
+        const visibleNews = window.newsData.filter(item => window.shouldShowItem(item));
+        const carouselItems = visibleNews.slice(0, 5); // 最新5件
 
         carouselItems.forEach((item, i) => {
             const card = document.createElement("a");

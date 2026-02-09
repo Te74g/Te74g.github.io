@@ -6,45 +6,145 @@
 (function () {
     /**
      * fixPath
-     * Adjusts relative paths based on the current page's location.
+     * Adjusts relative paths based on the current page's location, supporting master site structure.
      * Also resolves to WebP if manifest is loaded and available.
      * @param {string} path - The path to fix (e.g., "./assets/img.png")
-     * @returns {string} - The fixed path (e.g., "../assets/img.png" or "../assets_webp/img.webp")
+     * @returns {string} - The fixed path (e.g., "../assets/img.png" or "../../assets/img.png")
      */
+    /**
+     * アイテムの表示可否を判定するヘルパー関数
+     * @param {Object} item - データアイテム (news, member, etc.)
+     * @returns {boolean} - 表示すべきかどうか
+     * 
+     * ルール:
+     * 1. item.hidden が true の場合:
+     *    - window.siteConfig.showHiddenItems が true (Master環境) なら true
+     *    - それ以外 (Public環境) なら false
+     * 2. それ以外は true
+     */
+    window.shouldShowItem = (item) => {
+        if (!item) return false;
+        if (item.hidden) {
+            // Masterサイトなどで showHiddenItems: true が設定されていれば表示
+            if (window.siteConfig && window.siteConfig.showHiddenItems) {
+                return true;
+            }
+            return false;
+        }
+        return true;
+    };
+
+    /**
+     * メンバーの公開レベルを取得
+     * @param {Object} member - メンバーオブジェクト
+     * @returns {number} - 公開レベル (0: hidden, 1: coming_soon, 2: silhouette, 3: full)
+     */
+    window.getRevealLevel = (member) => {
+        if (!member) return 0;
+
+        // マスターサイト（showHiddenItems: true）では常に完全公開
+        if (window.siteConfig && window.siteConfig.showHiddenItems) {
+            return 3;
+        }
+
+        // revealLevelが未定義の場合は3（完全公開）
+        const level = member.revealLevel !== undefined ? member.revealLevel : 3;
+        return Math.min(Math.max(0, level), 3); // 0-3の範囲に制限
+    };
+
+    /**
+     * 公開レベルに応じたメンバー表示情報を取得
+     * @param {Object} member - メンバーオブジェクト
+     * @returns {Object} - { name, tagLabel, imagePath, linkable, showIntro, showGoals, showSocials }
+     */
+    window.getMemberDisplayInfo = (member) => {
+        const level = window.getRevealLevel(member);
+        const config = window.siteConfig?.castDisplay || {};
+
+        // デフォルト値（完全公開）
+        let info = {
+            level: level,
+            name: member.pickupName || member.name,
+            fullName: member.name,
+            tagLabel: member.tagLabel,
+            imagePath: null,
+            linkable: true,      // プロフィールページへのリンク可能か
+            showIntro: true,     // 自己紹介を表示するか
+            showGoals: true,     // 目標を表示するか
+            showSocials: true,   // SNSリンクを表示するか
+            showMotif: true,     // モチーフ動物を表示するか
+        };
+
+        // 画像パスを決定
+        if (member.profileImages && member.profileImages.length > 0) {
+            info.imagePath = member.profileImages;
+        } else if (member.image) {
+            info.imagePath = [member.image];
+        }
+
+        switch (level) {
+            case 0: // hidden
+                // 表示しない（呼び出し元でフィルタ）
+                info.linkable = false;
+                break;
+
+            case 1: // coming_soon
+                info.name = config.comingSoonName || "???";
+                info.fullName = config.comingSoonName || "???";
+                info.tagLabel = "???";
+                info.imagePath = config.comingSoonImage ? [config.comingSoonImage] : null;
+                info.linkable = false;
+                info.showIntro = false;
+                info.showGoals = false;
+                info.showSocials = false;
+                info.showMotif = false;
+                break;
+
+            case 2: // silhouette
+                // 名前と担当動物は表示、画像はシルエット
+                info.imagePath = member.silhouetteImage
+                    ? [member.silhouetteImage]
+                    : (config.placeholderImage ? [config.placeholderImage] : info.imagePath);
+                info.linkable = true; // 一部情報のプロフィールページへはアクセス可能
+                info.showIntro = false; // 自己紹介は非表示
+                info.showGoals = false; // 目標は非表示
+                info.showSocials = false; // SNSは非表示
+                info.showMotif = true;  // モチーフ動物は表示
+                break;
+
+            case 3: // full
+            default:
+                // 全て表示（デフォルト値のまま）
+                break;
+        }
+
+        return info;
+    };
+
     window.fixPath = (path) => {
         if (!path) return "";
-        // Keep absolute paths or protocol-relative paths
-        if (path.match(/^(http|\/\/)/)) return path;
+        // Keep absolute paths, protocol-relative paths, or anchors
+        if (path.match(/^(http|\/\/)/) || path.startsWith("#") || path.startsWith("mailto:")) return path;
 
-        // "assets/..." -> "./assets/..." normalization
+        // "assets/..." -> "./assets/..." normalization for processing
         let cleanPath = path;
-        if (cleanPath.startsWith("./")) {
-            cleanPath = cleanPath.slice(2);
-        }
+
+        // Normalize: Strip existing traversal to re-calculate based on current depth
+        // We assume inputs from data files are root-relative (e.g. "assets/img.png" or "./assets/img.png")
+        while (cleanPath.startsWith("../")) cleanPath = cleanPath.substring(3);
+        while (cleanPath.startsWith("./")) cleanPath = cleanPath.substring(2);
 
         // --- WebP Resolution Logic ---
         // If manifest is loaded, check if we can swap to WebP
         if (window.imageManifest && cleanPath.includes('assets/')) {
-            // Normalize path to key format "assets/..."
-            // e.g. "assets/member/ten.png" or "../assets/member/ten.png" -> "assets/member/ten.png"
-
-            // Remove ../ if present for key lookup
+            // Normalize path to key format "assets/..." for lookup
             let key = cleanPath;
-            if (key.startsWith('../')) {
-                key = key.replace(/^(\.\.\/)+/, '');
-            }
+            // key is already cleaned up above
 
             // Should start with assets/ to be in manifest
             if (key.startsWith('assets/')) {
                 const webpPath = window.imageManifest[key];
                 if (webpPath) {
-                    // Replace the original path with the WebP path
-                    // But we need to preserve the ../ prefix logic below
-                    // So we update cleanPath to represent the WebP target
-                    // logic below handles ../ prefixing based on subDir check
-
-                    // However, webpPath is "assets_webp/..."
-                    // If we just set cleanPath = webpPath, the logic below will add ./ or ../ correctly
                     cleanPath = webpPath;
                     console.info(`[WebP Swap] ${path} -> ${cleanPath}`); // Debug info
                 }
@@ -52,29 +152,56 @@
         }
         // -----------------------------
 
-        // Check if we are in a subdirectory
-        const subDirs = ["/member/", "/news/", "/partner_events/", "/pages/", "/gallery/"];
-        const isSubDir = subDirs.some(dir => window.location.pathname.includes(dir));
+        // Calculate required depth from Main Root
+        // Root (index.html) -> depth 0
+        // SubDir (pages/xxx) -> depth 1
+        // Master (master/index.html) -> depth 1
+        // Master SubDir (master/pages/xxx) -> depth 2
 
-        if (isSubDir) {
-            // checking if it already has ../ (simple check)
-            if (!cleanPath.startsWith("../")) {
-                // console.log(`[Path Fix] Adding ../ to ${cleanPath} (In Subdir)`);
-                return "../" + cleanPath;
-            }
-        } else {
-            // Debug why it might fail
-            // console.log(`[Path Fix] Not in subDir? Path: ${window.location.pathname}`);
+        const subDirs = ["/member/", "/news/", "/partner_events/", "/pages/", "/gallery/"];
+        let depth = 0;
+        let isMaster = false;
+
+        if (window.location.pathname.includes("/master/")) {
+            depth += 1;
+            isMaster = true;
         }
 
-        // If it already has ../ but we are NOT in subdir, technically we should remove it?
-        // But existing logic didn't do that. It just added ./ if not absolute.
-        // Let's stick to adding ./ if it doesn't have it and doesn't have ../
-        if (!cleanPath.startsWith(".") && !cleanPath.startsWith("/")) {
+        if (subDirs.some(dir => window.location.pathname.includes(dir))) {
+            depth += 1;
+        }
+
+        // --- Master Site Link Logic ---
+        // If in Master Site, distinguish between Shared Resources (Assets) and Local Pages.
+        // Shared Resources: point to Main Root (using calculated depth).
+        // Local Pages: point to Master Root (reduce depth by 1).
+
+        if (isMaster) {
+            // List of directories/files that are SHARED and exist only in Main Root
+            const sharedPrefixes = ["assets/", "assets_webp/", "css/", "js/", "_config/"];
+
+            // Check if match
+            const isShared = sharedPrefixes.some(p => cleanPath.startsWith(p));
+
+            if (!isShared) {
+                // Assuming it's a page link (pages/, news/, index.html etc)
+                // We want to link to the copy inside /master/, so reduce traversal depth
+                if (depth > 0) depth -= 1;
+            }
+        }
+
+        // Construct prefix
+        let prefix = "";
+        for (let i = 0; i < depth; i++) {
+            prefix += "../";
+        }
+
+        // If we are at root (depth 0) and path doesn't start with ./, add it for consistency
+        if (depth === 0 && !cleanPath.startsWith(".")) {
             return "./" + cleanPath;
         }
 
-        return cleanPath;
+        return prefix + cleanPath;
     };
 
     /**

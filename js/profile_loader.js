@@ -45,25 +45,158 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // ==========================================
+    // revealLevelに応じたアクセス制御
+    // ==========================================
+    const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(member) : null;
+    const revealLevel = displayInfo ? displayInfo.level : 3;
+
+    // Level 0（非表示）または Level 1（Coming Soon）はプロフィールページにアクセス不可
+    if (revealLevel <= 1) {
+        // キャスト一覧にリダイレクト
+        window.location.href = window.fixPath ? window.fixPath('pages/people.html') : '../pages/people.html';
+        return;
+    }
+    // ==========================================
     // Render Content
     // ==========================================
 
+    // 現在の形態を取得（forms がある場合）
+    let currentFormIndex = 0;
+    let activeForm = null;
+
+    // 形態に基づいてメンバー情報をマージする関数
+    const getMergedMemberData = (formIndex) => {
+        if (!member.forms || member.forms.length === 0) {
+            return member;
+        }
+        const form = member.forms[formIndex] || member.forms[0];
+        // フォームのプロパティで親を上書き
+        return {
+            ...member,
+            name: form.name || member.name,
+            tagLabel: form.tagLabel || member.tagLabel,
+            profileImages: (form.profileImages && form.profileImages.length > 0) ? form.profileImages : member.profileImages,
+            motifAnimal: form.motifAnimal || member.motifAnimal,
+            motifIcon: form.motifIcon || member.motifIcon,
+            introduction: form.introduction || member.introduction,
+            goals: form.goals || member.goals,
+            socials: form.socials || member.socials,
+        };
+    };
+
+    // 形態切り替えボタンを生成
+    if (member.forms && member.forms.length > 1) {
+        const formSwitcherContainer = document.createElement('div');
+        formSwitcherContainer.className = 'form-switcher';
+        formSwitcherContainer.innerHTML = member.forms.map((form, index) =>
+            `<button class="form-switcher-btn${index === 0 ? ' is-active' : ''}" data-form-index="${index}">${form.label}</button>`
+        ).join('');
+
+        // h1 の下に挿入
+        const h1El = document.querySelector('h1');
+        if (h1El && h1El.parentNode) {
+            h1El.parentNode.insertBefore(formSwitcherContainer, h1El.nextSibling);
+        }
+
+        // クリックイベント
+        formSwitcherContainer.querySelectorAll('.form-switcher-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const newIndex = parseInt(btn.dataset.formIndex, 10);
+                if (newIndex === currentFormIndex) return;
+
+                currentFormIndex = newIndex;
+
+                // ボタンのアクティブ状態を更新
+                formSwitcherContainer.querySelectorAll('.form-switcher-btn').forEach((b, i) => {
+                    b.classList.toggle('is-active', i === newIndex);
+                });
+
+                // コンテンツを更新
+                updateFormContent(newIndex);
+            });
+        });
+    }
+
+    // 形態変更時にコンテンツを更新する関数
+    const updateFormContent = (formIndex) => {
+        const mergedMember = getMergedMemberData(formIndex);
+
+        // 名前を更新
+        const h1Title = document.querySelector('h1');
+        if (h1Title) h1Title.textContent = mergedMember.name;
+        document.title = `あにあめもりあ | ${mergedMember.name}`;
+
+        // タグを更新
+        const tagsContainer = document.getElementById('dynamic-tags-container');
+        if (tagsContainer) {
+            let tagsHtml = '';
+            if (mergedMember.tagLabel) {
+                tagsHtml += `<span class="tag" style="background:#000; color:#fff;">${mergedMember.tagLabel}</span>`;
+            }
+            if (member.tags) {
+                const tagsList = member.tags.split(' ');
+                tagsList.forEach(t => {
+                    if (t !== mergedMember.tagLabel) {
+                        tagsHtml += `<span class="tag tag--soft">${t}</span>`;
+                    }
+                });
+            }
+            tagsContainer.innerHTML = tagsHtml;
+        }
+
+        // モチーフ動物を更新
+        const motifContainer = document.getElementById('dynamic-motif-container');
+        if (motifContainer && mergedMember.motifAnimal && mergedMember.motifIcon) {
+            let iconPath = window.fixPath(mergedMember.motifIcon);
+            motifContainer.innerHTML = `
+                <div class="motif-container">
+                    <div class="motif-icon-box">
+                        <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="motif-text-box">
+                        <span>種族ː${mergedMember.motifAnimal}</span>
+                    </div>
+                </div>
+            `;
+            motifContainer.style.display = 'block';
+        }
+
+        // プロフィール画像を更新
+        const switcherContainer = document.querySelector('.profile-switcher-container');
+        if (switcherContainer && typeof ProfileImageSwitcher !== 'undefined') {
+            let images = [];
+            if (mergedMember.profileImages && mergedMember.profileImages.length > 0) {
+                images = mergedMember.profileImages.map(p => window.fixPath(p));
+            } else if (mergedMember.image) {
+                images = [window.fixPath(mergedMember.image)];
+            }
+
+            if (images.length > 0) {
+                switcherContainer.classList.add('profile-switcher');
+                new ProfileImageSwitcher(switcherContainer, images, { showIndicators: true });
+            }
+        }
+    };
+
+    // 初期データを取得（forms がある場合は最初の形態）
+    const initialMember = getMergedMemberData(0);
+
     // 0. Update Page Title and H1
-    document.title = `あにあめもりあ | ${member.name}`;
+    document.title = `あにあめもりあ | ${initialMember.name}`;
     const h1Title = document.querySelector('h1');
-    if (h1Title) h1Title.textContent = member.name;
+    if (h1Title) h1Title.textContent = initialMember.name;
 
     // 1. Tags
     const tagsContainer = document.getElementById('dynamic-tags-container');
     if (tagsContainer) {
         let tagsHtml = '';
-        if (member.tagLabel) {
-            tagsHtml += `<span class="tag" style="background:#000; color:#fff;">${member.tagLabel}</span>`;
+        if (initialMember.tagLabel) {
+            tagsHtml += `<span class="tag" style="background:#000; color:#fff;">${initialMember.tagLabel}</span>`;
         }
         if (member.tags) {
             const tagsList = member.tags.split(' ');
             tagsList.forEach(t => {
-                if (t !== member.tagLabel) {
+                if (t !== initialMember.tagLabel) {
                     tagsHtml += `<span class="tag tag--soft">${t}</span>`;
                 }
             });
@@ -71,15 +204,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         tagsContainer.innerHTML = tagsHtml;
     }
 
-    // 2. Introduction
-    if (member.introduction) {
+    // 2. Introduction (revealLevel 2では非表示)
+    if (member.introduction && (revealLevel >= 3 || (displayInfo && displayInfo.showIntro))) {
         const introEl = document.getElementById('dynamic-intro-text');
         if (introEl) introEl.innerHTML = member.introduction;
+    } else if (revealLevel === 2) {
+        // シルエットモード: 自己紹介を準備中に置き換え
+        const introEl = document.getElementById('dynamic-intro-text');
+        if (introEl) introEl.innerHTML = '<p style="text-align:center; color: var(--muted);">詳細は近日公開予定です…</p>';
     }
 
-    // 3. Goals
+    // 3. Goals (revealLevel 2では非表示)
     const goalsSection = document.querySelector('.goals-section');
-    if (member.goals && Array.isArray(member.goals) && member.goals.length > 0) {
+    const shouldShowGoals = revealLevel >= 3 || (displayInfo && displayInfo.showGoals);
+
+    if (shouldShowGoals && member.goals && Array.isArray(member.goals) && member.goals.length > 0) {
         if (goalsSection) goalsSection.style.display = 'block';
         const goalsContainer = document.getElementById('dynamic-goals-container');
         if (goalsContainer) {
@@ -91,17 +230,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // 4. Motif Animal
-    if (member.motifAnimal && member.motifIcon) {
+    if (initialMember.motifAnimal && initialMember.motifIcon) {
         const motifContainer = document.getElementById('dynamic-motif-container');
         if (motifContainer) {
-            let iconPath = window.fixPath(member.motifIcon);
+            let iconPath = window.fixPath(initialMember.motifIcon);
             motifContainer.innerHTML = `
                 <div class="motif-container">
                     <div class="motif-icon-box">
                         <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     <div class="motif-text-box">
-                        <span>種族ː${member.motifAnimal}</span>
+                        <span>種族ː${initialMember.motifAnimal}</span>
                     </div>
                 </div>
             `;
@@ -118,8 +257,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // 6. Social Icons
-    if (member.socials && Array.isArray(member.socials)) {
+    // 6. Social Icons (revealLevel 2では非表示)
+    const shouldShowSocials = revealLevel >= 3 || (displayInfo && displayInfo.showSocials);
+    if (shouldShowSocials && member.socials && Array.isArray(member.socials)) {
         const socialContainer = document.getElementById('dynamic-socials-container');
         if (socialContainer) {
             let html = '';
@@ -169,9 +309,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // 7. Related Cast
+    // 7. Related Cast (revealLevel 2では非表示)
     const relatedContainer = document.getElementById('dynamic-related-cast');
-    if (relatedContainer) {
+    if (relatedContainer && revealLevel >= 3) {
         const relatedMembers = getRelatedMembers(member, membersData);
         let html = '';
         relatedMembers.forEach(relatedMember => {
@@ -226,6 +366,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (switcherContainer) {
         switcherContainer.setAttribute('data-member-id', member.id);
 
+        // revealLevel 2（シルエット）の場合、画像をシルエットに置き換え
+        if (revealLevel === 2) {
+            const silhouetteImg = displayInfo && displayInfo.imagePath
+                ? displayInfo.imagePath[0]
+                : (window.siteConfig?.castDisplay?.placeholderImage || member.image);
+
+            // ProfileImageSwitcherが読み込む前に画像パスを上書き
+            const chekiImg = switcherContainer.querySelector('.cheki-img');
+            if (chekiImg) {
+                chekiImg.src = window.fixPath(silhouetteImg);
+                chekiImg.style.filter = 'none'; // フィルターをリセット
+            }
+
+            // サムネイルも非表示（シルエットは1枚のみ）
+            const thumbContainer = switcherContainer.querySelector('.thumbnail-strip');
+            if (thumbContainer) {
+                thumbContainer.style.display = 'none';
+            }
+        }
+
         // Background Logic using utils.js helper
         const bgElement = document.querySelector('.profile-bg-texture');
         const bgPath = window.getMemberBackground(member.tags);
@@ -234,32 +394,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log('Applied background:', bgPath);
         }
 
-        // Frame Overlay Logic
+        // Frame Overlay Logic (シルエットモードでは非表示)
         const existingFrame = document.querySelector('.profile-frame-overlay');
         if (existingFrame) existingFrame.remove();
 
-        const framePath = window.getMemberFrame(member.tags);
-        if (framePath) {
-            const visualArea = document.querySelector('.cheki-visual');
-            if (visualArea) {
-                const frameEl = document.createElement('div');
-                frameEl.className = 'profile-frame-overlay';
-                frameEl.style.position = 'absolute';
-                frameEl.style.inset = '0';
-                frameEl.style.backgroundImage = `url('${window.fixPath(framePath)}')`;
-                frameEl.style.backgroundSize = '100% 100%';
-                frameEl.style.pointerEvents = 'none';
-                frameEl.style.zIndex = '3';
-                visualArea.appendChild(frameEl);
-                console.log('Applied frame:', framePath);
-            } else {
-                console.warn('.cheki-visual not found');
+        if (revealLevel >= 3) {
+            const framePath = window.getMemberFrame(member.tags);
+            if (framePath) {
+                const visualArea = document.querySelector('.cheki-visual');
+                if (visualArea) {
+                    const frameEl = document.createElement('div');
+                    frameEl.className = 'profile-frame-overlay';
+                    frameEl.style.position = 'absolute';
+                    frameEl.style.inset = '0';
+                    frameEl.style.backgroundImage = `url('${window.fixPath(framePath)}')`;
+                    frameEl.style.backgroundSize = '100% 100%';
+                    frameEl.style.pointerEvents = 'none';
+                    frameEl.style.zIndex = '3';
+                    visualArea.appendChild(frameEl);
+                    console.log('Applied frame:', framePath);
+                } else {
+                    console.warn('.cheki-visual not found');
+                }
             }
         }
 
         // Trigger Switcher Init manually for this specific container if possible,
-        // or just re-run initAll()
-        if (typeof ProfileImageSwitcher !== 'undefined') {
+        // or just re-run initAll() (only for full reveal)
+        if (revealLevel >= 3 && typeof ProfileImageSwitcher !== 'undefined') {
             ProfileImageSwitcher.initAll();
         }
     }

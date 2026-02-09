@@ -10,7 +10,8 @@
        ------------------------------------------------------- */
     const linksContainer = document.getElementById("links-list-container");
     if (linksContainer && window.linksData) {
-        window.linksData.forEach(item => {
+        const visibleLinks = window.linksData.filter(item => window.shouldShowItem(item));
+        visibleLinks.forEach(item => {
             const link = document.createElement("a");
             link.href = item.url;
             link.target = "_blank";

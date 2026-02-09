@@ -41,20 +41,34 @@ class ProfileImageSwitcher {
             const member = window.membersData.find(m => m.id === id);
 
             if (member) {
-                // Priority: profileImages array > single image
+                // revealLevelをチェック
+                const revealLevel = window.getRevealLevel ? window.getRevealLevel(member) : 3;
+                const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(member) : null;
+
+                // revealLevel 2（シルエット）の場合、シルエット画像のみ使用
                 let images = [];
-                if (member.profileImages && member.profileImages.length > 0) {
-                    images = member.profileImages.map(p => window.fixPath(p));
-                } else if (member.image) {
-                    images = [window.fixPath(member.image)];
+                if (revealLevel === 2) {
+                    // シルエット画像を使用
+                    const silhouetteImg = displayInfo && displayInfo.imagePath
+                        ? displayInfo.imagePath[0]
+                        : (window.siteConfig?.castDisplay?.placeholderImage || member.image);
+                    images = [window.fixPath(silhouetteImg)];
+                } else if (revealLevel >= 3) {
+                    // 完全公開: 通常の画像を使用
+                    if (member.profileImages && member.profileImages.length > 0) {
+                        images = member.profileImages.map(p => window.fixPath(p));
+                    } else if (member.image) {
+                        images = [window.fixPath(member.image)];
+                    }
                 }
+                // revealLevel 0-1 はプロフィールページにリダイレクトされるはずなので処理不要
 
                 if (images.length > 0) {
                     // Add class for styling if not present
                     container.classList.add('profile-switcher');
 
                     // Default options for page-embedded switchers
-                    new ProfileImageSwitcher(container, images, { showIndicators: true });
+                    new ProfileImageSwitcher(container, images, { showIndicators: revealLevel >= 3 });
                 }
             }
         });
