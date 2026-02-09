@@ -15,7 +15,10 @@
        ------------------------------------------------------- */
     const partnerContainer = document.getElementById("partner-events-list-container");
     if (partnerContainer && window.partnerEventsData) {
-        window.partnerEventsData.forEach(item => {
+        // フィルタリング
+        const visibleEvents = window.partnerEventsData.filter(item => window.shouldShowItem(item));
+
+        visibleEvents.forEach(item => {
             const card = document.createElement("article");
             card.className = "card reveal is-visible";
             card.setAttribute("role", "listitem");

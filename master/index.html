@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ja">
+<!-- マスターサイト - テスト環境（全キャスト表示） -->
+<!-- このページは検索エンジンに登録されません -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あにあめもりあ | マスターサイト</title>
+    <meta name="description" content="あにあめもりあマスターサイト：テスト環境" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../assets/favicon/multi_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<div id="opening-loader-overlay">
+    <div class="loader-logo-container">
+        <div class="logo-wrapper">
+            <img src="../assets_webp/logo/aniamemoria_logo.webp" alt="Loading..." class="loader-logo-back">
+            <img src="../assets_webp/logo/aniamemoria_logo.webp" alt="" class="loader-logo-front">
+        </div>
+        <p class="loader-text">Loading...</p>
+    </div>
+</div>
+<a class="skip-link" href="#main">本文へスキップ</a>
+
+<div id="header-placeholder"></div>
+
+<main id="main">
+    <!-- Hero Section -->
+    <section id="hero-section">
+        <!-- Flash Overlay -->
+        <div class="hero-flash"></div>
+
+        <div class="hero-content">
+            <img class="hero-character" src="../assets_webp/opening/Tatie.webp" alt="Character">
+            <img class="hero-logo" src="../assets_webp/logo/aniamemoria_logo.webp" alt="AniameMoria">
+            <p class="hero-subtitle">AniameMoria</p>
+
+            <!-- Scroll Down Indicator -->
+            <div class="scroll-down">
+                <span>SCROLL</span>
+                <div class="scroll-down-arrow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Board (Wrapper for continuous background) -->
+    <div id="content-board" class="bg-texture news-overlap">
+
+        <!-- News Section (Carousel) -->
+        <section class="section u-pb-xs">
+            <div class="container" style="max-width: 1000px;">
+                <header class="section-head reveal" style="margin-bottom: 10px;">
+                    <h2 class="section-title cafe-signboard">News</h2>
+                    <p class="section-lead">更新情報</p>
+                </header>
+
+                <div class="news-carousel-container reveal">
+                    <button class="carousel-nav-btn carousel-prev" id="carousel-prev" aria-label="Previous">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="news-carousel-track" id="news-carousel-track">
+                        <!-- Items will be injected by script.js -->
+                    </div>
+
+                    <button class="carousel-nav-btn carousel-next" id="carousel-next" aria-label="Next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Divider (News <-> Pickup): Balanced to be higher (closer to News, further from Pickup) -->
+        <div class="cafe-separator" style="margin-top: 20px; margin-bottom: 60px;">
+            <span class="cafe-separator-icon"></span>
+        </div>
+
+        <!-- Random Pickup Section -->
+        <section class="section u-pt-xs random-pickup-section">
+            <div class="container">
+                <header class="section-head reveal" style="margin-bottom: 30px;">
+                    <h2 class="section-title cafe-signboard">Random Pickup</h2>
+                    <p class="section-lead">本日のピックアップキャスト（ランダム）</p>
+                </header>
+                <div id="random-pickup-grid" class="cheki-grid">
+                    <!-- Populated by script.js -->
+                </div>
+                <div class="cta-actions" style="justify-content:center; margin-top:20px;">
+                    <a class="btn btn--ghost" href="./pages/people.html">全員を見る</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider (Pickup <-> About): Narrower spacing -->
+        <div class="cafe-separator" style="margin: 20px auto;">
+            <span class="cafe-separator-icon"></span>
+        </div>
+
+        <!-- About Section -->
+        <section id="about-section" class="section u-pt-md u-pb-lg">
+            <div class="container">
+                <header class="section-head reveal">
+                    <h2 class="section-title cafe-signboard">About</h2>
+                    <p class="section-lead">あにあめもりあとは？</p>
+                </header>
+                <div class="section-body reveal about-content">
+                    <div class="about-text">
+                        <div class="parchment-frame"
+                            style="margin-bottom: 0; min-height: 200px; display: flex; flex-direction: column; justify-content: center;">
+                            <div class="about-text-content">
+                                <!-- Text populated by JS -->
+                            </div>
+                            <div class="watermark-logo"></div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="" alt="About Character">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /#content-board -->
+
+    <style>
+        /* Parallax Fix: Content Sections must act as cover */
+        main {
+            padding-top: 100vh;
+            /* Push content below fixed hero */
+            position: relative;
+        }
+
+        /* Apply Texture to Sections to cover Hero */
+        .bg-texture {
+            background-color: #f0e6ce;
+            /* Light Wood Base */
+            background-image:
+                repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(160, 100, 50, 0.04) 4px, rgba(160, 100, 50, 0.04) 6px),
+                repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(160, 100, 50, 0.03) 10px, rgba(160, 100, 50, 0.03) 24px),
+                repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(160, 100, 50, 0.03) 15px, rgba(160, 100, 50, 0.03) 30px);
+            background-size: 100% 100%;
+        }
+
+        /* Content Board Wrapper */
+        #content-board {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .bg-texture {
+                background-color: #2a231e;
+                /* Dark Wood Base */
+                background-image:
+                    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.2) 4px, rgba(0, 0, 0, 0.2) 6px),
+                    repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 24px),
+                    repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(0, 0, 0, 0.1) 15px, rgba(0, 0, 0, 0.1) 30px);
+            }
+        }
+
+        /* Top Divider for News Section (Washi/Torn Effect) */
+        .news-overlap {
+            margin-top: -15vh;
+            padding-top: 80px;
+            clip-path: polygon(0% 40px,
+                    2% 25px,
+                    5% 45px,
+                    8% 20px,
+                    12% 50px,
+                    15% 30px,
+                    20% 55px,
+                    23% 35px,
+                    28% 60px,
+                    32% 25px,
+                    35% 50px,
+                    40% 30px,
+                    45% 55px,
+                    50% 25px,
+                    55% 50px,
+                    58% 30px,
+                    62% 55px,
+                    68% 25px,
+                    72% 50px,
+                    75% 35px,
+                    80% 55px,
+                    85% 30px,
+                    88% 50px,
+                    92% 25px,
+                    95% 45px,
+                    100% 20px,
+                    100% 100%,
+                    0% 100%);
+        }
+
+        .section {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Fix for 3D Carousel Gap */
+        .random-pickup-section {
+            margin-top: -12px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Reduced margin for tighter layout */
+        .section-head {
+            margin-bottom: 20px !important;
+        }
+
+        footer,
+        #footer-placeholder {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* About Section Layout */
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+            line-height: 2;
+        }
+
+        .about-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        /* Mobile: Stack Vertical (Text Top, Image Bottom) */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-text {
+                text-align: left;
+                width: 100%;
+            }
+        }
+    </style>
+
+
+</main>
+
+<div id="footer-placeholder"></div>
+<script src="../js/common-layout.js"></script>
+<script>
+    renderLayout('../');
+</script>
+<!-- データファイル（親ディレクトリ参照） -->
+<script src="../_config/data_members.js"></script>
+<script src="../_config/data_news.js"></script>
+<script src="../_config/data_events.js"></script>
+<script src="../_config/data_gallery.js"></script>
+<script src="../_config/data_links.js"></script>
+<!-- マスター専用設定 -->
+<script src="./_config/data_site.js"></script>
+<script src="../js/profile_switcher.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/home.js"></script>
+<script src="../js/news.js"></script>
+<script>
+    // Add scroll lock immediately
+    document.body.classList.add('is-preloading');
+
+    // Add CSS rule for preloading if not present
+    const style = document.createElement('style');
+    style.textContent = `body.is-preloading { overflow: hidden; }`;
+    document.head.appendChild(style);
+
+    // Random Loading Text from Config
+    const loadingMessages = (window.siteConfig && window.siteConfig.loadingMessages) ?
+        window.siteConfig.loadingMessages :
+        ["Loading..."]; // Fallback
+
+    // Theme-aware Logo Selection from Config
+    const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const logoBack = document.querySelector('.loader-logo-back');
+    const logoFront = document.querySelector('.loader-logo-front');
+
+    // Use config or fallback to hardcoded paths
+    const loaderConfig = window.siteConfig?.loaderLogos?.opening || {
+        light: '../assets_webp/logo/aniamemoria_logo.webp',
+        dark: '../assets_webp/logo/aniamemoria_logo_darktheme.webp'
+    };
+    const defaultLogo = isDark ? loaderConfig.dark : loaderConfig.light;
+
+    if (logoBack) logoBack.src = defaultLogo;
+    if (logoFront) logoFront.src = defaultLogo;
+
+    // Reveal the logo after setting src
+    const logoWrapper = document.querySelector('.logo-wrapper');
+    if (logoWrapper) logoWrapper.classList.add('is-ready');
+
+    const textEl = document.querySelector('.loader-text');
+    if (textEl) {
+        textEl.textContent = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+    }
+
+    // Set Hero Subtitle from Config
+    const subtitleEl = document.querySelector('.hero-subtitle');
+    if (subtitleEl && window.siteConfig && window.siteConfig.heroSubtitle) {
+        const subs = window.siteConfig.heroSubtitle;
+        const text = Array.isArray(subs) ? subs[Math.floor(Math.random() * subs.length)] : subs;
+
+        // Split into characters for Typewriter effect
+        subtitleEl.innerHTML = '';
+        [...text].forEach(char => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.classList.add('char');
+            // Handle spaces
+            if (char === ' ') span.style.width = '0.5em';
+            subtitleEl.appendChild(span);
+        });
+    }
+
+    // Set Hero Images from Config
+    if (window.siteConfig && window.siteConfig.heroImages) {
+        const images = window.siteConfig.heroImages;
+
+        // Character
+        const charEl = document.querySelector('.hero-character');
+        if (charEl && images.character) charEl.src = images.character;
+
+        // Background
+        const heroSection = document.getElementById('hero-section');
+        if (heroSection && images.background) {
+            heroSection.style.backgroundImage = `url('${images.background}')`;
+        }
+
+        // Logo (Handle Light/Dark Mode)
+        const logoEl = document.querySelector('.hero-logo');
+        if (logoEl && images.logo) {
+            const updateLogo = () => {
+                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                // Use Dark logo if available and in dark mode, else Light logo
+                logoEl.src = (isDark && images.logoDark) ? images.logoDark : images.logo;
+            };
+
+            updateLogo(); // Initial set
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo); // Listener
+        }
+    }
+
+    // Set About Section from Config
+    const aboutSection = document.getElementById('about-section');
+    if (aboutSection && window.siteConfig && window.siteConfig.aboutSection) {
+        const config = window.siteConfig.aboutSection;
+
+        // Title & Subtitle
+        const titleEl = aboutSection.querySelector('.section-title');
+        if (titleEl && config.title) titleEl.textContent = config.title;
+
+        const leadEl = aboutSection.querySelector('.section-lead');
+        if (leadEl && config.subTitle) leadEl.textContent = config.subTitle;
+
+        // Body Text
+        const textContainer = aboutSection.querySelector('.about-text-content');
+        if (textContainer && config.text && Array.isArray(config.text)) {
+            textContainer.innerHTML = ''; // Clear existing
+            config.text.forEach(line => {
+                const p = document.createElement('p');
+                p.textContent = line;
+                textContainer.appendChild(p);
+            });
+        }
+
+        // About Image
+        const imgEl = aboutSection.querySelector('.about-image img');
+        if (imgEl && config.image) {
+            imgEl.src = config.image;
+        } else if (imgEl) {
+            imgEl.style.display = 'none'; // Hide if no image configured
+        }
+    }
+
+    // Start timer immediately to run in parallel with loading
+    const startTime = Date.now();
+    const MIN_DISPLAY_TIME = 3000; // Minimum time to show loader (ms)
+
+    window.addEventListener('load', () => {
+        // Calculate how much time has passed since script started
+        const elapsedTime = Date.now() - startTime;
+        // Wait only the remaining time needed to reach MIN_DISPLAY_TIME
+        const remainingTime = Math.max(0, MIN_DISPLAY_TIME - elapsedTime);
+
+        setTimeout(() => {
+            const loader = document.getElementById('opening-loader-overlay');
+            if (loader) {
+                // Optimized for Safari: Double RAF to ensure layout is ready
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        loader.classList.add('is-hidden');
+                    });
+                });
+
+                // FORCE DISPLAY NONE AFTER TRANSITION (For iOS performance)
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500); // Wait slightly longer than transition (0.3s) just in case
+
+                // Trigger Hero Animation (Delayed)
+                const hero = document.getElementById('hero-section');
+                if (hero) {
+                    setTimeout(() => {
+                        hero.classList.add('animate-start');
+
+                        // Trigger Shadow after animation (0.8s) + buffer -> 1000ms
+                        setTimeout(() => {
+                            const charEl = document.querySelector('.hero-character');
+                            if (charEl) charEl.classList.add('with-shadow');
+                        }, 1000);
+
+                        // Trigger Subtitle Typewriter + Sparkle (Synced with Logo: ~1.0s delay + anim)
+                        // Logo starts at 1.0s delay. Let's start text slightly after.
+                        setTimeout(() => {
+                            animateSubtitle();
+                        }, 1800);
+                    }, 1000); // Reduced delay slightly due to faster loader fade
+                }
+
+                // Remove scroll lock after fade
+                setTimeout(() => {
+                    document.body.classList.remove('is-preloading');
+                }, 800);
+            }
+        }, remainingTime);
+    });
+
+    // --- Animation Logic ---
+    function animateSubtitle() {
+        const chars = document.querySelectorAll('.hero-subtitle .char');
+        const totalDuration = chars.length * 100;
+
+        // Show scroll indicator after text finishes + 500ms pause
+        setTimeout(() => {
+            const scroll = document.querySelector('.scroll-down');
+            if (scroll) scroll.classList.add('is-visible');
+        }, totalDuration + 500);
+
+        chars.forEach((char, index) => {
+            setTimeout(() => {
+                char.classList.add('is-visible');
+
+                // Spawn sparkles
+                const rect = char.getBoundingClientRect();
+                // Spawn 1-2 sparkles per char
+                spawnSparkle(rect);
+                if (Math.random() > 0.5) spawnSparkle(rect);
+
+            }, index * 100); // 100ms per char speed
+        });
+    }
+
+    function spawnSparkle(targetRect) {
+        const heroContent = document.querySelector('.hero-content');
+        if (!heroContent) return;
+
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('hero-sparkle');
+        if (Math.random() > 0.5) sparkle.classList.add('star'); // Variant
+
+        // Random position near the character
+        // Calculate relative to heroContent (which is centered)
+        // Since .hero-sparkle is absolute inside .hero-content (relative), we need offsets.
+
+        const folderRect = heroContent.getBoundingClientRect();
+
+        const centerX = targetRect.left - folderRect.left + targetRect.width / 2;
+        const centerY = targetRect.top - folderRect.top + targetRect.height / 2;
+
+        const offsetX = (Math.random() - 0.5) * 40; // +/- 20px
+        const offsetY = (Math.random() - 0.5) * 40;
+
+        sparkle.style.left = `${centerX + offsetX}px`;
+        sparkle.style.top = `${centerY + offsetY}px`;
+
+        // Random scale
+        const scale = 0.5 + Math.random() * 1.0;
+        sparkle.style.transform = `scale(${scale})`;
+
+        // Add anim class
+        sparkle.classList.add('hero-sparkle-anim');
+
+        heroContent.appendChild(sparkle);
+
+        // Cleanup
+        setTimeout(() => {
+            sparkle.remove();
+        }, 1000);
+    }
+</script>
+</body>
+
+</html>

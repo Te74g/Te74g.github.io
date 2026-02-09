@@ -2,14 +2,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const listContainer = document.getElementById('aikotoba-list');
     if (!listContainer) return;
 
-    if (typeof aikotobaData === 'undefined' || !Array.isArray(aikotobaData)) {
-        console.error('aikotobaData is not defined or is not an array.');
-        listContainer.innerHTML = '<p>データが見つかりませんでした。</p>';
+    // データが空または未定義の場合
+    if (typeof aikotobaData === 'undefined' || !Array.isArray(aikotobaData) || aikotobaData.length === 0) {
+        listContainer.innerHTML = `
+            <div class="empty-content">
+                <p>現在合言葉はありません。</p>
+            </div>
+        `;
+        return;
+    }
+
+    // フィルタリング
+    const visibleData = aikotobaData.filter(item => window.shouldShowItem(item));
+
+    if (visibleData.length === 0) {
+        listContainer.innerHTML = `
+            <div class="empty-content">
+                <p>現在合言葉はありません。</p>
+            </div>
+        `;
         return;
     }
 
     let html = '';
-    aikotobaData.forEach(item => {
+    visibleData.forEach(item => {
         // Fallback for image if needed, though we expect it to exist
         const imgSrc = item.image;
 

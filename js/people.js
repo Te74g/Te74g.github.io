@@ -22,7 +22,10 @@
         const grouped = {};
         sectionOrder.forEach(sec => grouped[sec] = []);
 
-        window.membersData.forEach(member => {
+        // フィルタリングして振り分け
+        const visibleMembers = window.membersData.filter(m => window.shouldShowItem(m));
+
+        visibleMembers.forEach(member => {
             const sec = member.section || "その他";
             if (!grouped[sec]) grouped[sec] = [];
             grouped[sec].push(member);
@@ -69,35 +72,115 @@
             const grid = document.createElement("div");
             grid.className = "cheki-grid";
 
+            // キャスト表示制御の設定を取得
+            const castConfig = window.siteConfig?.castDisplay || {};
+            const showAll = castConfig.showAllMembers;
+            const visibleList = castConfig.visibleMembers || [];
+
+            // メンバーが表示許可されているか判定する関数（既存の互換性維持）
+            const isMemberVisible = (member) => {
+                if (showAll) return true;
+                // 運営部・スタッフは常に表示
+                if (member.section === "運営部" || member.section === "スタッフ") return true;
+                return visibleList.includes(member.id);
+            };
+
             list.forEach(m => {
+                // revealLevelを確認（0の場合は表示しない）
+                const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
+                const revealLevel = displayInfo ? displayInfo.level : 3;
+
+                // Level 0 は完全非表示
+                if (revealLevel === 0) return;
+
                 const link = document.createElement("a");
-                const url = m.link || `member/profile.html?id=${m.id}`;
-                link.href = window.fixPath(url);
                 const pinClass = window.getPinClass(m.tags);
                 link.className = `cheki-card ${pinClass}`;
-                const displayName = m.pickupName || m.name;
-                link.setAttribute("data-name", m.name);
+                link.setAttribute("data-name", displayInfo ? displayInfo.name : m.name);
                 link.setAttribute("data-tags", m.tags);
 
-                // Random Image Selection
-                const targetImage = (m.profileImages && m.profileImages.length > 0)
-                    ? m.profileImages[Math.floor(Math.random() * m.profileImages.length)]
-                    : m.image;
+                // 既存の表示許可チェック（互換性のため残す）
+                const visible = isMemberVisible(m);
 
-                link.innerHTML = `
-                    <div class="cheki-visual" style="${(() => {
-                        const bgPath = window.getMemberBackground(m.tags);
-                        return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
-                    })()}">
-                        <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img" loading="lazy">
-                        <span class="cheki-tag-badge">${m.tagLabel}</span>
-                        ${(() => {
-                        const fPath = window.getMemberFrame(m.tags);
-                        return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
-                    })()}
-                    </div>
-                    <div class="cheki-name">${displayName}</div>
-                `;
+                // revealLevel 3（完全公開）の場合
+                // 注意: revealLevel >= 3 であれば既存のvisible制限は適用しない
+                if (revealLevel >= 3) {
+                    // 完全公開表示
+                    const url = m.link || `member/profile.html?id=${m.id}`;
+                    link.href = window.fixPath(url);
+                    const displayName = displayInfo ? displayInfo.name : (m.pickupName || m.name);
+
+                    // Random Image Selection
+                    const targetImage = (m.profileImages && m.profileImages.length > 0)
+                        ? m.profileImages[Math.floor(Math.random() * m.profileImages.length)]
+                        : m.image;
+
+                    link.innerHTML = `
+                        <div class="cheki-visual" style="${(() => {
+                            const bgPath = window.getMemberBackground(m.tags);
+                            return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
+                        })()}">
+                            <img src="${window.fixPath(targetImage)}" alt="${m.name}" class="cheki-img" loading="lazy">
+                            <span class="cheki-tag-badge">${m.tagLabel}</span>
+                            ${(() => {
+                            const fPath = window.getMemberFrame(m.tags);
+                            return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
+                        })()}
+                        </div>
+                        <div class="cheki-name">${displayName}</div>
+                    `;
+                } else if (revealLevel === 2) {
+                    // シルエット表示（名前・タグは表示、画像はシルエット）
+                    const url = m.link || `member/profile.html?id=${m.id}`;
+                    link.href = window.fixPath(url);
+                    link.classList.add("silhouette-mode");
+
+                    const silhouetteImg = displayInfo && displayInfo.imagePath
+                        ? displayInfo.imagePath[0]
+                        : (castConfig.placeholderImage || m.image);
+
+                    link.innerHTML = `
+                        <div class="cheki-visual silhouette-mode">
+                            <img src="${window.fixPath(silhouetteImg)}" alt="${displayInfo ? displayInfo.name : m.name}" class="cheki-img silhouette" loading="lazy">
+                            <span class="cheki-tag-badge">${displayInfo ? displayInfo.tagLabel : m.tagLabel}</span>
+                        </div>
+                        <div class="cheki-name">${displayInfo ? displayInfo.name : m.name}</div>
+                    `;
+                } else if (revealLevel === 1) {
+                    // Coming Soon表示
+                    link.href = "javascript:void(0)";
+                    link.style.cursor = "default";
+                    link.classList.add("coming-soon");
+
+                    const comingSoonImg = castConfig.comingSoonImage || '';
+                    const comingSoonName = castConfig.comingSoonName || "???";
+
+                    link.innerHTML = `
+                        <div class="cheki-visual coming-soon">
+                            <img src="${window.fixPath(comingSoonImg)}" alt="Coming Soon" class="cheki-img" loading="lazy">
+                            <span class="cheki-tag-badge">???</span>
+                            <div class="coming-soon-overlay">Coming Soon</div>
+                        </div>
+                        <div class="cheki-name">${comingSoonName}</div>
+                    `;
+                } else if (!visible) {
+                    // 旧式の準備中表示（互換性のため残す）
+                    const placeholderImage = castConfig.placeholderImage || '';
+                    const preparingText = castConfig.preparingText || '準備中';
+
+                    link.href = "javascript:void(0)";
+                    link.style.cursor = "default";
+                    link.classList.add("preparing");
+
+                    link.innerHTML = `
+                        <div class="cheki-visual preparing">
+                            <img src="${window.fixPath(placeholderImage)}" alt="準備中" class="cheki-img silhouette" loading="lazy">
+                            <span class="cheki-tag-badge">${m.tagLabel}</span>
+                            <div class="preparing-overlay">${preparingText}</div>
+                        </div>
+                        <div class="cheki-name">???</div>
+                    `;
+                }
                 grid.appendChild(link);
             });
             innerContainer.appendChild(grid);

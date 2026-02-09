@@ -103,3 +103,48 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+/* =========================================
+   準備中メンバー（シルエット表示）
+   ========================================= */
+.cheki-card.preparing {
+    cursor: default;
+}
+
+.cheki-card.preparing:hover {
+    transform: none;
+}
+
+.cheki-visual.preparing {
+    position: relative;
+}
+
+.cheki-visual.preparing .silhouette {
+    filter: brightness(0.3) grayscale(1);
+    opacity: 0.6;
+}
+
+.preparing-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    letter-spacing: 0.1em;
+    display: none;
+    /* ユーザー要望により文字のみ非表示 */
+}
+
+/* =========================================
+   空コンテンツ表示
+   ========================================= */
+.empty-content {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+    font-size: 1rem;
+}
