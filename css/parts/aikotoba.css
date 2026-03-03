@@ -14,7 +14,7 @@
     inset: 0;
     background: url("../../assets/cinema/beam.svg") no-repeat bottom left;
     background-size: min(62vw, 900px) auto;
-    opacity: 0.5;
+    opacity: 0.85;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 0;
@@ -39,24 +39,27 @@
 }
 
 /* 映写機シルエット */
+/* <img>タグでは currentColor=黒になるので invert で白っぽいシルエットに変換 */
 .aikotoba-projector {
     position: absolute;
     left: clamp(10px, 4vw, 60px);
     bottom: clamp(20px, 6vh, 80px);
     width: min(300px, 38vw);
-    opacity: 0.45;
-    filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.6));
+    opacity: 0.35;
+    filter: invert(0.85) drop-shadow(0 16px 40px rgba(0, 0, 0, 0.6));
     pointer-events: none;
     z-index: 0;
 }
 
 /* パーフォレーション帯 */
+/* currentColor=黒なので invert で白い穴として表示 */
 .perf-strip {
     width: min(520px, 88%);
     height: 18px;
     margin: 12px auto 28px;
     background: url("../../assets/cinema/perforation.svg") center / contain no-repeat;
-    opacity: 0.25;
+    opacity: 0.45;
+    filter: invert(1);
 }
 
 
