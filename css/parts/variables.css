@@ -38,22 +38,22 @@
     /* Gold */
 
     /* Shadows: Deep, soft, and tinted warm brown (NOT pure black) */
-    --shadow: 0 10px 30px rgba(30, 15, 5, 0.5);
-    --shadow-strong: 0 16px 40px rgba(30, 15, 5, 0.7);
-    --shadow-hover: 0 20px 50px rgba(30, 15, 5, 0.6), 0 0 20px var(--gold-shadow);
+    --shadow: 0 15px 40px rgba(30, 15, 5, 0.7);
+    --shadow-strong: 0 20px 50px rgba(30, 15, 5, 0.9);
+    --shadow-hover: 0 25px 60px rgba(30, 15, 5, 0.8), 0 0 25px var(--gold-shadow);
 
-    /* 代替セクション背景色（和風：薄紅梅 うすこうばい） */
-    --bg-alt: rgba(243, 166, 140, 0.12);
-    --border-alt: rgba(232, 107, 121, 0.25);
+    /* 代替セクション背景色（ダークモード：薄墨桜的な暗色） */
+    --bg-alt: rgba(232, 107, 121, 0.08);
+    --border-alt: rgba(232, 107, 121, 0.2);
 
-    /* 和柄パターン色の定義（ライトモード） */
-    --p-red-1: rgba(232, 107, 121, 0.04);
+    /* 和柄パターン色の定義（主張を抑えるために調整） */
+    --p-red-1: rgba(232, 107, 121, 0.08);
     /* Asanoha */
-    --p-red-2: rgba(232, 107, 121, 0.07);
+    --p-red-2: rgba(232, 107, 121, 0.09);
     /* Ichimatsu */
-    --p-blue-1: rgba(56, 161, 219, 0.03);
+    --p-blue-1: rgba(56, 161, 219, 0.06);
     /* Asanoha */
-    --p-blue-2: rgba(56, 161, 219, 0.06);
+    --p-blue-2: rgba(56, 161, 219, 0.07);
     /* Ichimatsu */
 
     --r-lg: 12px;
@@ -62,34 +62,4 @@
     --r-sm: 6px;
 
     --focus: 0 0 0 4px rgba(56, 161, 219, 0.25);
-}
-
-/* Dark mode variables and specific overrides moved to end of file to ensure they take precedence */
-/* Dark mode inherently matches the new default root, but we ensure consistency */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #1a1311;
-        --paper: #281e19;
-        --ink: #cfc7bd;
-        --muted: rgba(207, 199, 189, 0.65);
-        --line: rgba(207, 170, 107, 0.15);
-        --line-strong: rgba(207, 170, 107, 0.35);
-        --shadow: 0 15px 40px rgba(30, 15, 5, 0.7);
-        --shadow-strong: 0 20px 50px rgba(30, 15, 5, 0.9);
-        --shadow-hover: 0 25px 60px rgba(30, 15, 5, 0.8), 0 0 25px var(--gold-shadow);
-
-        /* 代替セクション背景色（ダークモード：薄墨桜的な暗色） */
-        --bg-alt: rgba(232, 107, 121, 0.08);
-        --border-alt: rgba(232, 107, 121, 0.2);
-
-        /* 和柄パターン色の定義（ダークモード：少し濃くする） -> 主張を抑えるために調整 */
-        --p-red-1: rgba(232, 107, 121, 0.08);
-        /* 0.12 -> 0.08 */
-        --p-red-2: rgba(232, 107, 121, 0.09);
-        /* 0.15 -> 0.09 */
-        --p-blue-1: rgba(56, 161, 219, 0.06);
-        /* 0.10 -> 0.06 */
-        --p-blue-2: rgba(56, 161, 219, 0.07);
-        /* 0.12 -> 0.07 */
-    }
 }

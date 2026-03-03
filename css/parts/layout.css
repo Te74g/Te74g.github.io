@@ -16,15 +16,9 @@ body::before {
     transform: translateX(-50%);
     width: 150vw;
     height: 120vh;
-    background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.1) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-    body::before {
-        background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.1) 0%, transparent 70%);
-    }
 }
 
 
@@ -84,19 +78,11 @@ body.is-preloading {
 
 .section--alt {
     background: var(--bg-alt);
-    background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
     border-top: 1px solid var(--border-alt);
     border-bottom: 1px solid var(--border-alt);
-    box-shadow: inset 0 20px 40px -20px rgba(255, 255, 255, 0.5);
-    /* Inner light */
-}
-
-@media (prefers-color-scheme: dark) {
-    .section--alt {
-        background-image: radial-gradient(circle at 50% 0%, rgba(255, 220, 150, 0.1) 0%, transparent 70%);
-        box-shadow: inset 0 20px 40px -20px rgba(232, 107, 121, 0.15);
-        /* Soft pinkish inner light for dark mode */
-    }
+    background-image: radial-gradient(circle at 50% 0%, rgba(255, 220, 150, 0.1) 0%, transparent 70%);
+    box-shadow: inset 0 20px 40px -20px rgba(232, 107, 121, 0.15);
+    /* Soft pinkish inner light for dark mode */
 }
 
 
@@ -122,7 +108,8 @@ body.is-preloading {
 
 .section-lead {
     margin: 0;
-    color: var(--accent-gold);
+    color: #d7ccc8;
+    /* Pale Brown/Gold for Dark Wood */
     font-family: 'Zen Old Mincho', serif;
     font-weight: 600;
     font-size: 0.95rem;
@@ -133,23 +120,6 @@ body.is-preloading {
     gap: 16px;
     text-transform: uppercase;
     opacity: 0.8;
-}
-
-/* Decorative lines for subtitle */
-.section-lead::before,
-.section-lead::after {
-    content: "";
-    display: block;
-    width: 30px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-}
-
-@media (prefers-color-scheme: dark) {
-    .section-lead {
-        color: #d7ccc8;
-        /* Pale Brown/Gold for Dark Wood */
-    }
 }
 
 /* Grid */
@@ -355,12 +325,10 @@ body.is-preloading {
     box-shadow: none !important;
 }
 
-/* Dark Mode Watermark Asset Switch */
-@media (prefers-color-scheme: dark) {
-    .watermark-logo {
-        background-image: url('../../assets_webp/logo/aniamemoria_logo_darktheme.webp');
-        opacity: 0.12;
-    }
+/* Dark Mode Watermark Asset Switch (Enforced) */
+.watermark-logo {
+    background-image: url('../../assets_webp/logo/aniamemoria_logo_darktheme.webp');
+    opacity: 0.12;
 }
 
 /* =========================================
@@ -466,6 +434,4 @@ body.is-preloading {
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    /* Logo asset switching is handled entirely via JS for dynamic control. */
-}
+/* Logo asset switching is handled entirely via JS for dynamic control. */

@@ -80,7 +80,7 @@
                 const eventItem = window.partnerEventsData.find(item => item.id === eventId);
                 const loaderBack = loaderOverlay?.querySelector('.loader-logo-back');
                 const loaderFront = loaderOverlay?.querySelector('.loader-logo-front');
-                const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDarkMode = true; // Hardcoded dark theme
 
                 if (eventItem && eventItem.titleImage) {
                     let titleLogoPath = eventItem.titleImage;

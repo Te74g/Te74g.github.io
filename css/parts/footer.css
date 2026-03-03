@@ -68,11 +68,9 @@
     }
 }
 
-/* Dark Mode To Top Button */
-@media (prefers-color-scheme: dark) {
-    .to-top {
-        background: rgba(30, 30, 30, 0.85);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-    }
+/* Dark Mode To Top Button Applied Globally */
+.to-top {
+    background: rgba(30, 30, 30, 0.85);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
 }

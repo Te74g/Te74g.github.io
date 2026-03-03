@@ -147,12 +147,12 @@
 
         /* Apply Texture to Sections to cover Hero */
         .bg-texture {
-            background-color: #f0e6ce;
-            /* Light Wood Base */
+            background-color: #2a231e;
+            /* Dark Wood Base */
             background-image:
-                repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(160, 100, 50, 0.04) 4px, rgba(160, 100, 50, 0.04) 6px),
-                repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(160, 100, 50, 0.03) 10px, rgba(160, 100, 50, 0.03) 24px),
-                repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(160, 100, 50, 0.03) 15px, rgba(160, 100, 50, 0.03) 30px);
+                repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.2) 4px, rgba(0, 0, 0, 0.2) 6px),
+                repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 24px),
+                repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(0, 0, 0, 0.1) 15px, rgba(0, 0, 0, 0.1) 30px);
             background-size: 100% 100%;
         }
 
@@ -161,17 +161,6 @@
             position: relative;
             z-index: 2;
             width: 100%;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .bg-texture {
-                background-color: #2a231e;
-                /* Dark Wood Base */
-                background-image:
-                    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.2) 4px, rgba(0, 0, 0, 0.2) 6px),
-                    repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 24px),
-                    repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(0, 0, 0, 0.1) 15px, rgba(0, 0, 0, 0.1) 30px);
-            }
         }
 
         /* Top Divider for News Section (Washi/Torn Effect) */
@@ -308,7 +297,7 @@
         ["Loading..."]; // Fallback
 
     // Theme-aware Logo Selection from Config
-    const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = true; // Hardcoded dark theme
     const logoBack = document.querySelector('.loader-logo-back');
     const logoFront = document.querySelector('.loader-logo-front');
 
@@ -367,13 +356,13 @@
         const logoEl = document.querySelector('.hero-logo');
         if (logoEl && images.logo) {
             const updateLogo = () => {
-                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDark = true; // Hardcoded dark theme
                 // Use Dark logo if available and in dark mode, else Light logo
                 logoEl.src = (isDark && images.logoDark) ? images.logoDark : images.logo;
             };
 
             updateLogo(); // Initial set
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo); // Listener
+            // window.matchMedia listener removed for global dark theme
         }
     }
 

@@ -409,42 +409,40 @@ body.nav-open .menu-close {
     }
 }
 
-/* Dark Mode Overrides for Header */
-@media (prefers-color-scheme: dark) {
-    .brand-logo {
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-    }
+/* Dark Mode Overrides for Header Applied Globally */
+.brand-logo {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
 
-    .site-header {
-        background: rgba(15, 15, 15, 0.75);
-        border-bottom-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    }
+.site-header {
+    background: rgba(15, 15, 15, 0.75);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
 
-    .site-header.is-elevated {
-        background: rgba(20, 20, 20, 0.85);
-        border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-    }
+.site-header.is-elevated {
+    background: rgba(20, 20, 20, 0.85);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
 
-    .menu {
-        background-color: rgba(15, 15, 15, 0.90) !important;
-        backdrop-filter: blur(24px) !important;
-        -webkit-backdrop-filter: blur(24px) !important;
-    }
+.menu {
+    background-color: rgba(15, 15, 15, 0.90) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+}
 
-    .menu-link {
-        background: var(--paper);
-    }
+.menu-link {
+    background: var(--paper);
+}
 
-    .menu-link.is-active {
-        background: linear-gradient(135deg, rgba(255, 79, 216, 0.25), rgba(57, 198, 255, 0.20));
-    }
+.menu-link.is-active {
+    background: linear-gradient(135deg, rgba(255, 79, 216, 0.25), rgba(57, 198, 255, 0.20));
+}
 
-    /* Menu Button Dark Mode */
-    .menu-btn {
-        background: rgba(30, 30, 30, 0.85);
-        border-color: rgba(255, 255, 255, 0.25);
-        color: var(--ink);
-    }
+/* Menu Button Dark Mode */
+.menu-btn {
+    background: rgba(30, 30, 30, 0.85);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--ink);
 }
