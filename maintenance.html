@@ -39,8 +39,8 @@
         <div class="maintenance-box card"
           style="max-width: 600px; margin: 0 auto; padding: 48px 24px; position: relative; overflow: hidden; text-align: center;">
 
-          <img src="./assets/logo/aniamemoria_logo_darktheme.png" alt="あにあめもりあ"
-            style="display: block; margin-bottom: 32px; opacity: 0.8; position: relative; z-index: 2; width: 280px; height: 120px; object-fit: contain; margin: 0 auto;" />
+          <img id="secret-trigger" src="./assets/logo/aniamemoria_logo_darktheme.png" alt="あにあめもりあ"
+            style="display: block; margin-bottom: 32px; opacity: 0.8; position: relative; z-index: 2; width: 280px; height: 120px; object-fit: contain; margin: 0 auto; cursor: pointer;" />
 
           <p class="kicker"
             style="display: block; width: 100%; color: var(--primary); font-weight: 700; letter-spacing: 0.15em; font-size: 0.85rem; margin-bottom: 12px; position: relative; z-index: 2; text-align: center; line-height: 1.2;">
@@ -91,6 +91,45 @@
   <script src="./js/utils.js"></script>
   <script src="./js/ui.js"></script>
   <script src="./js/home.js"></script>
+
+  <!-- Secret Admin Bypass -->
+  <script>
+    (function () {
+      const trigger = document.getElementById('secret-trigger');
+      if (!trigger) return;
+
+      let clickCount = 0;
+      let clickTimer = null;
+
+      trigger.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickTimer) clearTimeout(clickTimer);
+
+        // Reset counter if time between clicks is too long
+        clickTimer = setTimeout(() => {
+          clickCount = 0;
+        }, 1000);
+
+        if (clickCount >= 5) {
+          clickCount = 0; // reset
+          clearTimeout(clickTimer);
+
+          setTimeout(() => {
+            const password = prompt("[管理者機能] メンテナンス解除パスワードを入力してください:");
+            if (password === "te74g_admin") { // 簡易的な合言葉
+              alert("メンテナンスモードを解除しました。トップページへ移動します。");
+              // ブラウザを閉じるまで有効なセッションストレージにフラグを保存
+              sessionStorage.setItem('maintenanceBypass', 'true');
+              window.location.href = './index.html';
+            } else if (password !== null) {
+              alert("パスワードが違います。");
+            }
+          }, 100);
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>
