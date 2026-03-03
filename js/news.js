@@ -15,45 +15,180 @@
        ------------------------------------------------------- */
     const newsContainer = document.getElementById("news-list-container");
     if (newsContainer) {
-        // フィルタリング
+        const CARD_STAGGER_MS = 80;
+        const NOT_FOUND_MSG = '該当するニュースが見つかりませんでした。';
+
         const visibleNews = (window.newsData || []).filter(item => window.shouldShowItem(item));
 
-        // データが空の場合
-        if (visibleNews.length === 0) {
-            newsContainer.innerHTML = `
-                <div class="empty-content">
-                    <p>現在お知らせはありません。</p>
+        // --- カード生成 (サムネイルメイン型) ---
+        const createNewsCard = (item, index) => {
+            const a = document.createElement("a");
+            const pageUrl = item.linkPath
+                ? window.fixPath(item.linkPath)
+                : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
+            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
+
+            a.href = pageUrl;
+
+            // 最新1件目は大きく表示（スマホではCSSで1列に戻る）
+            a.className = index === 0 ? "news-card news-card--featured" : "news-card";
+            a.dataset.category = item.category || "その他";
+
+            // 3日以内、または最新1件目（絞り込み結果含む）ならNEWをつける
+            const itemDate = new Date(item.date);
+            const now = new Date();
+            const diffTime = Math.abs(now - itemDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const isNew = diffDays <= 3 || index === 0;
+            const badgeHtml = isNew ? `<div class="news-badge-new">NEW!</div>` : '';
+
+            a.innerHTML = `
+                ${badgeHtml}
+                <div class="news-card-thumb">
+                    <img src="${imgUrl}" alt="" loading="lazy">
                 </div>
+                <div class="news-card-body">
+                    <div class="news-card-meta">
+                        <span class="news-card-date">${item.date}</span>
+                        <span class="news-card-category">${item.category || 'その他'}</span>
+                    </div>
+                    <p class="news-card-title">${item.title}</p>
+                    <p class="news-card-desc">${item.desc || ''}</p>
+                </div>
+                <div class="watermark-logo"></div>
             `;
+            return a;
+        };
+
+        // --- アニメーション付きクローン挿入 (フィルター用) ---
+        const animateCardsIn = (cards, featuredContainer, listContainer) => {
+            cards.forEach((card, i) => {
+                const clone = card.cloneNode(true);
+                clone.style.setProperty('--card-delay', `${i * CARD_STAGGER_MS}ms`);
+                clone.classList.add('card-enter');
+
+                if (i === 0) {
+                    clone.classList.add('news-card--featured');
+                    featuredContainer.appendChild(clone);
+                } else {
+                    clone.classList.remove('news-card--featured');
+                    listContainer.appendChild(clone);
+                }
+
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    clone.classList.add('is-entering');
+                }));
+            });
+        };
+
+        // --- 初期レンダリング --- (Skipping unaltered rendering code for brevity)
+        if (visibleNews.length === 0) {
+            newsContainer.innerHTML = `<div class="empty-content"><p>現在お知らせはありません。</p></div>`;
         } else {
-            visibleNews.forEach(item => {
-                const link = document.createElement("a");
-                const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
-                const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
+            // Container setup for magazine layout
+            newsContainer.innerHTML = ''; // clear original
+            newsContainer.className = 'news-magazine-layout';
 
-                link.href = pageUrl;
-                link.className = "news-link reveal is-visible";
+            // Left (Featured) Container
+            const featuredWrapper = document.createElement('div');
+            featuredWrapper.className = 'news-magazine-featured';
 
-                link.innerHTML = `
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                        <span class="news-date">${item.date}</span>
-                        <span class="news-tag-label">${item.category}</span>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 140px; gap: 20px; position:relative; z-index:2;">
-                        <div style="display:flex; flex-direction:column; justify-content:center;">
-                            <h3 style="margin:0 0 8px; font-weight:900; font-size:1.2rem;">${item.title}</h3>
-                            <p style="margin:0; font-size:0.9rem; color:var(--muted); line-height:1.6;">
-                                ${item.desc || ""}
-                            </p>
-                        </div>
-                        <div>
-                            <img src="${imgUrl}" alt="" style="width:100%; height:100px; object-fit:cover; border-radius:8px; border: 1px solid rgba(0,0,0,0.1);">
-                        </div>
-                    </div>
-                    <!-- Watermark Logo -->
-                    <div class="watermark-logo"></div>
-                `;
-                newsContainer.appendChild(link);
+            // Right (Scrollable List) Container
+            const listWrapper = document.createElement('div');
+            listWrapper.className = 'news-magazine-list';
+
+            visibleNews.forEach((item, index) => {
+                const card = createNewsCard(item, index);
+                if (index === 0) {
+                    featuredWrapper.appendChild(card);
+                } else {
+                    listWrapper.appendChild(card);
+                }
+            });
+
+            newsContainer.appendChild(featuredWrapper);
+            if (visibleNews.length > 1) {
+                newsContainer.appendChild(listWrapper);
+            }
+
+            // 初期ロード時のスタガーアニメーション
+            const allCards = Array.from(newsContainer.querySelectorAll('.news-card'));
+            allCards.forEach((card, i) => {
+                card.classList.add('card-enter');
+                card.style.setProperty('--card-delay', `${i * CARD_STAGGER_MS}ms`);
+            });
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                allCards.forEach(card => card.classList.add('is-entering'));
+            }));
+        }
+
+        // --- フィルターロジック ---
+        const tagFilterContainer = document.getElementById("news-tag-filter");
+        if (tagFilterContainer) {
+
+            const getFilterState = () => {
+                const activeBtn = tagFilterContainer.querySelector('.tag-filter-btn.is-active');
+                const category = (activeBtn ? activeBtn.dataset.value : null) || 'all';
+                const allCards = Array.from(newsContainer.querySelectorAll('.news-card'));
+                const matchingCards = allCards.filter(card =>
+                    category === 'all' || card.dataset.category === category
+                );
+                return { category, isFiltering: category !== 'all', matchingCards };
+            };
+
+            const resetToAll = () => {
+                const prev = document.getElementById('news-filter-results');
+                if (prev) prev.remove();
+                newsContainer.style.display = '';
+            };
+
+            const renderFilter = (matchingCards) => {
+                let filterContainer = document.getElementById('news-filter-results');
+                if (!filterContainer) {
+                    filterContainer = document.createElement('div');
+                    filterContainer.id = 'news-filter-results';
+                    filterContainer.className = 'news-magazine-layout';
+                    newsContainer.insertAdjacentElement('afterend', filterContainer);
+                }
+                filterContainer.innerHTML = '';
+
+                if (matchingCards.length === 0) {
+                    filterContainer.innerHTML = `<p class="news-no-results">${NOT_FOUND_MSG}</p>`;
+                } else {
+                    const featuredWrapper = document.createElement('div');
+                    featuredWrapper.className = 'news-magazine-featured';
+
+                    const listWrapper = document.createElement('div');
+                    listWrapper.className = 'news-magazine-list';
+
+                    filterContainer.appendChild(featuredWrapper);
+                    if (matchingCards.length > 1) {
+                        filterContainer.appendChild(listWrapper);
+                    }
+
+                    animateCardsIn(matchingCards, featuredWrapper, listWrapper);
+                }
+
+                newsContainer.style.display = 'none';
+                filterContainer.style.opacity = '0';
+                filterContainer.style.transition = 'opacity 0.3s ease';
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    filterContainer.style.opacity = '1';
+                }));
+            };
+
+            const applyFilter = () => {
+                const { isFiltering, matchingCards } = getFilterState();
+                if (!isFiltering) { resetToAll(); return; }
+                renderFilter(matchingCards);
+            };
+
+            tagFilterContainer.addEventListener('click', (e) => {
+                const btn = e.target.closest('.tag-filter-btn');
+                if (!btn) return;
+                tagFilterContainer.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.remove('is-active'));
+                btn.classList.add('is-active');
+                applyFilter();
             });
         }
     }
@@ -74,8 +209,18 @@
 
             card.href = pageUrl;
             card.className = "news-card-slide";
+
+            // 3日以内の判定、または先頭要素
+            const itemDate = new Date(item.date);
+            const now = new Date();
+            const diffTime = Math.abs(now - itemDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const isNew = diffDays <= 3 || i === 0;
+            const badgeHtml = isNew ? `<div class="news-badge-new">NEW!</div>` : '';
+
             card.innerHTML = `
-                <img src="${imgUrl}" alt="">
+                ${badgeHtml}
+                <img src="${imgUrl}" alt="" loading="lazy">
                 <div class="content">
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
                         <span class="news-date" style="margin:0;">${item.date}</span>

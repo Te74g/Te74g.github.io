@@ -1,0 +1,300 @@
+/* =========================================
+   NEWS CAROUSEL
+   ========================================= */
+.news-carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 10px;
+    /* Reduced bottom margin */
+    overflow: hidden;
+    padding: 0 0 10px;
+    /* Reduced bottom padding */
+}
+
+.news-carousel-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 350px;
+    /* Fixed height for ensuring alignment */
+}
+
+/* Base Card Style in Carousel (Parchment Effect) */
+.news-card-slide {
+    position: absolute;
+    width: 60%;
+    max-width: 500px;
+    height: 300px;
+
+    /* Parchment Background */
+    background: #fdf5e6;
+    /* AntiqueWhite */
+    border: 4px double var(--line-strong);
+    /* Double border */
+    border-radius: 12px;
+
+    /* Shadows: Inset for aging + Drop for floating */
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 4px 12px rgba(0, 0, 0, 0.1);
+
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+
+    color: #3e2723;
+    /* Dark Brown Text */
+    z-index: 1;
+    opacity: 1;
+    pointer-events: none;
+}
+
+/* Image half */
+.news-card-slide img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    background: #eee;
+    z-index: 1;
+    /* Above watermark */
+    position: relative;
+    border-bottom: 2px solid var(--line-strong);
+    /* Separator */
+}
+
+/* Content half */
+.news-card-slide .content {
+    padding: 16px;
+    height: 40%;
+    background: transparent;
+    /* Transparent to show parchment */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    /* Text above watermark */
+}
+
+.news-card-slide .title {
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: inherit;
+}
+
+/* State: Active (Center) */
+.news-card-slide.is-active {
+    z-index: 3;
+    transform: translateX(0) scale(1) translate3d(0, 0, 0);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+}
+
+/* Hover Effect on Active */
+.news-card-slide.is-active:hover {
+    transform: translateX(0) scale(1.05) translate3d(0, 0, 0);
+}
+
+/* State: Prev (Left) */
+.news-card-slide.is-prev {
+    transform: translateX(-55%) scale(0.85) translate3d(0, 0, 0);
+    z-index: 2;
+}
+
+/* State: Next (Right) */
+.news-card-slide.is-next {
+    transform: translateX(55%) scale(0.85) translate3d(0, 0, 0);
+    z-index: 2;
+}
+
+/* Hidden Items */
+.news-card-slide.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transform: scale(0.5) translate3d(0, 0, 0);
+}
+
+/* Gradient Overlay for Side Items (Adjusted for Parchment) */
+.news-card-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(253, 245, 230, 0.8) 0%, rgba(253, 245, 230, 0) 100%);
+    /* Match parchment color */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 5;
+}
+
+/* Show gradient on side items */
+.news-card-slide.is-prev::after,
+.news-card-slide.is-next::after {
+    opacity: 1;
+}
+
+.news-card-slide.is-prev::after {
+    background: linear-gradient(to right, rgba(253, 245, 230, 0.9), rgba(253, 245, 230, 0.4));
+}
+
+.news-card-slide.is-next::after {
+    background: linear-gradient(to left, rgba(253, 245, 230, 0.9), rgba(253, 245, 230, 0.4));
+}
+
+/* Navigation Arrows */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.carousel-nav-btn:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+/* News List Styles (Separate page) */
+.news-link {
+    display: block;
+    position: relative;
+    background: #fdf5e6;
+    /* AntiqueWhite */
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+
+    border: 4px double var(--line-strong);
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 4px 6px rgba(0, 0, 0, 0.1);
+
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: #3e2723 !important;
+    /* Force Dark Brown */
+    overflow: hidden;
+}
+
+.news-link:hover {
+    background: #fff8f0;
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 0 30px rgba(139, 69, 19, 0.05),
+        0 8px 16px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+}
+
+.news-date {
+    font-size: 0.9em;
+    color: #5d4037;
+    /* Muted Brown */
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.news-tag-label {
+    font-size: 0.75em;
+    background: rgba(93, 64, 55, 0.1);
+    color: #5d4037;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+    border: 1px solid rgba(93, 64, 55, 0.2);
+}
+
+/* Dark Theme Overrides */
+@media (prefers-color-scheme: dark) {
+
+    /* Parchment Dark Mode */
+    .news-card-slide,
+    .news-link {
+        background: #2b2b2b;
+        /* Dark Parchment */
+        border-color: #555;
+        color: #e0e0e0 !important;
+    }
+
+    .news-card-slide img,
+    .news-link img {
+        background: #444;
+        border-color: #555;
+    }
+
+    .news-card-slide .content {
+        background: transparent;
+        color: inherit;
+    }
+
+    /* Dark Mode Side Gradients */
+    .news-card-slide::after {
+        background: linear-gradient(to right, rgba(43, 43, 43, 0.8) 0%, rgba(43, 43, 43, 0) 100%);
+    }
+
+    .news-card-slide.is-prev::after {
+        background: linear-gradient(to right, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.4));
+    }
+
+    .news-card-slide.is-next::after {
+        background: linear-gradient(to left, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.4));
+    }
+
+    .carousel-nav-btn {
+        background: rgba(30, 30, 30, 0.8) !important;
+        color: #fff !important;
+    }
+
+    .carousel-nav-btn:hover {
+        background: #444 !important;
+        /* Soffer hover, not white */
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .news-date {
+        color: #aaa;
+    }
+
+    .news-tag-label {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ddd;
+        border-color: #666;
+    }
+
+    /* Soften Hover for News List in Dark Mode */
+    .news-link:hover {
+        background: #332a25;
+        /* Dark Wood Brown tint instead of white */
+        box-shadow:
+            inset 0 0 30px rgba(0, 0, 0, 0.2),
+            0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+}

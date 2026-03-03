@@ -100,6 +100,18 @@
         }
     }
 
+    // Throttle utility: fn を limit ms に1回だけ実行する
+    const throttle = (fn, limit) => {
+        let lastRun = 0;
+        return function (...args) {
+            const now = Date.now();
+            if (now - lastRun >= limit) {
+                lastRun = now;
+                fn.apply(this, args);
+            }
+        };
+    };
+
     // To Top Button - Prevent overlap with footer
     const toTopBtn = document.querySelector(".to-top");
     const footer = document.querySelector(".site-footer");
@@ -119,8 +131,9 @@
             }
         };
 
-        window.addEventListener("scroll", adjustToTop, { passive: true });
-        window.addEventListener("resize", adjustToTop, { passive: true });
+        const throttledAdjust = throttle(adjustToTop, 100);
+        window.addEventListener("scroll", throttledAdjust, { passive: true });
+        window.addEventListener("resize", throttledAdjust, { passive: true });
         adjustToTop(); // init
     }
 })();

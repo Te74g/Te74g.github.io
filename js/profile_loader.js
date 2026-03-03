@@ -137,14 +137,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tagsContainer = document.getElementById('dynamic-tags-container');
         if (tagsContainer) {
             let tagsHtml = '';
+            let mainTags = [];
             if (mergedMember.tagLabel) {
-                tagsHtml += `<span class="tag" style="background:#000; color:#fff;">${mergedMember.tagLabel}</span>`;
+                mainTags = mergedMember.tagLabel.split(/[\s/／]+/).filter(t => t.trim() !== '');
+                mainTags.forEach(t => {
+                    tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+                });
             }
             if (member.tags) {
                 const tagsList = member.tags.split(' ');
                 tagsList.forEach(t => {
-                    if (t !== mergedMember.tagLabel) {
-                        tagsHtml += `<span class="tag tag--soft">${t}</span>`;
+                    if (!mainTags.includes(t)) {
+                        const isSolid = SOLID_TAGS.includes(t);
+                        tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
                     }
                 });
             }
@@ -194,17 +199,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (h1Title) h1Title.textContent = initialMember.name;
 
     // 1. Tags
+    const SOLID_TAGS = ["野生", "妖怪", "店長", "副店長", "飼育", "運営", "キャスト", "スタッフ"];
     const tagsContainer = document.getElementById('dynamic-tags-container');
     if (tagsContainer) {
         let tagsHtml = '';
+        let mainTags = [];
         if (initialMember.tagLabel) {
-            tagsHtml += `<span class="tag" style="background:#000; color:#fff;">${initialMember.tagLabel}</span>`;
+            mainTags = initialMember.tagLabel.split(/[\s/／]+/).filter(t => t.trim() !== '');
+            mainTags.forEach(t => {
+                tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+            });
         }
         if (member.tags) {
             const tagsList = member.tags.split(' ');
             tagsList.forEach(t => {
-                if (t !== initialMember.tagLabel) {
-                    tagsHtml += `<span class="tag tag--soft">${t}</span>`;
+                if (!mainTags.includes(t)) {
+                    const isSolid = SOLID_TAGS.includes(t);
+                    tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
                 }
             });
         }

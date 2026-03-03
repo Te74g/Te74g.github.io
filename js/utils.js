@@ -335,9 +335,9 @@
         };
 
         if (tags.includes("運営")) return BG_MAP['E'];
+        if (tags.includes("妖怪")) return BG_MAP['B'];
         if (tags.includes("飼育")) return BG_MAP['A'];
         if (tags.includes("野生")) return BG_MAP['C'];
-        if (tags.includes("妖怪")) return BG_MAP['B'];
         if (tags.includes("スタッフ")) return BG_MAP['D'];
 
         return null; // or default?
@@ -361,9 +361,9 @@
         };
 
         if (tags.includes("運営")) return FRAME_MAP['E'];
+        if (tags.includes("妖怪")) return FRAME_MAP['B'];
         if (tags.includes("飼育")) return FRAME_MAP['A'];
         if (tags.includes("野生")) return FRAME_MAP['C'];
-        if (tags.includes("妖怪")) return FRAME_MAP['B'];
         if (tags.includes("スタッフ")) return FRAME_MAP['D'];
 
         return null;
@@ -378,9 +378,9 @@
         if (!tags) return 'pin-red'; // Default
 
         if (tags.includes("運営")) return 'pin-red'; // Dark Red
+        if (tags.includes("妖怪")) return 'pin-gray'; // Gray/White
         if (tags.includes("飼育")) return 'pin-brown'; // Brown
         if (tags.includes("野生")) return 'pin-green'; // Green
-        if (tags.includes("妖怪")) return 'pin-gray'; // Gray/White
         if (tags.includes("スタッフ")) return 'pin-black'; // Black/Dark
 
         return 'pin-red'; // Fallback
@@ -404,11 +404,41 @@
         };
 
         if (tags.includes("運営")) return BG_MAP['E'];
+        if (tags.includes("妖怪")) return BG_MAP['B'];
         if (tags.includes("飼育")) return BG_MAP['A'];
         if (tags.includes("野生")) return BG_MAP['C'];
-        if (tags.includes("妖怪")) return BG_MAP['B'];
         if (tags.includes("スタッフ")) return BG_MAP['D'];
 
         return null;
+    };
+
+    /**
+     * isMemberVisible
+     * メンバーが表示許可されているか判定する共通関数
+     * @param {object} member - メンバーオブジェクト
+     * @param {object} castConfig - data_site.js の castDisplay 設定
+     * @returns {boolean}
+     */
+    window.isMemberVisible = (member, castConfig) => {
+        if (!castConfig) return true;
+        if (castConfig.showAllMembers) return true;
+        if (member.section === "運営部" || member.section === "スタッフ") return true;
+        return (castConfig.visibleMembers || []).includes(member.id);
+    };
+
+    /**
+     * preloadImage
+     * 画像を Promise でプリロードする共通関数
+     * @param {string} src - 画像パス
+     * @returns {Promise}
+     */
+    window.preloadImage = (src) => {
+        return new Promise((resolve) => {
+            if (!src) { resolve(); return; }
+            const img = new Image();
+            img.onload = () => resolve(src);
+            img.onerror = () => { console.warn(`Failed to load: ${src}`); resolve(src); };
+            img.src = src;
+        });
     };
 })();

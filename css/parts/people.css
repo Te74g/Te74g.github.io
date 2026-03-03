@@ -6,7 +6,6 @@
     position: relative;
     width: 100%;
     min-height: auto;
-    width: 100%;
     margin: 0;
     /* No rounded corners to ensure seam hiding */
     border-radius: 0;
@@ -61,8 +60,6 @@
     width: min(var(--container), 100% - 40px);
 }
 
-/* Restyle Divider for inside the wrapper */
-/* Restyle Divider for inside the wrapper */
 /* Restyle Divider for inside the wrapper */
 .people-section-wrapper .section-divider {
     color: #e0e0e0;
@@ -147,4 +144,109 @@
     padding: 3rem 1rem;
     color: var(--muted);
     font-size: 1rem;
+}
+
+/* =========================================
+   フィルタリング結果（フラットビュー）
+   ========================================= */
+.people-filter-results {
+    padding: 48px 0 80px;
+    min-height: 300px;
+}
+
+/* =========================================
+   タグ絞り込みボタン
+   ========================================= */
+.tag-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    justify-content: center;
+}
+
+.tag-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    border: 1.5px solid var(--border, rgba(0, 0, 0, 0.18));
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
+    white-space: nowrap;
+}
+
+.tag-filter-btn:hover {
+    background: rgba(122, 82, 48, 0.1);
+    border-color: #7a5230;
+    color: #7a5230;
+}
+
+.tag-filter-btn.is-active {
+    background: #7a5230;
+    border-color: #7a5230;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(122, 82, 48, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+    .tag-filter-btn {
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--text);
+    }
+
+    .tag-filter-btn:hover {
+        background: rgba(180, 130, 90, 0.15);
+        border-color: #b8895a;
+        color: #b8895a;
+    }
+
+    .tag-filter-btn.is-active {
+        background: #9a6840;
+        border-color: #9a6840;
+        color: #fff;
+    }
+}
+
+/* =========================================
+   キャスト紹介ページ ヘッダーセクション
+   (pages/people.html の inline style 移行分)
+   ========================================= */
+.people-page-section {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.people-page-section .section-head {
+    margin-bottom: 4px;
+}
+
+.people-page-section .toolbar {
+    margin-top: 4px;
+    justify-content: center;
+}
+
+.people-page-section .field {
+    text-align: center;
+}
+
+/* =========================================
+   カードフィルタアニメーション
+   (js/people.js の inline style 移行分)
+   ========================================= */
+.cheki-card.card-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.cheki-card.card-enter.is-entering {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition-delay: var(--card-delay, 0ms);
 }
