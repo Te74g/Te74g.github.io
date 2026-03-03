@@ -22,8 +22,11 @@
     --d: #e6b422;
     /* 黄金色 (こがね) */
 
-    --shadow: 6px 6px 0 rgba(26, 26, 26, 0.08);
-    --shadow-strong: 8px 8px 0 rgba(26, 26, 26, 0.12);
+    --shadow: 0 8px 24px rgba(45, 30, 20, 0.08);
+    /* Soft natural shadow tinted with warm wood brown */
+    --shadow-strong: 0 12px 32px rgba(45, 30, 20, 0.12);
+    --shadow-hover: 0 16px 40px rgba(45, 30, 20, 0.15);
+    /* Floating hover effect */
 
     /* 代替セクション背景色（和風：薄紅梅 うすこうばい） */
     --bg-alt: rgba(243, 166, 140, 0.12);
@@ -60,8 +63,9 @@
         --muted: rgba(245, 245, 245, 0.65);
         --line: rgba(255, 255, 255, 0.15);
         --line-strong: rgba(255, 255, 255, 0.3);
-        --shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
-        --shadow-strong: 8px 8px 0 rgba(0, 0, 0, 0.5);
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        --shadow-strong: 0 12px 32px rgba(0, 0, 0, 0.5);
+        --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
 
         /* 代替セクション背景色（ダークモード：薄墨桜的な暗色） */
         --bg-alt: rgba(232, 107, 121, 0.08);
