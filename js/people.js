@@ -10,13 +10,20 @@
         try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
     }
 
+    // ---- 設定定数 ----
+    const SECTION_ORDER    = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
+    const SECTION_LOAD_MS  = 300;   // renderSequentially のセクション間ウェイト
+    const CARD_STAGGER_MS  = 50;    // フィルタアニメのカード間ディレイ
+    const NOT_FOUND_MSG    = '該当するキャストが見つかりませんでした。';
+
     /* -------------------------------------------------------
        1. キャスト一覧ページ (people.html) の生成
        ------------------------------------------------------- */
     const peopleContainer = document.getElementById("people-list-container");
+
     if (peopleContainer && window.membersData) {
         // 表示順序の定義
-        const sectionOrder = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
+        const sectionOrder = SECTION_ORDER;
 
         // データをセクションごとにグループ化
         const grouped = {};
@@ -46,6 +53,7 @@
             // Create Wrapper
             const wrapper = document.createElement("section");
             wrapper.className = "people-section-wrapper reveal"; // reveal class triggers fadeIn animation
+            wrapper.dataset.section = sec; // フィルタリングで特定するための識別子
 
             const bgDiv = document.createElement("div");
             bgDiv.className = "people-section-bg";
@@ -77,14 +85,6 @@
             const showAll = castConfig.showAllMembers;
             const visibleList = castConfig.visibleMembers || [];
 
-            // メンバーが表示許可されているか判定する関数（既存の互換性維持）
-            const isMemberVisible = (member) => {
-                if (showAll) return true;
-                // 運営部・スタッフは常に表示
-                if (member.section === "運営部" || member.section === "スタッフ") return true;
-                return visibleList.includes(member.id);
-            };
-
             // カード生成関数
             const createMemberCard = (m, form, formIndex, revealLevel) => {
                 const link = document.createElement("a");
@@ -107,7 +107,7 @@
                 link.setAttribute("data-tags", m.tags);
 
                 // 既存の表示許可チェック（互換性のため残す）
-                const visible = isMemberVisible(m);
+                const visible = window.isMemberVisible(m, castConfig);
 
                 // revealLevel 3（完全公開）の場合
                 if (revealLevel >= 3) {
@@ -233,7 +233,7 @@
                     });
 
                     // Wait before showing next section
-                    await delay(300);
+                    await delay(SECTION_LOAD_MS);
                 }
             }
 
@@ -256,58 +256,184 @@
     /* -------------------------------------------------------
        2. PEOPLE FILTERING SYSTEM (絞り込み)
        ------------------------------------------------------- */
-    const searchInput = document.getElementById('people-search');
-    const tagFilter = document.getElementById('people-tag-filter');
+    const searchInput = document.getElementById('people-search'); // 削除済みの場合は null
+    const tagFilterContainer = document.getElementById('people-tag-filter');
+    const filterBtns = tagFilterContainer ? tagFilterContainer.querySelectorAll('.tag-filter-btn') : [];
 
-    if (!searchInput || !tagFilter) return;
+    if (!tagFilterContainer) return;
 
-    const applyPeopleFilter = () => {
-        const query = (searchInput.value || '').trim().toLowerCase();
-        const tag = tagFilter.value || 'all';
+    // タグ → 対応するセクション名のマッピング
+    const TAG_TO_SECTION = {
+        '運営': '運営部',
+        '店長': '運営部',
+        '副店長': '運営部',
+        '飼育': '飼育区画',
+        '野生': '野生区画',
+        '妖怪': '妖怪区画',
+        'スタッフ': 'スタッフ',
+    };
 
-        const dividers = document.querySelectorAll('.section-divider');
-        const allCards = document.querySelectorAll('.cheki-card');
-
-        // 1. 各カードの表示判定
-        allCards.forEach(card => {
-            const name = (card.getAttribute('data-name') || '').toLowerCase();
-            const tags = (card.getAttribute('data-tags') || '').toLowerCase();
-
-            const matchesQuery = !query || name.includes(query);
-            const matchesTag = tag === 'all' || tags.includes(tag.toLowerCase());
-
-            if (matchesQuery && matchesTag) {
-                card.style.display = '';
-                card.classList.add('is-visible');
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        // 2. 空になったセクションを隠す
-        dividers.forEach(divider => {
-            const nextGrid = divider.nextElementSibling;
-            const wrapper = divider.closest('.people-section-wrapper');
-
-            if (nextGrid && nextGrid.classList.contains('cheki-grid')) {
-                const visibleCards = Array.from(nextGrid.querySelectorAll('.cheki-card'))
-                    .filter(c => c.style.display !== 'none');
-
-                if (visibleCards.length > 0) {
-                    divider.style.display = '';
-                    nextGrid.style.display = '';
-                    if (wrapper) wrapper.style.display = '';
-                } else {
-                    divider.style.display = 'none';
-                    nextGrid.style.display = 'none';
-                    if (wrapper) wrapper.style.display = 'none';
-                }
-            }
+    // カードをアニメーション付きでコンテナに挿入するヘルパー
+    const animateCardsIn = (cards, container) => {
+        cards.forEach((card, i) => {
+            const clone = card.cloneNode(true);
+            clone.style.setProperty('--card-delay', `${i * CARD_STAGGER_MS}ms`);
+            clone.classList.add('card-enter', 'is-visible');
+            container.appendChild(clone);
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                clone.classList.add('is-entering');
+            }));
         });
     };
 
-    searchInput.addEventListener('input', applyPeopleFilter);
-    tagFilter.addEventListener('change', applyPeopleFilter);
+    // フィルタ状態（tag・query・マッチカード・対象ラッパー）を返す純粋関数
+    const getFilterState = () => {
+        const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+        const activeBtn = tagFilterContainer.querySelector('.tag-filter-btn.is-active');
+        const tag = (activeBtn ? activeBtn.dataset.value : null) || 'all';
+        const isFiltering = tag !== 'all' || query.length > 0;
+
+        // セクション系タグ（飼育・野生・妖怪等）は targetWrapper を先に確定する
+        const targetSectionName = TAG_TO_SECTION[tag];
+        const targetWrapper = targetSectionName
+            ? document.querySelector(`#people-list-container .people-section-wrapper[data-section="${targetSectionName}"]`)
+            : null;
+
+        const allCards = Array.from(document.querySelectorAll('#people-list-container .cheki-grid:not(.filter-injected-grid) .cheki-card'));
+        const matchingCards = allCards.filter(card => {
+            const name = (card.getAttribute('data-name') || '').toLowerCase();
+            const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+            const nameMatch = !query || name.includes(query);
+            if (targetWrapper) {
+                // セクション絞り込み: タグではなく「そのセクションに属するカード」で判定
+                // → 複合タグ（例: "妖怪 飼育"）を持つメンバーが別セクションに漏れるのを防ぐ
+                return nameMatch && targetWrapper.contains(card);
+            }
+            return nameMatch && (tag === 'all' || tags.includes(tag.toLowerCase()));
+        });
+
+        return { tag, query, isFiltering, matchingCards, targetWrapper };
+    };
+
+    // "すべて" 表示：元のセクション別ビューに戻す
+    const resetToAllSections = () => {
+        const flatContainer = document.getElementById('people-filter-results');
+        if (flatContainer) flatContainer.style.display = 'none';
+        if (peopleContainer) peopleContainer.style.display = '';
+        document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
+            w.style.display = '';
+            const origGrid = w.querySelector('.cheki-grid:not(.filter-injected-grid)');
+            const injGrid = w.querySelector('.filter-injected-grid');
+            if (origGrid) origGrid.style.display = '';
+            if (injGrid) injGrid.style.display = 'none';
+        });
+        document.querySelectorAll('#people-list-container .cheki-card').forEach(c => {
+            c.style.display = '';
+            c.classList.add('is-visible');
+        });
+    };
+
+    // セクション背景を維持してマッチカードを集約（タグ絞り込み時）
+    const renderSectionFilter = (targetWrapper, matchingCards) => {
+        const flatContainer = document.getElementById('people-filter-results');
+        if (flatContainer) flatContainer.style.display = 'none';
+        if (peopleContainer) peopleContainer.style.display = '';
+
+        document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
+            w.style.display = 'none';
+        });
+
+        targetWrapper.style.display = '';
+        targetWrapper.classList.remove('is-visible');
+        void targetWrapper.offsetWidth; // force reflow
+        requestAnimationFrame(() => targetWrapper.classList.add('is-visible'));
+
+        const origGrid = targetWrapper.querySelector('.cheki-grid:not(.filter-injected-grid)');
+        if (origGrid) origGrid.style.display = 'none';
+
+        let injGrid = targetWrapper.querySelector('.filter-injected-grid');
+        if (!injGrid) {
+            injGrid = document.createElement('div');
+            injGrid.className = 'cheki-grid filter-injected-grid';
+            const container = targetWrapper.querySelector('.container');
+            if (container) container.appendChild(injGrid);
+        }
+        injGrid.style.display = '';
+        injGrid.innerHTML = '';
+
+        if (matchingCards.length === 0) {
+            injGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:#fff;">${NOT_FOUND_MSG}</p>`;
+        } else {
+            animateCardsIn(matchingCards, injGrid);
+        }
+    };
+
+    // セクション対応なし（キャスト絞り込み）→ フラットビュー
+    const renderFlatFilter = (matchingCards) => {
+        let flatContainer = document.getElementById('people-filter-results');
+        if (!flatContainer && peopleContainer) {
+            flatContainer = document.createElement('div');
+            flatContainer.id = 'people-filter-results';
+            flatContainer.className = 'people-filter-results';
+            const inner = document.createElement('div');
+            inner.className = 'container';
+            const grid = document.createElement('div');
+            grid.id = 'people-filter-grid';
+            grid.className = 'cheki-grid';
+            inner.appendChild(grid);
+            flatContainer.appendChild(inner);
+            peopleContainer.insertAdjacentElement('afterend', flatContainer);
+        }
+
+        const flatGrid = document.getElementById('people-filter-grid');
+        if (flatGrid) {
+            flatGrid.innerHTML = '';
+            if (matchingCards.length === 0) {
+                flatGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);">${NOT_FOUND_MSG}</p>`;
+            } else {
+                animateCardsIn(matchingCards, flatGrid);
+            }
+        }
+
+        if (peopleContainer) peopleContainer.style.display = 'none';
+        if (flatContainer) {
+            flatContainer.style.opacity = '0';
+            flatContainer.style.transition = 'opacity 0.5s ease';
+            flatContainer.style.display = '';
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                flatContainer.style.opacity = '1';
+            }));
+        }
+    };
+
+    const applyPeopleFilter = () => {
+        const { isFiltering, matchingCards, targetWrapper } = getFilterState();
+        if (!isFiltering) { resetToAllSections(); return; }
+        if (targetWrapper) { renderSectionFilter(targetWrapper, matchingCards); return; }
+        renderFlatFilter(matchingCards);
+    };
+
+    if (searchInput) searchInput.addEventListener('input', applyPeopleFilter);
+
+    // タグボタンのクリックでアクティブ切り替え＆フィルタ実行
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+            applyPeopleFilter();
+        });
+    });
+
+    // URLパラメータからタグ自動適用（プロフィールページのタグリンクから遷移した場合など）
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlTag = urlParams.get('tag');
+    if (urlTag) {
+        const matchBtn = tagFilterContainer.querySelector(`.tag-filter-btn[data-value="${urlTag}"]`);
+        if (matchBtn) {
+            filterBtns.forEach(b => b.classList.remove('is-active'));
+            matchBtn.classList.add('is-active');
+        }
+    }
 
     // 初期実行
     setTimeout(applyPeopleFilter, 100);

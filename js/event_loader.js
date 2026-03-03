@@ -65,22 +65,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         };
 
-        // Helper: Preload Image with Promise
-        const preloadImage = (src) => {
-            return new Promise((resolve, reject) => {
-                if (!src) {
-                    resolve();
-                    return;
-                }
-                const img = new Image();
-                img.onload = () => resolve(src);
-                img.onerror = () => {
-                    console.warn(`Failed to load: ${src}`);
-                    resolve(src); // Resolve anyway to continue chain
-                };
-                img.src = src;
-            });
-        };
+        // Helper: Preload Image -> utils.js の window.preloadImage を使用
+        const preloadImage = window.preloadImage;
 
         // Helper: Path Normalizer -> Use global fixPath for WebP support
         const normalizePath = (path) => {

@@ -207,6 +207,17 @@
     color: rgba(31, 31, 31, 0.65);
 }
 
+.tag--link {
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.15s;
+}
+
+.tag--link:hover {
+    opacity: 0.72;
+    transform: translateY(-1px);
+}
+
 /* Meta */
 .meta {
     margin: 0;

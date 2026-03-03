@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<!-- マスターサイト - イベント詳細 -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あにあめもりあ | イベント詳細 [マスター]</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../../assets/favicon/multi_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/styles.css" />
+</head>
+
+<body>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+
+    <div id="header-placeholder"></div>
+
+    <!-- Opening Loader (Subpage Variant) -->
+    <div id="opening-loader-overlay" class="loader-overlay--subpage">
+        <div class="loader-logo-container">
+            <div class="logo-wrapper">
+                <img class="loader-logo-back" alt="Aniamemoria Logo Back">
+                <img class="loader-logo-front" alt="Aniamemoria Logo Front">
+            </div>
+            <div class="loader-text" id="loader-text">Loading...</div>
+        </div>
+    </div>
+
+    <main id="main">
+        <section class="section">
+            <div class="container container--event-wide">
+                <article class="reveal">
+
+                    <header id="dynamic-event-header" style="margin-bottom: 24px; text-align: center;">
+                        <!-- JS Injected -->
+                    </header>
+
+                    <div id="dynamic-event-image">
+                        <!-- JS Injected -->
+                    </div>
+
+                    <div id="dynamic-event-content"
+                        style="display:none; font-size: 1.1rem; line-height: 1.9; background: var(--paper); padding: 30px; border-radius: 12px; border: 1px solid var(--line);">
+                        <!-- JS Injected or hidden -->
+                    </div>
+
+                    <div style="margin-top: 40px; text-align: center;">
+                        <a href="../pages/partner_events.html" class="btn btn--ghost">一覧へ戻る</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="../../js/common-layout.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script>
+        renderLayout('../../');
+    </script>
+
+    <!-- Data Files -->
+    <!-- マスター専用設定 -->
+    <script src="../_config/data_site.js"></script>
+    <script src="../../_config/data_members.js"></script>
+    <script src="../../_config/data_news.js"></script>
+    <script src="../../_config/data_events.js"></script>
+    <!-- Custom Loader Logo Swap (MUST run BEFORE event_loader.js) -->
+    <script>
+        (function () {
+            const loaderOverlay = document.getElementById('opening-loader-overlay');
+            const loaderText = document.getElementById('loader-text');
+            const params = new URLSearchParams(window.location.search);
+            const eventId = params.get('id');
+
+            if (eventId && window.partnerEventsData) {
+                const eventItem = window.partnerEventsData.find(item => item.id === eventId);
+                const loaderBack = loaderOverlay?.querySelector('.loader-logo-back');
+                const loaderFront = loaderOverlay?.querySelector('.loader-logo-front');
+                const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (eventItem && eventItem.titleImage) {
+                    let titleLogoPath = eventItem.titleImage;
+                    if (window.fixPath) {
+                        titleLogoPath = window.fixPath(titleLogoPath);
+                    } else if (!titleLogoPath.startsWith('http') && !titleLogoPath.startsWith('../') && !titleLogoPath.startsWith('/')) {
+                        titleLogoPath = '../../' + titleLogoPath;
+                    }
+
+                    if (loaderBack) loaderBack.src = titleLogoPath;
+                    if (loaderFront) loaderFront.src = titleLogoPath;
+
+                    // Set text color based on theme for custom logos
+                    if (loaderText) {
+                        loaderText.style.color = isDarkMode ? '#ddd' : '#333';
+                    }
+                } else {
+                    // Default logo selection based on theme using config
+                    const loaderConfig = window.siteConfig?.loaderLogos?.subpage || {
+                        light: '../../assets/logo/aniamemoria_logo.png',
+                        dark: '../../assets/logo/aniamemoria_logo_darktheme.png'
+                    };
+                    const defaultLogo = isDarkMode ? loaderConfig.dark : loaderConfig.light;
+                    // Adjust path for subpage context
+                    let adjustedPath = defaultLogo;
+                    if (window.fixPath) {
+                        adjustedPath = window.fixPath(defaultLogo);
+                    } else if (defaultLogo.startsWith('./')) {
+                        adjustedPath = '../../' + defaultLogo.replace('./', '');
+                    } else if (!defaultLogo.startsWith('../')) {
+                        adjustedPath = '../../' + defaultLogo;
+                    }
+                    if (loaderBack) loaderBack.src = adjustedPath;
+                    if (loaderFront) loaderFront.src = adjustedPath;
+                }
+
+                // Reveal the logo after setting src
+                const logoWrapper = loaderOverlay?.querySelector('.logo-wrapper');
+                if (logoWrapper) logoWrapper.classList.add('is-ready');
+            }
+        })();
+    </script>
+    <script src="../../_config/data_gallery.js"></script>
+    <script src="../../_config/data_links.js"></script>
+    <!-- Common UI Script -->
+    <script src="../../js/ui.js"></script>
+    <script src="../../js/event_loader.js"></script>
+
+    <script>
+        // Loader Logic (Random message only)
+        (function () {
+            const loaderText = document.getElementById('loader-text');
+
+            // Set random message
+            if (typeof siteConfig !== 'undefined' && siteConfig.loadingMessages) {
+                const msg = siteConfig.loadingMessages[Math.floor(Math.random() * siteConfig.loadingMessages.length)];
+                loaderText.textContent = msg;
+            } else {
+                console.warn("siteConfig not found or no loadingMessages");
+            }
+        })();
+    </script>
+    <!-- Lightbox / Modal for viewing images -->
+    <div id="gallery-modal" class="gallery-modal" aria-hidden="true" style="display:none;">
+        <div class="gallery-modal-overlay"></div>
+        <div class="gallery-modal-content">
+            <button class="gallery-modal-close" aria-label="閉じる">×</button>
+            <div class="gallery-slider">
+                <button class="gallery-nav prev" aria-label="前へ">‹</button>
+                <div class="gallery-slide-track" id="modal-track">
+                    <!-- Images injected here -->
+                </div>
+                <button class="gallery-nav next" aria-label="次へ">›</button>
+            </div>
+            <div class="gallery-info">
+                <h3 id="modal-title" style="margin:0; color:#fff;"></h3>
+                <p id="modal-desc" style="margin:8px 0 0; color:#ddd; font-size:0.9rem;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/lightbox.js"></script>
+</body>
+
+</html>

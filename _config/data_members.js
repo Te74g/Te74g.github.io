@@ -16,17 +16,34 @@
  * name:     プロフィールページで表示される名前（例: "てん（店長）"）。
  * pickupName: 一覧（ランダムピックアップ、キャスト紹介）で表示される名前（例: "てん"）。省略時は name が使われます。 (任意)
  * tagLabel: 写真の右下に表示される肩書き（例: "店長", "飼育"）。
- * tags:     検索用タグ。スペース区切りで複数書けます（例: "店長 キャスト 運営 妖怪"）。
+ * tags:     カード背景・フレーム・ピン色・プロフページ背景・絞り込み・関連スコアに使用。
+ *           スペース区切りで複数指定（例: "運営 妖怪 キャスト"）。
+ *           ⚠ 書く順番がビジュアルの優先順位になる。
+ *           優先順位: 運営 > 妖怪 > 飼育 > 野生 > スタッフ
+ *           （先にある方が背景・フレーム・ピン色に採用される）
+ *           絞り込みフィルターの区画別表示は section フィールドで決まる（tags ではない）。
+ *           拡張性・Twitter 告知用としても自由に追加可。
  * image:    画像の場所（例: "./assets/member/てん/profile.png"）。
  * link:     プロフィールページの場所（例: "./member/profile.html?id=ten"）。
  * section:  所属する区画（セクション）。以下のいずれかを指定してください。
  *           "運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"
+ *           ⚠ 絞り込みフィルターはこのフィールドで区画を決定する（tags.includes ではなく DOM 包含で判定）。
+ *           複数タグを持つキャラも、フィルター結果はこの section の区画にだけ表示される。
  * introduction: 自己紹介文（HTMLタグ使用可）。改行は <br> を使ってください。 (任意)
  *               ※ " (ダブルクォーテーション) で囲むと1行で書く必要があります。
  *               ※ ` (バッククォート) で囲むと改行を含めて書くことができます（見やすくなります）。
  * socials:  SNSリンクのリスト。 { type: "youtube|twitter|booth|facebook|vrchat|other", url: "..." } (任意)
- * related:  関連キャストのIDリスト。固定で表示したいメンバーのIDを指定します（例: ["ten", "momo"]）。指定がない場合や5人に満たない場合は自動で選ばれます。(任意)
+ * related:  関連キャストのIDリスト。固定で表示したいメンバーのIDを指定します（例: ["ten", "momo"]）。(任意)
+ *           指定がない場合や5人未満の場合は自動補完される。
+ *           自動補完スコア: 同じ section +100、タグ重複数 ×10（スコア高い順に最大5件）。
+ *           ※ revealLevel が 3 未満のメンバーは関連キャスト欄に表示されない。
  * 
+ * 【重要ルール】
+ * - tags の書き順 = ビジュアルの優先順位（背景・フレーム・ピン色は先勝ち）
+ *   推奨順: 運営 > 妖怪 > 飼育 > 野生 > スタッフ > キャスト / その他
+ * - section が絞り込みフィルターの区画を決定する（tags の内容ではない）
+ * - related の自動補完は revealLevel ≥ 3 のメンバーのみを対象とする
+ *
  * 【複数形態（フォーム）を持つキャラクター】
  * forms: 複数の姿を持つキャラクター用。各形態で異なる情報を設定できます。(任意)
  *        省略した項目は共通（親）の値が使われます。
@@ -44,7 +61,7 @@ window.membersData = [
         name: "てん（店長）",
         pickupName: "てん",
         tagLabel: "店長",
-        tags: "店長 運営 キャスト 妖怪",
+        tags: "店長 運営 妖怪 キャスト",
         image: "assets/member/てん/profile.png",
         profileImages: [
             "assets/member/てん/profile1.png",
@@ -58,7 +75,7 @@ window.membersData = [
             "人間のあらゆる文化を良く知ること",
             "あにあめもりあの成功",
         ],
-        motifAnimal: "貂",
+        motifAnimal: "<ruby>貂<rt>てん</rt></ruby>",
         motifIcon: "assets/member/てん/motif_animal_ten.png",
         sign: "assets/member/てん/ten_sign.png",
         introduction: `あにあめもりあの店長。<br>
@@ -80,7 +97,7 @@ window.membersData = [
         name: "もも（副店長）",
         pickupName: "もも",
         tagLabel: "副店長",
-        tags: "運営 キャスト 飼育",
+        tags: "運営 飼育 キャスト",
         image: "assets/member/もも/profile2.png",
         profileImages: [
             "assets/member/もも/profile1.png",
@@ -111,7 +128,7 @@ window.membersData = [
         id: "rayno",
         name: "レイノ",
         tagLabel: "飼育",
-        tags: "運営 キャスト 飼育",
+        tags: "運営 飼育 キャスト",
         revealLevel: 3,
         profileImages: [
             "assets/member/レイノ/profile1.png",
@@ -147,8 +164,8 @@ window.membersData = [
         id: "rei",
         name: "麗（れい）",
         tagLabel: "飼育",
-        tags: "キャスト 飼育",
-        revealLevel: 1,
+        tags: "飼育 キャスト",
+        revealLevel: 3,
         silhouetteImage: "assets/member/麗/silhouette_test.png",
         profileImages: [
             "assets/member/麗/profile1.png",
@@ -179,8 +196,8 @@ window.membersData = [
         id: "faria",
         name: "フィリア",
         tagLabel: "飼育",
-        tags: "キャスト 飼育",
-        revealLevel: 1,
+        tags: "飼育 キャスト",
+        revealLevel: 3,
         profileImages: [
             "assets/member/フィリア/profile1.png",
             "assets/member/フィリア/profile2.png",
@@ -195,7 +212,7 @@ window.membersData = [
         motifIcon: "assets/member/フィリア/motif_animal_carabanku.png",
         section: "飼育区画",
         introduction: `とある国のマモノ村に棲息していたカーバンクル。<br>
-        昔、自分を命の危機から救ってくれた魔力を持った人間に恩を返すべく、村飛び出し旅へ。<br>
+        昔、自分を命の危機から救ってくれた魔力を持った人間に恩を返すべく、村を飛び出し旅へ。<br>
         旅の途中、とある森の中で店長と遭遇。魔力を持った人間の情報を集めるため、あにあめもりあで働くことに。<br>
         子供っぽい(カーバンクル界では子供)だが義理堅い性格。ごはんである魔力を持った宝石が大好き。`,
         socials: [
@@ -206,8 +223,8 @@ window.membersData = [
         id: "nagi",
         name: "凪（なぎ）",
         tagLabel: "飼育",
-        tags: "キャスト 飼育",
-        revealLevel: 1,
+        tags: "飼育 キャスト",
+        revealLevel: 3,
         silhouetteImage: "assets/member/凪/silhouette_test.png",
         profileImages: [
             "assets/member/凪/profile1.png",
@@ -223,7 +240,7 @@ window.membersData = [
         motifIcon: "assets/member/凪/motif_animal_german_shepherd.png",
         section: "飼育区画",
         introduction: `ある組織に所属し軍用犬や救助犬として活躍しているジャーマンシェパード。<br>
-        ハンドラーと呼ばれるパートナーとともに厳しい訓練を乗り越え、多くの功績の残した。<br><br>
+        ハンドラーと呼ばれるパートナーとともに厳しい訓練を乗り越え、多くの功績を残した。<br><br>
         そんなある日、人間に対する理解を深め、色々な経験を積ませるという名目で、キャスト募集をしていた「あにあめもりあ」へ働きに出ることになった。<br><br>
         同組織には多くの犬が在籍しており、その中でも比較的古参であるため面倒見が良く頼もしい存在。<br>
         厳しい訓練のおかげか並大抵のことには動じず、真面目で大人しい性格ではあったものの、人の姿を得てからは割と自由奔放な一面が見られる。`,
@@ -231,12 +248,30 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/inukoro0813" },
         ]
     },
+    {
+        id: "sakura",
+        name: "さくら",
+        tagLabel: "飼育",
+        tags: "飼育 キャスト",
+        revealLevel: 3,
+        profileImages: [
+            "assets/member/silhouette.png"
+        ],
+        goals: [
+            "準備中"
+        ],
+        motifAnimal: "???",
+        motifIcon: "assets/member/silhouette.png",
+        section: "飼育区画",
+        introduction: `準備中`,
+        socials: []
+    },
     // --- 野生区画 ---
     {
         id: "uruhunojon",
         name: "ウルフのジョン",
         tagLabel: "野生",
-        tags: "キャスト 野生",
+        tags: "野生 キャスト",
         revealLevel: 0,
         image: "assets/member/ウルフのジョン/profile.png",
 
@@ -248,8 +283,8 @@ window.membersData = [
         id: "kirara",
         name: "キララ",
         tagLabel: "野生",
-        tags: "キャスト 野生",
-        revealLevel: 1,
+        tags: "野生 キャスト",
+        revealLevel: 3,
         profileImages: [
             "assets/member/キララ/profile1.png",
             "assets/member/キララ/profile2.png",
@@ -278,7 +313,7 @@ window.membersData = [
         pickupName: "ビノ",
         tagLabel: "野生",
         tags: "野生 キャスト",
-        revealLevel: 1,
+        revealLevel: 3,
         profileImages: [
             "assets/member/ビノ/profile1.png",
             "assets/member/ビノ/profile2.png",
@@ -311,8 +346,8 @@ window.membersData = [
         id: "azu",
         name: "あず",
         tagLabel: "野生",
-        tags: "キャスト 野生",
-        revealLevel: 1,
+        tags: "野生 キャスト",
+        revealLevel: 3,
         profileImages: [
             "assets/member/あず/profile1.png",
             "assets/member/あず/profile2.png",
@@ -336,13 +371,31 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/azuse_vrc" },
         ]
     },
+    {
+        id: "teto",
+        name: "てと",
+        tagLabel: "野生",
+        tags: "野生 キャスト",
+        revealLevel: 3,
+        profileImages: [
+            "assets/member/silhouette.png"
+        ],
+        goals: [
+            "準備中"
+        ],
+        motifAnimal: "???",
+        motifIcon: "assets/member/silhouette.png",
+        section: "野生区画",
+        introduction: `準備中`,
+        socials: []
+    },
 
     // --- 妖怪区画 ---
     {
         id: "kanibasiri",
         name: "蟹走 椛",
         tagLabel: "妖怪",
-        tags: "キャスト 妖怪",
+        tags: "妖怪 キャスト",
         revealLevel: 0,
         image: "assets/member/蟹走 椛/profile1.png",
 
@@ -356,8 +409,8 @@ window.membersData = [
         id: "kyosu",
         name: "きょすー！",
         tagLabel: "妖怪",
-        tags: "キャスト 妖怪",
-        revealLevel: 1,
+        tags: "妖怪 キャスト",
+        revealLevel: 3,
         profileImages: [
             "assets/member/きょすー！/profile1.png",
             "assets/member/きょすー！/profile2.png",
@@ -385,7 +438,7 @@ window.membersData = [
         name: "えの / エノ",  // デフォルト表示名
         tagLabel: "妖怪",
         tags: "妖怪 飼育 キャスト",
-        revealLevel: 1,
+        revealLevel: 3,
 
         // 複数形態（フォーム）の定義
         forms: [
@@ -448,6 +501,42 @@ window.membersData = [
         related: [
             "kyosu",
         ],
+    },
+    {
+        id: "akiaki",
+        name: "あきあき",
+        tagLabel: "妖怪",
+        tags: "妖怪 野生 キャスト",
+        revealLevel: 3,
+        profileImages: [
+            "assets/member/silhouette.png"
+        ],
+        goals: [
+            "準備中"
+        ],
+        motifAnimal: "???",
+        motifIcon: "assets/member/silhouette.png",
+        section: "妖怪区画",
+        introduction: `準備中`,
+        socials: []
+    },
+    {
+        id: "mugidango",
+        name: "むぎだんご",
+        tagLabel: "妖怪",
+        tags: "妖怪 キャスト",
+        revealLevel: 3,
+        profileImages: [
+            "assets/member/silhouette.png"
+        ],
+        goals: [
+            "準備中"
+        ],
+        motifAnimal: "???",
+        motifIcon: "assets/member/silhouette.png",
+        section: "妖怪区画",
+        introduction: `準備中`,
+        socials: []
     },
 
     // --- スタッフ ---

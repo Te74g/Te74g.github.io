@@ -20,14 +20,6 @@
         const showAll = castConfig.showAllMembers;
         const visibleList = castConfig.visibleMembers || [];
 
-        // メンバーが表示許可されているか判定する関数
-        const isMemberVisible = (member) => {
-            if (showAll) return true;
-            // 運営部・スタッフは常に表示
-            if (member.section === "運営部" || member.section === "スタッフ") return true;
-            return visibleList.includes(member.id);
-        };
-
         // Filter members by allowed roles (exclude 'スタッフ')
         const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
 
@@ -35,7 +27,7 @@
         const filteredMembers = window.membersData.filter(m => {
             // まず基本フィルタ
             if (!allowedRoles.includes(m.tagLabel)) return false;
-            if (!isMemberVisible(m)) return false;
+            if (!window.isMemberVisible(m, castConfig)) return false;
             if (!window.shouldShowItem(m)) return false;
 
             // revealLevel 3（完全公開）のみランダムピックアップに表示
@@ -123,9 +115,10 @@
                     // Re-append badge (if not simple img)
                     // Note: If using ProfileImageSwitcher, it clears content. So we append badge after.
 
+                    const badgeText = m.tagLabel.split(/[\s/／]+/)[0] || m.tagLabel;
                     const badge = document.createElement('span');
                     badge.className = "cheki-tag-badge";
-                    badge.textContent = m.tagLabel;
+                    badge.textContent = badgeText;
                     badge.style.zIndex = "5";
                     visualDiv.appendChild(badge);
                 }

@@ -1,0 +1,137 @@
+/* ===== Hero ===== */
+.hero {
+    position: relative;
+    padding: 56px 0 24px;
+    overflow: hidden;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-weight: 900;
+    color: var(--muted);
+}
+
+.kicker-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--a), var(--b));
+    box-shadow: 0 0 0 5px rgba(57, 198, 255, 0.18);
+}
+
+.hero-title {
+    margin: 0 0 10px;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+}
+
+.hero-lead {
+    margin: 0 0 14px;
+    color: var(--muted);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.hero-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hero-visual {
+    display: grid;
+    gap: 12px;
+}
+
+.illus {
+    border-radius: var(--r-lg);
+    border: 2px solid rgba(31, 31, 31, 0.20);
+    background: linear-gradient(135deg, rgba(255, 79, 216, 0.16), rgba(57, 198, 255, 0.14), rgba(255, 210, 74, 0.16));
+    box-shadow: var(--shadow-strong);
+    padding: 14px;
+    min-height: 230px;
+}
+
+.illus-inner {
+    border-radius: 22px;
+    border: 2px dashed rgba(31, 31, 31, 0.22);
+    background: rgba(255, 255, 255, 0.60);
+    height: 100%;
+    min-height: 202px;
+    display: grid;
+    place-items: center;
+    padding: 14px;
+}
+
+/* Make image responsive */
+.illus img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.illus-title {
+    margin: 0;
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.illus-sub {
+    margin: 6px 0 10px;
+    color: rgba(31, 31, 31, 0.64);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.sticker-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sticker {
+    padding: 8px 12px;
+    border-radius: 16px;
+    border: 2px solid rgba(31, 31, 31, 0.20);
+    background: var(--paper);
+    box-shadow: 6px 6px 0 rgba(31, 31, 31, 0.10);
+    font-weight: 900;
+    font-size: 12px;
+    transform: rotate(-2deg);
+}
+
+.sticker:nth-child(2) {
+    transform: rotate(2deg);
+    background: rgba(57, 198, 255, 0.18);
+}
+
+.sticker:nth-child(3) {
+    transform: rotate(-1deg);
+    background: rgba(255, 210, 74, 0.22);
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+}
