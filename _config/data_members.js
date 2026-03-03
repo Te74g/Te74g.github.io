@@ -503,22 +503,37 @@ window.membersData = [
         ],
     },
     {
-        id: "akiaki",
-        name: "あきあき",
+        id: "aki",
+        name: "あき",
+        pickupName: "あき",
         tagLabel: "妖怪",
         tags: "妖怪 野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/silhouette.png"
+            "assets/member/あき/profile1.png",
+            "assets/member/あき/profile2.png",
+            "assets/member/あき/profile3.png"
         ],
         goals: [
-            "準備中"
+            "いたずら三昧"
         ],
-        motifAnimal: "???",
-        motifIcon: "assets/member/silhouette.png",
+        motifAnimal: "狐",
+        motifIcon: "assets/member/あき/profile1.png", // Temporarily using profile image as motif if missing
         section: "妖怪区画",
-        introduction: `準備中`,
-        socials: []
+        introduction: `人里近い草むらや林に住む妖狐。<br>
+        いたずら好きでねこじゃらしで気を引いたり、隙を見てくすぐったりするのが好き。<br><br>
+        狐たちの住処に迷い込んだ店長にスカウトされてあにあめもりあで働くことに。<br>
+        実は情報収集は二の次で、人にいたずらをすることを目的としている。<br><br>
+        近年は人が道端の草花に興味を持たず、手元の板ばかり見ていることからこの板をライバル視している。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/akiakia141096" },
+            { type: "booth", url: "https://akitenaai.booth.pm/" }
+        ],
+        related: [
+            "momo",
+            "rayno",
+            "kirara"
+        ]
     },
     {
         id: "mugidango",
