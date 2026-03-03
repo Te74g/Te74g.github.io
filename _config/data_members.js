@@ -125,42 +125,6 @@ window.membersData = [
 
     // --- 飼育区画 ---
     {
-        id: "rayno",
-        name: "レイノ",
-        tagLabel: "飼育",
-        tags: "運営 飼育 キャスト",
-        revealLevel: 3,
-        profileImages: [
-            "assets/member/レイノ/profile1.png",
-            "assets/member/レイノ/profile2.png",
-            "assets/member/レイノ/profile3.png"
-        ],
-
-        section: "飼育区画",
-        goals: [
-            "人間からたくさんの情報をもらうこと～",
-            "飼い主の作ったショップを広めること～",
-            "仲間と幸せな暮らしができるようにすること～"
-        ],
-        motifAnimal: "猫",
-        motifIcon: "assets/member/レイノ/motif_animal_neko2.png",
-        introduction: `元々は飼い猫だったが、大好きな飼い主の言葉を理解したい一心で、店長に直談判。<br>
-        その愛くるしいフォルムと声を認められ、あにあめもりあの一員として迎え入れられた。<br><br>
-        当初の目的は飼い主との意思疎通だったはずが、最近では採用してくれた店長への忠誠心と愛が爆発。<br>
-        「店長のためなら！」と奔走しているうちに、いつの間にかプログラミングスキルやモデリングスキルまで習得してしまったという努力家。<br>
-        現在は飼い主よりも店長に夢中らしいが、そのひたむきな働きぶりは仲間内でも一目置かれている。`,
-        socials: [
-            { type: "twitter", url: "https://x.com/Ray_9618_VRC" },
-            { type: "twitter", url: "https://x.com/Ray_9618_2" },
-            { type: "twitter", url: "https://x.com/PoriRayTen" },
-            { type: "youtube", url: "https://www.youtube.com/@ray_9618" },
-            { type: "note", url: "https://note.com/ray_9618" },
-            { type: "booth", url: "https://ray9618.booth.pm/" },
-            { type: "booth", url: "https://polygonlatency.booth.pm/" }
-        ],
-        related: ["ten", "momo"]
-    },
-    {
         id: "rei",
         name: "麗（れい）",
         tagLabel: "飼育",
@@ -531,7 +495,6 @@ window.membersData = [
         ],
         related: [
             "momo",
-            "rayno",
             "kirara"
         ]
     },

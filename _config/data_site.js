@@ -77,7 +77,6 @@ window.siteConfig = {
         visibleMembers: [
             "ten",      // 店長（運営部）
             "momo",     // 副店長（運営部）
-            "rayno",    // レイノ（飼育区画）
             "sakura",
             "teto",
             "akiaki",
