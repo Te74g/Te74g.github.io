@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="28" viewBox="0 0 800 28" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Perforation line">
+  <g fill="currentColor" opacity="0.35">
+    <!-- 40 holes -->
+    <rect x="10" y="6" width="10" height="16" rx="3"/>
+    <rect x="29" y="6" width="10" height="16" rx="3"/>
+    <rect x="48" y="6" width="10" height="16" rx="3"/>
+    <rect x="67" y="6" width="10" height="16" rx="3"/>
+    <rect x="86" y="6" width="10" height="16" rx="3"/>
+    <rect x="105" y="6" width="10" height="16" rx="3"/>
+    <rect x="124" y="6" width="10" height="16" rx="3"/>
+    <rect x="143" y="6" width="10" height="16" rx="3"/>
+    <rect x="162" y="6" width="10" height="16" rx="3"/>
+    <rect x="181" y="6" width="10" height="16" rx="3"/>
+    <rect x="200" y="6" width="10" height="16" rx="3"/>
+    <rect x="219" y="6" width="10" height="16" rx="3"/>
+    <rect x="238" y="6" width="10" height="16" rx="3"/>
+    <rect x="257" y="6" width="10" height="16" rx="3"/>
+    <rect x="276" y="6" width="10" height="16" rx="3"/>
+    <rect x="295" y="6" width="10" height="16" rx="3"/>
+    <rect x="314" y="6" width="10" height="16" rx="3"/>
+    <rect x="333" y="6" width="10" height="16" rx="3"/>
+    <rect x="352" y="6" width="10" height="16" rx="3"/>
+    <rect x="371" y="6" width="10" height="16" rx="3"/>
+    <rect x="390" y="6" width="10" height="16" rx="3"/>
+    <rect x="409" y="6" width="10" height="16" rx="3"/>
+    <rect x="428" y="6" width="10" height="16" rx="3"/>
+    <rect x="447" y="6" width="10" height="16" rx="3"/>
+    <rect x="466" y="6" width="10" height="16" rx="3"/>
+    <rect x="485" y="6" width="10" height="16" rx="3"/>
+    <rect x="504" y="6" width="10" height="16" rx="3"/>
+    <rect x="523" y="6" width="10" height="16" rx="3"/>
+    <rect x="542" y="6" width="10" height="16" rx="3"/>
+    <rect x="561" y="6" width="10" height="16" rx="3"/>
+    <rect x="580" y="6" width="10" height="16" rx="3"/>
+    <rect x="599" y="6" width="10" height="16" rx="3"/>
+    <rect x="618" y="6" width="10" height="16" rx="3"/>
+    <rect x="637" y="6" width="10" height="16" rx="3"/>
+    <rect x="656" y="6" width="10" height="16" rx="3"/>
+    <rect x="675" y="6" width="10" height="16" rx="3"/>
+    <rect x="694" y="6" width="10" height="16" rx="3"/>
+    <rect x="713" y="6" width="10" height="16" rx="3"/>
+    <rect x="732" y="6" width="10" height="16" rx="3"/>
+    <rect x="751" y="6" width="10" height="16" rx="3"/>
+  </g>
+</svg>

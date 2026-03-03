@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reel icon">
+  <circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" stroke-width="6" opacity="0.95"/>
+  <circle cx="32" cy="32" r="10" fill="none" stroke="currentColor" stroke-width="6" opacity="0.55"/>
+  <circle cx="32" cy="32" r="4" fill="currentColor" opacity="0.85"/>
+  <g fill="currentColor" opacity="0.55">
+    <circle cx="32" cy="14" r="4"/>
+    <circle cx="46" cy="24" r="4"/>
+    <circle cx="41" cy="41" r="4"/>
+    <circle cx="23" cy="41" r="4"/>
+    <circle cx="18" cy="24" r="4"/>
+  </g>
+</svg>
