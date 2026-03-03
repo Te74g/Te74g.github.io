@@ -22,39 +22,39 @@ window.newsData = [
     // ===== 以下4件はダミーデータ（動作確認用）。確認後は削除してください =====
     {
         id: "dummy_news_04",
-        title: "【ダミー4】提携イベント「キツネコタン」開催決定！",
+        title: "おさかな天国",
         date: "2026.02.28",
         category: "レポート",
-        imagePath: "assets/news/2026-02-09/firstnews20260209.png",
-        desc: "提携イベント「キツネコタン」への参加が決定しました。詳細はイベントページをご確認ください。",
-        content: `<p>これはダミー記事です。動作確認用のデータです。</p>`
+        imagePath: "assets/motif/sakabanbasupisu.png",
+        desc: "さかな さかな さかなー♪ 魚を食べると頭が良くなるそうです。",
+        content: `<p>おさかな天国の記事です。</p>`
     },
     {
         id: "dummy_news_03",
-        title: "【ダミー3】新キャスト解禁のお知らせ",
+        title: "サファリパーク",
         date: "2026.02.20",
         category: "お知らせ",
-        imagePath: "assets/news/2026-02-09/firstnews20260209.png",
-        desc: "Coming Soon だったキャストの情報が解禁されました。プロフィールページをぜひご覧ください！",
-        content: `<p>これはダミー記事です。動作確認用のデータです。</p>`
+        imagePath: "assets/page/yasei.png",
+        desc: "ほんとにほんとにほんとにほんとにライオンだー！",
+        content: `<p>サファリパークの記事です。</p>`
     },
     {
         id: "dummy_news_02",
-        title: "【ダミー2】サイトデザインを一部リニューアルしました",
+        title: "じゃパリパーク",
         date: "2026.02.15",
         category: "お知らせ",
-        imagePath: "assets/news/2026-02-09/firstnews20260209.png",
-        desc: "キャスト紹介ページのデザインを更新しました。スマートフォンでも見やすくなっています。",
-        content: `<p>これはダミー記事です。動作確認用のデータです。</p>`
+        imagePath: "assets/partner_events/kitsunekotan/poster.png",
+        desc: "すっごーい！君は〇〇が得意なフレンズなんだね！",
+        content: `<p>ようこそじゃパリパークへ！</p>`
     },
     {
         id: "dummy_news_01",
-        title: "【ダミー1】公式Xアカウントを開設しました",
+        title: "ねこふんじゃった",
         date: "2026.02.10",
         category: "お知らせ",
-        imagePath: "assets/news/2026-02-09/firstnews20260209.png",
-        desc: "あにあめもりあの公式X（旧Twitter）アカウントを開設しました。フォローしてね！",
-        content: `<p>これはダミー記事です。動作確認用のデータです。</p>`
+        imagePath: "assets/motif/Bcat.png",
+        desc: "ねこふんじゃった ねこふんじゃった ねこふんづけちゃったら ひっかいた",
+        content: `<p>ねこふんじゃったの記事です。</p>`
     },
     // ===== ダミーデータここまで =====
 
