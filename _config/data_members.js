@@ -109,7 +109,7 @@ window.membersData = [
             "デカい猫の作った本やスタンプを広めて、外で暮らす仲間たちのご飯を豪華にすること",
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/motif/neko.png",
+        motifIcon: "assets/motif/Bcat.png",
         introduction: `あにあめもりあの副店長。<br>
         元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>
         同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>
@@ -269,7 +269,7 @@ window.membersData = [
             "あにあめもりあの成功"
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/motif/neko_shironeko.png",
+        motifIcon: "assets/motif/Wcat.png",
         section: "野生区画",
         introduction: `あにあめもりあの一員。もともとペットショップで売れ残っていたところ、
         脱走し路頭に迷っていたところを店長に見つけられ拾われる。    
@@ -299,7 +299,7 @@ window.membersData = [
             "森の蛇仲間たちに人間のおいしいご飯をたくさん届けること",
         ],
         motifAnimal: "蛇",
-        motifIcon: "assets/motif/snake.png",
+        motifIcon: "assets/motif/Wsnake.png",
         introduction: `森の小動物たちをすべて食べつくし、店の食べ物を勝手に漁っているところを店長に捕まる。<br>
         「ここで働けばごはんがたくさん食べれるよ」と誘われ、二つ返事であにあめもりあの一員となった。<br>
         しかし、その聞き分けの良さの正体は「ごはんを食べる仕事」だと勘違いしていたからだった。<br><br>
@@ -394,7 +394,7 @@ window.membersData = [
             "音楽でちょっと成功してみたい。",
         ],
         motifAnimal: "狐",
-        motifIcon: "assets/motif/kitsune_kyosu.png",
+        motifIcon: "assets/motif/Wfox.png",
         section: "妖怪区画",
         introduction: `音楽を祀る神社の音楽ができる妖怪。<br>
         ちゃらんぽらんでとても頼りないが好奇心旺盛で人の話を聞くことが好き。<br>
@@ -426,7 +426,7 @@ window.membersData = [
                     "assets/member/えの/fox_profile4.png",
                 ],
                 motifAnimal: "狐",
-                motifIcon: "assets/motif/kitsune_eno.png",
+                motifIcon: "assets/motif/Efox.png",
             },
             {
                 id: "cat",
@@ -441,7 +441,7 @@ window.membersData = [
                     "assets/member/えの/cat_profile5.png",
                 ],
                 motifAnimal: "猫",
-                motifIcon: "assets/motif/neko_eno.png",
+                motifIcon: "assets/motif/Monochromecat.png",
             }
         ],
 
@@ -458,7 +458,7 @@ window.membersData = [
             "喫茶店を、物語で満たされた場所にすること",
         ],
         motifAnimal: "狐（猫化）",
-        motifIcon: "assets/motif/kitsune_eno.png",
+        motifIcon: "assets/motif/Efox.png",
         section: "妖怪区画",
         introduction: `人間の「好き」や思い出を集める狐の妖怪。<br>
         人に近づくため、猫の姿に擬態し、喫茶店に身を置いている。<br><br>
@@ -532,7 +532,7 @@ window.membersData = [
         tagLabel: "スタッフ",
         tags: "スタッフ",
         motifAnimal: "ヒト",
-        motifIcon: "assets/motif/hito.png",
+        motifIcon: "assets/motif/human.png",
         image: "assets/member/ひねくれ/profile.png",
 
         section: "スタッフ",
