@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160" height="120" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Film frame icon">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="currentColor" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" opacity="0.95">
+    <rect x="18" y="18" width="124" height="84" rx="10"/>
+  </g>
+  <g fill="currentColor" opacity="0.55">
+    <!-- perforations left -->
+    <rect x="8" y="26" width="8" height="10" rx="2"/>
+    <rect x="8" y="44" width="8" height="10" rx="2"/>
+    <rect x="8" y="62" width="8" height="10" rx="2"/>
+    <rect x="8" y="80" width="8" height="10" rx="2"/>
+    <!-- perforations right -->
+    <rect x="144" y="26" width="8" height="10" rx="2"/>
+    <rect x="144" y="44" width="8" height="10" rx="2"/>
+    <rect x="144" y="62" width="8" height="10" rx="2"/>
+    <rect x="144" y="80" width="8" height="10" rx="2"/>
+  </g>
+  <rect x="30" y="30" width="100" height="60" rx="8" fill="url(#g)" opacity="0.14"/>
+</svg>

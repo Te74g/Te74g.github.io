@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="540" viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Projector silhouette">
+  <defs>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur"/>
+      <feOffset dx="0" dy="10" result="off"/>
+      <feColorMatrix in="off" type="matrix"
+        values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.55 0" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Everything uses currentColor so you can tint with CSS -->
+  <g filter="url(#softShadow)" fill="currentColor">
+    <!-- base -->
+    <path d="M120 370
+             C120 330 155 300 198 300
+             H540
+             C600 300 640 338 640 385
+             V420
+             C640 455 612 482 575 482
+             H190
+             C150 482 120 450 120 410
+             Z" opacity="0.90"/>
+    <!-- feet -->
+    <rect x="190" y="482" width="72" height="22" rx="10" opacity="0.85"/>
+    <rect x="500" y="482" width="86" height="22" rx="10" opacity="0.85"/>
+
+    <!-- body top plate -->
+    <path d="M170 306
+             C190 250 240 225 310 225
+             H500
+             C560 225 604 252 620 300
+             H190
+             C182 300 175 303 170 306Z" opacity="0.55"/>
+
+    <!-- reels -->
+    <g opacity="0.82">
+      <circle cx="270" cy="220" r="82"/>
+      <circle cx="460" cy="205" r="70"/>
+      <!-- reel holes -->
+      <g fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" opacity="0.7">
+        <circle cx="270" cy="220" r="34"/>
+        <circle cx="460" cy="205" r="28"/>
+      </g>
+      <g fill="currentColor" opacity="0.9">
+        <circle cx="270" cy="220" r="10"/>
+        <circle cx="460" cy="205" r="10"/>
+      </g>
+      <!-- 5 holes each reel -->
+      <g fill="currentColor" opacity="0.55">
+        <!-- left -->
+        <circle cx="270" cy="165" r="10"/>
+        <circle cx="315" cy="200" r="10"/>
+        <circle cx="298" cy="250" r="10"/>
+        <circle cx="242" cy="250" r="10"/>
+        <circle cx="225" cy="200" r="10"/>
+        <!-- right -->
+        <circle cx="460" cy="160" r="9"/>
+        <circle cx="499" cy="190" r="9"/>
+        <circle cx="486" cy="236" r="9"/>
+        <circle cx="434" cy="236" r="9"/>
+        <circle cx="421" cy="190" r="9"/>
+      </g>
+    </g>
+
+    <!-- lens housing -->
+    <g opacity="0.92">
+      <path d="M640 332
+               C702 330 760 334 812 346
+               C842 353 862 366 874 386
+               C888 410 884 430 862 446
+               C842 460 806 470 748 476
+               C710 480 676 482 640 482
+               Z"/>
+      <ellipse cx="834" cy="406" rx="40" ry="54" opacity="0.9"/>
+      <ellipse cx="830" cy="406" rx="18" ry="30" opacity="0.55"/>
+    </g>
+
+    <!-- knobs -->
+    <circle cx="210" cy="392" r="10" opacity="0.55"/>
+    <circle cx="245" cy="392" r="10" opacity="0.55"/>
+    <circle cx="280" cy="392" r="10" opacity="0.55"/>
+  </g>
+</svg>
