@@ -33,25 +33,24 @@
                 </header>
 
                 <!-- Search & Filter Toolbar -->
-                <div class="toolbar reveal" style="margin-top: 40px; justify-content: center;">
-                    <label class="field">
+                <div class="toolbar reveal" style="margin-top: 24px;">
+                    <label class="field" style="max-width:320px; width:100%;">
                         <span>名前検索</span>
                         <input id="people-search" type="search" placeholder="名前で検索/Search" autocomplete="off" />
                     </label>
-
-                    <label class="field">
-                        <span>タグ絞り込み</span>
-                        <select id="people-tag-filter">
-                            <option value="all">すべて/All</option>
-                            <option value="運営">運営</option>
-                            <option value="キャスト">キャスト</option>
-                            <option value="スタッフ">スタッフ</option>
-                            <option value="飼育">飼育</option>
-                            <option value="野生">野生</option>
-                            <option value="妖怪">妖怪</option>
-                            <option value="区画長">区画長</option>
-                        </select>
-                    </label>
+                </div>
+                <div class="toolbar reveal" style="margin-top: 12px;">
+                    <div class="field">
+                        <div id="people-tag-filter" class="tag-filter-buttons">
+                            <button class="tag-filter-btn is-active" data-value="all">すべて</button>
+                            <button class="tag-filter-btn" data-value="運営">運営</button>
+                            <button class="tag-filter-btn" data-value="飼育">飼育</button>
+                            <button class="tag-filter-btn" data-value="野生">野生</button>
+                            <button class="tag-filter-btn" data-value="妖怪">妖怪</button>
+                            <button class="tag-filter-btn" data-value="キャスト">キャスト</button>
+                            <button class="tag-filter-btn" data-value="スタッフ">スタッフ</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
