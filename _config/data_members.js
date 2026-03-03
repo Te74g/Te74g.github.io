@@ -79,7 +79,7 @@ window.membersData = [
         motifIcon: "assets/member/てん/motif_animal_ten.png",
         sign: "assets/member/てん/ten_sign.png",
         introduction: `あにあめもりあの店長。<br>
-        元々野生の<ruby>貂<rt>てん</rt></ruby>だったが、十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
+        元々野生の<ruby>貂<rt>てん</rt></ruby>だったが、<br>十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
         死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
         現在は人間の家で暮らしている。<br>
         妖怪としてはかなりの若輩者で、俗物的。<br>
