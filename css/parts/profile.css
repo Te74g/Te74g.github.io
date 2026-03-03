@@ -453,3 +453,62 @@
     transform: scale(1.1);
     /* Slight scale to prevent blurred edges */
 }
+
+/* ==========================================================================
+   Profile Pagination Navigation (< >)
+   ========================================================================== */
+.profile-pagination {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    /* Let clicks pass through empty space */
+    z-index: 100;
+    padding: 0 16px;
+}
+
+.profile-nav-btn {
+    pointer-events: auto;
+    /* Re-enable clicks on buttons */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(30, 30, 30, 0.7);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    color: var(--primary-light);
+    font-size: 24px;
+    font-family: var(--font-en);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow);
+}
+
+.profile-nav-btn:hover {
+    background: rgba(40, 40, 40, 0.9);
+    color: #fff;
+    border-color: var(--primary-light);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .profile-nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .profile-pagination {
+        padding: 0 8px;
+    }
+}

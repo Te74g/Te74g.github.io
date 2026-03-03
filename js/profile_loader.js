@@ -60,6 +60,38 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render Content
     // ==========================================
 
+    // ==========================================
+    // Profile Pagination Navigation
+    // ==========================================
+    const visibleMembers = membersData.filter(m => {
+        const info = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
+        return (info ? info.level : 3) > 1; // Only fully revealed and silhouettes can be navigated to
+    });
+
+    if (visibleMembers.length > 1) {
+        const currentIndex = visibleMembers.findIndex(m => m.id === memberId);
+        if (currentIndex !== -1) {
+            const prevIndex = (currentIndex - 1 + visibleMembers.length) % visibleMembers.length;
+            const nextIndex = (currentIndex + 1) % visibleMembers.length;
+            const prevMember = visibleMembers[prevIndex];
+            const nextMember = visibleMembers[nextIndex];
+
+            const navContainer = document.createElement('div');
+            navContainer.className = 'profile-pagination';
+
+            navContainer.innerHTML = `
+                <a href="?id=${prevMember.id}" class="profile-nav-btn prev-btn" title="${prevMember.name}のページへ">
+                    <span class="nav-icon">&lt;</span>
+                </a>
+                <a href="?id=${nextMember.id}" class="profile-nav-btn next-btn" title="${nextMember.name}のページへ">
+                    <span class="nav-icon">&gt;</span>
+                </a>
+            `;
+            document.body.appendChild(navContainer);
+        }
+    }
+
+
     // 現在の形態を取得（forms がある場合）
     // URLパラメータから form インデックスを読み取る
     const formParam = params.get('form');
