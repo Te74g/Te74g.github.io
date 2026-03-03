@@ -302,13 +302,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     iconHtml = '<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
                 } else if (type === 'vrchat') {
                     colorClass = 'social-icon--dark';
-                    iconHtml = '<img src="../assets/logo/VRChat Logo Black.png" alt="VRChat" style="width: 50px; height: 50x; object-fit: contain;">';
+                    iconHtml = `<img src="${window.fixPath('assets/logo/VRChat Logo Black.png')}" alt="VRChat" style="width: 50px; height: 50px; object-fit: contain;">`;
                 } else if (type === 'booth') {
                     colorClass = 'social-icon--red';
-                    iconHtml = '<img src="../assets/logo/Booth_logo_icon.svg" alt="Booth" style="width: 45px; height: 45px; object-fit: contain;">';
+                    iconHtml = `<img src="${window.fixPath('assets/logo/Booth_logo_icon.svg')}" alt="Booth" style="width: 45px; height: 45px; object-fit: contain;">`;
                 } else if (type === 'note') {
                     colorClass = 'social-icon--white'; // Custom class or style handling below
-                    iconHtml = '<img src="../assets/icon/note_icon.svg" alt="note" style="width: 85%; height: 85%; object-fit: contain;">';
+                    iconHtml = `<img src="${window.fixPath('assets/icon/note_icon.svg')}" alt="note" style="width: 85%; height: 85%; object-fit: contain;">`;
                 } else {
                     iconHtml = '<svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>';
                 }
