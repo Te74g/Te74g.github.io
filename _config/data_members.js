@@ -109,7 +109,7 @@ window.membersData = [
             "デカい猫の作った本やスタンプを広めて、外で暮らす仲間たちのご飯を豪華にすること",
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/motif/Bcat.png",
+        motifIcon: "assets/motif/Monochromecat.png",
         introduction: `あにあめもりあの副店長。<br>
         元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>
         同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>
@@ -269,7 +269,7 @@ window.membersData = [
             "あにあめもりあの成功"
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/motif/Wcat.png",
+        motifIcon: "assets/motif/Bcat.png",
         section: "野生区画",
         introduction: `あにあめもりあの一員。もともとペットショップで売れ残っていたところ、
         脱走し路頭に迷っていたところを店長に見つけられ拾われる。    
@@ -441,7 +441,7 @@ window.membersData = [
                     "assets/member/えの/cat_profile5.png",
                 ],
                 motifAnimal: "猫",
-                motifIcon: "assets/motif/Monochromecat.png",
+                motifIcon: "assets/motif/Wcat.png",
             }
         ],
 
