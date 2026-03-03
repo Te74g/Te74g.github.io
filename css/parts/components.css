@@ -511,19 +511,6 @@
     z-index: 10;
 }
 
-/* Base list (People page - direct children) */
-.cheki-card:nth-child(3n+1) {
-    transform: rotate(-1deg);
-}
-
-.cheki-card:nth-child(3n+2) {
-    transform: rotate(1.5deg);
-}
-
-.cheki-card:nth-child(3n+0) {
-    transform: rotate(-0.5deg);
-}
-
 .cheki-card:nth-child(3n+1):hover {
     transform: translateY(-12px) scale(1.02) rotate(-1deg) !important;
 }
