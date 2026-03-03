@@ -25,6 +25,16 @@
         window.matchMedia &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Handle BFCache (Browser Back/Forward) animation re-trigger
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted && !prefersReducedMotion) {
+            // Force a reflow to restart the CSS animation
+            document.body.style.animation = 'none';
+            void document.body.offsetHeight; /* trigger reflow */
+            document.body.style.animation = null;
+        }
+    });
+
     // Footer year
     const year = document.getElementById("year");
     if (year) year.textContent = String(new Date().getFullYear());
