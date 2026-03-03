@@ -4,6 +4,7 @@ _templates/
 
 # 依存パッケージ（npm installで再生成できるため不要）
 node_modules/
+package-lock.json
 
 # OS生成ファイル
 .DS_Store
