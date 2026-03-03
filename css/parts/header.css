@@ -3,20 +3,23 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(26, 19, 17, 0.85);
+    /* Dark wood background */
     /* More transparent for better glass effect */
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(207, 170, 107, 0.15);
+    /* Faint gold bottom border */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+    /* Deep shadow */
     /* Soft drop shadow */
     transition: all .3s ease;
 }
 
 .site-header.is-elevated {
-    background: rgba(255, 255, 255, 0.85);
-    border-color: var(--line);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    background: rgba(20, 15, 13, 0.95);
+    border-color: rgba(207, 170, 107, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(207, 170, 107, 0.2);
     /* Deeper shadow on scroll */
 }
 
@@ -45,31 +48,54 @@
 /* PC Nav */
 .pc-nav {
     display: flex;
-    gap: 20px;
+    gap: 4px;
+    /* Narrower gap as requested */
     align-items: center;
     justify-content: center;
     flex: 1;
-    /* Center it */
 }
 
 .nav-item {
-    font-weight: 500;
-    /* 太さを抑える */
+    font-weight: 700;
     color: var(--ink);
-    padding: 8px 16px;
-    /* 横余白を広げて「間」を作る */
-    border-radius: 999px;
-    transition: background .3s ease, color .3s ease;
-    font-family: "Zen Kaku Gothic New", sans-serif;
-    /* ナビは読みやすさ優先 */
-    letter-spacing: 0.05em;
+    padding: 10px 24px;
+    border-radius: 6px;
+    /* Rounded rectangle instead of pill */
+    transition: all .3s ease;
+    font-family: 'Zen Old Mincho', serif;
+    /* Elegant serif font for plaques */
+    letter-spacing: 0.15em;
     white-space: nowrap;
+
+    /* Gold Plaque Base Style */
+    background: linear-gradient(to bottom, #2a1b14, #140d0a);
+    border: 2px solid #5a4231;
+
+    /* Double Inner Gold Border */
+    box-shadow:
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 0 2px var(--accent-gold),
+        0 4px 12px rgba(0, 0, 0, 0.5);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-item:hover {
-    background: rgba(56, 161, 219, 0.08);
     text-decoration: none;
-    color: var(--b);
+    color: var(--accent-gold);
+    text-shadow: 0 0 10px rgba(207, 170, 107, 0.4);
+    box-shadow:
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 0 2px var(--accent-gold),
+        inset 0 0 15px rgba(207, 170, 107, 0.2),
+        /* Inner glow */
+        0 6px 16px rgba(0, 0, 0, 0.7);
+    /* Deeper drop shadow */
+    transform: translateY(-2px);
+    border-color: var(--accent-gold);
 }
 
 /* Header Socials */
@@ -89,17 +115,19 @@
     height: 36px;
     border-radius: 50%;
     background: var(--paper);
-    border: 1px solid var(--line);
-    /* 枠線を細く */
+    border: 1px solid rgba(207, 170, 107, 0.3);
+    /* Gold border */
     color: var(--ink);
-    transition: transform .3s ease, border-color .3s ease;
+    transition: all .3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .social-link:hover {
     transform: translateY(-2px);
     text-decoration: none;
-    border-color: var(--b);
-    color: var(--b);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    box-shadow: inset 0 0 10px rgba(207, 170, 107, 0.2), 0 4px 8px rgba(0, 0, 0, 0.6), 0 0 10px rgba(207, 170, 107, 0.4);
 }
 
 /* Menu Socials (Mobile) */
@@ -134,11 +162,12 @@
     gap: 10px;
     padding: 10px 12px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(207, 170, 107, 0.3);
+    background: var(--paper);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     font-weight: 700;
+    color: var(--ink);
     position: relative;
     z-index: 102;
     /* オーバーレイより前面に出す */
@@ -222,8 +251,8 @@ body.nav-open .menu-close {
     position: fixed;
     inset: 0;
     z-index: 100;
-    /* 背景を擦りガラス風にする（不透明度0.9、ぼかし20px） */
-    background-color: rgba(255, 247, 251, 0.90);
+    /* 背景を暗いすりガラス風にする */
+    background-color: rgba(20, 15, 13, 0.90);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     display: none;
@@ -280,26 +309,54 @@ body.nav-open .menu-close {
     justify-content: space-between;
     align-items: flex-end;
     gap: 12px;
-    padding: 16px 16px;
-    border-radius: var(--r-lg);
-    border: 2px solid var(--line);
-    background: var(--paper);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--shadow);
+    padding: 16px 24px;
+    border-radius: 8px;
     text-decoration: none;
+    font-family: 'Zen Old Mincho', serif;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+
+    /* Gold Plaque Base Style */
+    background: linear-gradient(to bottom, #2a1b14, #140d0a);
+    border: 2px solid #5a4231;
+
+    /* Double Inner Gold Border Effect */
+    box-shadow:
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 0 2px var(--accent-gold),
+        0 4px 12px rgba(0, 0, 0, 0.5);
+
+    position: relative;
+    transition: all .3s ease;
 }
+
+/* Gold Rivets for Menu Links */
 
 .menu-link:hover {
     text-decoration: none;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+    text-shadow: 0 0 10px rgba(207, 170, 107, 0.4);
+    box-shadow:
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 0 2px var(--accent-gold),
+        inset 0 0 15px rgba(207, 170, 107, 0.2),
+        /* Inner glow */
+        0 6px 16px rgba(0, 0, 0, 0.7);
+    /* Deeper drop shadow */
 }
 
 .menu-link.is-active {
-    border-color: var(--line-strong);
-    background: linear-gradient(135deg, rgba(255, 79, 216, 0.15), rgba(57, 198, 255, 0.12));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: linear-gradient(to bottom, rgba(207, 170, 107, 0.2), rgba(20, 13, 10, 0.9));
+    border-color: var(--accent-gold);
+    box-shadow:
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 0 2px var(--accent-gold),
+        inset 0 0 20px rgba(207, 170, 107, 0.3),
+        /* Stronger Inner glow */
+        0 4px 12px rgba(0, 0, 0, 0.5);
+    color: var(--accent-gold);
 }
 
 .menu-link__jp {

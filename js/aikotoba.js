@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // データが空または未定義の場合
     if (typeof aikotobaData === 'undefined' || !Array.isArray(aikotobaData) || aikotobaData.length === 0) {
         listContainer.innerHTML = `
-            <div class="empty-content">
-                <p>現在合言葉はありません。</p>
+            <div class="empty">
+                <div class="empty-icon">✉️</div>
+                <h3 class="empty-title">お知らせ</h3>
+                <p class="empty-desc">現在公開されている合言葉はありません。<br>次回の更新をお待ちください。</p>
             </div>
         `;
         return;
@@ -17,8 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (visibleData.length === 0) {
         listContainer.innerHTML = `
-            <div class="empty-content">
-                <p>現在合言葉はありません。</p>
+            <div class="empty">
+                <div class="empty-icon">✉️</div>
+                <h3 class="empty-title">お知らせ</h3>
+                <p class="empty-desc">現在公開されている合言葉はありません。<br>次回の更新をお待ちください。</p>
             </div>
         `;
         return;

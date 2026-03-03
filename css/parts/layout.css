@@ -7,7 +7,7 @@ body {
     text-size-adjust: 100%;
 }
 
-/* Global Spotlight Ambient Lighting Effect */
+/* Global Spotlight Ambient Lighting Effect (Warm Gold) */
 body::before {
     content: "";
     position: fixed;
@@ -15,15 +15,15 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     width: 150vw;
-    height: 100vh;
-    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.0) 60%);
+    height: 120vh;
+    background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.08) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
 
 @media (prefers-color-scheme: dark) {
     body::before {
-        background: radial-gradient(circle at 50% 10%, rgba(255, 220, 150, 0.12) 0%, rgba(255, 255, 255, 0.0) 60%);
+        background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.1) 0%, transparent 70%);
     }
 }
 
@@ -100,30 +100,39 @@ body.is-preloading {
 }
 
 
+/* Section Headers */
 .section-head {
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section-title {
-    margin: 0 0 6px;
-    font-weight: 900;
-    font-size: clamp(22px, 2.6vw, 30px);
+    margin: 0 0 12px;
+    font-weight: 700;
+    font-family: 'Zen Old Mincho', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(207, 170, 107, 0.3);
+    /* Subtle gold glow */
 }
 
 .section-lead {
-    margin: 8px 0 0;
-    color: #5d4037;
-    /* Dark Brown for Light Wood */
+    margin: 0;
+    color: var(--accent-gold);
     font-family: 'Zen Old Mincho', serif;
     font-weight: 600;
     font-size: 0.95rem;
-    letter-spacing: 0.15em;
-    font-style: italic;
+    letter-spacing: 0.2em;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 16px;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 /* Decorative lines for subtitle */
@@ -131,10 +140,9 @@ body.is-preloading {
 .section-lead::after {
     content: "";
     display: block;
-    width: 20px;
+    width: 30px;
     height: 1px;
-    background-color: currentColor;
-    opacity: 0.6;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -222,53 +230,50 @@ body.is-preloading {
     }
 }
 
-/* Cafe Signboard Style */
+/* Elegant Gold Plaque Style (Replaces Cafe Signboard) */
 .cafe-signboard {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    padding: 0.5em 2em;
-    margin-bottom: 0.5em;
+    padding: 12px 48px;
+    margin-bottom: 16px;
 
-    background-color: #4e342e;
-    /* Dark Wood Brown */
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-
-    color: #f3e5ab;
-    /* Cream/Gold text */
-    border: 2px solid #d4af37;
-    /* Gold border */
+    background: linear-gradient(to bottom, #2a1b14, #140d0a);
+    border: 2px solid #5a4231;
     border-radius: 8px;
 
+    /* Double Inner Gold Border Effect using Box-Shadow */
     box-shadow:
-        0 4px 6px rgba(0, 0, 0, 0.4),
-        inset 0 0 10px rgba(0, 0, 0, 0.5);
-    /* Inner depth */
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 0 3px var(--accent-gold),
+        0 8px 24px rgba(0, 0, 0, 0.6);
 
+    color: var(--ink);
     font-family: 'Zen Old Mincho', serif;
-    /* Elegant font */
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
+    font-weight: 700;
 }
 
-/* Screws/Rivets */
+/* Gold Rivets */
 .cafe-signboard::before,
 .cafe-signboard::after {
-    content: "";
+    content: "◆";
+    /* Diamond accent instead of standard rivet */
     position: absolute;
     top: 50%;
-    width: 8px;
-    height: 8px;
-    background: #d4af37;
-    border-radius: 50%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    color: var(--accent-gold);
+    font-size: 10px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     transform: translateY(-50%);
 }
 
 .cafe-signboard::before {
-    left: 10px;
+    left: 20px;
 }
 
 .cafe-signboard::after {
-    right: 10px;
+    right: 20px;
 }
 
 /* Cafe Separator (Between Sections) */
@@ -301,34 +306,27 @@ body.is-preloading {
 /* Diamond Icon via CSS/HTML or just text */
 .cafe-separator-icon::before {
     content: "◆";
-    /* Simple unicode diamond fits the theme well. 
+    /* Simple unicode diamond fits the theme well.
        Alternatively could be a graphic. */
 }
 
-/* Wood Grain Texture (Moved from Index) */
+/* Rich Dark Wood Grain Texture (Subtle) */
 .bg-texture {
-    background-color: #f0e6ce;
-    /* Light Wood Base */
+    background-color: #1a1311;
+    /* Deepest brown */
     background-image:
-        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, transparent 80%),
-        repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(160, 100, 50, 0.04) 4px, rgba(160, 100, 50, 0.04) 6px),
-        repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(160, 100, 50, 0.03) 10px, rgba(160, 100, 50, 0.03) 24px),
-        repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(160, 100, 50, 0.03) 15px, rgba(160, 100, 50, 0.03) 30px);
-    background-size: 100vw 100vh, 400px 400px, 400px 400px, 400px 400px;
+        radial-gradient(ellipse at top, rgba(40, 30, 25, 0.8) 0%, transparent 80%),
+        /* Subtle center glow */
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0, 0, 0, 0.05) 2px, rgba(0, 0, 0, 0.05) 4px),
+        /* Very fine, faint grain */
+        repeating-linear-gradient(92deg, transparent, transparent 15px, rgba(0, 0, 0, 0.03) 15px, rgba(0, 0, 0, 0.03) 25px),
+        /* Medium grain */
+        repeating-linear-gradient(88deg, transparent, transparent 40px, rgba(0, 0, 0, 0.02) 40px, rgba(0, 0, 0, 0.02) 80px),
+        /* Wide grain */
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+    /* Vignette */
+    background-size: 100vw 100vh, 200px 200px, 300px 300px, 400px 400px, 100vw 100vh;
     background-attachment: fixed;
-}
-
-
-@media (prefers-color-scheme: dark) {
-    .bg-texture {
-        background-color: #2a231e;
-        /* Dark Wood Base */
-        background-image:
-            repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.2) 4px, rgba(0, 0, 0, 0.2) 6px),
-            repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 24px),
-            repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(0, 0, 0, 0.1) 15px, rgba(0, 0, 0, 0.1) 30px);
-        background-size: 400px 400px;
-    }
 }
 
 /* =========================================

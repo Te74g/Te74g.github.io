@@ -255,6 +255,16 @@
 
 /* --- Animation Classes (Triggered by JS) --- */
 
+/* Fast-Forward Skip Effect */
+.is-skipped *:not(.scroll-down-arrow),
+.is-skipped *:not(.scroll-down-arrow)::before,
+.is-skipped *:not(.scroll-down-arrow)::after {
+    animation-duration: 0.3s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.3s !important;
+    transition-delay: 0s !important;
+}
+
 /* Character Zoom In -> Impact Slam */
 /* NOTE: Character is absolute with transformX(-50%). We need to maintain that in keyframes. */
 .animate-start .hero-character {

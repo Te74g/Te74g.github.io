@@ -337,13 +337,16 @@
 .news-card {
     flex: 0 0 300px;
     display: block;
-    background: var(--surface, #fff);
-    border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+    background: rgba(20, 15, 13, 0.7);
+    /* Translucent dark wood */
+    border: 1px solid rgba(207, 170, 107, 0.2);
+    /* Gold border */
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
-    color: var(--text);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: var(--ink);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 @media (max-width: 680px) {
@@ -463,20 +466,21 @@
     color: var(--muted);
 }
 
-/* Dark mode */
+/* Dark mode (Ensures consistency) */
 @media (prefers-color-scheme: dark) {
     .news-card {
-        background: var(--surface, #1e1e1e);
-        border-color: rgba(255, 255, 255, 0.1);
+        background: rgba(20, 15, 13, 0.8);
+        border-color: rgba(207, 170, 107, 0.3);
     }
 
     .news-card:hover {
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(207, 170, 107, 0.3);
     }
 
     .news-card-category {
         background: rgba(184, 137, 90, 0.15);
-        color: #b8895a;
+        color: #cfaa6b;
+        border: 1px solid rgba(207, 170, 107, 0.2);
     }
 }
 
@@ -653,15 +657,20 @@
     position: absolute;
     top: 18px;
     left: -35px;
-    background: #ff4757;
-    color: white;
-    font-weight: 900;
-    font-size: 0.75rem;
+    background: linear-gradient(135deg, #a62a2a, #d43b3b);
+    /* Rich deeper red */
+    color: var(--ink);
+    border-top: 1px solid var(--accent-gold);
+    border-bottom: 1px solid var(--accent-gold);
+    font-family: 'Zen Old Mincho', serif;
+    font-weight: 700;
+    font-size: 0.8rem;
     width: 130px;
     text-align: center;
     padding: 6px 0;
     transform: rotate(-45deg);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 0 5px rgba(207, 170, 107, 0.5);
+    /* Gold inner edge */
     z-index: 10;
     letter-spacing: 1px;
 }
@@ -703,12 +712,10 @@
     right: 0;
     bottom: 0;
     padding: 20px 24px 18px;
-    background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.82) 0%,
-        rgba(0, 0, 0, 0.40) 42%,
-        rgba(0, 0, 0, 0)    72%
-    );
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.40) 42%,
+            rgba(0, 0, 0, 0) 72%);
     color: #fff;
     pointer-events: none;
     z-index: 1;
@@ -731,6 +738,7 @@
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     /* show more text on big card */
     -webkit-box-orient: vertical;
     overflow: hidden;

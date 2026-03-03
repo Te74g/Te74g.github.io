@@ -1,32 +1,46 @@
 :root {
     --container: 1100px;
 
-    /* Light Theme (和風モダン) */
-    --bg: #fcfaf2;
-    /* 生成り色 */
-    /* 和紙の白（少し温かみを持たせる） */
-    --paper: #fffffb;
-    --ink: #1a1a1a;
-    /* 墨色 */
-    --muted: rgba(26, 26, 26, 0.68);
-    --line: rgba(26, 26, 26, 0.15);
-    --line-strong: rgba(26, 26, 26, 0.35);
+    /* Base Colors (Rich Dark Wood Theme) */
+    --bg: #1a1311;
+    /* Very dark brown/black */
+    --paper: #281e19;
+    /* Lighter dark wood for cards */
+    --ink: #cfc7bd;
+    /* Warm off-white for highly readable text */
+    --muted: rgba(207, 199, 189, 0.65);
+    /* Adjusted to match new ink */
+    --line: rgba(207, 170, 107, 0.15);
+    /* Subtlest gold lines */
+    --line-strong: rgba(207, 170, 107, 0.35);
+    /* Stronger gold lines */
 
-    /* 伝統色アクセント */
-    --a: #e86b79;
-    /* 撫子色 (なでしこ) */
-    --b: #38a1db;
-    /* 露草色 (つゆくさ) */
+    /* Thematic Golden Accents Tiers */
+    --gold-main: #cfaa6b;
+    /* Primary accent, strong borders */
+    --gold-sub: rgba(207, 170, 107, 0.4);
+    /* Secondary borders, inactive states */
+    --gold-shadow: rgba(207, 170, 107, 0.15);
+    /* Inner glows and subtle highlights */
+
+    /* Legacy mapping for compatibility */
+    --accent-gold: var(--gold-main);
+    --accent-glow: var(--gold-shadow);
+
+    /* Semantic Colors */
+    --a: #d9534f;
+    /* Muted Red */
+    --b: var(--gold-main);
+    /* Gold */
     --c: #a59aca;
-    /* 藤紫 (ふじむらさき) */
-    --d: #e6b422;
-    /* 黄金色 (こがね) */
+    /* Muted Purple */
+    --d: var(--gold-main);
+    /* Gold */
 
-    --shadow: 0 8px 24px rgba(45, 30, 20, 0.08);
-    /* Soft natural shadow tinted with warm wood brown */
-    --shadow-strong: 0 12px 32px rgba(45, 30, 20, 0.12);
-    --shadow-hover: 0 16px 40px rgba(45, 30, 20, 0.15);
-    /* Floating hover effect */
+    /* Shadows: Deep, soft, and tinted warm brown (NOT pure black) */
+    --shadow: 0 10px 30px rgba(30, 15, 5, 0.5);
+    --shadow-strong: 0 16px 40px rgba(30, 15, 5, 0.7);
+    --shadow-hover: 0 20px 50px rgba(30, 15, 5, 0.6), 0 0 20px var(--gold-shadow);
 
     /* 代替セクション背景色（和風：薄紅梅 うすこうばい） */
     --bg-alt: rgba(243, 166, 140, 0.12);
@@ -51,21 +65,18 @@
 }
 
 /* Dark mode variables and specific overrides moved to end of file to ensure they take precedence */
-/* Dark mode (和風モダン・夜) */
+/* Dark mode inherently matches the new default root, but we ensure consistency */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #1a1a1a;
-        /* 濡羽色に近い黒 */
-        --paper: #242424;
-        /* 消炭色 */
-        --ink: #f5f5f5;
-        /* 胡粉色 */
-        --muted: rgba(245, 245, 245, 0.65);
-        --line: rgba(255, 255, 255, 0.15);
-        --line-strong: rgba(255, 255, 255, 0.3);
-        --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-        --shadow-strong: 0 12px 32px rgba(0, 0, 0, 0.5);
-        --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
+        --bg: #1a1311;
+        --paper: #281e19;
+        --ink: #cfc7bd;
+        --muted: rgba(207, 199, 189, 0.65);
+        --line: rgba(207, 170, 107, 0.15);
+        --line-strong: rgba(207, 170, 107, 0.35);
+        --shadow: 0 15px 40px rgba(30, 15, 5, 0.7);
+        --shadow-strong: 0 20px 50px rgba(30, 15, 5, 0.9);
+        --shadow-hover: 0 25px 60px rgba(30, 15, 5, 0.8), 0 0 25px var(--gold-shadow);
 
         /* 代替セクション背景色（ダークモード：薄墨桜的な暗色） */
         --bg-alt: rgba(232, 107, 121, 0.08);
