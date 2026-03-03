@@ -451,7 +451,7 @@
   ].join(';');
   document.body.appendChild(skipHint);
 
-  // アニメーションを即座に終了状態にする
+  // アニメーションを早送り状態で順次再生する
   function skipAnimation() {
     if (!skipEnabled) return;
     skipEnabled = false;
@@ -460,34 +460,57 @@
     pendingTimeouts.forEach(id => clearTimeout(id));
     pendingTimeouts = [];
 
-    // 各要素を最終状態に即セット
+    // 全体のアニメーション速度を上げる（CSS側）
+    document.body.classList.add('is-skipped');
+
+    // 順序を保ったまま高速で各要素を展開する
     const hero = document.getElementById('hero-section');
     if (hero) hero.classList.add('animate-start');
 
-    const charEl2 = document.querySelector('.hero-character');
-    if (charEl2) charEl2.classList.add('with-shadow');
+    // 少しズラして影を表示
+    setTimeout(() => {
+      const charEl = document.querySelector('.hero-character');
+      if (charEl) charEl.classList.add('with-shadow');
+    }, 100);
 
-    document.querySelectorAll('.hero-subtitle .char').forEach(c => c.classList.add('is-visible'));
+    // さらに少しズラしてテキストを高速タイピング
+    setTimeout(() => {
+      const chars = document.querySelectorAll('.hero-subtitle .char');
+      chars.forEach((char, index) => {
+        setTimeout(() => {
+          char.classList.add('is-visible');
+          if (typeof spawnSparkle === 'function') {
+            const rect = char.getBoundingClientRect();
+            spawnSparkle(rect);
+            if (Math.random() > 0.5) spawnSparkle(rect);
+          }
+        }, index * 20); // 100ms -> 20ms
+      });
 
-    const scroll = document.querySelector('.scroll-down');
-    if (scroll) scroll.classList.add('is-visible');
+      // すべて終わったらスクロール表示＆ロック解除
+      setTimeout(() => {
+        const scroll = document.querySelector('.scroll-down');
+        if (scroll) scroll.classList.add('is-visible');
+        document.body.classList.remove('is-preloading');
 
-    document.body.classList.remove('is-preloading');
-
-    // ヒントを非表示
-    skipHint.style.opacity = '0';
-    setTimeout(() => { skipHint.style.display = 'none'; }, 400);
+        skipHint.style.opacity = '0';
+        setTimeout(() => { skipHint.style.display = 'none'; }, 400);
+      }, chars.length * 20 + 300);
+    }, 150);
   }
 
   // ダブルタップ / ダブルクリック 検知
   let lastTapTime = 0;
-  const handleDoubleTap = () => {
+  const handleDoubleTap = (e) => {
     if (!skipEnabled) return;
     const now = Date.now();
-    if (now - lastTapTime < 300 && now - lastTapTime > 0) {
+    // 50ms以下はclick/touchendの連続発火(ゴーストクリック)とみなす
+    if (now - lastTapTime < 300 && now - lastTapTime > 50) {
       skipAnimation();
+      lastTapTime = 0;
+    } else {
+      lastTapTime = now;
     }
-    lastTapTime = now;
   };
   document.addEventListener('click', handleDoubleTap);
   document.addEventListener('touchend', handleDoubleTap, { passive: true });

@@ -4,9 +4,12 @@
     justify-content: center;
     padding: 12px 16px;
     border-radius: 999px;
-    border: 1px solid var(--line-strong);
+    border: 1px solid rgba(207, 170, 107, 0.4);
+    /* Gold border */
     background: var(--paper);
-    box-shadow: var(--shadow);
+    color: var(--ink);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), var(--shadow);
+    /* Deep recess effect */
     font-weight: 700;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -15,18 +18,20 @@
 .btn:hover {
     text-decoration: none;
     transform: translateY(-3px) scale(1.02);
-    box-shadow: var(--shadow-hover);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), var(--shadow-hover);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
 }
 
 .btn:active {
     transform: translateY(-1px) scale(0.98);
-    box-shadow: var(--shadow);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), var(--shadow);
 }
 
 .btn--primary {
-    background: linear-gradient(135deg, rgba(232, 107, 121, 0.25), rgba(230, 180, 34, 0.20));
-    border-color: var(--a);
-    color: var(--a);
+    background: linear-gradient(135deg, rgba(207, 170, 107, 0.2), rgba(207, 170, 107, 0.05));
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
 }
 
 .btn--ghost {
@@ -144,10 +149,13 @@
 /* Card (Generic) */
 .card {
     border-radius: var(--r-lg);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    /* Glass edge */
-    background: var(--paper);
-    box-shadow: var(--shadow), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(207, 170, 107, 0.15);
+    /* Very thin gold edge */
+    background: rgba(20, 15, 13, 0.6);
+    /* Translucent dark background */
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(0, 0, 0, 0.8);
+    /* Embossed edge */
     padding: 14px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
@@ -156,7 +164,8 @@
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-hover), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-hover), inset 0 0 0 1px rgba(207, 170, 107, 0.3);
+    /* Gold inner glow */
 }
 
 .card-top {
@@ -270,46 +279,72 @@
     font-weight: 800;
 }
 
-/* Empty */
+/* Empty State (Card backed, high density) */
 .empty {
-    margin-top: 14px;
-    border-radius: var(--r-lg);
-    border: 2px dashed rgba(31, 31, 31, 0.15);
-    background: rgba(255, 255, 255, 0.50);
-    /* Softer semi-transparent */
-    backdrop-filter: blur(8px);
-    padding: 14px;
-    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
+    margin-top: 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(207, 170, 107, 0.4);
+    background: rgba(26, 19, 17, 0.60);
+    /* Translucent dark wood */
+    backdrop-filter: blur(12px);
+    padding: 48px 24px;
+    box-shadow:
+        inset 0 0 0 1px #1a1311,
+        inset 0 0 40px rgba(0, 0, 0, 0.5),
+        0 8px 24px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+}
+
+.empty-icon {
+    font-size: 32px;
+    color: var(--accent-gold);
+    opacity: 0.8;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(207, 170, 107, 0.3);
 }
 
 .empty-title {
-    margin: 0 0 6px;
-    font-weight: 900;
+    margin: 0;
+    font-weight: 700;
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
 }
 
 .empty-desc {
     margin: 0;
-    color: rgba(31, 31, 31, 0.65);
-    font-weight: 700;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.6;
+    max-width: 400px;
+    font-size: 0.95rem;
 }
 
 /* CTA */
 .cta {
-    border-radius: var(--r-lg);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    background: linear-gradient(135deg, rgba(255, 79, 216, 0.14), rgba(57, 198, 255, 0.12), rgba(255, 210, 74, 0.14));
-    box-shadow: var(--shadow-strong), inset 0 1px 2px rgba(255, 255, 255, 0.8);
-    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(207, 170, 107, 0.3);
+    background: linear-gradient(135deg, rgba(207, 170, 107, 0.1), rgba(0, 0, 0, 0.4));
+    box-shadow: var(--shadow-strong), inset 0 0 0 1px #1a1311, inset 0 0 15px rgba(207, 170, 107, 0.1);
+    padding: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 .cta-title {
-    margin: 0 0 4px;
-    font-weight: 900;
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
 }
 
 .cta-lead {
