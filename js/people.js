@@ -10,6 +10,36 @@
         try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
     }
 
+    // ---- ページ構造構築 ----
+    // HTML 側は <main id="main"></main> だけでよい。
+    // master/pages と pages の両方でこの JS が構造を生成するため、HTML の二重管理が不要。
+    const main = document.getElementById('main');
+    if (main) {
+        main.insertAdjacentHTML('beforeend', `
+            <section class="section people-page-section">
+                <div class="container">
+                    <header class="section-head reveal">
+                        <h1 class="section-title cafe-signboard">キャスト紹介</h1>
+                    </header>
+                    <div class="toolbar reveal">
+                        <div class="field">
+                            <div id="people-tag-filter" class="tag-filter-buttons">
+                                <button class="tag-filter-btn is-active" data-value="all">すべて</button>
+                                <button class="tag-filter-btn" data-value="運営">運営</button>
+                                <button class="tag-filter-btn" data-value="飼育">飼育</button>
+                                <button class="tag-filter-btn" data-value="野生">野生</button>
+                                <button class="tag-filter-btn" data-value="妖怪">妖怪</button>
+                                <button class="tag-filter-btn" data-value="キャスト">キャスト</button>
+                                <button class="tag-filter-btn" data-value="スタッフ">スタッフ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="people-list-container"></div>
+        `);
+    }
+
     // ---- 設定定数 ----
     const SECTION_ORDER    = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
     const SECTION_LOAD_MS  = 300;   // renderSequentially のセクション間ウェイト

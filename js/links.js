@@ -5,6 +5,26 @@
  */
 
 (function () {
+    // ---- ページ構造構築 ----
+    // HTML 側は <main id="main"></main> だけでよい。
+    const main = document.getElementById('main');
+    if (main) {
+        main.insertAdjacentHTML('beforeend', `
+            <section class="section">
+                <div class="container">
+                    <header class="section-head reveal">
+                        <h1 class="section-title cafe-signboard">関連リンク</h1>
+                        <p class="section-lead">あにあめもりあに関連するサイトやSNSのリンク集です。</p>
+                    </header>
+                    <div id="links-list-container" class="news-list" style="max-width: 800px; margin: 0 auto; display:grid; gap:20px;"></div>
+                    <div style="margin-top: 40px; text-align: center;">
+                        <a href="../index.html" class="btn btn--primary">トップへ戻る</a>
+                    </div>
+                </div>
+            </section>
+        `);
+    }
+
     /* -------------------------------------------------------
        関連リンク一覧 (links.html) の生成
        ------------------------------------------------------- */

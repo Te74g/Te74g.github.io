@@ -10,6 +10,27 @@
         try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
     }
 
+    // ---- ページ構造構築 ----
+    // HTML 側は <main id="main"></main> だけでよい。
+    const main = document.getElementById('main');
+    if (main) {
+        main.insertAdjacentHTML('beforeend', `
+            <section class="section">
+                <div class="container">
+                    <header class="section-head reveal">
+                        <h1 class="section-title cafe-signboard">提携イベント一覧</h1>
+                        <p class="section-lead">あにあめもりあと提携している素敵なイベントのご紹介。</p>
+                    </header>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container">
+                    <div id="partner-events-list-container" class="grid" role="list"></div>
+                </div>
+            </section>
+        `);
+    }
+
     /* -------------------------------------------------------
        提携イベント一覧 (partner_events.html) の生成
        ------------------------------------------------------- */
