@@ -165,8 +165,7 @@ window.membersData = [
         profileImages: [
             "assets/member/フィリア/profile1.png",
             "assets/member/フィリア/profile2.png",
-            "assets/member/フィリア/profile3.png",
-            "assets/member/フィリア/profile4.png"
+            "assets/member/フィリア/profile3.png"
         ],
         goals: [
             "恩人に恩を返すこと",
