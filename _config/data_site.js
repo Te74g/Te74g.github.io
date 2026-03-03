@@ -79,7 +79,7 @@ window.siteConfig = {
             "momo",     // 副店長（運営部）
             "sakura",
             "teto",
-            "akiaki",
+            "aki",
             "mugidango"
         ],
 
