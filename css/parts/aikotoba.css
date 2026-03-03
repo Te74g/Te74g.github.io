@@ -12,7 +12,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: url("../assets/cinema/beam.svg") no-repeat bottom left;
+    background: url("../../assets/cinema/beam.svg") no-repeat bottom left;
     background-size: min(62vw, 900px) auto;
     opacity: 0.5;
     mix-blend-mode: screen;
@@ -25,7 +25,7 @@
     content: "";
     position: absolute;
     inset: -10%;
-    background: url("../assets/cinema/film_grain.png") repeat;
+    background: url("../../assets/cinema/film_grain.png") repeat;
     opacity: 0.1;
     mix-blend-mode: overlay;
     pointer-events: none;
@@ -55,7 +55,7 @@
     width: min(520px, 88%);
     height: 18px;
     margin: 12px auto 28px;
-    background: url("../assets/cinema/perforation.svg") center / contain no-repeat;
+    background: url("../../assets/cinema/perforation.svg") center / contain no-repeat;
     opacity: 0.25;
 }
 
