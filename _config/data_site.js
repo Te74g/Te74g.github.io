@@ -69,7 +69,7 @@ window.siteConfig = {
     // キャスト表示制御
     castDisplay: {
         // 全メンバー表示フラグ（trueなら全員表示、falseならvisibleMembersで制御）
-        showAllMembers: false,
+        showAllMembers: true,
 
         // 表示許可するメンバーIDのリスト
         // ※ 運営部・スタッフは常に表示されます
@@ -77,12 +77,11 @@ window.siteConfig = {
         visibleMembers: [
             "ten",      // 店長（運営部）
             "momo",     // 副店長（運営部）
-            "rayno"     // レイノ（飼育区画）
-            // 準備ができたら以下のようにIDを追加:
-            // "rei",
-            // "faria",
-            // "nagi",
-            // ...
+            "rayno",    // レイノ（飼育区画）
+            "sakura",
+            "teto",
+            "akiaki",
+            "mugidango"
         ],
 
         // === revealLevel 用画像設定 ===
