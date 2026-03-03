@@ -232,71 +232,68 @@
     border: 1px solid rgba(93, 64, 55, 0.2);
 }
 
-/* Dark Theme Overrides */
-@media (prefers-color-scheme: dark) {
+/* Dark Theme Overrides Applied Globally */
+/* Parchment Dark Mode */
+.news-card-slide,
+.news-link {
+    background: #2b2b2b;
+    /* Dark Parchment */
+    border-color: #555;
+    color: #e0e0e0 !important;
+}
 
-    /* Parchment Dark Mode */
-    .news-card-slide,
-    .news-link {
-        background: #2b2b2b;
-        /* Dark Parchment */
-        border-color: #555;
-        color: #e0e0e0 !important;
-    }
+.news-card-slide img,
+.news-link img {
+    background: #444;
+    border-color: #555;
+}
 
-    .news-card-slide img,
-    .news-link img {
-        background: #444;
-        border-color: #555;
-    }
+.news-card-slide .content {
+    background: transparent;
+    color: inherit;
+}
 
-    .news-card-slide .content {
-        background: transparent;
-        color: inherit;
-    }
+/* Dark Mode Side Gradients */
+.news-card-slide::after {
+    background: linear-gradient(to right, rgba(43, 43, 43, 0.8) 0%, rgba(43, 43, 43, 0) 100%);
+}
 
-    /* Dark Mode Side Gradients */
-    .news-card-slide::after {
-        background: linear-gradient(to right, rgba(43, 43, 43, 0.8) 0%, rgba(43, 43, 43, 0) 100%);
-    }
+.news-card-slide.is-prev::after {
+    background: linear-gradient(to right, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.4));
+}
 
-    .news-card-slide.is-prev::after {
-        background: linear-gradient(to right, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.4));
-    }
+.news-card-slide.is-next::after {
+    background: linear-gradient(to left, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.4));
+}
 
-    .news-card-slide.is-next::after {
-        background: linear-gradient(to left, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.4));
-    }
+.carousel-nav-btn {
+    background: rgba(30, 30, 30, 0.8) !important;
+    color: #fff !important;
+}
 
-    .carousel-nav-btn {
-        background: rgba(30, 30, 30, 0.8) !important;
-        color: #fff !important;
-    }
+.carousel-nav-btn:hover {
+    background: #444 !important;
+    /* Soffer hover, not white */
+    transform: translateY(-50%) scale(1.1);
+}
 
-    .carousel-nav-btn:hover {
-        background: #444 !important;
-        /* Soffer hover, not white */
-        transform: translateY(-50%) scale(1.1);
-    }
+.news-date {
+    color: #aaa;
+}
 
-    .news-date {
-        color: #aaa;
-    }
+.news-tag-label {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    border-color: #666;
+}
 
-    .news-tag-label {
-        background: rgba(255, 255, 255, 0.1);
-        color: #ddd;
-        border-color: #666;
-    }
-
-    /* Soften Hover for News List in Dark Mode */
-    .news-link:hover {
-        background: #332a25;
-        /* Dark Wood Brown tint instead of white */
-        box-shadow:
-            inset 0 0 30px rgba(0, 0, 0, 0.2),
-            0 8px 16px rgba(0, 0, 0, 0.3);
-    }
+/* Soften Hover for News List in Dark Mode */
+.news-link:hover {
+    background: #332a25;
+    /* Dark Wood Brown tint instead of white */
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.2),
+        0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* =========================================
@@ -466,22 +463,20 @@
     color: var(--muted);
 }
 
-/* Dark mode (Ensures consistency) */
-@media (prefers-color-scheme: dark) {
-    .news-card {
-        background: rgba(20, 15, 13, 0.8);
-        border-color: rgba(207, 170, 107, 0.3);
-    }
+/* Dark mode styles enforced */
+.news-card {
+    background: rgba(20, 15, 13, 0.8);
+    border-color: rgba(207, 170, 107, 0.3);
+}
 
-    .news-card:hover {
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(207, 170, 107, 0.3);
-    }
+.news-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(207, 170, 107, 0.3);
+}
 
-    .news-card-category {
-        background: rgba(184, 137, 90, 0.15);
-        color: #cfaa6b;
-        border: 1px solid rgba(207, 170, 107, 0.2);
-    }
+.news-card-category {
+    background: rgba(184, 137, 90, 0.15);
+    color: #cfaa6b;
+    border: 1px solid rgba(207, 170, 107, 0.2);
 }
 
 /* =========================================

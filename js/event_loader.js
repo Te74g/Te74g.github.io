@@ -209,12 +209,7 @@ function renderEventContent(eventItem, normalizePath) {
 
             let imgHtml = '';
             if (titleImgDarkPath) {
-                imgHtml = `
-                    <picture>
-                        <source srcset="${titleImgDarkPath}" media="(prefers-color-scheme: dark)">
-                        <img src="${titleImgPath}" alt="${eventItem.name}" style="max-width: 300px; width: 100%; height: auto; display: block;">
-                    </picture>
-                `;
+                imgHtml = `<img src="${titleImgDarkPath}" alt="${eventItem.name}" style="max-width: 300px; width: 100%; height: auto; display: block;">`;
             } else {
                 imgHtml = `<img src="${titleImgPath}" alt="${eventItem.name}" style="max-width: 300px; width: 100%; height: auto; display: block;">`;
             }

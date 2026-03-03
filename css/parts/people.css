@@ -85,10 +85,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-    /* Styles are now consistent with default */
-}
-
+/* Dark mode consistency handled globally */
 /* Animation */
 .people-section-wrapper.reveal {
     opacity: 0;
@@ -196,24 +193,7 @@
     text-shadow: none;
 }
 
-@media (prefers-color-scheme: dark) {
-    .tag-filter-btn {
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--text);
-    }
-
-    .tag-filter-btn:hover {
-        background: rgba(180, 130, 90, 0.15);
-        border-color: #b8895a;
-        color: #b8895a;
-    }
-
-    .tag-filter-btn.is-active {
-        background: #9a6840;
-        border-color: #9a6840;
-        color: #fff;
-    }
-}
+/* Tag filter buttons use the global rich gold gradient */
 
 /* =========================================
    キャスト紹介ページ ヘッダーセクション

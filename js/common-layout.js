@@ -42,10 +42,7 @@
   <header class="site-header" data-elevate>
     <div class="container header-inner">
       <a class="brand" href="${navRootPath}index.html" aria-label="あにあめもりあ（イベント）">
-        <picture>
-          <source srcset="${logoDark}" media="(prefers-color-scheme: dark)">
-          <img src="${logoLight}" alt="あにあめもりあ" class="brand-logo" />
-        </picture>
+        <img src="${logoDark}" alt="あにあめもりあ" class="brand-logo" />
         ${window.location.pathname.includes('/master/') ? '<span style="background:#e74c3c; color:white; font-size:0.7em; padding:2px 5px; border-radius:4px; margin-left:8px; vertical-align:middle; font-weight:bold;">MASTER</span>' : ''}
       </a>
 
@@ -145,10 +142,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-brand">
-        <picture>
-          <source srcset="${logoDark}" media="(prefers-color-scheme: dark)">
-          <img src="${logoLight}" alt="あにあめもりあ" class="brand-logo" />
-        </picture>
+        <img src="${logoDark}" alt="あにあめもりあ" class="brand-logo" />
       </p>
       <p class="footer-links">
         <a href="${navRootPath}pages/privacy.html">プライバシーポリシー</a>
