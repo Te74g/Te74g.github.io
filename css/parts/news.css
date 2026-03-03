@@ -501,6 +501,7 @@
 .news-magazine-layout {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-rows: clamp(380px, 42vw, 540px); /* 高さをここで一元管理 */
     gap: 24px;
     align-items: stretch;
     width: 100%;
@@ -508,20 +509,17 @@
 
 /* 左側：特大カード枠 */
 .news-magazine-featured {
-    height: clamp(380px, 42vw, 540px);
+    height: 100%; /* グリッド行高に追従 */
     position: relative;
     min-height: 0;
-    /* Flexbox / Grid はみ出し防止用 */
 }
 
 /* 右側：スクロールリスト枠 */
 .news-magazine-list {
-    height: clamp(380px, 42vw, 540px);
+    /* height はグリッドが決める */
     overflow-y: auto;
     min-height: 0;
-    /* スクロールを正しく効かせるための最重要プロパティ */
     padding-right: 6px;
-    /* スクロールバー避け */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -740,9 +738,10 @@
 }
 
 /* Responsive Handling */
-@media (max-width: 860px) {
+@media (max-width: 900px) {
     .news-magazine-layout {
         grid-template-columns: 1fr;
+        grid-template-rows: auto; /* 行高リセット */
     }
 
     .news-magazine-featured {
@@ -753,8 +752,7 @@
     .news-magazine-list {
         height: auto;
         overflow-y: visible;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex; /* 中間2カラム廃止 → flex縦積み */
     }
 }
 
@@ -764,9 +762,7 @@
         min-height: 280px;
     }
 
-    .news-magazine-list {
-        grid-template-columns: 1fr;
-    }
+    /* .news-magazine-list の grid-template-columns 不要（flexで1列） */
 
     .news-card--featured .news-card-title {
         font-size: 1.15rem;
