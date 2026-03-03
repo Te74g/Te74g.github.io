@@ -16,6 +16,10 @@
     const CARD_STAGGER_MS  = 50;    // フィルタアニメのカード間ディレイ
     const NOT_FOUND_MSG    = '該当するキャストが見つかりませんでした。';
 
+    // フィルター初期化完了後に renderSequentially から呼び出すためのコールバック
+    // var を使うことで TDZ を回避（const/let は early return 時に TDZ で TypeError になる）
+    var _filterCallback = null;
+
     /* -------------------------------------------------------
        1. キャスト一覧ページ (people.html) の生成
        ------------------------------------------------------- */
@@ -238,10 +242,8 @@
             }
 
             // 全て読み込み終わったら絞り込み機能を適用（初期化）
-            // Initialize filter after all contents are loaded
-            if (typeof applyPeopleFilter === 'function') {
-                applyPeopleFilter();
-            }
+            // _filterCallback は applyPeopleFilter が定義された後にセットされるため安全
+            if (_filterCallback) _filterCallback();
         };
 
         // Start Loading
@@ -412,6 +414,8 @@
         if (targetWrapper) { renderSectionFilter(targetWrapper, matchingCards); return; }
         renderFlatFilter(matchingCards);
     };
+    // renderSequentially から安全に呼び出せるようコールバックをセット
+    _filterCallback = applyPeopleFilter;
 
     if (searchInput) searchInput.addEventListener('input', applyPeopleFilter);
 
@@ -435,6 +439,6 @@
         }
     }
 
-    // 初期実行
-    setTimeout(applyPeopleFilter, 100);
+    // 初期実行は renderSequentially 完了後に _filterCallback() で行う
+    // （全セクション DOM 構築後の実行を保証するため setTimeout は使わない）
 })();
