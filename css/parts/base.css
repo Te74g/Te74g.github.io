@@ -16,34 +16,7 @@ body {
     font-family: "Zen Old Mincho", "Zen Kaku Gothic New", serif;
     color: var(--ink);
 
-    /* 背景：麻の葉（前面） ＋ 市松模様（背面） */
     background-color: var(--bg);
-    background-image:
-        /* 麻の葉（Asanoha） - 変数を使用 */
-        linear-gradient(30deg, var(--p-red-1) 12%, transparent 12.5%, transparent 87%, var(--p-red-1) 87.5%, var(--p-red-1)),
-        linear-gradient(150deg, var(--p-red-1) 12%, transparent 12.5%, transparent 87%, var(--p-red-1) 87.5%, var(--p-red-1)),
-        linear-gradient(30deg, var(--p-red-1) 12%, transparent 12.5%, transparent 87%, var(--p-red-1) 87.5%, var(--p-red-1)),
-        linear-gradient(150deg, var(--p-red-1) 12%, transparent 12.5%, transparent 87%, var(--p-red-1) 87.5%, var(--p-red-1)),
-        linear-gradient(60deg, var(--p-blue-1) 25%, transparent 25.5%, transparent 75%, var(--p-blue-1) 75%, var(--p-blue-1)),
-        linear-gradient(60deg, var(--p-blue-1) 25%, transparent 25.5%, transparent 75%, var(--p-blue-1) 75%, var(--p-blue-1)),
-        /* 市松模様（Ichimatsu） - 変数を使用 */
-        conic-gradient(from 0deg at 50% 50%,
-            transparent 90deg,
-            var(--p-red-2) 90deg 180deg,
-            transparent 180deg 270deg,
-            var(--p-blue-2) 270deg);
-
-    background-size:
-        80px 140px, 80px 140px, 80px 140px, 80px 140px, 80px 140px, 80px 140px,
-        /* 麻の葉サイズ */
-        60px 60px;
-    /* 市松模様サイズ */
-
-    background-position:
-        0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px,
-        /* 麻の葉位置 */
-        0 0;
-    /* 市松模様位置 */
 
     line-height: 1.8;
     letter-spacing: 0.04em;
