@@ -26,7 +26,7 @@ window.newsData = [
         date: "2026.02.28",
         category: "レポート",
         imagePath: "assets/motif/sakabanbasupisu.png",
-        desc: "さかな さかな さかなー♪ 魚を食べると頭が良くなるそうです。",
+        desc: "さかな さかな さかなー♪ 魚を食べるとー♪頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭",
         content: `<p>おさかな天国の記事です。</p>`
     },
     {
@@ -44,7 +44,7 @@ window.newsData = [
         date: "2026.02.15",
         category: "お知らせ",
         imagePath: "assets/partner_events/kitsunekotan/poster.png",
-        desc: "すっごーい！君は〇〇が得意なフレンズなんだね！",
+        desc: "すっごーい！君はunityが得意なフレンズなんだね！",
         content: `<p>ようこそじゃパリパークへ！</p>`
     },
     {
