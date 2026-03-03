@@ -1,0 +1,15 @@
+# 解凍・作業フォルダ
+Te74g_extracted/
+_templates/
+
+# 依存パッケージ（npm installで再生成できるため不要）
+node_modules/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# エディタ設定
+.vscode/
+*.swp
+*.swo
