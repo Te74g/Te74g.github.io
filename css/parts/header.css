@@ -3,15 +3,21 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--paper);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid transparent;
-    /* 繊細な線に */
-    transition: border-color .18s ease, background .18s ease;
+    background: rgba(255, 255, 255, 0.75);
+    /* More transparent for better glass effect */
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    /* Soft drop shadow */
+    transition: all .3s ease;
 }
 
 .site-header.is-elevated {
+    background: rgba(255, 255, 255, 0.85);
     border-color: var(--line);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    /* Deeper shadow on scroll */
 }
 
 .header-inner {
@@ -128,11 +134,9 @@
     gap: 10px;
     padding: 10px 12px;
     border-radius: 999px;
-    border: 1px solid var(--line-strong);
-    /* 枠線を細く */
-    background: rgba(255, 255, 255, 0.72);
-    box-shadow: 4px 4px 0 rgba(26, 26, 26, 0.08);
-    /* 影を柔らかく */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
     cursor: pointer;
     font-weight: 700;
     position: relative;
@@ -355,13 +359,21 @@ body.nav-open .menu-close {
     }
 
     .site-header {
-        background: rgba(10, 10, 10, 0.85);
+        background: rgba(15, 15, 15, 0.75);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .site-header.is-elevated {
+        background: rgba(20, 20, 20, 0.85);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
     .menu {
         background-color: rgba(15, 15, 15, 0.90) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
     }
 
     .menu-link {

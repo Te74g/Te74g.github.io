@@ -7,6 +7,27 @@ body {
     text-size-adjust: 100%;
 }
 
+/* Global Spotlight Ambient Lighting Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: -20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.0) 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    body::before {
+        background: radial-gradient(circle at 50% 10%, rgba(255, 220, 150, 0.12) 0%, rgba(255, 255, 255, 0.0) 60%);
+    }
+}
+
+
 /* Main starts */
 main,
 #main {
@@ -63,9 +84,21 @@ body.is-preloading {
 
 .section--alt {
     background: var(--bg-alt);
+    background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
     border-top: 1px solid var(--border-alt);
     border-bottom: 1px solid var(--border-alt);
+    box-shadow: inset 0 20px 40px -20px rgba(255, 255, 255, 0.5);
+    /* Inner light */
 }
+
+@media (prefers-color-scheme: dark) {
+    .section--alt {
+        background-image: radial-gradient(circle at 50% 0%, rgba(255, 220, 150, 0.1) 0%, transparent 70%);
+        box-shadow: inset 0 20px 40px -20px rgba(232, 107, 121, 0.15);
+        /* Soft pinkish inner light for dark mode */
+    }
+}
+
 
 .section-head {
     margin-bottom: 12px;
@@ -277,12 +310,14 @@ body.is-preloading {
     background-color: #f0e6ce;
     /* Light Wood Base */
     background-image:
+        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, transparent 80%),
         repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(160, 100, 50, 0.04) 4px, rgba(160, 100, 50, 0.04) 6px),
         repeating-linear-gradient(92deg, transparent, transparent 10px, rgba(160, 100, 50, 0.03) 10px, rgba(160, 100, 50, 0.03) 24px),
         repeating-linear-gradient(88deg, transparent, transparent 15px, rgba(160, 100, 50, 0.03) 15px, rgba(160, 100, 50, 0.03) 30px);
-    background-size: 400px 400px;
+    background-size: 100vw 100vh, 400px 400px, 400px 400px, 400px 400px;
     background-attachment: fixed;
 }
+
 
 @media (prefers-color-scheme: dark) {
     .bg-texture {
