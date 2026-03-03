@@ -72,11 +72,11 @@ window.membersData = [
         section: "運営部",
         goals: [
             "人間のお金を稼ぐこと",
-            "人間のあらゆる文化を良く知ること",
+            "人間の文化を良く知ること",
             "あにあめもりあの成功",
         ],
         motifAnimal: "貂",
-        motifIcon: "assets/member/てん/motif_animal_ten.png",
+        motifIcon: "assets/motif/ten.png",
         sign: "assets/member/てん/ten_sign.png",
         introduction: `あにあめもりあの店長。<br>
         元々野生の<ruby>貂<rt>てん</rt></ruby>だったが、<br>十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
@@ -109,7 +109,7 @@ window.membersData = [
             "デカい猫の作った本やスタンプを広めて、外で暮らす仲間たちのご飯を豪華にすること",
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/member/もも/motif_animal_neko.png",
+        motifIcon: "assets/motif/neko.png",
         introduction: `あにあめもりあの副店長。<br>
         元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>
         同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>
@@ -147,7 +147,7 @@ window.membersData = [
             "家族が一番喜ぶ恩返しをすること",
         ],
         motifAnimal: "柴犬",
-        motifIcon: "assets/member/麗/motif_animal_shibainu.png",
+        motifIcon: "assets/motif/shibainu.png",
         section: "飼育区画",
         introduction: `18年間おだやかな人間の家族のもとで大切にされ生きている柴犬。<br><br>
         老犬となりのんびり過ごしていたところ、面白いことを始めてみない？と人間のママから提案され店長のもとへ行くこととなった。<br><br>
@@ -173,7 +173,7 @@ window.membersData = [
             "ごはんをいっぱい食べること",
         ],
         motifAnimal: "カーバンクル",
-        motifIcon: "assets/member/フィリア/motif_animal_carabanku.png",
+        motifIcon: "assets/motif/carabanku.png",
         section: "飼育区画",
         introduction: `とある国のマモノ村に棲息していたカーバンクル。<br>
         昔、自分を命の危機から救ってくれた魔力を持った人間に恩を返すべく、村を飛び出し旅へ。<br>
@@ -201,7 +201,7 @@ window.membersData = [
             "ご飯をいっぱい食べる",
         ],
         motifAnimal: "犬（ジャーマンシェパード）",
-        motifIcon: "assets/member/凪/motif_animal_german_shepherd.png",
+        motifIcon: "assets/motif/german_shepherd.png",
         section: "飼育区画",
         introduction: `ある組織に所属し軍用犬や救助犬として活躍しているジャーマンシェパード。<br>
         ハンドラーと呼ばれるパートナーとともに厳しい訓練を乗り越え、多くの功績を残した。<br><br>
@@ -269,7 +269,7 @@ window.membersData = [
             "あにあめもりあの成功"
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/member/キララ/motif_animal_neko3.png",
+        motifIcon: "assets/motif/neko_shironeko.png",
         section: "野生区画",
         introduction: `あにあめもりあの一員。もともとペットショップで売れ残っていたところ、
         脱走し路頭に迷っていたところを店長に見つけられ拾われる。    
@@ -299,7 +299,7 @@ window.membersData = [
             "森の蛇仲間たちに人間のおいしいご飯をたくさん届けること",
         ],
         motifAnimal: "蛇",
-        motifIcon: "assets/member/ビノ/motif_animal_snake.png",
+        motifIcon: "assets/motif/snake.png",
         introduction: `森の小動物たちをすべて食べつくし、店の食べ物を勝手に漁っているところを店長に捕まる。<br>
         「ここで働けばごはんがたくさん食べれるよ」と誘われ、二つ返事であにあめもりあの一員となった。<br>
         しかし、その聞き分けの良さの正体は「ごはんを食べる仕事」だと勘違いしていたからだった。<br><br>
@@ -330,7 +330,7 @@ window.membersData = [
             "にんげんのことをいっぱい知る"
         ],
         motifAnimal: "サカバンバスピス",
-        motifIcon: "assets/member/あず/motif_animal_sakabanbasupisu.png",
+        motifIcon: "assets/motif/sakabanbasupisu.png",
         section: "野生区画",
         introduction: `太古の海に生息していた「サカバンバスピス」。<br>
         ある日ぐっすり眠っていたら、気づけば数億年の時が経過しており、目覚めた時には仲間は絶滅、海は遥か彼方に…。<br>
@@ -394,7 +394,7 @@ window.membersData = [
             "音楽でちょっと成功してみたい。",
         ],
         motifAnimal: "狐",
-        motifIcon: "assets/member/きょすー！/motif_animal_kitsune.png",
+        motifIcon: "assets/motif/kitsune_kyosu.png",
         section: "妖怪区画",
         introduction: `音楽を祀る神社の音楽ができる妖怪。<br>
         ちゃらんぽらんでとても頼りないが好奇心旺盛で人の話を聞くことが好き。<br>
@@ -426,7 +426,7 @@ window.membersData = [
                     "assets/member/えの/fox_profile4.png",
                 ],
                 motifAnimal: "狐",
-                motifIcon: "assets/member/えの/motif_kitsune.png",
+                motifIcon: "assets/motif/kitsune_eno.png",
             },
             {
                 id: "cat",
@@ -441,7 +441,7 @@ window.membersData = [
                     "assets/member/えの/cat_profile5.png",
                 ],
                 motifAnimal: "猫",
-                motifIcon: "assets/member/えの/motif_neko.png",
+                motifIcon: "assets/motif/neko_eno.png",
             }
         ],
 
@@ -458,7 +458,7 @@ window.membersData = [
             "喫茶店を、物語で満たされた場所にすること",
         ],
         motifAnimal: "狐（猫化）",
-        motifIcon: "assets/member/えの/motif_animal_kitsune.png",
+        motifIcon: "assets/motif/kitsune_eno.png",
         section: "妖怪区画",
         introduction: `人間の「好き」や思い出を集める狐の妖怪。<br>
         人に近づくため、猫の姿に擬態し、喫茶店に身を置いている。<br><br>
@@ -532,7 +532,7 @@ window.membersData = [
         tagLabel: "スタッフ",
         tags: "スタッフ",
         motifAnimal: "ヒト",
-        motifIcon: "assets/member/ひねくれ/motif_animal_hito.png",
+        motifIcon: "assets/motif/hito.png",
         image: "assets/member/ひねくれ/profile.png",
 
         section: "スタッフ",
@@ -559,7 +559,7 @@ window.membersData = [
 
         section: "スタッフ",
         motifAnimal: "ロボット",
-        motifIcon: "assets/member/Wikira/motif_animal_robot.png",
+        motifIcon: "assets/motif/robot.png",
         goals: [
             "人間っぽくなりたい",
         ],
