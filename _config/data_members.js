@@ -352,13 +352,25 @@ window.membersData = [
             "assets/member/silhouette.png"
         ],
         goals: [
-            "準備中"
+            "美味しいものをお腹いっぱい食べること",
+            "みんなと仲良くすること",
+            "暖かい寝床でたくさん寝ること",
+            "強くなること",
+            "家族が安心して暮らせること"
         ],
-        motifAnimal: "???",
-        motifIcon: "assets/member/silhouette.png",
+        motifAnimal: "狼",
+        motifIcon: "assets/motif/german_shepherd.png",
         section: "野生区画",
-        introduction: `準備中`,
-        socials: []
+        introduction: `どこかに住んでいる狼の女の子。<br>
+        人間のことを探るべく彷徨っていたところ、店長に誘われてあにあめもりあの店員になった。<br>
+        自由奔放でマイペースだけど、ちょっと人見知り。<br>
+        立派な狼になるため奮闘中！`,
+        socials: [
+            { type: "twitter", url: "https://x.com/chisatonanodayo" }
+        ],
+        related: [
+            "sakura"
+        ]
     },
 
     // --- 妖怪区画 ---
@@ -512,7 +524,9 @@ window.membersData = [
         tags: "妖怪 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/silhouette.png"
+            "assets/member/むぎだんご/profile1.png",
+            "assets/member/むぎだんご/profile2.png",
+            "assets/member/むぎだんご/profile3.png"
         ],
         goals: [
             "準備中"
