@@ -501,7 +501,6 @@
 .news-magazine-layout {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    grid-template-rows: clamp(380px, 42vw, 540px); /* 高さをここで一元管理 */
     gap: 24px;
     align-items: stretch;
     width: 100%;
@@ -509,14 +508,14 @@
 
 /* 左側：特大カード枠 */
 .news-magazine-featured {
-    height: 100%; /* グリッド行高に追従 */
+    height: clamp(380px, 42vw, 540px);
     position: relative;
     min-height: 0;
 }
 
 /* 右側：スクロールリスト枠 */
 .news-magazine-list {
-    /* height はグリッドが決める */
+    height: clamp(380px, 42vw, 540px);
     overflow-y: auto;
     min-height: 0;
     padding-right: 6px;
@@ -741,7 +740,6 @@
 @media (max-width: 900px) {
     .news-magazine-layout {
         grid-template-columns: 1fr;
-        grid-template-rows: auto; /* 行高リセット */
     }
 
     .news-magazine-featured {
