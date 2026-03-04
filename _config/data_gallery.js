@@ -32,11 +32,12 @@ window.galleryData = [
     {
         title: "夜のひととき",
         date: "2025.10.03",
-        thumb: "https://picsum.photos/seed/gallery-b1/600/600",
+        landscape: true,  // 横長写真アルバム（集合写真など）の例
+        thumb: "https://picsum.photos/seed/gallery-b1/600/450",
         images: [
-            "https://picsum.photos/seed/gallery-b1/800/800",
-            "https://picsum.photos/seed/gallery-b2/800/800",
-            "https://picsum.photos/seed/gallery-b3/800/800",
+            "https://picsum.photos/seed/gallery-b1/1200/900",
+            "https://picsum.photos/seed/gallery-b2/1200/900",
+            "https://picsum.photos/seed/gallery-b3/1200/900",
         ],
         desc: "深夜の通話と、他愛のない話。",
     },

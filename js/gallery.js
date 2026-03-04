@@ -37,6 +37,7 @@
             displayGalleryData.forEach((item, index) => {
                 const card = document.createElement("article");
                 card.className = "gallery-polaroid reveal";
+                if (item.landscape) card.classList.add('is-landscape');
 
                 const thumbUrl = window.fixPath(item.thumb || (item.images && item.images[0]) || "");
                 const count = item.images ? item.images.length : 0;

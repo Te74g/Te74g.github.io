@@ -39,11 +39,11 @@
     z-index: 1;
 }
 
-/* 4種のランダム傾き */
-.gallery-polaroid:nth-child(4n+1) { transform: rotate(-2.0deg); }
-.gallery-polaroid:nth-child(4n+2) { transform: rotate(1.5deg);  }
-.gallery-polaroid:nth-child(4n+3) { transform: rotate(-0.8deg); }
-.gallery-polaroid:nth-child(4n+4) { transform: rotate(2.2deg);  }
+/* 4種のランダム傾き ＋ 縦方向ずれでバラバラ感を強調 */
+.gallery-polaroid:nth-child(4n+1) { transform: rotate(-2.0deg); margin-top: 0; }
+.gallery-polaroid:nth-child(4n+2) { transform: rotate(1.5deg);  margin-top: 24px; }
+.gallery-polaroid:nth-child(4n+3) { transform: rotate(-0.8deg); margin-top: -12px; }
+.gallery-polaroid:nth-child(4n+4) { transform: rotate(2.2deg);  margin-top: 36px; }
 
 /* hover：まっすぐ浮き上がる */
 .gallery-polaroid:hover {
@@ -58,9 +58,14 @@
 .gallery-polaroid-photo {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1;   /* default: square */
     overflow: hidden;
     background: #222;
+}
+
+/* 横長写真対応: data に landscape:true を付けると 4:3 に変わる */
+.gallery-polaroid.is-landscape .gallery-polaroid-photo {
+    aspect-ratio: 4 / 3;
 }
 
 .gallery-polaroid-photo img {

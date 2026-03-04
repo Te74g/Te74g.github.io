@@ -18,6 +18,7 @@
 @import 'parts/components.css';
 @import 'parts/news.css';
 @import 'parts/gallery.css';
+@import 'parts/album-book.css';
 
 /* 4. Pages & Special Modules */
 @import 'parts/profile.css';

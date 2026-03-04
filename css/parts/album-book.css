@@ -1,0 +1,524 @@
+/* =============================================
+   ALBUM BOOK — Photo Book with 3D Page Flip
+   =============================================
+   index.html の Gallery セクションで使用。
+   gallery/index.html のポラロイドビューへ「もっと見る」でリンク。
+   ============================================= */
+
+/* ---- Scene (outer wrapper, spotlight bg) ---- */
+.album-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px 20px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 30%, rgba(207, 170, 107, 0.07) 0%, transparent 60%);
+}
+
+/* ---- Wrapper (book + nav arrows) ---- */
+.album-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+}
+
+/* ---- Book container (perspective context) ---- */
+.album-book {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    perspective: 1600px;
+    filter: drop-shadow(0 32px 64px rgba(0, 0, 0, 0.85));
+    transition: filter 0.4s;
+}
+
+.album-book:hover {
+    filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 36px rgba(207, 170, 107, 0.09));
+}
+
+/* ---- Pages (base style) ---- */
+.album-page {
+    width: 260px;
+    min-height: 340px;
+    background: #f4edd9;
+    padding: 22px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Grain texture via pseudo element */
+.album-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Left page */
+.album-page-left {
+    border-radius: 4px 0 0 4px;
+    background: linear-gradient(to right, #f4edd9 80%, #e5d9c0 100%);
+    box-shadow: inset -6px 0 12px rgba(0, 0, 0, 0.22);
+}
+
+/* Right page shell (becomes visible BEHIND the turner after flip) */
+.album-page-right {
+    width: 260px;
+    min-height: 340px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(to left, #f4edd9 80%, #e5d9c0 100%);
+    box-shadow: inset 6px 0 12px rgba(0, 0, 0, 0.22);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Page curl hint on right page corner */
+.album-page-right::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(225deg, #cfc0a0 45%, transparent 50%);
+    border-radius: 0 0 4px 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ---- Spine ---- */
+.album-spine {
+    width: 14px;
+    background: linear-gradient(
+        to right,
+        #0e0805 0%,
+        #2e1d0a 30%,
+        #4a3018 50%,
+        #2e1d0a 70%,
+        #0e0805 100%
+    );
+    min-height: 340px;
+    position: relative;
+    z-index: 5;
+    box-shadow:
+        2px 0 6px rgba(0, 0, 0, 0.4),
+        -2px 0 6px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+}
+
+/* Spine stitch line */
+.album-spine::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(207, 170, 107, 0.3) 0px,
+        rgba(207, 170, 107, 0.3) 4px,
+        transparent 4px,
+        transparent 8px
+    );
+    transform: translateX(-50%);
+}
+
+/* ---- Right-side wrapper (positions the turner over right page) ---- */
+.album-right-wrap {
+    position: relative;
+    width: 260px;
+    min-height: 340px;
+    flex-shrink: 0;
+}
+
+/* ---- Page Turner (3D flip element) ---- */
+.album-page-turner {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transition: transform 0.78s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    z-index: 10;
+}
+
+.album-page-turner.is-turning {
+    transform: rotateY(-180deg);
+}
+
+.album-page-turner.no-anim {
+    transition: none;
+}
+
+/* ---- Turner faces ---- */
+.turner-front,
+.turner-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 20px;
+    overflow: hidden;
+}
+
+/* Front face: same styling as right page */
+.turner-front {
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(to left, #f4edd9 80%, #e5d9c0 100%);
+    box-shadow: inset 6px 0 12px rgba(0, 0, 0, 0.22);
+}
+
+/* Back face: will be visible after flip (becomes the NEW left page) */
+.turner-back {
+    transform: rotateY(180deg);
+    border-radius: 4px 0 0 4px;
+    background: linear-gradient(to right, #f4edd9 80%, #e5d9c0 100%);
+    box-shadow: inset -6px 0 12px rgba(0, 0, 0, 0.22);
+}
+
+/* Un-mirror back face content */
+.turner-back-inner {
+    transform: scaleX(-1);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* ---- Photo Mount (photo on a page) ---- */
+.album-photo-mount {
+    position: relative;
+    width: 100%;
+    max-width: 210px;
+    z-index: 1;
+}
+
+/* Corner tape — top-left */
+.album-photo-mount::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 22px;
+    height: 22px;
+    background: rgba(180, 140, 80, 0.45);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Corner tape — bottom-right */
+.album-photo-mount::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 22px;
+    height: 22px;
+    background: rgba(180, 140, 80, 0.45);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.album-photo-mount img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.35),
+        0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 1px;
+    filter: sepia(0.12) contrast(1.04);
+    transition: filter 0.3s;
+}
+
+.album-photo-mount:hover img {
+    filter: sepia(0) contrast(1);
+}
+
+/* ---- Title Page ---- */
+.album-title-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+/* Decorative inset border */
+.album-title-border {
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(120, 90, 55, 0.22);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.album-title-label {
+    font-size: 0.65rem;
+    color: #a8895e;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 600;
+}
+
+.album-title-name {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: #2a1f13;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.album-title-date {
+    font-size: 0.72rem;
+    color: #8a7055;
+    letter-spacing: 1.5px;
+}
+
+.album-title-desc {
+    font-size: 0.7rem;
+    color: #7a6548;
+    line-height: 1.65;
+    max-width: 175px;
+    margin: 4px 0 0;
+}
+
+/* ---- Blank page ---- */
+.page-blank {
+    width: 100%;
+    height: 100%;
+    min-height: 290px;
+}
+
+/* ---- Navigation Arrows ---- */
+.album-nav {
+    background: rgba(15, 10, 5, 0.6);
+    border: 1px solid rgba(207, 170, 107, 0.28);
+    color: rgba(207, 170, 107, 0.75);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.22s;
+    flex-shrink: 0;
+    backdrop-filter: blur(6px);
+    line-height: 1;
+    padding-bottom: 2px; /* visual centering of ‹ › */
+}
+
+.album-nav:hover {
+    background: rgba(207, 170, 107, 0.18);
+    color: rgba(207, 170, 107, 1);
+    border-color: rgba(207, 170, 107, 0.55);
+    transform: scale(1.08);
+}
+
+.album-nav:disabled {
+    opacity: 0.18;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* ---- Page Indicator (dots) ---- */
+.album-page-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+    min-height: 14px;
+}
+
+.album-page-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(207, 170, 107, 0.22);
+    border: none;
+    cursor: pointer;
+    transition: all 0.22s;
+    padding: 0;
+}
+
+.album-page-dot:hover {
+    background: rgba(207, 170, 107, 0.5);
+    transform: scale(1.2);
+}
+
+.album-page-dot.is-active {
+    background: rgba(207, 170, 107, 0.85);
+    transform: scale(1.35);
+}
+
+/* ---- Album Selector (thumbnail row) ---- */
+.album-selector {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 26px;
+    flex-wrap: wrap;
+}
+
+.album-select-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    padding: 0;
+    background: none;
+    transition: all 0.25s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.album-select-btn:hover {
+    opacity: 0.82;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+.album-select-btn.is-active {
+    border-color: rgba(207, 170, 107, 0.8);
+    opacity: 1;
+    transform: translateY(-5px);
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(207, 170, 107, 0.25);
+}
+
+.album-select-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(0.2);
+}
+
+/* ---- Empty State ---- */
+.album-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: rgba(207, 170, 107, 0.35);
+    text-align: center;
+}
+
+.album-empty .album-empty-icon {
+    font-size: 2.2rem;
+    opacity: 0.4;
+}
+
+.album-empty p {
+    font-size: 0.88rem;
+    margin: 0;
+    color: rgba(207, 170, 107, 0.4);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 720px) {
+    .album-page,
+    .album-page-right,
+    .album-right-wrap {
+        width: 160px;
+        min-height: 220px;
+    }
+
+    .album-spine {
+        width: 10px;
+        min-height: 220px;
+    }
+
+    .album-page-turner {
+        /* inherits inset: 0 from .album-right-wrap */
+    }
+
+    .album-photo-mount {
+        max-width: 130px;
+    }
+
+    .album-photo-mount img {
+        aspect-ratio: 4 / 3;
+    }
+
+    .album-title-name { font-size: 0.88rem; }
+    .album-title-desc { font-size: 0.65rem; }
+
+    .album-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .album-wrapper {
+        gap: 14px;
+    }
+}
+
+@media (max-width: 430px) {
+    .album-page,
+    .album-page-right,
+    .album-right-wrap {
+        width: 130px;
+        min-height: 180px;
+    }
+
+    .album-spine {
+        min-height: 180px;
+        width: 8px;
+    }
+
+    .album-photo-mount {
+        max-width: 106px;
+    }
+
+    .album-title-name { font-size: 0.78rem; }
+    .album-title-desc { display: none; }
+    .album-title-date { font-size: 0.65rem; }
+
+    .album-nav {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .album-wrapper { gap: 8px; }
+}
