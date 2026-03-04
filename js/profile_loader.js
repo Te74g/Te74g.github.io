@@ -548,14 +548,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function getRelatedMembers(currentMember, allMembers) {
     let results = [];
+
+    // Filter out hidden/fictional members from being suggested
+    const visibleMembers = allMembers.filter(m => {
+        const info = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
+        // fallback to m.revealLevel or 3 if info is null
+        const level = info ? info.level : (m.revealLevel !== undefined ? m.revealLevel : 3);
+        return level > 1; // Only fully revealed and silhouettes can be related
+    });
+
     if (currentMember.related && Array.isArray(currentMember.related)) {
         currentMember.related.forEach(rid => {
-            const m = allMembers.find(mem => mem.id === rid);
+            const m = visibleMembers.find(mem => mem.id === rid);
             if (m) results.push(m);
         });
     }
     if (results.length < 5) {
-        let candidates = allMembers.filter(m =>
+        let candidates = visibleMembers.filter(m =>
             m.id !== currentMember.id &&
             !results.some(r => r.id === m.id)
         );

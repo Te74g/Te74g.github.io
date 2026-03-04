@@ -135,8 +135,12 @@
             }
             // photo
             const src = (typeof window.fixPath === 'function') ? window.fixPath(page.src) : page.src;
+            const safeSrc = src.replace(/"/g, '&quot;');
             return `
-                <div class="album-photo-mount">
+                <div class="album-photo-mount" data-src="${safeSrc}">
+                    <div class="album-photo-zoom" aria-hidden="true">
+                        <div class="album-photo-zoom-icon"></div>
+                    </div>
                     <img src="${src}" alt="" loading="lazy" decoding="async">
                 </div>`;
         }
