@@ -76,18 +76,39 @@ document.addEventListener('DOMContentLoaded', async () => {
             const prevMember = visibleMembers[prevIndex];
             const nextMember = visibleMembers[nextIndex];
 
+            const prevHref = `?id=${prevMember.id}`;
+            const nextHref = `?id=${nextMember.id}`;
+
             const navContainer = document.createElement('div');
             navContainer.className = 'profile-pagination';
 
             navContainer.innerHTML = `
-                <a href="?id=${prevMember.id}" class="profile-nav-btn prev-btn" title="${prevMember.name}のページへ">
-                    <span class="nav-icon">&lt;</span>
+                <a href="${prevHref}" class="profile-nav-btn prev-btn" title="${prevMember.name}のページへ">
+                    <span class="nav-icon">‹</span>
                 </a>
-                <a href="?id=${nextMember.id}" class="profile-nav-btn next-btn" title="${nextMember.name}のページへ">
-                    <span class="nav-icon">&gt;</span>
+                <a href="${nextHref}" class="profile-nav-btn next-btn" title="${nextMember.name}のページへ">
+                    <span class="nav-icon">›</span>
                 </a>
             `;
             document.body.appendChild(navContainer);
+
+            // Swipe gesture navigation (スワイプでキャスト切り替え / モバイル向け)
+            let _swipeStartX = null;
+            let _swipeStartY = null;
+            document.addEventListener('touchstart', e => {
+                _swipeStartX = e.touches[0].clientX;
+                _swipeStartY = e.touches[0].clientY;
+            }, { passive: true });
+            document.addEventListener('touchend', e => {
+                if (_swipeStartX === null) return;
+                const dx = e.changedTouches[0].clientX - _swipeStartX;
+                const dy = e.changedTouches[0].clientY - _swipeStartY;
+                _swipeStartX = null;
+                _swipeStartY = null;
+                // Only trigger if horizontal swipe dominates and exceeds threshold
+                if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+                window.location.href = dx < 0 ? nextHref : prevHref;
+            }, { passive: true });
         }
     }
 

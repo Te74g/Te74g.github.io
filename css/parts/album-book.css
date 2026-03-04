@@ -237,16 +237,14 @@
     }
 }
 
-/* Circle button (小さめ) */
+/* Circle button (小さめ・半透明・色反転) */
 .album-photo-zoom-icon {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.90);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.28),
-        0 1px 3px rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     position: relative;
     flex-shrink: 0;
     transition: transform 0.2s;
@@ -263,19 +261,19 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    background: #2a1f13;
+    background: rgba(255, 255, 255, 0.88);
     border-radius: 1px;
     transform: translate(-50%, -50%);
 }
 
 .album-photo-zoom-icon::before {
-    width: 9px;
+    width: 8px;
     height: 1.5px;
 }
 
 .album-photo-zoom-icon::after {
     width: 1.5px;
-    height: 9px;
+    height: 8px;
 }
 
 /* Corner tape — top-left */
