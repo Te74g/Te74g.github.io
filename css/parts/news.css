@@ -540,6 +540,7 @@
     display: grid;
     grid-template-columns: 42% 58%;
     height: 120px;
+    flex: 0 0 120px; /* .news-card の flex-basis:300px を上書き */
     border-radius: 12px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.25);
