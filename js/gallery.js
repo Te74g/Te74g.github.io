@@ -25,35 +25,39 @@
         // データが空の場合
         if (displayGalleryData.length === 0) {
             galleryContainer.innerHTML = `
-                <div class="empty-content" style="grid-column: 1 / -1;">
-                    <p>現在ギャラリーに掲載されている写真はありません。</p>
+                <div class="gallery-empty">
+                    <div class="gallery-empty-frame">
+                        <span class="gallery-empty-icon">📷</span>
+                    </div>
+                    <p>まだ思い出はここに眠っています</p>
+                    <small>イベント後に写真が追加されます</small>
                 </div>
             `;
         } else {
             displayGalleryData.forEach((item, index) => {
                 const card = document.createElement("article");
-                card.className = "card reveal is-visible";
-                card.style.cursor = "pointer";
+                card.className = "gallery-polaroid reveal";
 
-                // Thumbnail is either explicit thumb or first image
                 const thumbUrl = window.fixPath(item.thumb || (item.images && item.images[0]) || "");
+                const count = item.images ? item.images.length : 0;
 
                 card.innerHTML = `
-                    <div class="card-top" style="background-image: url('${thumbUrl}'); background-size: cover; background-position: center; height: 200px; border-radius: 8px 8px 0 0;">
+                    <div class="gallery-polaroid-photo">
+                        <img src="${thumbUrl}" alt="${item.title}" loading="lazy">
+                        ${count > 0 ? `<div class="gallery-polaroid-count">${count}枚</div>` : ''}
                     </div>
-                    <div style="padding: 1.5rem;">
-                        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
-                            <h3 class="card-title" style="margin:0; font-size:1.1rem;">${item.title}</h3>
-                            <span style="font-size:0.85rem; color:var(--muted);">${item.date}</span>
+                    <div class="gallery-polaroid-caption">
+                        <p class="gallery-polaroid-title">${item.title}</p>
+                        <div class="gallery-polaroid-meta">
+                            <span class="gallery-polaroid-date">${item.date}</span>
+                            <span class="gallery-polaroid-view">見る →</span>
                         </div>
-                        <p class="card-desc" style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0;">${item.desc || ""}</p>
-                        <div style="margin-top:10px; font-size:0.8rem; color:var(--a); font-weight:bold;">
-                            写真を見る (${item.images ? item.images.length : 0}枚) &rarr;
-                        </div>
                     </div>
-                    </div>
-                    <div class="watermark-logo"></div>
                 `;
+
+                // スタガーアニメーション
+                card.style.setProperty('--card-delay', `${index * 100}ms`);
+                setTimeout(() => card.classList.add('is-visible'), index * 100);
 
                 // Click event to open lightbox
                 card.addEventListener("click", () => openLightbox(index));
