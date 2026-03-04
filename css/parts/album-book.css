@@ -209,6 +209,77 @@
     width: 100%;
     max-width: 210px;
     z-index: 1;
+    cursor: zoom-in;
+}
+
+/* ---- Zoom hint overlay (circle + icon) ---- */
+.album-photo-zoom {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none; /* clicks pass through to the mount */
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 1px;
+}
+
+.album-photo-mount:hover .album-photo-zoom {
+    opacity: 1;
+}
+
+/* Touch devices: always show at reduced opacity */
+@media (hover: none) {
+    .album-photo-zoom {
+        opacity: 0.55;
+    }
+}
+
+/* Circle button */
+.album-photo-zoom-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 1px 4px rgba(0, 0, 0, 0.15);
+    position: relative;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.album-photo-mount:hover .album-photo-zoom-icon {
+    transform: scale(1.1);
+    box-shadow:
+        0 6px 22px rgba(0, 0, 0, 0.38),
+        0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+/* CSS "+" via pseudo-elements */
+.album-photo-zoom-icon::before,
+.album-photo-zoom-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #2a1f13;
+    border-radius: 1px;
+    transform: translate(-50%, -50%);
+}
+
+.album-photo-zoom-icon::before {
+    width: 14px;
+    height: 2px;
+}
+
+.album-photo-zoom-icon::after {
+    width: 2px;
+    height: 14px;
 }
 
 /* Corner tape — top-left */
@@ -521,4 +592,57 @@
     }
 
     .album-wrapper { gap: 8px; }
+}
+
+/* =============================================
+   ALBUM LIGHTBOX (#album-lb)
+   ============================================= */
+#album-lb {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#album-lb.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.album-lb-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.93);
+    backdrop-filter: blur(10px);
+    cursor: zoom-out;
+}
+
+.album-lb-img {
+    position: relative;
+    z-index: 1;
+    max-width: 92vw;
+    max-height: 90vh;
+    object-fit: contain;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 40px 100px rgba(0, 0, 0, 0.8);
+    cursor: zoom-out;
+    border-radius: 2px;
+    /* Scale in on open */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: scale(0.92);
+}
+
+#album-lb.is-open .album-lb-img {
+    transform: scale(1);
+}
+
+/* Scroll lock */
+body.album-lb-open {
+    overflow: hidden;
 }

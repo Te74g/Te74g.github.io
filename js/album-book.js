@@ -325,7 +325,20 @@
         }
 
         /* ----------------------------------------------------------
-           Event listeners
+           Lightbox — photo zoom on click
+           ---------------------------------------------------------- */
+        const lb = createLightbox();
+
+        // Delegated click: any .album-photo-mount[data-src] inside scene
+        scene.addEventListener('click', e => {
+            if (isAnimating) return;
+            const mount = e.target.closest('.album-photo-mount[data-src]');
+            if (!mount) return;
+            lb.open(mount.dataset.src);
+        });
+
+        /* ----------------------------------------------------------
+           Event listeners (navigation)
            ---------------------------------------------------------- */
         prevBtn.addEventListener('click', goPrev);
         nextBtn.addEventListener('click', goNext);
@@ -354,6 +367,54 @@
         /* ---- Initial load ---- */
         buildSelector();
         loadAlbum(0, 0);
+    }
+
+    /* ----------------------------------------------------------
+       Lightbox factory (singleton — created once per page)
+       ---------------------------------------------------------- */
+    function createLightbox() {
+        // Reuse if already in DOM
+        const existing = document.getElementById('album-lb');
+        if (existing) return makeLbAPI(existing);
+
+        const el = document.createElement('div');
+        el.id = 'album-lb';
+        el.setAttribute('role', 'dialog');
+        el.setAttribute('aria-modal', 'true');
+        el.setAttribute('aria-label', '画像を拡大表示');
+        el.innerHTML = `
+            <div class="album-lb-backdrop"></div>
+            <img class="album-lb-img" src="" alt="">
+        `;
+        document.body.appendChild(el);
+
+        function close() {
+            el.classList.remove('is-open');
+            document.body.classList.remove('album-lb-open');
+            setTimeout(() => {
+                if (!el.classList.contains('is-open')) {
+                    el.querySelector('.album-lb-img').src = '';
+                }
+            }, 350);
+        }
+
+        el.querySelector('.album-lb-backdrop').addEventListener('click', close);
+        el.querySelector('.album-lb-img').addEventListener('click', close);
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && el.classList.contains('is-open')) close();
+        });
+
+        return makeLbAPI(el);
+
+        function makeLbAPI(el) {
+            return {
+                open(src) {
+                    el.querySelector('.album-lb-img').src = src;
+                    el.classList.add('is-open');
+                    document.body.classList.add('album-lb-open');
+                }
+            };
+        }
     }
 
 })();
