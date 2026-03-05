@@ -27,6 +27,8 @@
     color: var(--muted);
     font-weight: 700;
     font-size: 13px;
+    position: relative;
+    z-index: 100;
 }
 
 /* To Top Button */
