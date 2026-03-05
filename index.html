@@ -231,26 +231,13 @@
     #cast-reveal-hero {
       position: absolute;
       top: 50%;
-      right: 3vw;
+      right: 2vw;
       transform: translateY(-50%);
       z-index: 10;
-      width: min(280px, 28vw);
+      width: min(400px, 40vw);
     }
 
-    /* Mobile: hide the hero overlay, show the section above News */
-    @media (max-width: 900px) {
-      #cast-reveal-hero {
-        display: none !important;
-      }
-    }
-
-    @media (min-width: 901px) {
-
-      /* On desktop, hide the section version, only show hero overlay */
-      #cast-reveal-overlay {
-        display: none !important;
-      }
-    }
+    /* Both desktop and mobile show the section above News */
 
     .cast-reveal-group {
       margin-bottom: 20px;
@@ -295,7 +282,7 @@
       flex: 1;
       min-width: 240px;
       max-width: 420px;
-      height: 100px;
+      height: 110px;
       background: linear-gradient(135deg, rgba(42, 33, 24, 0.97) 0%, rgba(26, 19, 17, 0.98) 100%);
       border: 1px solid rgba(207, 170, 107, 0.25);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -329,8 +316,8 @@
     /* Left: character image panel */
     .cast-reveal-img-wrap {
       position: relative;
-      width: 88px;
-      min-width: 88px;
+      width: 100px;
+      min-width: 100px;
       height: 110px;
       overflow: hidden;
       flex-shrink: 0;
@@ -381,7 +368,7 @@
 
     .cast-reveal-name {
       font-family: 'Zen Old Mincho', serif;
-      font-size: 1.35rem;
+      font-size: 1.5rem;
       font-weight: 900;
       color: #fff;
       letter-spacing: 0.05em;
