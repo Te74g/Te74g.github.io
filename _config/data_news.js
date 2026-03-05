@@ -25,8 +25,8 @@ window.newsData = [
         title: "あにあめもりあ、グランドオープン！",
         date: "2026.03.08",
         category: "お知らせ",
-        image: "assets/logo/aniamemoria_logo.webp",
-        imagePath: "assets/logo/aniamemoria_logo.webp",
+        image: "assets/news/2026-03-08/grand_open.png",
+        imagePath: "assets/news/2026-03-08/grand_open.png",
         desc: "3月8日 18:00より、あにあめもりあ公式サイトが正式オープンいたしました！",
         content: `
             <p>皆様、お待たせいたしました！<br>
