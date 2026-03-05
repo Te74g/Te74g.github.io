@@ -205,15 +205,20 @@
                 turner.classList.add('is-turning');
 
                 setTimeout(() => {
-                    // Snap turner back without transition
+                    // 1. turner は -180deg で停止中:
+                    //    leftPage は turner の裏に隠れており、
+                    //    turnerFront は backface-hidden → どちらも不可視なので先に更新しても見えない
+                    leftPage.innerHTML    = nextLeft;
+                    turnerFront.innerHTML = nextRight;
+
+                    // 2. アニメーションなしでターナーを 0deg に戻す（スナップ）
+                    //    void offsetWidth のフラッシュ時点では leftPage/turnerFront は既に正しい内容
                     turner.classList.add('no-anim');
                     turner.classList.remove('is-turning');
                     void turner.offsetWidth; // force reflow
                     turner.classList.remove('no-anim');
 
-                    // Sync left page and turner-front to new state
-                    leftPage.innerHTML    = nextLeft;
-                    turnerFront.innerHTML = nextRight;
+                    // 3. ターナーが 0deg に戻ると turnerBack は backface-hidden になるので安全にクリア
                     turnerBackIn.innerHTML = '';
 
                     currentSpread = ns;
