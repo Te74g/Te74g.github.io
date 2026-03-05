@@ -33,11 +33,9 @@
             const diffMs = revealDt - now;
             const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
-            if (isDebugMode) {
-                // デバッグ: てん（店長）だけを本日公開として表示する
-                if (m.id === 'ten') {
-                    todayTargets.push(m);
-                }
+            if (isDebugMode && m.id === 'ten') {
+                // デバッグ: 'ten' のみ today 扱いで強制表示
+                todayTargets.push(m);
             } else {
                 if (diffDays <= 0) {
                     // 今日公開済み（当日18時以降）
@@ -81,10 +79,10 @@
                     <img class="img-base" src="${imgBase}" alt="${member.name}" loading="lazy">
                     <img class="img-hover" src="${imgHover}" alt="${member.name}" loading="lazy">
                 </div>
-                <div class="cast-reveal-info" style="text-align: center;">
-                    <span class="cast-reveal-tag" style="display: block; margin-bottom: 4px;">${member.tagLabel}</span>
-                    <span class="cast-reveal-name" style="display: block; margin-bottom: 4px;">${isToday ? member.name : '？？？'}</span>
-                    <span class="cast-reveal-date" style="display: block;">${dateLabel}</span>
+                <div class="cast-reveal-info">
+                    <span class="cast-reveal-tag">${member.tagLabel}</span>
+                    <span class="cast-reveal-name">${isToday ? member.name : '？？？'}</span>
+                    <span class="cast-reveal-date">${dateLabel}</span>
                 </div>
             </a>`;
         };
@@ -93,8 +91,8 @@
 
         if (todayTargets.length > 0) {
             html += `<div class="cast-reveal-group">
-                <div class="cast-reveal-group-label" style="text-align: center;">✦ 本日公開 ✦</div>
-                <div class="cast-reveal-cards" style="justify-content: center;">
+                <div class="cast-reveal-group-label" style="text-align: center;">✦ 本日公開</div>
+                <div class="cast-reveal-cards">
                     ${todayTargets.map(m => buildCard(m, true)).join('')}
                 </div>
             </div>`;
@@ -102,8 +100,8 @@
 
         if (tomorrowTargets.length > 0) {
             html += `<div class="cast-reveal-group">
-                <div class="cast-reveal-group-label" style="text-align: center;">◈ 明日公開 ◈</div>
-                <div class="cast-reveal-cards" style="justify-content: center;">
+                <div class="cast-reveal-group-label" style="text-align: center;">◈ 明日公開</div>
+                <div class="cast-reveal-cards">
                     ${tomorrowTargets.map(m => buildCard(m, false)).join('')}
                 </div>
             </div>`;
