@@ -143,22 +143,22 @@
    Profile Ten Expansion Styles (2026-01-22)
    ========================================================================== */
 
-/* --- Block 1: Parchment Frame --- */
+/* --- Block 1: Intro area (no heavy box) --- */
 .parchment-frame {
     position: relative;
-    background-color: #2b2b2b;
-    border: 4px double #555;
-    border-radius: var(--r-md);
-    padding: 24px;
-    box-shadow: var(--shadow);
+    /* Subtle left accent bar instead of full border box */
+    border-left: 3px solid rgba(255, 255, 255, 0.25);
+    padding: 0 0 20px 20px;
+    margin-bottom: 8px;
     color: #e0e0e0 !important;
     overflow: hidden;
-    margin-bottom: 24px;
 }
 
 .parchment-frame p {
     margin-top: 0;
-    line-height: 1.8;
+    line-height: 1.9;
+    font-size: 0.95rem;
+    opacity: 0.88;
 }
 
 /* --- Condensation Blur Effect (For unrevealed content) --- */
@@ -192,42 +192,43 @@
     z-index: 10;
 }
 
-/* --- Block 2: Goals Section --- */
+/* --- Block 2: Goals Section (integrated, not boxed) --- */
 .goals-section {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 3px solid rgba(255, 255, 255, 0.25);
 }
 
 .goals-title {
-    font-size: 1.2rem;
-    font-weight: 900;
-    margin-bottom: 8px;
-    border-left: 4px solid #fff;
-    padding-left: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
     line-height: 1.2;
-    color: #fff;
 }
 
 .goals-text {
-    background-color: #333;
-    color: #e0e0e0 !important;
-    padding: 12px 16px;
-    border-radius: 4px;
-    font-weight: 700;
-    min-height: 3.5rem;
-    display: flex;
-    align-items: center;
-    border: 1px solid #444;
+    color: #e8e8e8 !important;
+    padding: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    min-height: unset;
+    display: block;
+    border: none;
+    background: none;
+    line-height: 1.7;
 }
 
-/* --- Block 3: Footer Structuring --- */
-
-/* Social Icons */
+/* --- Block 3: Social Icons --- */
 .social-icons-container {
     display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 24px;
-    margin-bottom: 32px;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 20px;
 }
 
 .social-icon {
@@ -350,43 +351,29 @@
     filter: brightness(1) opacity(1);
 }
 
-/* Motif Animal Section */
+/* Motif Animal — slim inline chip (text only, no image box) */
 .motif-container {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-    height: 60px;
-    /* margin-top: 16px;  <-- Handled by inline style or container logic usually, but let's put it here if consistent. Actually JS set inline margin-top. I will move it to CSS */
-    margin-top: 16px;
-    width: 100%;
-}
-
-.motif-icon-box {
-    width: 60px;
-    height: 60px;
-    background-color: #2b2b2b;
-    color: #ffffff;
-    border-radius: 8px;
-    flex-shrink: 0;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding-left: 20px;
 }
 
-.motif-text-box {
-    flex: 1;
-    background-color: #333;
-    border-radius: 8px;
-    display: flex;
+.motif-chip {
+    display: inline-flex;
     align-items: center;
-    padding: 0 16px;
-    font-weight: bold;
-    color: #e0e0e0 !important;
-}
-
-.motif-text-box span {
-    color: inherit;
+    gap: 6px;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(4px);
 }
 
 /* --- Layout Adjustment (PC: Related Cast on Left, Text on Right) --- */
