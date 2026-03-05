@@ -333,7 +333,9 @@ window.membersData = [
         tags: "野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/silhouette.png"
+            "assets/member/てと/profile1.png",
+            "assets/member/てと/profile2.png",
+            "assets/member/てと/profile3.png"
         ],
         goals: [
             "美味しいものをお腹いっぱい食べること",
