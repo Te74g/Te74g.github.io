@@ -500,13 +500,19 @@ window.membersData = [
             "assets/member/むぎだんご/profile3.webp"
         ],
         goals: [
-            "準備中"
+            "たくさんの人から駄菓子をもらう"
         ],
-        motifAnimal: "???",
+        motifAnimal: "狸",
         motifIcon: "assets/member/silhouette.webp",
         section: "妖怪区画",
-        introduction: `準備中`,
-        socials: []
+        introduction: `人間に興味があり、こっそり里から抜け出してきた化け狸。<br>
+        里では兄から人間の話を聞き、関心を募らせていた。<br>
+        狸としてはまだ赤ん坊で、駄菓子をよく好む。<br>
+        里ではわがままで手がかかるほうだった。<br>
+        一人でいると途端に寂しがり、人懐っこく寄ってくる。`,
+        socials: [
+            { type: "twitter", url: "https://x.com/mugidangoVRC" }
+        ]
     },
 
     // --- スタッフ ---
