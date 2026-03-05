@@ -21,7 +21,9 @@
     <main id="main" class="bg-texture">
         <section class="section">
             <div class="container reveal">
-                <h1>利用規約</h1>
+                <h1 id="debug-trigger"
+                    style="user-select: none; -webkit-user-select: none; touch-action: manipulation; cursor: default;">
+                    利用規約</h1>
                 <p>（ここに利用規約の本文が入ります）</p>
                 <p>このウェブサイトの利用にあたっての規約です。</p>
             </div>
@@ -32,6 +34,43 @@
     <script src="../js/common-layout.js"></script>
     <script>
         renderLayout('../');
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const secretTrigger = document.getElementById('debug-trigger');
+            if (secretTrigger) {
+                let clickCount = 0;
+                let clickTimer = null;
+
+                secretTrigger.addEventListener('click', () => {
+                    clickCount++;
+
+                    if (clickTimer) clearTimeout(clickTimer);
+
+                    // 1秒タップが空いたらリセット
+                    clickTimer = setTimeout(() => {
+                        clickCount = 0;
+                    }, 1000);
+
+                    if (clickCount >= 10) {
+                        clickCount = 0; // すぐにリセット
+                        const password = prompt('【DEBUG】 パスワードを入力してください：');
+
+                        if (password) {
+                            // data_site.js で設定したパスワードと照合
+                            const correctPassword = window.siteConfig?.debugMode?.password || 'tetenpuipui';
+                            if (password === correctPassword) {
+                                sessionStorage.setItem('debugMode', 'true');
+                                alert('デバッグモードが有効になりました。\\n隠し要素がすべて公開された状態で表示されます。');
+                                window.location.reload();
+                            } else {
+                                alert('パスワードが違います。');
+                            }
+                        }
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

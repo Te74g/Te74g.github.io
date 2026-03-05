@@ -138,7 +138,7 @@
         <a href="${navRootPath}pages/terms.html">利用規約</a>
         <a href="${navRootPath}pages/contact.html">お問い合わせ</a>
       </p>
-      <p class="footer-note" style="user-select: none; -webkit-user-select: none; cursor: default;">© <span id="year"></span> AniameMoria.</p>
+      <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
       <a class="to-top" href="#top" aria-label="上へ戻る">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 15l-6-6-6 6" />

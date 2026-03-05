@@ -76,41 +76,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     listContainer.innerHTML = html;
-
-    // ---- デバッグモード隠しトリガー (10回クリック) ----
-    // コピーライト部分は common-layout.js で動的に生成される場合があるためイベント処理を body で委譲する
-    let clickCount = 0;
-    let clickTimer = null;
-
-    document.body.addEventListener('click', (e) => {
-        // 右下のコピーライト (.footer-note) がクリックされたか確認
-        const target = e.target.closest('.footer-note');
-        if (!target) return;
-
-        clickCount++;
-
-        if (clickTimer) clearTimeout(clickTimer);
-
-        // 1秒クリックが空いたらリセット
-        clickTimer = setTimeout(() => {
-            clickCount = 0;
-        }, 1000);
-
-        if (clickCount >= 10) {
-            clickCount = 0; // すぐにリセット
-            const password = prompt('【DEBUG】 パスワードを入力してください：');
-
-            if (password) {
-                // data_site.js で設定したパスワードと照合
-                const correctPassword = window.siteConfig?.debugMode?.password || 'tetenpuipui';
-                if (password === correctPassword) {
-                    sessionStorage.setItem('debugMode', 'true');
-                    alert('デバッグモードが有効になりました。\n隠し要素がすべて公開された状態で表示されます。');
-                    window.location.reload();
-                } else {
-                    alert('パスワードが違います。');
-                }
-            }
-        }
-    });
+    listContainer.innerHTML = html;
 });
