@@ -46,8 +46,8 @@
         <div class="scroll-down-arrow"></div>
       </div>
     </div>
-    <!-- Today / Tomorrow Cast Overlay Panel (right side of hero) -->
-    <!-- (moved to content board above News) -->
+    <!-- Cast Reveal Hero Overlay: Desktop only (right side of hero) -->
+    <div id="cast-reveal-hero" style="display:none;"></div>
   </section>
 
   <!-- Content Board (Wrapper for continuous background) -->
@@ -227,6 +227,30 @@
     /* =====================================================
        Cast Reveal Banner
        ===================================================== */
+    /* Desktop: show as hero right-side overlay */
+    #cast-reveal-hero {
+      position: absolute;
+      top: 50%;
+      right: 3vw;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: min(280px, 28vw);
+    }
+
+    /* Mobile: hide the hero overlay, show the section above News */
+    @media (max-width: 900px) {
+      #cast-reveal-hero {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 901px) {
+
+      /* On desktop, hide the section version, only show hero overlay */
+      #cast-reveal-overlay {
+        display: none !important;
+      }
+    }
 
     .cast-reveal-group {
       margin-bottom: 20px;
@@ -319,7 +343,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center;
+      object-position: center 15%;
       transition: opacity 0.3s ease;
     }
 

@@ -108,8 +108,16 @@
         }
 
         if (html) {
+            // Section banner (mobile: above News)
             revealBanner.innerHTML = html;
             revealSection.style.display = '';
+
+            // Hero overlay (desktop: right side of hero)
+            const heroOverlay = document.getElementById('cast-reveal-hero');
+            if (heroOverlay) {
+                heroOverlay.innerHTML = html;
+                heroOverlay.style.display = '';
+            }
         }
     }
 
