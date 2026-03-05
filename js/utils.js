@@ -61,7 +61,7 @@
         if (member.revealDate && !(window.siteConfig && window.siteConfig.showHiddenItems)) {
             hasRevealDate = true;
             const today = new Date();
-            const revealDate = new Date(member.revealDate + "T00:00:00+09:00");
+            const revealDate = new Date(member.revealDate + "T18:00:00+09:00");
             const diffTime = revealDate - today;
             daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
