@@ -73,7 +73,7 @@ body.is-preloading {
 
 /* ===== Section ===== */
 .section {
-    padding: 42px 0;
+    padding: 42px 0 24px 0;
 }
 
 .section--alt {

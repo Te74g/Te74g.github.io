@@ -4,10 +4,10 @@
 .news-carousel-container {
     position: relative;
     width: 100%;
-    margin: 0 auto 10px;
+    margin: 0 auto;
     /* Reduced bottom margin */
     overflow: hidden;
-    padding: 0 0 10px;
+    padding: 0;
     /* Reduced bottom padding */
 }
 
@@ -540,7 +540,8 @@
     display: grid;
     grid-template-columns: 42% 58%;
     height: 120px;
-    flex: 0 0 120px; /* .news-card の flex-basis:300px を上書き */
+    flex: 0 0 120px;
+    /* .news-card の flex-basis:300px を上書き */
     border-radius: 12px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.25);
@@ -751,7 +752,8 @@
     .news-magazine-list {
         height: auto;
         overflow-y: visible;
-        display: flex; /* 中間2カラム廃止 → flex縦積み */
+        display: flex;
+        /* 中間2カラム廃止 → flex縦積み */
     }
 }
 

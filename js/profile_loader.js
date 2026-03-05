@@ -212,14 +212,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         // モチーフ動物を更新
         const motifContainer = document.getElementById('dynamic-motif-container');
         if (motifContainer && mergedMember.motifAnimal && mergedMember.motifIcon) {
-            let iconPath = window.fixPath(mergedMember.motifIcon);
+            let showMotif = revealLevel >= 3 || (displayInfo && displayInfo.showMotif);
+            let iconPath = showMotif ? window.fixPath(mergedMember.motifIcon) : window.fixPath("assets/member/silhouette.png");
+            let animalText = showMotif ? mergedMember.motifAnimal : "???";
+
             motifContainer.innerHTML = `
                 <div class="motif-container">
                     <div class="motif-icon-box">
                         <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     <div class="motif-text-box">
-                        <span>種族ː${mergedMember.motifAnimal}</span>
+                        <span>種族ː${animalText}</span>
                     </div>
                 </div>
             `;
@@ -304,14 +307,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (initialMember.motifAnimal && initialMember.motifIcon) {
         const motifContainer = document.getElementById('dynamic-motif-container');
         if (motifContainer) {
-            let iconPath = window.fixPath(initialMember.motifIcon);
+            let showMotif = revealLevel >= 3 || (displayInfo && displayInfo.showMotif);
+            let iconPath = showMotif ? window.fixPath(initialMember.motifIcon) : window.fixPath("assets/member/silhouette.png");
+            let animalText = showMotif ? initialMember.motifAnimal : "???";
+
             motifContainer.innerHTML = `
                 <div class="motif-container">
                     <div class="motif-icon-box">
                         <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     <div class="motif-text-box">
-                        <span>種族ː${initialMember.motifAnimal}</span>
+                        <span>種族ː${animalText}</span>
                     </div>
                 </div>
             `;

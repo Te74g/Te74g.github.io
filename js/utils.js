@@ -52,14 +52,27 @@
         return Math.min(Math.max(0, level), 3); // 0-3の範囲に制限
     };
 
-    /**
-     * 公開レベルに応じたメンバー表示情報を取得
-     * @param {Object} member - メンバーオブジェクト
-     * @returns {Object} - { name, tagLabel, imagePath, linkable, showIntro, showGoals, showSocials }
-     */
     window.getMemberDisplayInfo = (member) => {
-        const level = window.getRevealLevel(member);
+        let level = window.getRevealLevel(member);
         const config = window.siteConfig?.castDisplay || {};
+
+        let daysDiff = 0;
+        let hasRevealDate = false;
+        if (member.revealDate && !(window.siteConfig && window.siteConfig.showHiddenItems)) {
+            hasRevealDate = true;
+            const today = new Date();
+            const revealDate = new Date(member.revealDate + "T00:00:00+09:00");
+            const diffTime = revealDate - today;
+            daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (daysDiff > 1) {
+                level = 2; // silhouette (fully hidden)
+            } else if (daysDiff === 1) {
+                level = 2; // silhouette (text revealed)
+            } else {
+                level = 3; // full
+            }
+        }
 
         // デフォルト値（完全公開）
         let info = {
@@ -101,15 +114,25 @@
                 break;
 
             case 2: // silhouette
-                // 名前と担当動物は表示、画像はシルエット
-                info.imagePath = member.silhouetteImage
-                    ? [member.silhouetteImage]
-                    : (config.placeholderImage ? [config.placeholderImage] : info.imagePath);
+                let silImage = member.silhouetteImage || null;
+                if (!silImage && info.imagePath && info.imagePath[0]) {
+                    // Generate silhouette path dynamically from the first image
+                    silImage = info.imagePath[0].replace('.png', '_silhouette.png');
+                }
+                info.imagePath = silImage ? [silImage] : (config.placeholderImage ? [config.placeholderImage] : info.imagePath);
                 info.linkable = true; // 一部情報のプロフィールページへはアクセス可能
-                info.showIntro = false; // 自己紹介は非表示
-                info.showGoals = false; // 目標は非表示
-                info.showSocials = false; // SNSは非表示
-                info.showMotif = true;  // モチーフ動物は表示
+
+                if (hasRevealDate && daysDiff === 1) {
+                    info.showIntro = true;
+                    info.showGoals = true;
+                    info.showSocials = false; // SNSは当日解禁
+                    info.showMotif = true;
+                } else {
+                    info.showIntro = false;
+                    info.showGoals = false;
+                    info.showSocials = false;
+                    info.showMotif = false;
+                }
                 break;
 
             case 3: // full

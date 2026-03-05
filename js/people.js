@@ -41,10 +41,10 @@
     }
 
     // ---- 設定定数 ----
-    const SECTION_ORDER    = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
-    const SECTION_LOAD_MS  = 300;   // renderSequentially のセクション間ウェイト
-    const CARD_STAGGER_MS  = 50;    // フィルタアニメのカード間ディレイ
-    const NOT_FOUND_MSG    = '該当するキャストが見つかりませんでした。';
+    const SECTION_ORDER = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
+    const SECTION_LOAD_MS = 300;   // renderSequentially のセクション間ウェイト
+    const CARD_STAGGER_MS = 50;    // フィルタアニメのカード間ディレイ
+    const NOT_FOUND_MSG = '該当するキャストが見つかりませんでした。';
 
     // フィルター初期化完了後に renderSequentially から呼び出すためのコールバック
     // var を使うことで TDZ を回避（const/let は early return 時に TDZ で TypeError になる）
@@ -184,7 +184,10 @@
                         : (castConfig.placeholderImage || m.image);
 
                     link.innerHTML = `
-                        <div class="cheki-visual silhouette-mode">
+                        <div class="cheki-visual silhouette-mode" style="${(() => {
+                            const bgPath = window.getMemberBackground(m.tags);
+                            return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
+                        })()}">
                             <img src="${window.fixPath(silhouetteImg)}" alt="${effectiveMember.name}" class="cheki-img silhouette" loading="lazy">
                             <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                         </div>

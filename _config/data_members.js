@@ -58,6 +58,7 @@ window.membersData = [
     // --- 運営部 ---
     {
         id: "ten",
+        revealDate: "2026-03-08",
         name: "てん（店長）",
         pickupName: "てん",
         tagLabel: "店長",
@@ -65,8 +66,7 @@ window.membersData = [
         image: "assets/member/てん/profile.png",
         profileImages: [
             "assets/member/てん/profile1.png",
-            "assets/member/てん/profile2.png",
-            "assets/member/てん/profile3.png"
+            "assets/member/てん/profile2.png"
         ],
 
         section: "運営部",
@@ -94,6 +94,7 @@ window.membersData = [
     },
     {
         id: "momo",
+        revealDate: "2026-03-08",
         name: "もも（副店長）",
         pickupName: "もも",
         tagLabel: "副店長",
@@ -101,8 +102,7 @@ window.membersData = [
         image: "assets/member/もも/profile2.png",
         profileImages: [
             "assets/member/もも/profile1.png",
-            "assets/member/もも/profile2.png",
-            "assets/member/もも/profile3.png"
+            "assets/member/もも/profile2.png"
         ],
         section: "運営部",
         goals: [
@@ -126,22 +126,14 @@ window.membersData = [
     // --- 飼育区画 ---
     {
         id: "rei",
+        revealDate: "2026-03-09",
         name: "麗（れい）",
         tagLabel: "飼育",
         tags: "飼育 キャスト",
         revealLevel: 3,
-        silhouetteImage: "assets/member/麗/silhouette_test.png",
         profileImages: [
             "assets/member/麗/profile1.png",
-            "assets/member/麗/profile2.png",
-            "assets/member/麗/profile3.png",
-            "assets/member/麗/profile4.png",
-            "assets/member/麗/profile5.png",
-            "assets/member/麗/profile6.png",
-            "assets/member/麗/profile7.png",
-            "assets/member/麗/profile8.png",
-            "assets/member/麗/profile9.png",
-            "assets/member/麗/profile10.png"
+            "assets/member/麗/profile2.png"
         ],
         goals: [
             "家族が一番喜ぶ恩返しをすること",
@@ -158,6 +150,7 @@ window.membersData = [
     },
     {
         id: "faria",
+        revealDate: "2026-03-10",
         name: "フィリア",
         tagLabel: "飼育",
         tags: "飼育 キャスト",
@@ -184,15 +177,15 @@ window.membersData = [
     },
     {
         id: "nagi",
+        revealDate: "2026-03-11",
         name: "凪（なぎ）",
         tagLabel: "飼育",
         tags: "飼育 キャスト",
         revealLevel: 3,
-        silhouetteImage: "assets/member/凪/silhouette_test.png",
         profileImages: [
             "assets/member/凪/profile1.png",
             "assets/member/凪/profile2.png",
-            "assets/member/凪/profile3.png",
+            "assets/member/凪/profile3.png"
         ],
         goals: [
             "ハンドラーと一緒に寝る",
@@ -213,6 +206,7 @@ window.membersData = [
     },
     {
         id: "sakura",
+        revealDate: "2026-03-12",
         name: "さくら",
         tagLabel: "飼育",
         tags: "飼育 キャスト",
@@ -239,19 +233,8 @@ window.membersData = [
     },
     // --- 野生区画 ---
     {
-        id: "uruhunojon",
-        name: "ウルフのジョン",
-        tagLabel: "野生",
-        tags: "野生 キャスト",
-        revealLevel: 0,
-        image: "assets/member/ウルフのジョン/profile.png",
-
-        section: "野生区画",
-        introduction: "野生区画のウルフのジョンです。ワイルドに盛り上げます。",
-        socials: []
-    },
-    {
         id: "kirara",
+        revealDate: "2026-03-13",
         name: "キララ",
         tagLabel: "野生",
         tags: "野生 キャスト",
@@ -259,8 +242,7 @@ window.membersData = [
         profileImages: [
             "assets/member/キララ/profile1.png",
             "assets/member/キララ/profile2.png",
-            "assets/member/キララ/profile3.png",
-            "assets/member/キララ/profile4.png",
+            "assets/member/キララ/profile3.png"
         ],
         goals: [
             "キラキラになること",
@@ -280,6 +262,7 @@ window.membersData = [
     },
     {
         id: "bino",
+        revealDate: "2026-03-14",
         name: "ビノ",
         pickupName: "ビノ",
         tagLabel: "野生",
@@ -288,8 +271,7 @@ window.membersData = [
         profileImages: [
             "assets/member/ビノ/profile1.png",
             "assets/member/ビノ/profile2.png",
-            "assets/member/ビノ/profile3.png",
-            "assets/member/ビノ/profile4.png"
+            "assets/member/ビノ/profile3.png"
         ],
 
         section: "野生区画",
@@ -315,6 +297,7 @@ window.membersData = [
     },
     {
         id: "azu",
+        revealDate: "2026-03-15",
         name: "あず",
         tagLabel: "野生",
         tags: "野生 キャスト",
@@ -322,7 +305,7 @@ window.membersData = [
         profileImages: [
             "assets/member/あず/profile1.png",
             "assets/member/あず/profile2.png",
-            "assets/member/あず/profile3.png",
+            "assets/member/あず/profile3.png"
         ],
         goals: [
             "居るかもしれない仲間たちを見つける",
@@ -344,6 +327,7 @@ window.membersData = [
     },
     {
         id: "teto",
+        revealDate: "2026-03-16",
         name: "てと",
         tagLabel: "野生",
         tags: "野生 キャスト",
@@ -375,21 +359,8 @@ window.membersData = [
 
     // --- 妖怪区画 ---
     {
-        id: "kanibasiri",
-        name: "蟹走 椛",
-        tagLabel: "妖怪",
-        tags: "妖怪 キャスト",
-        revealLevel: 0,
-        image: "assets/member/蟹走 椛/profile1.png",
-
-        section: "妖怪区画",
-        introduction: `横歩きで世を渡り歩く、あにあめもりあのはぐれ妖怪、蟹走椛（カニバシリ モミジ）だカニ。<br>
-        ハサミで切れない縁はない…なんて嘘嘘！<br>
-        仲良くしてくれないとチョッキンしちゃうぞ〜V`,
-        socials: [] // 架空のため空
-    },
-    {
         id: "kyosu",
+        revealDate: "2026-03-17",
         name: "きょすー！",
         tagLabel: "妖怪",
         tags: "妖怪 キャスト",
@@ -397,8 +368,7 @@ window.membersData = [
         profileImages: [
             "assets/member/きょすー！/profile1.png",
             "assets/member/きょすー！/profile2.png",
-            "assets/member/きょすー！/profile3.png",
-            "assets/member/きょすー！/profile4.png",
+            "assets/member/きょすー！/profile3.png"
         ],
         goals: [
             "人間と仲良くして、神社に遊びに来てもらう。",
@@ -418,6 +388,7 @@ window.membersData = [
     },
     {
         id: "eno",
+        revealDate: "2026-03-18",
         name: "えの / エノ",  // デフォルト表示名
         tagLabel: "妖怪",
         tags: "妖怪 飼育 キャスト",
@@ -434,7 +405,6 @@ window.membersData = [
                     "assets/member/えの/fox_profile1.png",
                     "assets/member/えの/fox_profile2.png",
                     "assets/member/えの/fox_profile3.png",
-                    "assets/member/えの/fox_profile4.png",
                 ],
                 motifAnimal: "狐",
                 motifIcon: "assets/motif/Efox.png",
@@ -447,9 +417,7 @@ window.membersData = [
                 profileImages: [
                     "assets/member/えの/cat_profile1.png",
                     "assets/member/えの/cat_profile2.png",
-                    "assets/member/えの/cat_profile3.png",
-                    "assets/member/えの/cat_profile4.png",
-                    "assets/member/えの/cat_profile5.png",
+                    "assets/member/えの/cat_profile3.png"
                 ],
                 motifAnimal: "猫",
                 motifIcon: "assets/motif/Wcat.png",
@@ -461,7 +429,6 @@ window.membersData = [
             "assets/member/えの/fox_profile1.png",
             "assets/member/えの/fox_profile2.png",
             "assets/member/えの/fox_profile3.png",
-            "assets/member/えの/fox_profile4.png",
         ],
         goals: [
             "人間の「好き」という感情を知ること",
@@ -487,6 +454,7 @@ window.membersData = [
     },
     {
         id: "aki",
+        revealDate: "2026-03-19",
         name: "あき",
         pickupName: "あき",
         tagLabel: "妖怪",
@@ -519,6 +487,7 @@ window.membersData = [
     },
     {
         id: "mugidango",
+        revealDate: "2026-03-20",
         name: "むぎだんご",
         tagLabel: "妖怪",
         tags: "妖怪 キャスト",
@@ -541,6 +510,7 @@ window.membersData = [
     // --- スタッフ ---
     {
         id: "hinekure",
+        revealDate: "2026-03-08",
         name: "hinekure",
         tagLabel: "スタッフ",
         tags: "スタッフ",
@@ -565,6 +535,7 @@ window.membersData = [
     },
     {
         id: "wikira",
+        revealDate: "2026-03-08",
         name: "Wikira",
         tagLabel: "スタッフ",
         tags: "スタッフ",

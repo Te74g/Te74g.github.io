@@ -260,8 +260,8 @@
     /* Stack label and slots */
     gap: 8px;
     border-top: 1px dashed var(--line-strong);
-    padding-top: 16px;
-    margin-top: 20px;
+    padding-top: 12px;
+    margin-top: 16px;
     width: 100%;
 }
 
@@ -439,10 +439,12 @@
    ========================================================================== */
 #fixed-page-background {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    top: -5%;
+    /* Prevent white edge at top */
+    left: -5%;
+    width: 110%;
+    /* Cover blurred edges */
+    height: 110vh;
     z-index: -10;
     /* Behind everything */
     background-size: 100% 100%;
@@ -450,8 +452,7 @@
     background-repeat: no-repeat;
     filter: blur(4px);
     /* Blur effect */
-    transform: scale(1.1);
-    /* Slight scale to prevent blurred edges */
+    /* Remove scale which can cause overflow, instead extend dimensions slightly */
 }
 
 /* ==========================================================================
@@ -495,7 +496,8 @@
     font-family: 'Zen Kaku Gothic New', sans-serif;
     font-weight: 900;
     line-height: 1;
-    padding-bottom: 2px; /* visual centering */
+    padding-bottom: 2px;
+    /* visual centering */
 }
 
 .profile-nav-btn:hover {
