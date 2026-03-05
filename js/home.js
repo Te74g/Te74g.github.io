@@ -79,12 +79,20 @@
             const fPath = window.getMemberFrame(member.tags);
             const frameHtml = fPath ? `<div style="position: absolute; inset: 0; background-image: url('${window.fixPath(fPath)}'); background-size: 100% 100%; pointer-events: none; z-index: 4;"></div>` : '';
 
+            const motifPath = member.motifIcon ? window.fixPath(member.motifIcon) : null;
+            const motifHtml = motifPath && (isToday || revealDt === null)
+                ? `<div style="position: absolute; bottom: 5px; right: 5px; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; z-index: 5; background: #fff;">
+                       <img src="${motifPath}" style="width: 100%; height: 100%; object-fit: cover;" alt="motif">
+                   </div>`
+                : '';
+
             return `
             <a class="cast-reveal-card ${isToday ? 'is-today' : 'is-tomorrow'} reveal" href="${href}">
                 <div class="cast-reveal-img-wrap"${bgStyle}>
                     <img class="img-base" src="${imgBase}" alt="${member.name}" loading="lazy" style="z-index: 1;">
                     <img class="img-hover" src="${imgHover}" alt="${member.name}" loading="lazy" style="z-index: 2;">
                     ${frameHtml}
+                    ${motifHtml}
                 </div>
                 <div class="cast-reveal-info">
                     <span class="cast-reveal-tag">${member.tagLabel}</span>
