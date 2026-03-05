@@ -41,9 +41,9 @@ class ProfileImageSwitcher {
             const member = window.membersData.find(m => m.id === id);
 
             if (member) {
-                // revealLevelをチェック
-                const revealLevel = window.getRevealLevel ? window.getRevealLevel(member) : 3;
+                // revealLevelをチェック（revealDateによる自動判定を含む）
                 const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(member) : null;
+                const revealLevel = displayInfo ? displayInfo.level : 3;
 
                 // forms を持つメンバーの場合、最初のフォームのデータを取得
                 let effectiveMember = member;
