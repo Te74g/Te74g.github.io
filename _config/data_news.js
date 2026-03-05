@@ -19,45 +19,6 @@
 window.newsData = [
     // ニュースが追加されたらここに { ... } ブロックを追加してください
 
-    // ===== 以下4件はダミーデータ（動作確認用）。確認後は削除してください =====
-    {
-        id: "dummy_news_04",
-        title: "おさかな天国",
-        date: "2026.02.28",
-        category: "レポート",
-        imagePath: "assets/motif/sakabanbasupisu.webp",
-        desc: "さかな さかな さかなー♪ 魚を食べるとー♪頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭",
-        content: `<p>おさかな天国の記事です。</p>`
-    },
-    {
-        id: "dummy_news_03",
-        title: "サファリパーク",
-        date: "2026.02.20",
-        category: "お知らせ",
-        imagePath: "assets/page/yasei.webp",
-        desc: "ほんとにほんとにほんとにほんとにライオンだー！",
-        content: `<p>サファリパークの記事です。</p>`
-    },
-    {
-        id: "dummy_news_02",
-        title: "じゃパリパーク",
-        date: "2026.02.15",
-        category: "お知らせ",
-        imagePath: "assets/partner_events/kitsunekotan/poster.webp",
-        desc: "すっごーい！君はunityが得意なフレンズなんだね！",
-        content: `<p>ようこそじゃパリパークへ！</p>`
-    },
-    {
-        id: "dummy_news_01",
-        title: "ねこふんじゃった",
-        date: "2026.02.10",
-        category: "お知らせ",
-        imagePath: "assets/motif/Bcat.webp",
-        desc: "ねこふんじゃった ねこふんじゃった ねこふんづけちゃったら ひっかいた",
-        content: `<p>ねこふんじゃったの記事です。</p>`
-    },
-    // ===== ダミーデータここまで =====
-
     {
         id: "firstnews_20260209",
         hidden: false,
