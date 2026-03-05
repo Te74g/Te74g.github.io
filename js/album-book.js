@@ -56,9 +56,6 @@
                     <!-- Left page (static) -->
                     <div class="album-page album-page-left" id="book-page-left"></div>
 
-                    <!-- Spine -->
-                    <div class="album-spine"></div>
-
                     <!-- Right side: background page + 3D flipper overlaid -->
                     <div class="album-right-wrap">
                         <div class="album-page album-page-right" id="book-page-right"></div>
