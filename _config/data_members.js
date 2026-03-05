@@ -85,9 +85,7 @@ window.membersData = [
         貂という動物の知名度が低いことを気にしている。`,
         socials: [
             { type: "youtube", url: "https://www.youtube.com/@tanakamaikeru" },
-            { type: "twitter", url: "https://x.com/tetenpuipui" },
-            { type: "booth", url: "https://polygonlatency.booth.pm/" },
-            { type: "note", url: "https://note.com/anyten" }
+            { type: "twitter", url: "https://x.com/tetenpuipui" }
         ],
         related: ["momo", "ray"],
     },

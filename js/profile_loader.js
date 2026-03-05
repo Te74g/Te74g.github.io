@@ -211,13 +211,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // モチーフ動物を更新
         const motifContainer = document.getElementById('dynamic-motif-container');
-        if (motifContainer && mergedMember.motifAnimal) {
+        if (motifContainer && mergedMember.motifAnimal && mergedMember.motifIcon) {
             let showMotif = revealLevel >= 3 || (displayInfo && displayInfo.showMotif);
+            let iconPath = showMotif ? window.fixPath(mergedMember.motifIcon) : window.fixPath("assets/member/silhouette.webp");
             let animalText = showMotif ? mergedMember.motifAnimal : "???";
 
             motifContainer.innerHTML = `
                 <div class="motif-container">
-                    <span class="motif-chip">種族 ：${animalText}</span>
+                    <div class="motif-icon-box">
+                        <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="motif-text-box">
+                        <span>種族ː${animalText}</span>
+                    </div>
                 </div>
             `;
             motifContainer.style.display = 'block';

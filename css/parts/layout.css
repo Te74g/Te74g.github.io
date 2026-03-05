@@ -73,7 +73,21 @@ body.is-preloading {
 
 /* ===== Section ===== */
 .section {
-    padding: 42px 0 24px 0;
+    padding: 24px 0 24px 0;
+}
+
+/* motif-container: above shadows (z-index 2 is frame, 3 is sign) */
+#dynamic-motif-container {
+    position: relative;
+    z-index: 3;
+}
+
+@media (min-width: 921px) {
+
+    /* On PC, tighter top padding to avoid needless scroll */
+    .section {
+        padding-top: 12px;
+    }
 }
 
 .section--alt {
@@ -120,6 +134,20 @@ body.is-preloading {
     gap: 16px;
     text-transform: uppercase;
     opacity: 0.8;
+}
+
+.related-label {
+    writing-mode: horizontal-tb;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    border-right: none;
+    padding-right: 0;
+    height: auto;
+    display: block;
+    text-align: center;
+    margin-bottom: 4px;
 }
 
 /* Grid */
