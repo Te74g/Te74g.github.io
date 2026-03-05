@@ -11,6 +11,109 @@
     }
 
     /* -------------------------------------------------------
+       0. 本日・翌日公開キャストバナー
+       ------------------------------------------------------- */
+    const revealBanner = document.getElementById('cast-reveal-banner');
+    const revealSection = document.getElementById('cast-reveal-section');
+
+    if (revealBanner && revealSection && window.membersData) {
+        const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
+        const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
+        const REVEAL_HOUR_JST = 18;
+
+        const todayTargets = [];
+        const tomorrowTargets = [];
+
+        window.membersData.forEach(m => {
+            if (!allowedRoles.includes(m.tagLabel)) return;
+            if (!m.revealDate) return;
+
+            const revealDt = new Date(m.revealDate + `T${String(REVEAL_HOUR_JST).padStart(2, '0')}:00:00+09:00`);
+            const now = new Date();
+            const diffMs = revealDt - now;
+            const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+            if (isDebugMode) {
+                // デバッグ: revealDate がある全員を today 扱いで表示
+                todayTargets.push(m);
+            } else {
+                if (diffDays <= 0) {
+                    // 今日公開済み（当日18時以降）
+                    const midnight = new Date();
+                    midnight.setHours(0, 0, 0, 0);
+                    if (revealDt >= midnight) todayTargets.push(m);
+                } else if (diffDays === 1) {
+                    tomorrowTargets.push(m);
+                }
+            }
+        });
+
+        const buildCard = (member, isToday) => {
+            const images = member.profileImages || [];
+            const silPath = window.fixPath('assets/member/silhouette.webp');
+            let imgBase, imgHover;
+
+            if (isToday) {
+                imgBase = images[0] ? window.fixPath(images[0]) : silPath;
+                imgHover = images[1] ? window.fixPath(images[1]) : imgBase;
+            } else {
+                // 明日: シルエット固定
+                const sil = images[0]
+                    ? window.fixPath(images[0]).replace('.webp', '_silhouette.webp')
+                    : silPath;
+                imgBase = sil;
+                imgHover = sil;
+            }
+
+            const href = window.fixPath(`member/profile.html?id=${member.id}`);
+            const revealDt = member.revealDate
+                ? new Date(member.revealDate + `T${String(REVEAL_HOUR_JST).padStart(2, '0')}:00:00+09:00`)
+                : null;
+            const dateLabel = !isToday && revealDt
+                ? `明日 ${revealDt.getMonth() + 1}月${revealDt.getDate()}日 ${REVEAL_HOUR_JST}:00 公開予定`
+                : `本日 ${new Date().getMonth() + 1}月${new Date().getDate()}日 公開`;
+
+            return `
+            <a class="cast-reveal-card ${isToday ? 'is-today' : 'is-tomorrow'} reveal" href="${href}">
+                <div class="cast-reveal-img-wrap">
+                    <img class="img-base" src="${imgBase}" alt="${member.name}" loading="lazy">
+                    <img class="img-hover" src="${imgHover}" alt="${member.name}" loading="lazy">
+                </div>
+                <div class="cast-reveal-info">
+                    <span class="cast-reveal-tag">${member.tagLabel}</span>
+                    <span class="cast-reveal-name">${isToday ? member.name : '？？？'}</span>
+                    <span class="cast-reveal-date">${dateLabel}</span>
+                </div>
+            </a>`;
+        };
+
+        let html = '';
+
+        if (todayTargets.length > 0) {
+            html += `<div class="cast-reveal-group">
+                <div class="cast-reveal-group-label">✦ 本日公開</div>
+                <div class="cast-reveal-cards">
+                    ${todayTargets.map(m => buildCard(m, true)).join('')}
+                </div>
+            </div>`;
+        }
+
+        if (tomorrowTargets.length > 0) {
+            html += `<div class="cast-reveal-group">
+                <div class="cast-reveal-group-label">◈ 明日公開</div>
+                <div class="cast-reveal-cards">
+                    ${tomorrowTargets.map(m => buildCard(m, false)).join('')}
+                </div>
+            </div>`;
+        }
+
+        if (html) {
+            revealBanner.innerHTML = html;
+            revealSection.style.display = '';
+        }
+    }
+
+    /* -------------------------------------------------------
        1. ランダムピックアップ (index.html)
        ------------------------------------------------------- */
     const pickupContainer = document.getElementById("random-pickup-grid");

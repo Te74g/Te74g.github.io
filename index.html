@@ -83,9 +83,16 @@
     </section>
 
     <!-- Divider (News <-> Pickup): Balanced to be higher (closer to News, further from Pickup) -->
-    <div class="cafe-separator" style="margin-top: 20px; margin-bottom: 60px;">
+    <div class="cafe-separator" style="margin-top: 20px; margin-bottom: 30px;">
       <span class="cafe-separator-icon"></span>
     </div>
+
+    <!-- Today / Tomorrow Cast Banner -->
+    <section id="cast-reveal-section" class="section u-pb-xs" style="display:none;">
+      <div class="container" style="max-width: 860px;">
+        <div id="cast-reveal-banner"></div>
+      </div>
+    </section>
 
     <!-- Random Pickup Section -->
     <section class="section u-pt-xs random-pickup-section">
@@ -214,6 +221,189 @@
       z-index: 10;
       /* Ensure it sits on top if overlapping occurs */
     }
+
+    /* =====================================================
+       Cast Reveal Banner
+       ===================================================== */
+    .cast-reveal-group {
+      margin-bottom: 20px;
+    }
+
+    .cast-reveal-group-label {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cast-reveal-group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--line-strong), transparent);
+    }
+
+    .cast-reveal-cards {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Each card */
+    .cast-reveal-card {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1;
+      min-width: 260px;
+      max-width: 420px;
+      height: 110px;
+      background: linear-gradient(135deg, #2a2118 0%, #1a1311 100%);
+      border: 1px solid rgba(207, 170, 107, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .cast-reveal-card:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(207, 170, 107, 0.5);
+      border-color: rgba(207, 170, 107, 0.6);
+    }
+
+    /* Gloss shine sweep on hover */
+    .cast-reveal-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.07) 50%, transparent 65%);
+      background-size: 200% 100%;
+      background-position: 200% 0;
+      transition: background-position 0.5s ease;
+      pointer-events: none;
+      z-index: 5;
+      border-radius: 12px;
+    }
+
+    .cast-reveal-card:hover::before {
+      background-position: -50% 0;
+    }
+
+    /* Left: character image panel */
+    .cast-reveal-img-wrap {
+      position: relative;
+      width: 88px;
+      min-width: 88px;
+      height: 110px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #111;
+    }
+
+    .cast-reveal-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: opacity 0.3s ease;
+    }
+
+    .cast-reveal-img-wrap .img-hover {
+      opacity: 0;
+    }
+
+    .cast-reveal-card:hover .img-hover {
+      opacity: 1;
+    }
+
+    .cast-reveal-card:hover .img-base {
+      opacity: 0;
+    }
+
+    /* Right: text info */
+    .cast-reveal-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px 16px;
+      gap: 4px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cast-reveal-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent-gold, #cfaa6b);
+      text-transform: uppercase;
+    }
+
+    .cast-reveal-name {
+      font-family: 'Zen Old Mincho', serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+
+    .cast-reveal-date {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+
+    /* Tomorrow variant: muted/silhouette style */
+    .cast-reveal-card.is-tomorrow {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: linear-gradient(135deg, #1e1e22 0%, #141418 100%);
+    }
+
+    .cast-reveal-card.is-tomorrow:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .cast-reveal-card.is-tomorrow .cast-reveal-tag {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cast-reveal-card.is-tomorrow .cast-reveal-name {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .cast-reveal-card.is-tomorrow .cast-reveal-date {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Gold accent bar on left edge (today only) */
+    .cast-reveal-card.is-today::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #cfaa6b, #8a6a30);
+      border-radius: 12px 0 0 12px;
+      z-index: 6;
+    }
+
 
     /* Reduced margin for tighter layout */
     .section-head {
