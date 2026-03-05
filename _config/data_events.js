@@ -10,9 +10,9 @@
  * name:     イベント名
  * date:     開催日（例: "2026.02.15"）
  * organizer: 主催者名
- * organizerLogo: 主催者のアイコン画像（例: "assets/logo.png"）
+ * organizerLogo: 主催者のアイコン画像（例: "assets/logo.webp"）
  * headerTextColor: 主催者情報の文字色を強制指定（例: "white"）。背景画像で見づらい場合に使用。
- * image:    バナー画像の場所（例: "./assets/news/event_banner.png"）
+ * image:    バナー画像の場所（例: "./assets/news/event_banner.webp"）
  * poster:   イベント詳細ページ用のポスター画像。PCでは左側、スマホでは上部に大きく表示されます。
  * titleImage:      イベントタイトルのロゴ画像（テキストの代わりに表示）。max-width:300px。
  * titleImageDark:  ダークモード時に表示するタイトルロゴ画像（オプション）。
@@ -28,21 +28,21 @@ window.partnerEventsData = [
         name: "休憩処 キツネコタン",
         date: "第1・3・5 木曜日<br>第2・4水曜日<br>22:00～23:00<br>※詳しくはXをご確認してください。",
         organizer: "あきあき",
-        organizerLogo: "assets/partner_events/organizers/akiaki.png", // Moved to organizers folder
+        organizerLogo: "assets/partner_events/organizers/akiaki.webp", // Moved to organizers folder
         headerTextColor: "white", // Option to force white text
-        titleImage: "assets/partner_events/kitsunekotan/title_logo.png",
-        image: "assets/partner_events/kitsunekotan/logo.png",
+        titleImage: "assets/partner_events/kitsunekotan/title_logo.webp",
+        image: "assets/partner_events/kitsunekotan/logo.webp",
         link: "partner_events/event.html?id=kitsunekotan",
         desc: "休憩処 キツネコタンの提携ページです。",
-        poster: "assets/partner_events/kitsunekotan/poster.png", // Moved to subfolder
-        backgroundImage: "assets/partner_events/kitsunekotan/bg_floor.png", // Moved to subfolder
+        poster: "assets/partner_events/kitsunekotan/poster.webp", // Moved to subfolder
+        backgroundImage: "assets/partner_events/kitsunekotan/bg_floor.webp", // Moved to subfolder
         images: [
-            "assets/partner_events/kitsunekotan/group_00.png",
-            "assets/partner_events/kitsunekotan/group_01.png",
-            "assets/partner_events/kitsunekotan/group_02.png",
-            "assets/partner_events/kitsunekotan/group_03.png",
-            "assets/partner_events/kitsunekotan/group_04.png",
-            "assets/partner_events/kitsunekotan/group_05.png"
+            "assets/partner_events/kitsunekotan/group_00.webp",
+            "assets/partner_events/kitsunekotan/group_01.webp",
+            "assets/partner_events/kitsunekotan/group_02.webp",
+            "assets/partner_events/kitsunekotan/group_03.webp",
+            "assets/partner_events/kitsunekotan/group_04.webp",
+            "assets/partner_events/kitsunekotan/group_05.webp"
         ],
 
         description: `
@@ -72,7 +72,7 @@ window.partnerEventsData = [
             <ul>
                 <li>
                     主催者：
-                    <img src="../assets/partner_events/organizers/akiaki.png" alt="あきあき" style="width: 28px; height: 28px; border-radius: 50%; vertical-align: middle; margin-right: 4px; object-fit: cover; border: 1px solid #ddd;">
+                    <img src="../assets/partner_events/organizers/akiaki.webp" alt="あきあき" style="width: 28px; height: 28px; border-radius: 50%; vertical-align: middle; margin-right: 4px; object-fit: cover; border: 1px solid #ddd;">
                     あきあき
                 </li>
                 <li>日時：第1・3・5 木曜日、第2・4水曜日 22:00～23:00<br>※詳しくはXをご確認してください。</li>

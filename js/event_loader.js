@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             loaderLogoSrc = normalizePath(eventItem.titleImage);
         } else {
             // Fallback default logo (simplified check)
-            loaderLogoSrc = '../assets/logo/aniamemoria_logo.png';
+            loaderLogoSrc = '../assets/logo/aniamemoria_logo.webp';
         }
 
         // Wait for logo (if possible, though inline script might have set it already)
@@ -223,7 +223,7 @@ function renderEventContent(eventItem, normalizePath) {
         if (eventItem.organizer) {
             const organizerContainer = document.createElement('div');
             organizerContainer.className = 'organizer-info';
-            let orgLogoPath = eventItem.organizerLogo ? normalizePath(eventItem.organizerLogo) : '../assets/logo_placeholder.png';
+            let orgLogoPath = eventItem.organizerLogo ? normalizePath(eventItem.organizerLogo) : '../assets/logo_placeholder.webp';
 
             if (eventItem.organizerLogo) {
                 organizerContainer.innerHTML = `<img src="${orgLogoPath}" alt="${eventItem.organizer}"><span>Organized by ${eventItem.organizer}</span>`;

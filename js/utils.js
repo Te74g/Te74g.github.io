@@ -8,8 +8,8 @@
      * fixPath
      * Adjusts relative paths based on the current page's location.
      * Also resolves to WebP if manifest is loaded and available.
-     * @param {string} path - The path to fix (e.g., "./assets/img.png")
-     * @returns {string} - The fixed path (e.g., "../assets/img.png" or "../../assets/img.png")
+     * @param {string} path - The path to fix (e.g., "./assets/img.webp")
+     * @returns {string} - The fixed path (e.g., "../assets/img.webp" or "../../assets/img.webp")
      */
     /**
      * アイテムの表示可否を判定するヘルパー関数
@@ -124,7 +124,7 @@
                 let silImage = member.silhouetteImage || null;
                 if (!silImage && info.imagePath && info.imagePath[0]) {
                     // Generate silhouette path dynamically from the first image
-                    silImage = info.imagePath[0].replace('.png', '_silhouette.png');
+                    silImage = info.imagePath[0].replace('.webp', '_silhouette.webp');
                 }
                 info.imagePath = silImage ? [silImage] : (config.placeholderImage ? [config.placeholderImage] : info.imagePath);
                 info.linkable = true; // 一部情報のプロフィールページへはアクセス可能
@@ -160,7 +160,7 @@
         let cleanPath = path;
 
         // Normalize: Strip existing traversal to re-calculate based on current depth
-        // We assume inputs from data files are root-relative (e.g. "assets/img.png" or "./assets/img.png")
+        // We assume inputs from data files are root-relative (e.g. "assets/img.webp" or "./assets/img.webp")
         while (cleanPath.startsWith("../")) cleanPath = cleanPath.substring(3);
         while (cleanPath.startsWith("./")) cleanPath = cleanPath.substring(2);
 
@@ -263,7 +263,7 @@
             if (rawSrc.match(/^(http|\/\/|data:)/)) return;
 
             // Resolve to key format "assets/..."
-            // Usually rawSrc is like "./assets/img.png" or "assets/img.png"
+            // Usually rawSrc is like "./assets/img.webp" or "assets/img.webp"
             let key = rawSrc;
 
             // Handle different path styles
@@ -287,7 +287,7 @@
                 // Here we want to replace the src with the correct relative WebP path.
 
                 // If we use fixPath(webpPath), it should work if we trust fixPath's logic
-                // webpPath is "assets_webp/..."
+                // webpPath is "assets/..."
 
                 const newSrc = window.fixPath(webpPath);
 
@@ -330,11 +330,11 @@
         if (!tags) return null;
 
         const BG_MAP = {
-            'A': 'assets_webp/member_parts/aniamemoria_member_background_A.webp',
-            'B': 'assets_webp/member_parts/aniamemoria_member_background_B.webp',
-            'C': 'assets_webp/member_parts/aniamemoria_member_background_C.webp',
-            'D': 'assets_webp/member_parts/aniamemoria_member_background_D.webp',
-            'E': 'assets_webp/member_parts/aniamemoria_member_background_E.webp'
+            'A': 'assets/member_parts/aniamemoria_member_background_A.webp',
+            'B': 'assets/member_parts/aniamemoria_member_background_B.webp',
+            'C': 'assets/member_parts/aniamemoria_member_background_C.webp',
+            'D': 'assets/member_parts/aniamemoria_member_background_D.webp',
+            'E': 'assets/member_parts/aniamemoria_member_background_E.webp'
         };
 
         if (tags.includes("運営")) return BG_MAP['E'];
@@ -356,11 +356,11 @@
         if (!tags) return null;
 
         const FRAME_MAP = {
-            'A': 'assets_webp/member_parts/aniamemoria_member_frame_A.webp',
-            'B': 'assets_webp/member_parts/aniamemoria_member_frame_B.webp',
-            'C': 'assets_webp/member_parts/aniamemoria_member_frame_C.webp',
-            'D': 'assets_webp/member_parts/aniamemoria_member_frame_D.webp',
-            'E': 'assets_webp/member_parts/aniamemoria_member_frame_E.webp'
+            'A': 'assets/member_parts/aniamemoria_member_frame_A.webp',
+            'B': 'assets/member_parts/aniamemoria_member_frame_B.webp',
+            'C': 'assets/member_parts/aniamemoria_member_frame_C.webp',
+            'D': 'assets/member_parts/aniamemoria_member_frame_D.webp',
+            'E': 'assets/member_parts/aniamemoria_member_frame_E.webp'
         };
 
         if (tags.includes("運営")) return FRAME_MAP['E'];
@@ -399,11 +399,11 @@
         if (!tags) return null;
 
         const BG_MAP = {
-            'A': 'assets_webp/page/shiiku_low_res.webp', // Keeper
-            'B': 'assets_webp/page/yo-kai_low_res.webp', // Yokai
-            'C': 'assets_webp/page/yasei_low_res.webp', // Wild
-            'D': 'assets_webp/page/staff_low_res.webp', // Staff
-            'E': 'assets_webp/page/unei_low_res.webp'   // Operation
+            'A': 'assets/page/shiiku_low_res.webp', // Keeper
+            'B': 'assets/page/yo-kai_low_res.webp', // Yokai
+            'C': 'assets/page/yasei_low_res.webp', // Wild
+            'D': 'assets/page/staff_low_res.webp', // Staff
+            'E': 'assets/page/unei_low_res.webp'   // Operation
         };
 
         if (tags.includes("運営")) return BG_MAP['E'];

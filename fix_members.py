@@ -14,7 +14,7 @@ with open(path, 'r', encoding='utf-8') as f:
 def trim_profile_images(match):
     block = match.group(0)
     # Extract individual image paths
-    images = re.findall(r'"(assets/member/[^"]+\.png)"', block)
+    images = re.findall(r'"(assets/member/[^"]+\.webp)"', block)
     # Filter to only those that exist on disk
     existing = [img for img in images if os.path.exists(os.path.join(root, img))]
     # Keep max 3

@@ -10,11 +10,11 @@ for char_folder in os.listdir(member_dir):
         continue
         
     # Get all original image files (not silhouettes)
-    files = [f for f in os.listdir(char_path) if f.endswith('.png') and '_silhouette' not in f]
+    files = [f for f in os.listdir(char_path) if f.endswith('.webp') and '_silhouette' not in f]
     
     if len(files) > 3:
         print(f"[{char_folder}] has {len(files)} images. Cleaning up...")
-        # Sort files so profile.png < profile1.png < profile2.png etc.
+        # Sort files so profile.webp < profile1.webp < profile2.webp etc.
         files.sort()
         
         # Keep the first 3, delete the rest
@@ -26,7 +26,7 @@ for char_folder in os.listdir(member_dir):
         
         for f in delete_files:
             orig_path = os.path.join(char_path, f)
-            sil_name = f.replace('.png', '_silhouette.png')
+            sil_name = f.replace('.webp', '_silhouette.webp')
             sil_path = os.path.join(char_path, sil_name)
             
             # Delete original

@@ -54,9 +54,9 @@ member_dir = r"c:\Users\user\Desktop\unti\Te74g.github.io\assets\member"
 count = 0
 for root, dirs, files in os.walk(member_dir):
     for file in files:
-        if file.endswith('.png') and 'silhouette' not in file:
+        if file.endswith('.webp') and 'silhouette' not in file:
             input_path = os.path.join(root, file)
-            output_name = file.replace('.png', '_silhouette.png')
+            output_name = file.replace('.webp', '_silhouette.webp')
             output_path = os.path.join(root, output_name)
             create_gradient_silhouette(input_path, output_path)
             count += 1

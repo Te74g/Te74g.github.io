@@ -4,7 +4,7 @@ from PIL import Image
 folder = r"c:\Users\user\Desktop\unti\Te74g.github.io\assets\member\てと"
 max_size = 800
 
-for filename in ["profile1.png", "profile2.png", "profile3.png"]:
+for filename in ["profile1.webp", "profile2.webp", "profile3.webp"]:
     filepath = os.path.join(folder, filename)
     if os.path.exists(filepath):
         print(f"Resizing {filename}...")

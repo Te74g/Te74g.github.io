@@ -259,10 +259,10 @@ window.siteConfig = {
 
     // ヒーローセクションの画像設定（ここで画像パスを変更できます）
     heroImages: {
-        character: "./assets_webp/opening/Tatie3.webp", // 立ち絵
-        logo: "./assets_webp/logo/aniamemoria_logo.webp", // ロゴ（ライトモード）
-        logoDark: "./assets_webp/opening/aniamemoria_logo_darktheme_shadow.webp", // ロゴ（ダークモード）
-        background: "./assets_webp/page/unei_low_res.webp" // 背景画像
+        character: "./assets/opening/Tatie3.webp", // 立ち絵
+        logo: "./assets/logo/aniamemoria_logo.webp", // ロゴ（ライトモード）
+        logoDark: "./assets/opening/aniamemoria_logo_darktheme_shadow.webp", // ロゴ（ダークモード）
+        background: "./assets/page/unei_low_res.webp" // 背景画像
     },
 
     // Aboutセクションの設定
@@ -274,20 +274,20 @@ window.siteConfig = {
             "当イベントは、接客を通じて人間界の情報を集めるイベントです。",
             "個性豊かなキャストたちが、あなたのご来店を心待ちしております。"
         ],
-        image: "./assets_webp/opening/Tatie3.webp" // Aboutセクションの画像
+        image: "./assets/opening/Tatie3.webp" // Aboutセクションの画像
     },
 
     // ローダーのロゴ設定
     loaderLogos: {
         // オープニングページ用ローダー
         opening: {
-            light: "./assets_webp/logo/aniamemoria_logo.webp",
-            dark: "./assets_webp/logo/aniamemoria_logo_darktheme.webp"
+            light: "./assets/logo/aniamemoria_logo.webp",
+            dark: "./assets/logo/aniamemoria_logo_darktheme.webp"
         },
         // サブページ用ローダー
         subpage: {
-            light: "./assets_webp/logo/aniamemoria_logo.webp",
-            dark: "./assets_webp/logo/aniamemoria_logo_darktheme.webp"
+            light: "./assets/logo/aniamemoria_logo.webp",
+            dark: "./assets/logo/aniamemoria_logo_darktheme.webp"
         }
     },
 
@@ -314,13 +314,13 @@ window.siteConfig = {
 
         // === revealLevel 用画像設定 ===
         // revealLevel: 1（Coming Soon）のときの共通画像
-        comingSoonImage: "assets/member/silhouette.png",
+        comingSoonImage: "assets/member/silhouette.webp",
 
         // revealLevel: 1 のときの表示名
         comingSoonName: "???",
 
         // 準備中メンバーに表示するシルエット画像（revealLevel: 2 用のフォールバック）
-        placeholderImage: "assets/member/silhouette.png",
+        placeholderImage: "assets/member/silhouette.webp",
 
         // 準備中テキスト
         preparingText: "準備中"

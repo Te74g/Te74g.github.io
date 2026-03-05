@@ -23,8 +23,8 @@
     // Helper: Use rootPath for assets, navRootPath for links
 
     // Construct paths
-    const logoDark = resolvePath(rootPath + 'assets_webp/logo/aniamemoria_logo_darktheme.webp');
-    const logoLight = resolvePath(rootPath + 'assets_webp/logo/aniamemoria_logo.webp');
+    const logoDark = resolvePath(rootPath + 'assets/logo/aniamemoria_logo_darktheme.webp');
+    const logoLight = resolvePath(rootPath + 'assets/logo/aniamemoria_logo.webp');
 
     // ... 
 
@@ -56,7 +56,7 @@
           </svg>
         </a>
         <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
-          <img src="${rootPath}assets_webp/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
+          <img src="${rootPath}assets/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
         </a>
       </div>
 
@@ -115,7 +115,7 @@
               </svg>
             </a>
             <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener" class="social-link" aria-label="VRChat">
-              <img src="${rootPath}assets_webp/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
+              <img src="${rootPath}assets/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
             </a>
           </div>
         </div>

@@ -32,7 +32,7 @@ async function processDirectory(currentDir) {
  * 個別の画像を変換し、出力先ディレクトリを自動生成する
  */
 async function convertImage(filePath) {
-    // assets/ からの相対パスを取得 (例: characters/miku.png)
+    // assets/ からの相対パスを取得 (例: characters/miku.webp)
     const relativePath = path.relative(inputRoot, filePath);
     const parsed = path.parse(relativePath);
     const filename = parsed.name;
@@ -59,7 +59,7 @@ async function convertImage(filePath) {
             // マニフェストへの登録処理（スキップ時も必須）
             const normalize = (p) => p.split(path.sep).join('/');
             const originalKey = `assets/${normalize(relativePath)}`;
-            const webpValue = `assets_webp/${normalize(path.join(subDir, outputFilename))}`;
+            const webpValue = `assets/${normalize(path.join(subDir, outputFilename))}`;
             imageManifest[originalKey] = webpValue;
             return;
         }
@@ -71,17 +71,17 @@ async function convertImage(filePath) {
             .webp({ quality: 75 })
             .toFile(outputPath);
 
-        console.log(`Converted: ${relativePath} -> assets_webp/${subDir ? subDir + '/' : ''}${outputFilename}`);
+        console.log(`Converted: ${relativePath} -> assets/${subDir ? subDir + '/' : ''}${outputFilename}`);
 
         // マニフェストへの登録
-        // キー: assets/path/to/image.png (Web上のパス形式に合わせるため / 区切りに統一)
-        // 値: assets_webp/path/to/image.webp
+        // キー: assets/path/to/image.webp (Web上のパス形式に合わせるため / 区切りに統一)
+        // 値: assets/path/to/image.webp
 
         // Windows環境(バックスラッシュ)対応
         const normalize = (p) => p.split(path.sep).join('/');
 
         const originalKey = `assets/${normalize(relativePath)}`;
-        const webpValue = `assets_webp/${normalize(path.join(subDir, outputFilename))}`;
+        const webpValue = `assets/${normalize(path.join(subDir, outputFilename))}`;
 
         imageManifest[originalKey] = webpValue;
 

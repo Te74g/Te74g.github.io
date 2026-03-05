@@ -49,9 +49,9 @@ def create_gradient_silhouette(input_path, output_path):
         print(f"Error processing {input_path}: {e}")
 
 folder = r"c:\Users\user\Desktop\unti\Te74g.github.io\assets\member\てと"
-for filename in ["profile1.png", "profile2.png", "profile3.png"]:
+for filename in ["profile1.webp", "profile2.webp", "profile3.webp"]:
     in_path = os.path.join(folder, filename)
-    out_path = os.path.join(folder, filename.replace('.png', '_silhouette.png'))
+    out_path = os.path.join(folder, filename.replace('.webp', '_silhouette.webp'))
     if os.path.exists(in_path):
         print(f"Generating silhouette for {filename}...")
         create_gradient_silhouette(in_path, out_path)

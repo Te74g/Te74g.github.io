@@ -23,7 +23,7 @@
  *           （先にある方が背景・フレーム・ピン色に採用される）
  *           絞り込みフィルターの区画別表示は section フィールドで決まる（tags ではない）。
  *           拡張性・Twitter 告知用としても自由に追加可。
- * image:    画像の場所（例: "./assets/member/てん/profile.png"）。
+ * image:    画像の場所（例: "./assets/member/てん/profile.webp"）。
  * link:     プロフィールページの場所（例: "./member/profile.html?id=ten"）。
  * section:  所属する区画（セクション）。以下のいずれかを指定してください。
  *           "運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"
@@ -63,10 +63,10 @@ window.membersData = [
         pickupName: "てん",
         tagLabel: "店長",
         tags: "店長 運営 妖怪 キャスト",
-        image: "assets/member/てん/profile.png",
+        image: "assets/member/てん/profile.webp",
         profileImages: [
-            "assets/member/てん/profile1.png",
-            "assets/member/てん/profile2.png"
+            "assets/member/てん/profile1.webp",
+            "assets/member/てん/profile2.webp"
         ],
 
         section: "運営部",
@@ -76,8 +76,8 @@ window.membersData = [
             "あにあめもりあの成功",
         ],
         motifAnimal: "貂",
-        motifIcon: "assets/motif/ten.png",
-        sign: "assets/member/てん/ten_sign.png",
+        motifIcon: "assets/motif/ten.webp",
+        sign: "assets/member/てん/ten_sign.webp",
         introduction: `あにあめもりあの店長。<br>
         元々野生の<ruby>貂<rt>てん</rt></ruby>だったが、<br>十三年前、二歳の頃ワルナスビを大量に喫食し、死亡。<br>
         死してなお、知識欲で現世にしがみつき、妖怪となった。<br>
@@ -99,17 +99,17 @@ window.membersData = [
         pickupName: "もも",
         tagLabel: "副店長",
         tags: "運営 飼育 キャスト",
-        image: "assets/member/もも/profile2.png",
+        image: "assets/member/もも/profile2.webp",
         profileImages: [
-            "assets/member/もも/profile1.png",
-            "assets/member/もも/profile2.png"
+            "assets/member/もも/profile1.webp",
+            "assets/member/もも/profile2.webp"
         ],
         section: "運営部",
         goals: [
             "デカい猫の作った本やスタンプを広めて、外で暮らす仲間たちのご飯を豪華にすること",
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/motif/Monochromecat.png",
+        motifIcon: "assets/motif/Monochromecat.webp",
         introduction: `あにあめもりあの副店長。<br>
         元々は厳しい外の世界を生き抜いてきた野良猫だったが、現在は温かな家で暮らす飼い猫。<br>
         同居している人間の男性を「餌をくれるデカい猫」だと本気で信じている。<br><br>
@@ -132,14 +132,14 @@ window.membersData = [
         tags: "飼育 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/麗/profile1.png",
-            "assets/member/麗/profile2.png"
+            "assets/member/麗/profile1.webp",
+            "assets/member/麗/profile2.webp"
         ],
         goals: [
             "家族が一番喜ぶ恩返しをすること",
         ],
         motifAnimal: "柴犬",
-        motifIcon: "assets/motif/shibainu.png",
+        motifIcon: "assets/motif/shibainu.webp",
         section: "飼育区画",
         introduction: `18年間おだやかな人間の家族のもとで大切にされ生きている柴犬。<br><br>
         老犬となりのんびり過ごしていたところ、面白いことを始めてみない？と人間のママから提案され店長のもとへ行くこととなった。<br><br>
@@ -156,16 +156,16 @@ window.membersData = [
         tags: "飼育 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/フィリア/profile1.png",
-            "assets/member/フィリア/profile2.png",
-            "assets/member/フィリア/profile3.png"
+            "assets/member/フィリア/profile1.webp",
+            "assets/member/フィリア/profile2.webp",
+            "assets/member/フィリア/profile3.webp"
         ],
         goals: [
             "恩人に恩を返すこと",
             "ごはんをいっぱい食べること",
         ],
         motifAnimal: "カーバンクル",
-        motifIcon: "assets/motif/carabanku.png",
+        motifIcon: "assets/motif/carabanku.webp",
         section: "飼育区画",
         introduction: `とある国のマモノ村に棲息していたカーバンクル。<br>
         昔、自分を命の危機から救ってくれた魔力を持った人間に恩を返すべく、村を飛び出し旅へ。<br>
@@ -183,9 +183,9 @@ window.membersData = [
         tags: "飼育 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/凪/profile1.png",
-            "assets/member/凪/profile2.png",
-            "assets/member/凪/profile3.png"
+            "assets/member/凪/profile1.webp",
+            "assets/member/凪/profile2.webp",
+            "assets/member/凪/profile3.webp"
         ],
         goals: [
             "ハンドラーと一緒に寝る",
@@ -193,7 +193,7 @@ window.membersData = [
             "ご飯をいっぱい食べる",
         ],
         motifAnimal: "犬（ジャーマンシェパード）",
-        motifIcon: "assets/motif/german_shepherd.png",
+        motifIcon: "assets/motif/german_shepherd.webp",
         section: "飼育区画",
         introduction: `ある組織に所属し軍用犬や救助犬として活躍しているジャーマンシェパード。<br>
         ハンドラーと呼ばれるパートナーとともに厳しい訓練を乗り越え、多くの功績を残した。<br><br>
@@ -212,16 +212,16 @@ window.membersData = [
         tags: "飼育 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/さくら/profile1.png",
-            "assets/member/さくら/profile2.png",
-            "assets/member/さくら/profile3.png"
+            "assets/member/さくら/profile1.webp",
+            "assets/member/さくら/profile2.webp",
+            "assets/member/さくら/profile3.webp"
         ],
         goals: [
             "家族の役に立つこと！",
             "人間の本当の気持ちを知りたい！"
         ],
         motifAnimal: "???",
-        motifIcon: "assets/member/さくら/profile1.png",
+        motifIcon: "assets/member/さくら/profile1.webp",
         section: "飼育区画",
         introduction: `それなりに裕福な家庭で、子供がなかなかできず悩んでいた夫婦にペットショップで拾われる。甘え上手で天真爛漫な性格。物覚えは良い方で少しずる賢い。<br><br>ママの膝の上がお気に入りだが、最近狭くなったように感じる。<br>パパも難しい話をすることが増えた。<br>家族に何が起きているのか知って力になりたい！と思っているところにあにあめもりあの存在を知り自ら応募。<br><br>人間のことを深く知り、家族の役に立てるようになることが目標である。`,
         socials: [
@@ -240,9 +240,9 @@ window.membersData = [
         tags: "野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/キララ/profile1.png",
-            "assets/member/キララ/profile2.png",
-            "assets/member/キララ/profile3.png"
+            "assets/member/キララ/profile1.webp",
+            "assets/member/キララ/profile2.webp",
+            "assets/member/キララ/profile3.webp"
         ],
         goals: [
             "キラキラになること",
@@ -250,7 +250,7 @@ window.membersData = [
             "あにあめもりあの成功"
         ],
         motifAnimal: "猫",
-        motifIcon: "assets/motif/Bcat.png",
+        motifIcon: "assets/motif/Bcat.webp",
         section: "野生区画",
         introduction: `あにあめもりあの一員。もともとペットショップで売れ残っていたところ、
         脱走し路頭に迷っていたところを店長に見つけられ拾われる。    
@@ -269,9 +269,9 @@ window.membersData = [
         tags: "野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/ビノ/profile1.png",
-            "assets/member/ビノ/profile2.png",
-            "assets/member/ビノ/profile3.png"
+            "assets/member/ビノ/profile1.webp",
+            "assets/member/ビノ/profile2.webp",
+            "assets/member/ビノ/profile3.webp"
         ],
 
         section: "野生区画",
@@ -280,7 +280,7 @@ window.membersData = [
             "森の蛇仲間たちに人間のおいしいご飯をたくさん届けること",
         ],
         motifAnimal: "蛇",
-        motifIcon: "assets/motif/Wsnake.png",
+        motifIcon: "assets/motif/Wsnake.webp",
         introduction: `森の小動物たちをすべて食べつくし、店の食べ物を勝手に漁っているところを店長に捕まる。<br>
         「ここで働けばごはんがたくさん食べれるよ」と誘われ、二つ返事であにあめもりあの一員となった。<br>
         しかし、その聞き分けの良さの正体は「ごはんを食べる仕事」だと勘違いしていたからだった。<br><br>
@@ -303,16 +303,16 @@ window.membersData = [
         tags: "野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/あず/profile1.png",
-            "assets/member/あず/profile2.png",
-            "assets/member/あず/profile3.png"
+            "assets/member/あず/profile1.webp",
+            "assets/member/あず/profile2.webp",
+            "assets/member/あず/profile3.webp"
         ],
         goals: [
             "居るかもしれない仲間たちを見つける",
             "にんげんのことをいっぱい知る"
         ],
         motifAnimal: "サカバンバスピス",
-        motifIcon: "assets/motif/sakabanbasupisu.png",
+        motifIcon: "assets/motif/sakabanbasupisu.webp",
         section: "野生区画",
         introduction: `太古の海に生息していた「サカバンバスピス」。<br>
         ある日ぐっすり眠っていたら、気づけば数億年の時が経過しており、目覚めた時には仲間は絶滅、海は遥か彼方に…。<br>
@@ -333,9 +333,9 @@ window.membersData = [
         tags: "野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/てと/profile1.png",
-            "assets/member/てと/profile2.png",
-            "assets/member/てと/profile3.png"
+            "assets/member/てと/profile1.webp",
+            "assets/member/てと/profile2.webp",
+            "assets/member/てと/profile3.webp"
         ],
         goals: [
             "美味しいものをお腹いっぱい食べること",
@@ -345,7 +345,7 @@ window.membersData = [
             "家族が安心して暮らせること"
         ],
         motifAnimal: "狼",
-        motifIcon: "assets/motif/german_shepherd.png",
+        motifIcon: "assets/motif/german_shepherd.webp",
         section: "野生区画",
         introduction: `どこかに住んでいる狼の女の子。<br>
         人間のことを探るべく彷徨っていたところ、店長に誘われてあにあめもりあの店員になった。<br>
@@ -368,16 +368,16 @@ window.membersData = [
         tags: "妖怪 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/きょすー！/profile1.png",
-            "assets/member/きょすー！/profile2.png",
-            "assets/member/きょすー！/profile3.png"
+            "assets/member/きょすー！/profile1.webp",
+            "assets/member/きょすー！/profile2.webp",
+            "assets/member/きょすー！/profile3.webp"
         ],
         goals: [
             "人間と仲良くして、神社に遊びに来てもらう。",
             "音楽でちょっと成功してみたい。",
         ],
         motifAnimal: "狐",
-        motifIcon: "assets/motif/Wfox.png",
+        motifIcon: "assets/motif/Wfox.webp",
         section: "妖怪区画",
         introduction: `音楽を祀る神社の音楽ができる妖怪。<br>
         ちゃらんぽらんでとても頼りないが好奇心旺盛で人の話を聞くことが好き。<br>
@@ -404,12 +404,12 @@ window.membersData = [
                 name: "エノ",
                 tagLabel: "妖怪",
                 profileImages: [
-                    "assets/member/えの/fox_profile1.png",
-                    "assets/member/えの/fox_profile2.png",
-                    "assets/member/えの/fox_profile3.png",
+                    "assets/member/えの/fox_profile1.webp",
+                    "assets/member/えの/fox_profile2.webp",
+                    "assets/member/えの/fox_profile3.webp",
                 ],
                 motifAnimal: "狐",
-                motifIcon: "assets/motif/Efox.png",
+                motifIcon: "assets/motif/Efox.webp",
             },
             {
                 id: "cat",
@@ -417,20 +417,20 @@ window.membersData = [
                 name: "えの",
                 tagLabel: "飼育",
                 profileImages: [
-                    "assets/member/えの/cat_profile1.png",
-                    "assets/member/えの/cat_profile2.png",
-                    "assets/member/えの/cat_profile3.png"
+                    "assets/member/えの/cat_profile1.webp",
+                    "assets/member/えの/cat_profile2.webp",
+                    "assets/member/えの/cat_profile3.webp"
                 ],
                 motifAnimal: "猫",
-                motifIcon: "assets/motif/Wcat.png",
+                motifIcon: "assets/motif/Wcat.webp",
             }
         ],
 
         // フォールバック用（forms がない場合や画像未設定時に使用）
         profileImages: [
-            "assets/member/えの/fox_profile1.png",
-            "assets/member/えの/fox_profile2.png",
-            "assets/member/えの/fox_profile3.png",
+            "assets/member/えの/fox_profile1.webp",
+            "assets/member/えの/fox_profile2.webp",
+            "assets/member/えの/fox_profile3.webp",
         ],
         goals: [
             "人間の「好き」という感情を知ること",
@@ -438,7 +438,7 @@ window.membersData = [
             "喫茶店を、物語で満たされた場所にすること",
         ],
         motifAnimal: "狐（猫化）",
-        motifIcon: "assets/motif/Efox.png",
+        motifIcon: "assets/motif/Efox.webp",
         section: "妖怪区画",
         introduction: `人間の「好き」や思い出を集める狐の妖怪。<br>
         人に近づくため、猫の姿に擬態し、喫茶店に身を置いている。<br><br>
@@ -463,15 +463,15 @@ window.membersData = [
         tags: "妖怪 野生 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/あき/profile1.png",
-            "assets/member/あき/profile2.png",
-            "assets/member/あき/profile3.png"
+            "assets/member/あき/profile1.webp",
+            "assets/member/あき/profile2.webp",
+            "assets/member/あき/profile3.webp"
         ],
         goals: [
             "いたずら三昧"
         ],
         motifAnimal: "狐",
-        motifIcon: "assets/member/あき/profile1.png", // Temporarily using profile image as motif if missing
+        motifIcon: "assets/member/あき/profile1.webp", // Temporarily using profile image as motif if missing
         section: "妖怪区画",
         introduction: `人里近い草むらや林に住む妖狐。<br>
         いたずら好きでねこじゃらしで気を引いたり、隙を見てくすぐったりするのが好き。<br><br>
@@ -495,15 +495,15 @@ window.membersData = [
         tags: "妖怪 キャスト",
         revealLevel: 3,
         profileImages: [
-            "assets/member/むぎだんご/profile1.png",
-            "assets/member/むぎだんご/profile2.png",
-            "assets/member/むぎだんご/profile3.png"
+            "assets/member/むぎだんご/profile1.webp",
+            "assets/member/むぎだんご/profile2.webp",
+            "assets/member/むぎだんご/profile3.webp"
         ],
         goals: [
             "準備中"
         ],
         motifAnimal: "???",
-        motifIcon: "assets/member/silhouette.png",
+        motifIcon: "assets/member/silhouette.webp",
         section: "妖怪区画",
         introduction: `準備中`,
         socials: []
@@ -517,8 +517,8 @@ window.membersData = [
         tagLabel: "スタッフ",
         tags: "スタッフ",
         motifAnimal: "ヒト",
-        motifIcon: "assets/motif/human.png",
-        image: "assets/member/ひねくれ/profile.png",
+        motifIcon: "assets/motif/human.webp",
+        image: "assets/member/ひねくれ/profile.webp",
 
         section: "スタッフ",
         goals: [
@@ -541,11 +541,11 @@ window.membersData = [
         name: "Wikira",
         tagLabel: "スタッフ",
         tags: "スタッフ",
-        image: "assets/member/Wikira/profile1.png",
+        image: "assets/member/Wikira/profile1.webp",
 
         section: "スタッフ",
         motifAnimal: "ロボット",
-        motifIcon: "assets/motif/robot.png",
+        motifIcon: "assets/motif/robot.webp",
         goals: [
             "人間っぽくなりたい",
         ],

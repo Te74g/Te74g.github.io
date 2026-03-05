@@ -76,11 +76,11 @@
         const createSectionElement = (sec, list) => {
             // Section Background Map
             const bgMap = {
-                "運営部": "../assets/page/unei_low_res.png",
-                "飼育区画": "../assets/page/shiiku_low_res.png",
-                "野生区画": "../assets/page/yasei_low_res.png",
-                "妖怪区画": "../assets/page/yo-kai_low_res.png",
-                "スタッフ": "../assets/page/staff_low_res.png"
+                "運営部": "../assets/page/unei_low_res.webp",
+                "飼育区画": "../assets/page/shiiku_low_res.webp",
+                "野生区画": "../assets/page/yasei_low_res.webp",
+                "妖怪区画": "../assets/page/yo-kai_low_res.webp",
+                "スタッフ": "../assets/page/staff_low_res.webp"
             };
 
             // Create Wrapper

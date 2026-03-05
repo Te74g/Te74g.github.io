@@ -25,7 +25,7 @@ window.newsData = [
         title: "おさかな天国",
         date: "2026.02.28",
         category: "レポート",
-        imagePath: "assets/motif/sakabanbasupisu.png",
+        imagePath: "assets/motif/sakabanbasupisu.webp",
         desc: "さかな さかな さかなー♪ 魚を食べるとー♪頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭頭",
         content: `<p>おさかな天国の記事です。</p>`
     },
@@ -34,7 +34,7 @@ window.newsData = [
         title: "サファリパーク",
         date: "2026.02.20",
         category: "お知らせ",
-        imagePath: "assets/page/yasei.png",
+        imagePath: "assets/page/yasei.webp",
         desc: "ほんとにほんとにほんとにほんとにライオンだー！",
         content: `<p>サファリパークの記事です。</p>`
     },
@@ -43,7 +43,7 @@ window.newsData = [
         title: "じゃパリパーク",
         date: "2026.02.15",
         category: "お知らせ",
-        imagePath: "assets/partner_events/kitsunekotan/poster.png",
+        imagePath: "assets/partner_events/kitsunekotan/poster.webp",
         desc: "すっごーい！君はunityが得意なフレンズなんだね！",
         content: `<p>ようこそじゃパリパークへ！</p>`
     },
@@ -52,7 +52,7 @@ window.newsData = [
         title: "ねこふんじゃった",
         date: "2026.02.10",
         category: "お知らせ",
-        imagePath: "assets/motif/Bcat.png",
+        imagePath: "assets/motif/Bcat.webp",
         desc: "ねこふんじゃった ねこふんじゃった ねこふんづけちゃったら ひっかいた",
         content: `<p>ねこふんじゃったの記事です。</p>`
     },
@@ -64,8 +64,8 @@ window.newsData = [
         title: "あにあめもりあ公式サイト、本日オープン！",
         date: "2026.02.09",
         category: "お知らせ",
-        image: "assets/news/2026-02-09/firstnews20260209.png",
-        imagePath: "assets/news/2026-02-09/firstnews20260209.png", // 互換性のため両方指定
+        image: "assets/news/2026-02-09/firstnews20260209.webp",
+        imagePath: "assets/news/2026-02-09/firstnews20260209.webp", // 互換性のため両方指定
         desc: "「あにあめもりあ」の公式サイトが遂にオープン！最新情報やキャスト紹介などをお届けします。",
         content: `
             <p>皆様、お待たせいたしました！<br>

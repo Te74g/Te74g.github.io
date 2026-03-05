@@ -316,7 +316,7 @@ body.is-preloading {
     z-index: 0;
 
     /* Background Image Approach for Browser Compatibility */
-    background-image: url('../../assets_webp/logo/aniamemoria_logo.webp');
+    background-image: url('../../assets/logo/aniamemoria_logo.webp');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom right;
@@ -327,7 +327,7 @@ body.is-preloading {
 
 /* Dark Mode Watermark Asset Switch (Enforced) */
 .watermark-logo {
-    background-image: url('../../assets_webp/logo/aniamemoria_logo_darktheme.webp');
+    background-image: url('../../assets/logo/aniamemoria_logo_darktheme.webp');
     opacity: 0.12;
 }
 
