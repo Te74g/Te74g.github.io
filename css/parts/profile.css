@@ -288,11 +288,10 @@
 .related-cast {
     display: flex;
     flex-direction: column;
-    /* Stack label and slots */
-    gap: 8px;
+    gap: 6px;
     border-top: 1px dashed var(--line-strong);
-    padding-top: 12px;
-    margin-top: 16px;
+    padding-top: 8px;
+    margin-top: 8px;
     width: 100%;
 }
 
