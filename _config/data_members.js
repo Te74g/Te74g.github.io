@@ -164,7 +164,7 @@ window.membersData = [
             "ごはんをいっぱい食べること",
         ],
         motifAnimal: "カーバンクル",
-        motifIcon: "assets/motif/carabanku.webp",
+        motifIcon: "assets/motif/real_carbuncle.png",
         section: "飼育区画",
         introduction: `とある国のマモノ村に棲息していたカーバンクル。<br>
         昔、自分を命の危機から救ってくれた魔力を持った人間に恩を返すべく、村を飛び出し旅へ。<br>
@@ -311,7 +311,7 @@ window.membersData = [
             "にんげんのことをいっぱい知る"
         ],
         motifAnimal: "サカバンバスピス",
-        motifIcon: "assets/motif/sakabanbasupisu.webp",
+        motifIcon: "assets/motif/real_sacabambaspis.png",
         section: "野生区画",
         introduction: `太古の海に生息していた「サカバンバスピス」。<br>
         ある日ぐっすり眠っていたら、気づけば数億年の時が経過しており、目覚めた時には仲間は絶滅、海は遥か彼方に…。<br>
@@ -344,7 +344,7 @@ window.membersData = [
             "家族が安心して暮らせること"
         ],
         motifAnimal: "狼",
-        motifIcon: "assets/motif/german_shepherd.webp",
+        motifIcon: "assets/motif/real_wolf.png",
         section: "野生区画",
         introduction: `どこかに住んでいる狼の女の子。<br>
         人間のことを探るべく彷徨っていたところ、店長に誘われてあにあめもりあの店員になった。<br>
@@ -470,7 +470,7 @@ window.membersData = [
             "いたずら三昧"
         ],
         motifAnimal: "狐",
-        motifIcon: "assets/member/あき/profile1.webp", // Temporarily using profile image as motif if missing
+        motifIcon: "assets/motif/real_fox.png", // Newly generated realistic fox
         section: "妖怪区画",
         introduction: `人里近い草むらや林に住む妖狐。<br>
         いたずら好きでねこじゃらしで気を引いたり、隙を見てくすぐったりするのが好き。<br><br>
@@ -502,7 +502,7 @@ window.membersData = [
             "たくさんの人から駄菓子をもらう"
         ],
         motifAnimal: "狸",
-        motifIcon: "assets/member/silhouette.webp",
+        motifIcon: "assets/motif/real_tanuki.png",
         section: "妖怪区画",
         introduction: `人間に興味があり、こっそり里から抜け出してきた化け狸。<br>
         里では兄から人間の話を聞き、関心を募らせていた。<br>
