@@ -33,8 +33,8 @@
             const diffMs = revealDt - now;
             const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
-            if (isDebugMode && m.id === 'ten') {
-                // デバッグ: 'ten' のみ today 扱いで強制表示
+            if (isDebugMode) {
+                // デバッグ: revealDate がある全員を today 扱いで表示
                 todayTargets.push(m);
             } else {
                 if (diffDays <= 0) {
