@@ -73,11 +73,18 @@
                 ? `明日 ${revealDt.getMonth() + 1}月${revealDt.getDate()}日 ${REVEAL_HOUR_JST}:00 公開予定`
                 : `本日 ${new Date().getMonth() + 1}月${new Date().getDate()}日 公開`;
 
+            const bgPath = window.getMemberBackground(member.tags);
+            const bgStyle = bgPath ? ` style="background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;"` : '';
+
+            const fPath = window.getMemberFrame(member.tags);
+            const frameHtml = fPath ? `<div style="position: absolute; inset: 0; background-image: url('${window.fixPath(fPath)}'); background-size: 100% 100%; pointer-events: none; z-index: 4;"></div>` : '';
+
             return `
             <a class="cast-reveal-card ${isToday ? 'is-today' : 'is-tomorrow'} reveal" href="${href}">
-                <div class="cast-reveal-img-wrap">
-                    <img class="img-base" src="${imgBase}" alt="${member.name}" loading="lazy">
-                    <img class="img-hover" src="${imgHover}" alt="${member.name}" loading="lazy">
+                <div class="cast-reveal-img-wrap"${bgStyle}>
+                    <img class="img-base" src="${imgBase}" alt="${member.name}" loading="lazy" style="z-index: 1;">
+                    <img class="img-hover" src="${imgHover}" alt="${member.name}" loading="lazy" style="z-index: 2;">
+                    ${frameHtml}
                 </div>
                 <div class="cast-reveal-info">
                     <span class="cast-reveal-tag">${member.tagLabel}</span>
