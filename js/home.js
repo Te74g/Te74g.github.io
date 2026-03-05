@@ -23,16 +23,14 @@
         // Filter members by allowed roles (exclude 'スタッフ')
         const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
 
-        // 表示許可されたメンバーのみフィルタ（revealLevel 3のみランダムピックアップに表示）
+        // 表示許可されたメンバーのみフィルタ（revealLevel 2以上のみランダムピックアップに表示）
         const filteredMembers = window.membersData.filter(m => {
-            // まず基本フィルタ
             if (!allowedRoles.includes(m.tagLabel)) return false;
             if (!window.isMemberVisible(m, castConfig)) return false;
             if (!window.shouldShowItem(m)) return false;
 
-            // revealLevel 3（完全公開）のみランダムピックアップに表示
             const level = window.getRevealLevel ? window.getRevealLevel(m) : 3;
-            return level === 3;
+            return level >= 2; // revealLevel 2（シルエット）も表示する
         });
 
         // 表示可能なメンバーがいない場合はセクションを非表示
@@ -82,18 +80,17 @@
                 wrapper.appendChild(a);
                 pickupContainer.appendChild(wrapper);
 
-                // Initialize Switcher or Static Image
-                // forms を持つメンバーの場合、最初のフォームの画像を使用
-                let effectiveImages = m.profileImages;
-                if (m.forms && m.forms.length > 0 && m.forms[0].profileImages && m.forms[0].profileImages.length > 0) {
-                    effectiveImages = m.forms[0].profileImages;
-                }
+                // getMemberDisplayInfo を通じて正しい画像パスを取得（シルエット対応）
+                const castConfig2 = window.siteConfig?.castDisplay || {};
+                const displayInfo = window.getMemberDisplayInfo
+                    ? window.getMemberDisplayInfo(m, castConfig2)
+                    : null;
+
+                const effectiveImagePaths = displayInfo?.imagePath || m.profileImages || (m.image ? [m.image] : []);
 
                 let images = [];
-                if (effectiveImages && effectiveImages.length > 0) {
-                    images = effectiveImages.map(p => window.fixPath(p));
-                } else if (m.image) {
-                    images = [window.fixPath(m.image)];
+                if (effectiveImagePaths && effectiveImagePaths.length > 0) {
+                    images = effectiveImagePaths.map(p => window.fixPath(p));
                 }
 
                 if (images.length > 0) {
