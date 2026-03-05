@@ -111,7 +111,7 @@
     );
     min-height: 340px;
     position: relative;
-    z-index: 5;
+    z-index: 15; /* ターナー(z:10)より前面に固定 → めくり中もスパインが常に見え「ポッ」と現れない */
     box-shadow:
         2px 0 6px rgba(0, 0, 0, 0.4),
         -2px 0 6px rgba(0, 0, 0, 0.4);
