@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let clickCount = 0;
     let clickTimer = null;
 
-    document.body.addEventListener('pointerdown', (e) => {
+    document.body.addEventListener('click', (e) => {
         // 右下のコピーライト (.footer-note) がクリックされたか確認
         const target = e.target.closest('.footer-note');
         if (!target) return;

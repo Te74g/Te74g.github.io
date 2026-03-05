@@ -29,6 +29,7 @@
     font-size: 13px;
     position: relative;
     z-index: 100;
+    touch-action: manipulation;
 }
 
 /* To Top Button */
