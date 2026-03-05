@@ -161,6 +161,33 @@
     line-height: 1.8;
 }
 
+/* --- Condensation Blur Effect (For unrevealed content) --- */
+.condensation-blur-wrapper {
+    position: relative;
+}
+
+.condensation-blur-text {
+    filter: blur(6px) opacity(0.5);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}
+
+.condensation-blur-wrapper::after {
+    content: "詳細は近日公開予定です…";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+}
+
 /* --- Block 2: Goals Section --- */
 .goals-section {
     margin-bottom: 24px;

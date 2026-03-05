@@ -278,29 +278,48 @@ document.addEventListener('DOMContentLoaded', async () => {
         tagsContainer.innerHTML = tagsHtml;
     }
 
-    // 2. Introduction (revealLevel 2では非表示)
-    if (member.introduction && (revealLevel >= 3 || (displayInfo && displayInfo.showIntro))) {
-        const introEl = document.getElementById('dynamic-intro-text');
-        if (introEl) introEl.innerHTML = member.introduction;
-    } else if (revealLevel === 2) {
-        // シルエットモード: 自己紹介を準備中に置き換え
-        const introEl = document.getElementById('dynamic-intro-text');
-        if (introEl) introEl.innerHTML = '<p style="text-align:center; color: var(--muted);">詳細は近日公開予定です…</p>';
+    // 2. Introduction (revealLevel 2では結露エフェクト)
+    const introEl = document.getElementById('dynamic-intro-text');
+    if (introEl && member.introduction) {
+        if (revealLevel >= 3 || (displayInfo && displayInfo.showIntro)) {
+            introEl.innerHTML = member.introduction;
+        } else if (revealLevel === 2) {
+            // シルエットモード: 本文をすりガラス風にぼかす
+            introEl.innerHTML = `
+                <div class="condensation-blur-wrapper">
+                    <div class="condensation-blur-text">${member.introduction}</div>
+                </div>
+            `;
+        }
     }
 
-    // 3. Goals (revealLevel 2では非表示)
+    // 3. Goals (revealLevel 2では枠だけ出して結露エフェクト)
     const goalsSection = document.querySelector('.goals-section');
+    const goalsContainer = document.getElementById('dynamic-goals-container');
     const shouldShowGoals = revealLevel >= 3 || (displayInfo && displayInfo.showGoals);
 
-    if (shouldShowGoals && member.goals && Array.isArray(member.goals) && member.goals.length > 0) {
-        if (goalsSection) goalsSection.style.display = 'block';
-        const goalsContainer = document.getElementById('dynamic-goals-container');
-        if (goalsContainer) {
-            const randomGoal = member.goals[Math.floor(Math.random() * member.goals.length)];
-            goalsContainer.innerHTML = `<div class="goals-text" style="margin-bottom:8px;">${randomGoal}</div>`;
+    if (member.goals && Array.isArray(member.goals) && member.goals.length > 0) {
+        if (revealLevel >= 2) { // レベル2以上なら枠は出す
+            if (goalsSection) goalsSection.style.display = 'block';
+            if (goalsContainer) {
+                const randomGoal = member.goals[Math.floor(Math.random() * member.goals.length)];
+
+                if (shouldShowGoals) {
+                    goalsContainer.innerHTML = `<div class="goals-text" style="margin-bottom:8px;">${randomGoal}</div>`;
+                } else {
+                    // シルエットモード: 目標をすりガラス風にぼかす
+                    goalsContainer.innerHTML = `
+                        <div class="goals-text condensation-blur-wrapper" style="margin-bottom:8px; padding: 0; justify-content: center; background: transparent; border: none;">
+                            <div class="condensation-blur-text" style="background-color: #333; padding: 12px 16px; border-radius: 4px; border: 1px solid #444; width: 100%; min-height: 3.5rem; display: flex; align-items: center;">${randomGoal}</div>
+                        </div>
+                    `;
+                }
+            }
+        } else if (goalsSection) {
+            goalsSection.style.display = 'none';
         }
-    } else {
-        if (goalsSection) goalsSection.style.display = 'none';
+    } else if (goalsSection) {
+        goalsSection.style.display = 'none';
     }
 
     // 4. Motif Animal
