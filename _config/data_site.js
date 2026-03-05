@@ -6,9 +6,6 @@
  */
 
 window.siteConfig = {
-    // メンテナンスモード（trueにすると一般ユーザーはメンテナンス画面にリダイレクトされます）
-    maintenanceMode: true,
-
     // ローディング画面でランダムに表示されるメッセージ
     loadingMessages: [
         "Loading...",

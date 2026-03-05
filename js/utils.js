@@ -27,8 +27,8 @@
         const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
 
         if (item.hidden) {
-            // デバッグモードが有効なら表示
-            if (isDebugMode) {
+            // デバッグモードが有効かつ店長(ten)の場合のみ表示を強制
+            if (isDebugMode && item.id === 'ten') {
                 return true;
             }
             return false;
@@ -46,8 +46,8 @@
 
         const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
 
-        // デバッグモードが有効な場合は常に完全公開
-        if (isDebugMode) {
+        // デバッグモードが有効かつ店長(ten)の場合は常に完全公開
+        if (isDebugMode && member.id === 'ten') {
             return 3;
         }
 
@@ -65,7 +65,7 @@
 
         const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
 
-        if (member.revealDate && !isDebugMode) {
+        if (member.revealDate && !(isDebugMode && member.id === 'ten')) {
             hasRevealDate = true;
             const today = new Date();
             const revealDate = new Date(member.revealDate + "T18:00:00+09:00");
