@@ -164,27 +164,31 @@
 /* --- Condensation Blur Effect (For unrevealed content) --- */
 .condensation-blur-wrapper {
     position: relative;
+    /* Removed padding so wrapper fits tightly */
 }
 
-.condensation-blur-text {
+/* Inner container for the actual blurred text */
+.condensation-blur-content {
     filter: blur(6px) opacity(0.5);
     user-select: none;
     pointer-events: none;
     transition: filter 0.3s ease;
 }
 
-.condensation-blur-wrapper::after {
-    content: "詳細は近日公開予定です…";
+/* New dynamic overlay text */
+.condensation-blur-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 700;
-    font-size: 1.1rem;
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    font-size: 1.15rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
     pointer-events: none;
     white-space: nowrap;
+    text-align: center;
+    line-height: 1.6;
     z-index: 10;
 }
 

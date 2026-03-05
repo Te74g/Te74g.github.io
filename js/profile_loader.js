@@ -277,6 +277,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         tagsContainer.innerHTML = tagsHtml;
     }
+    // Helper: 公開予定日のテキストを生成
+    const getRevealDateText = (dateString) => {
+        if (!dateString) return '近日公開';
+        // 'YYYY-MM-DD...' から MMとDDを抜き出すなど柔軟に対応
+        const d = new Date(dateString);
+        if (isNaN(d.getTime())) return '近日公開'; // invalid date etc.
+        return `${d.getMonth() + 1}月${d.getDate()}日`;
+    };
+
+    const revealDateText = getRevealDateText(member.revealDate || (displayInfo && displayInfo.revealDate));
+    const overlayHtml = `
+        <div class="condensation-blur-overlay">
+            プロフィールの公開は<br>
+            ${revealDateText}を予定しています
+        </div>
+    `;
 
     // 2. Introduction (revealLevel 2では結露エフェクト)
     const introEl = document.getElementById('dynamic-intro-text');
@@ -287,7 +303,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             // シルエットモード: 本文をすりガラス風にぼかす
             introEl.innerHTML = `
                 <div class="condensation-blur-wrapper">
-                    <div class="condensation-blur-text">${member.introduction}</div>
+                    <div class="condensation-blur-content">${member.introduction}</div>
+                    ${overlayHtml}
                 </div>
             `;
         }
@@ -310,7 +327,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     // シルエットモード: 目標をすりガラス風にぼかす
                     goalsContainer.innerHTML = `
                         <div class="goals-text condensation-blur-wrapper" style="margin-bottom:8px; padding: 0; justify-content: center; background: transparent; border: none;">
-                            <div class="condensation-blur-text" style="background-color: #333; padding: 12px 16px; border-radius: 4px; border: 1px solid #444; width: 100%; min-height: 3.5rem; display: flex; align-items: center;">${randomGoal}</div>
+                            <div class="condensation-blur-content" style="background-color: #333; padding: 12px 16px; border-radius: 4px; border: 1px solid #444; width: 100%; min-height: 3.5rem; display: flex; align-items: center;">${randomGoal}</div>
+                            ${overlayHtml}
                         </div>
                     `;
                 }
