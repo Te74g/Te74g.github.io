@@ -46,6 +46,11 @@
         <div class="scroll-down-arrow"></div>
       </div>
     </div>
+
+    <!-- Today / Tomorrow Cast Overlay Panel (right side of hero) -->
+    <div id="cast-reveal-overlay" style="display:none;">
+      <div id="cast-reveal-banner"></div>
+    </div>
   </section>
 
   <!-- Content Board (Wrapper for continuous background) -->
@@ -83,16 +88,9 @@
     </section>
 
     <!-- Divider (News <-> Pickup): Balanced to be higher (closer to News, further from Pickup) -->
-    <div class="cafe-separator" style="margin-top: 20px; margin-bottom: 30px;">
+    <div class="cafe-separator" style="margin-top: 20px; margin-bottom: 60px;">
       <span class="cafe-separator-icon"></span>
     </div>
-
-    <!-- Today / Tomorrow Cast Banner -->
-    <section id="cast-reveal-section" class="section u-pb-xs" style="display:none;">
-      <div class="container" style="max-width: 860px;">
-        <div id="cast-reveal-banner"></div>
-      </div>
-    </section>
 
     <!-- Random Pickup Section -->
     <section class="section u-pt-xs random-pickup-section">
@@ -223,8 +221,26 @@
     }
 
     /* =====================================================
-       Cast Reveal Banner
+       Cast Reveal Hero Overlay Panel
        ===================================================== */
+    #cast-reveal-overlay {
+      position: absolute;
+      top: 50%;
+      right: 3vw;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: min(300px, 30vw);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    @media (max-width: 768px) {
+      #cast-reveal-overlay {
+        display: none !important;
+      }
+    }
+
     .cast-reveal-group {
       margin-bottom: 20px;
     }
@@ -252,8 +268,8 @@
 
     .cast-reveal-cards {
       display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
+      gap: 10px;
+      flex-direction: column;
     }
 
     /* Each card */
@@ -261,17 +277,17 @@
       position: relative;
       display: flex;
       align-items: stretch;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
       text-decoration: none;
-      flex: 1;
-      min-width: 260px;
-      max-width: 420px;
-      height: 110px;
-      background: linear-gradient(135deg, #2a2118 0%, #1a1311 100%);
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(135deg, rgba(42, 33, 24, 0.9) 0%, rgba(26, 19, 17, 0.92) 100%);
       border: 1px solid rgba(207, 170, 107, 0.25);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
 

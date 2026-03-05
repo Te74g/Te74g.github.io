@@ -14,7 +14,7 @@
        0. 本日・翌日公開キャストバナー
        ------------------------------------------------------- */
     const revealBanner = document.getElementById('cast-reveal-banner');
-    const revealSection = document.getElementById('cast-reveal-section');
+    const revealSection = document.getElementById('cast-reveal-overlay');
 
     if (revealBanner && revealSection && window.membersData) {
         const isDebugMode = sessionStorage.getItem('debugMode') === 'true';

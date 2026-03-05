@@ -65,6 +65,7 @@ window.membersData = [
         tags: "店長 運営 妖怪 キャスト",
         image: "assets/member/てん/profile.webp",
         profileImages: [
+            "assets/member/てん/profile.webp",
             "assets/member/てん/profile1.webp",
             "assets/member/てん/profile2.webp"
         ],
@@ -98,6 +99,7 @@ window.membersData = [
         tags: "運営 飼育 キャスト",
         image: "assets/member/もも/profile2.webp",
         profileImages: [
+            "assets/member/もも/profile.webp",
             "assets/member/もも/profile1.webp",
             "assets/member/もも/profile2.webp"
         ],
