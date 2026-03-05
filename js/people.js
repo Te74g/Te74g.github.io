@@ -12,7 +12,6 @@
 
     // ---- ページ構造構築 ----
     // HTML 側は <main id="main"></main> だけでよい。
-    // master/pages と pages の両方でこの JS が構造を生成するため、HTML の二重管理が不要。
     const main = document.getElementById('main');
     if (main) {
         main.insertAdjacentHTML('beforeend', `

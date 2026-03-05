@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main');
     if (!main) return;
 
-    // master/pages か pages か自動判定（common-layout.js と同じロジック）
-    const isMaster = window.location.pathname.includes('/master/');
-    const rootPath = isMaster ? '../../' : '../';
+    const rootPath = '../';
 
     // ---- Cinema Stage Setup ----
     main.classList.add('aikotoba-stage');
@@ -28,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <section class="section">
             <div class="container">
                 <header class="section-head reveal">
-                    <h1 class="section-title cafe-signboard">合言葉</h1>
+                    <h1 class="section-title cafe-signboard" id="aikotoba-secret-trigger">合言葉</h1>
                     <p class="section-lead">秘密の手紙</p>
                 </header>
                 <div class="perf-strip" aria-hidden="true"></div>
@@ -78,4 +76,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     listContainer.innerHTML = html;
+
+    // ---- デバッグモード隠しトリガー (10回クリック) ----
+    const secretTrigger = document.getElementById('aikotoba-secret-trigger');
+    if (secretTrigger) {
+        let clickCount = 0;
+        let clickTimer = null;
+
+        secretTrigger.addEventListener('click', () => {
+            clickCount++;
+
+            if (clickTimer) clearTimeout(clickTimer);
+
+            // 1秒クリックが空いたらリセット
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 1000);
+
+            if (clickCount >= 10) {
+                clickCount = 0; // すぐにリセット
+                const password = prompt('【DEBUG】 パスワードを入力してください：');
+
+                if (password) {
+                    // data_site.js で設定したパスワードと照合
+                    const correctPassword = window.siteConfig?.debugMode?.password || 'tetenpuipui';
+                    if (password === correctPassword) {
+                        sessionStorage.setItem('debugMode', 'true');
+                        alert('デバッグモードが有効になりました。\n隠し要素がすべて公開された状態で表示されます。');
+                        window.location.reload();
+                    } else {
+                        alert('パスワードが違います。');
+                    }
+                }
+            }
+        });
+    }
 });

@@ -6,7 +6,7 @@
 (function () {
     /**
      * fixPath
-     * Adjusts relative paths based on the current page's location, supporting master site structure.
+     * Adjusts relative paths based on the current page's location.
      * Also resolves to WebP if manifest is loaded and available.
      * @param {string} path - The path to fix (e.g., "./assets/img.png")
      * @returns {string} - The fixed path (e.g., "../assets/img.png" or "../../assets/img.png")
@@ -18,15 +18,17 @@
      * 
      * ルール:
      * 1. item.hidden が true の場合:
-     *    - window.siteConfig.showHiddenItems が true (Master環境) なら true
-     *    - それ以外 (Public環境) なら false
+     *    - 常に false
      * 2. それ以外は true
      */
     window.shouldShowItem = (item) => {
         if (!item) return false;
+
+        const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
+
         if (item.hidden) {
-            // Masterサイトなどで showHiddenItems: true が設定されていれば表示
-            if (window.siteConfig && window.siteConfig.showHiddenItems) {
+            // デバッグモードが有効なら表示
+            if (isDebugMode) {
                 return true;
             }
             return false;
@@ -42,8 +44,10 @@
     window.getRevealLevel = (member) => {
         if (!member) return 0;
 
-        // マスターサイト（showHiddenItems: true）では常に完全公開
-        if (window.siteConfig && window.siteConfig.showHiddenItems) {
+        const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
+
+        // デバッグモードが有効な場合は常に完全公開
+        if (isDebugMode) {
             return 3;
         }
 
@@ -58,7 +62,10 @@
 
         let daysDiff = 0;
         let hasRevealDate = false;
-        if (member.revealDate && !(window.siteConfig && window.siteConfig.showHiddenItems)) {
+
+        const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
+
+        if (member.revealDate && !isDebugMode) {
             hasRevealDate = true;
             const today = new Date();
             const revealDate = new Date(member.revealDate + "T18:00:00+09:00");
@@ -178,39 +185,12 @@
         // Calculate required depth from Main Root
         // Root (index.html) -> depth 0
         // SubDir (pages/xxx) -> depth 1
-        // Master (master/index.html) -> depth 1
-        // Master SubDir (master/pages/xxx) -> depth 2
 
         const subDirs = ["/member/", "/news/", "/partner_events/", "/pages/", "/gallery/"];
         let depth = 0;
-        let isMaster = false;
-
-        if (window.location.pathname.includes("/master/")) {
-            depth += 1;
-            isMaster = true;
-        }
 
         if (subDirs.some(dir => window.location.pathname.includes(dir))) {
             depth += 1;
-        }
-
-        // --- Master Site Link Logic ---
-        // If in Master Site, distinguish between Shared Resources (Assets) and Local Pages.
-        // Shared Resources: point to Main Root (using calculated depth).
-        // Local Pages: point to Master Root (reduce depth by 1).
-
-        if (isMaster) {
-            // List of directories/files that are SHARED and exist only in Main Root
-            const sharedPrefixes = ["assets/", "assets_webp/", "css/", "js/", "_config/"];
-
-            // Check if match
-            const isShared = sharedPrefixes.some(p => cleanPath.startsWith(p));
-
-            if (!isShared) {
-                // Assuming it's a page link (pages/, news/, index.html etc)
-                // We want to link to the copy inside /master/, so reduce traversal depth
-                if (depth > 0) depth -= 1;
-            }
         }
 
         // Construct prefix

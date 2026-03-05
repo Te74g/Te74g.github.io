@@ -9,8 +9,6 @@
 (function () {
     // メンテナンスページ自身はスキップ
     if (window.location.pathname.includes('maintenance.html')) return;
-    // マスターサイトはスキップ
-    if (window.location.pathname.includes('/master/')) return;
 
     // メンテナンスモードの裏技解除フラグ（セッション中有効）が立っていればスキップ
     if (sessionStorage.getItem('maintenanceBypass') === 'true') return;

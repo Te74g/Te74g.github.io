@@ -18,17 +18,7 @@
   };
 
   window.renderLayout = function (rootPath) {
-    // Determine Navigation Root Path
-    // For master site, navigation should stay within /master/ directory,
-    // while assets (rootPath) point to the shared root.
-    // Logic: Remove one "../" from rootPath if in master site.
     let navRootPath = rootPath;
-    if (window.location.pathname.includes('/master/')) {
-      if (navRootPath.startsWith('../')) {
-        navRootPath = navRootPath.substring(3);
-      }
-      if (navRootPath === '') navRootPath = './';
-    }
 
     // Helper: Use rootPath for assets, navRootPath for links
 
@@ -43,7 +33,6 @@
     <div class="container header-inner">
       <a class="brand" href="${navRootPath}index.html" aria-label="あにあめもりあ（イベント）">
         <img src="${logoDark}" alt="あにあめもりあ" class="brand-logo" />
-        ${window.location.pathname.includes('/master/') ? '<span style="background:#e74c3c; color:white; font-size:0.7em; padding:2px 5px; border-radius:4px; margin-left:8px; vertical-align:middle; font-weight:bold;">MASTER</span>' : ''}
       </a>
 
       <nav class="pc-nav hide-sm">
