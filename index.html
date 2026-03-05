@@ -251,23 +251,34 @@
       color: var(--muted);
       text-transform: uppercase;
       margin-bottom: 10px;
-      padding-left: 4px;
+      padding: 0 4px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
     }
 
+    .cast-reveal-group-label::before,
     .cast-reveal-group-label::after {
       content: '';
       flex: 1;
       height: 1px;
+    }
+
+    .cast-reveal-group-label::before {
+      background: linear-gradient(270deg, var(--line-strong), transparent);
+    }
+
+    .cast-reveal-group-label::after {
       background: linear-gradient(90deg, var(--line-strong), transparent);
     }
+
 
     .cast-reveal-cards {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     /* Each card */

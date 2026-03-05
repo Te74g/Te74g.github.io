@@ -91,7 +91,7 @@
 
         if (todayTargets.length > 0) {
             html += `<div class="cast-reveal-group">
-                <div class="cast-reveal-group-label" style="text-align: center;">✦ 本日公開</div>
+                <div class="cast-reveal-group-label">✦ 本日公開</div>
                 <div class="cast-reveal-cards">
                     ${todayTargets.map(m => buildCard(m, true)).join('')}
                 </div>
@@ -100,7 +100,7 @@
 
         if (tomorrowTargets.length > 0) {
             html += `<div class="cast-reveal-group">
-                <div class="cast-reveal-group-label" style="text-align: center;">◈ 明日公開</div>
+                <div class="cast-reveal-group-label">◈ 明日公開</div>
                 <div class="cast-reveal-cards">
                     ${tomorrowTargets.map(m => buildCard(m, false)).join('')}
                 </div>
