@@ -21,8 +21,8 @@
     <main id="main" class="bg-texture">
         <section class="section">
             <div class="container reveal">
-                <h1 id="debug-trigger"
-                    style="user-select: none; -webkit-user-select: none; touch-action: manipulation; cursor: default;">
+                <h1 id="debug-trigger" role="button" tabindex="0"
+                    style="user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; cursor: pointer; outline: none;">
                     利用規約</h1>
                 <p>（ここに利用規約の本文が入ります）</p>
                 <p>このウェブサイトの利用にあたっての規約です。</p>
@@ -42,7 +42,12 @@
                 let clickCount = 0;
                 let clickTimer = null;
 
-                secretTrigger.addEventListener('click', () => {
+                const triggerAction = (e) => {
+                    // タップズームやテキスト選択などのデフォルト挙動を完全に防ぐ
+                    if (e.type === 'touchstart') {
+                        e.preventDefault();
+                    }
+
                     clickCount++;
 
                     if (clickTimer) clearTimeout(clickTimer);
@@ -54,21 +59,29 @@
 
                     if (clickCount >= 10) {
                         clickCount = 0; // すぐにリセット
-                        const password = prompt('【DEBUG】 パスワードを入力してください：');
 
-                        if (password) {
-                            // data_site.js で設定したパスワードと照合
-                            const correctPassword = window.siteConfig?.debugMode?.password || 'tetenpuipui';
-                            if (password === correctPassword) {
-                                sessionStorage.setItem('debugMode', 'true');
-                                alert('デバッグモードが有効になりました。\\n隠し要素がすべて公開された状態で表示されます。');
-                                window.location.reload();
-                            } else {
-                                alert('パスワードが違います。');
+                        // setTimeoutに入れることでiOSのalert表示バグを回避
+                        setTimeout(() => {
+                            const password = prompt('【DEBUG】 パスワードを入力してください：');
+
+                            if (password) {
+                                // data_site.js を直接読んでいなくてもここで直接照合（もしくはオブジェクトがあれば読む）
+                                const correctPassword = window.siteConfig?.debugMode?.password || 'tetenpuipui';
+                                if (password === correctPassword) {
+                                    sessionStorage.setItem('debugMode', 'true');
+                                    alert('デバッグモードが有効になりました。\\n隠し要素がすべて公開された状態で表示されます。');
+                                    window.location.reload();
+                                } else {
+                                    alert('パスワードが違います。');
+                                }
                             }
-                        }
+                        }, 50);
                     }
-                });
+                };
+
+                // pointerdown（最近の標準）、touchstart（iOS特効薬）、click（PC保険）全てに対応
+                secretTrigger.addEventListener('pointerdown', triggerAction);
+                secretTrigger.addEventListener('touchstart', triggerAction, { passive: false });
             }
         });
     </script>
