@@ -219,8 +219,8 @@ window.membersData = [
             "家族の役に立つこと！",
             "人間の本当の気持ちを知りたい！"
         ],
-        motifAnimal: "???",
-        motifIcon: "assets/member/さくら/profile1.webp",
+        motifAnimal: "犬（パピヨン）",
+        motifIcon: "assets/motif/real_papillon.png",
         section: "飼育区画",
         introduction: `それなりに裕福な家庭で、子供がなかなかできず悩んでいた夫婦にペットショップで拾われる。甘え上手で天真爛漫な性格。物覚えは良い方で少しずる賢い。<br><br>ママの膝の上がお気に入りだが、最近狭くなったように感じる。<br>パパも難しい話をすることが増えた。<br>家族に何が起きているのか知って力になりたい！と思っているところにあにあめもりあの存在を知り自ら応募。<br><br>人間のことを深く知り、家族の役に立てるようになることが目標である。`,
         socials: [
