@@ -8,10 +8,10 @@
 window.siteConfig = {
     // ローディング画面でランダムに表示されるメッセージ
     loadingMessages: [
-        "Loading...",
-        "Now Loading...",
-        "Please wait...",
-        "Connecting...",
+        "記憶を、たどっています",
+        "カフェの扉を、開けています",
+        "ページをめくっています",
+        "今日も、おいでくださいました",
         "AniameMoria"
     ],
 

@@ -462,4 +462,44 @@ body.is-preloading {
     }
 }
 
+/* ==========================================================================
+   トップページ セクション見出し強弱
+   News = 実務・情報  /  Pickup = 主役・遊び  /  About = 静的説明
+   ========================================================================== */
+
+/* News: 情報的・控えめ */
+#news-section .section-title {
+    font-size: clamp(19px, 2.2vw, 25px);
+}
+
+#news-section .section-lead {
+    opacity: 0.5;
+    font-size: 0.82rem;
+}
+
+/* Pickup: 主役・最大強調 */
+.random-pickup-section .section-title {
+    font-size: clamp(28px, 3.8vw, 42px);
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.9),
+        0 0 28px rgba(207, 170, 107, 0.6);
+}
+
+.random-pickup-section .section-lead {
+    color: rgba(207, 170, 107, 0.88);
+    opacity: 1;
+    letter-spacing: 0.3em;
+}
+
+/* About: 参照的・最も控えめ */
+#about-section .section-title {
+    font-size: clamp(18px, 1.9vw, 23px);
+    opacity: 0.8;
+}
+
+#about-section .section-lead {
+    opacity: 0.4;
+    font-size: 0.8rem;
+}
+
 /* Logo asset switching is handled entirely via JS for dynamic control. */
