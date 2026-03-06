@@ -57,12 +57,11 @@
                 imgBase = images[0] ? window.fixPath(images[0]) : silPath;
                 imgHover = images[1] ? window.fixPath(images[1]) : imgBase;
             } else {
-                // 明日: キャストごとのシルエット (silhouetteImage 優先、なければ汎用)
-                const sil = member.silhouetteImage
+                // 明日: silhouetteImage優先、なければ本人画像をCSSで黒塗りシルエット化
+                imgBase = member.silhouetteImage
                     ? window.fixPath(member.silhouetteImage)
-                    : silPath;
-                imgBase = sil;
-                imgHover = sil;
+                    : (images[0] ? window.fixPath(images[0]) : silPath);
+                imgHover = imgBase;
             }
 
             const href = window.fixPath(`member/profile.html?id=${member.id}`);
