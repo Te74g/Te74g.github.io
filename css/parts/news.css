@@ -414,6 +414,7 @@
     line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -500,21 +501,72 @@
 
 .news-magazine-layout {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 24px;
     align-items: stretch;
     width: 100%;
 }
 
-/* 左側：特大カード枠 */
-.news-magazine-featured {
+/* =========================================
+   件数による動的レイアウト分岐
+   ========================================= */
+
+/* ① 1件のみの場合：中央寄せ特大カード */
+.news-magazine-layout.count-1 {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.news-magazine-layout.count-1 .news-magazine-featured {
+    height: clamp(380px, 42vw, 540px);
+}
+
+.news-magazine-layout.count-1 .news-magazine-list {
+    display: none;
+    /* 空白を出さない */
+}
+
+/* 1件の時はサブタイトルを少し大きく */
+.news-magazine-layout.count-1 .news-card--featured .news-card-desc {
+    font-size: 1rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+/* ② 2件〜4件の場合：Featured 1 + Sub 1〜3 (空白を抑えたバランス型) */
+.news-magazine-layout.count-few {
+    /* 1:1に近いバランスで、空白を過剰にしない */
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+}
+
+.news-magazine-layout.count-few .news-magazine-featured {
+    height: auto;
+    min-height: 300px;
+    /* サブ記事に合わせて可変 */
+}
+
+.news-magazine-layout.count-few .news-magazine-list {
+    height: auto;
+    overflow-y: visible;
+    /* スクロールさせずに全て見せる */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+/* ③ 5件以上の場合：本来のマガジンレイアウト (スクロール付きリスト) */
+.news-magazine-layout.count-many {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.news-magazine-layout.count-many .news-magazine-featured {
     height: clamp(380px, 42vw, 540px);
     position: relative;
     min-height: 0;
 }
 
-/* 右側：スクロールリスト枠 */
-.news-magazine-list {
+.news-magazine-layout.count-many .news-magazine-list {
     height: clamp(380px, 42vw, 540px);
     overflow-y: auto;
     min-height: 0;
@@ -621,6 +673,7 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -632,6 +685,7 @@
     line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-shadow: none !important;

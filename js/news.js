@@ -89,6 +89,17 @@
             newsContainer.innerHTML = ''; // clear original
             newsContainer.className = 'news-magazine-layout';
 
+            // 件数に応じたクラスを付与
+            const count = visibleNews.length;
+            if (count === 1) {
+                newsContainer.classList.add('count-1');
+            } else if (count >= 2 && count <= 4) {
+                newsContainer.classList.add(`count-${count}`);
+                newsContainer.classList.add('count-few');
+            } else {
+                newsContainer.classList.add('count-many');
+            }
+
             // Left (Featured) Container
             const featuredWrapper = document.createElement('div');
             featuredWrapper.className = 'news-magazine-featured';
@@ -155,6 +166,16 @@
                 if (matchingCards.length === 0) {
                     filterContainer.innerHTML = `<p class="news-no-results">${NOT_FOUND_MSG}</p>`;
                 } else {
+                    const count = matchingCards.length;
+                    if (count === 1) {
+                        filterContainer.classList.add('count-1');
+                    } else if (count >= 2 && count <= 4) {
+                        filterContainer.classList.add(`count-${count}`);
+                        filterContainer.classList.add('count-few');
+                    } else {
+                        filterContainer.classList.add('count-many');
+                    }
+
                     const featuredWrapper = document.createElement('div');
                     featuredWrapper.className = 'news-magazine-featured';
 
