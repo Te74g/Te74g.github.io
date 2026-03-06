@@ -34,7 +34,8 @@
             shadow: '0 24px 64px rgba(7,14,31,0.88)',
             iconBg: 'transparent',
             iconBorder: 'none',
-            iconSvg: `<img src="${window.fixPath ? window.fixPath('assets/icon/VRCicon.webp') : '../assets/icon/VRCicon.webp'}" alt="VRChat" style="width: 100%; height: 100%; border-radius: 22px; object-fit: cover;">`,
+            iconStyle: 'border-radius: 22px; overflow: hidden; background: transparent;',
+            iconSvg: `<img src="${window.fixPath ? window.fixPath('assets/icon/VRCicon.webp') : '../assets/icon/VRCicon.webp'}" alt="VRChat" style="width: 100%; height: 100%; object-fit: cover;">`,
         },
         youtube: {
             badge: 'YouTube',
@@ -102,7 +103,7 @@
         const ctaText = item.cta || p.cta;
 
         card.innerHTML = `
-            <div class="link-card-icon" style="background:${p.iconBg}; border:${p.iconBorder || 'none'};">
+            <div class="link-card-icon" style="background:${p.iconBg}; border:${p.iconBorder || 'none'}; ${p.iconStyle || ''}">
                 ${p.iconSvg}
             </div>
             <span class="link-card-badge">${p.badge}</span>
