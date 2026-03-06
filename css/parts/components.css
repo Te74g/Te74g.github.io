@@ -373,7 +373,8 @@
 
 .cheki-card {
     display: block;
-    background: #fff;
+    background: rgb(252, 248, 242);
+    /* 暖色紙: 白よりも喫茶店の世界観に溶ける */
     padding: 14px 14px 64px 14px;
     border: 1px solid rgba(207, 170, 107, 0.2);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
@@ -407,22 +408,9 @@
     outline: none;
 }
 
-/* Push Pin Decoration */
+/* Push Pin Decoration: 非表示（案内帳スタイル） */
 .cheki-card::before {
-    content: "";
-    position: absolute;
-    top: -15px;
-    /* Pin sits on top edge */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    /* Red Pin Style (Default) */
-    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 20;
-    pointer-events: none;
+    content: none;
 }
 
 /* Pin Color Variants */
@@ -510,6 +498,31 @@
 
 /* カード傾き削除: 案内帳スタイルでは全カード垂直整列 */
 
+/* =========================================
+   #random-pickup-grid: アニメーション復元
+   （.cheki-grid グローバル変更の影響を ID で上書き）
+   ========================================= */
+#random-pickup-grid .cheki-card {
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#random-pickup-grid:hover .cheki-card {
+    transform: scale(0.96) translateY(4px);
+    opacity: 0.85;
+    filter: brightness(0.9);
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#random-pickup-grid .cheki-card:hover {
+    transform: scale(1.05) translateY(-8px) !important;
+    opacity: 1 !important;
+    filter: brightness(1.05) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+#random-pickup-grid .cheki-card:hover .cheki-img {
+    transform: scale(1.05);
+}
 
 /* Responsive Utilities */
 @media (min-width: 921px) {

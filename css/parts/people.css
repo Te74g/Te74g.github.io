@@ -54,19 +54,11 @@
 }
 
 /* Ensure content sits above overlay (z-index 1) */
-/* 中央紙面: 背景 < 紙面 < 文字情報 の3層コントラスト構造 */
 .people-section-wrapper>.container {
     position: relative;
     z-index: 2;
     width: min(var(--container), 100% - 40px);
-    background: rgba(250, 244, 232, 0.82);
-    border-radius: 4px;
-    padding: 28px 32px 36px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
-}
-
-[data-theme="dark"] .people-section-wrapper>.container {
-    background: rgba(30, 22, 18, 0.88);
+    /* background・box-shadow 削除: 背景の喫茶店雰囲気を台紙で殺さないため */
 }
 
 /* Restyle Divider for inside the wrapper */
@@ -158,7 +150,8 @@
    ========================================= */
 .people-filter-results {
     padding: 16px 0 28px;
-    min-height: 300px;
+    min-height: 80px;
+    /* 300px → 80px: 内容量に応じたセクション高さに */
 }
 
 /* =========================================
