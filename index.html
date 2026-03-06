@@ -56,6 +56,10 @@
     <!-- Today / Tomorrow Cast Banner (above News) -->
     <section id="cast-reveal-overlay" class="section u-pb-xs" style="display:none;">
       <div class="container" style="max-width: 860px;">
+        <header class="section-head reveal" style="margin-bottom: 16px;">
+          <h2 class="section-title cafe-signboard">Cast Reveal</h2>
+          <p class="section-lead">キャスト公開情報</p>
+        </header>
         <div id="cast-reveal-banner"></div>
       </div>
     </section>
@@ -245,12 +249,12 @@
 
     .cast-reveal-group-label {
       font-family: 'Zen Old Mincho', serif;
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       font-weight: 900;
       letter-spacing: 0.2em;
-      color: var(--muted);
+      color: var(--accent-gold, #cfaa6b);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
       padding: 0 4px;
       display: flex;
       align-items: center;
@@ -266,11 +270,11 @@
     }
 
     .cast-reveal-group-label::before {
-      background: linear-gradient(270deg, var(--line-strong), transparent);
+      background: linear-gradient(270deg, rgba(207, 170, 107, 0.5), transparent);
     }
 
     .cast-reveal-group-label::after {
-      background: linear-gradient(90deg, var(--line-strong), transparent);
+      background: linear-gradient(90deg, rgba(207, 170, 107, 0.5), transparent);
     }
 
 
@@ -341,7 +345,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 15%;
+      object-position: center top;
       transition: opacity 0.3s ease;
     }
 
@@ -393,15 +397,15 @@
       margin-top: 2px;
     }
 
-    /* Tomorrow variant: muted/silhouette style */
+    /* Tomorrow variant: muted/silhouette style — warm sepia instead of cool gray */
     .cast-reveal-card.is-tomorrow {
-      border-color: rgba(255, 255, 255, 0.08);
-      background: linear-gradient(135deg, #1e1e22 0%, #141418 100%);
+      border-color: rgba(180, 130, 60, 0.1);
+      background: linear-gradient(135deg, #23160b 0%, #170d06 100%);
     }
 
     .cast-reveal-card.is-tomorrow:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15);
+      border-color: rgba(207, 170, 107, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(207, 170, 107, 0.2);
     }
 
     .cast-reveal-card.is-tomorrow .cast-reveal-tag {
@@ -416,7 +420,7 @@
       color: rgba(255, 255, 255, 0.35);
     }
 
-    /* Gold accent bar on left edge (today only) */
+    /* Gold accent bar on left edge (today only — horizontal cards / hero overlay) */
     .cast-reveal-card.is-today::after {
       content: '';
       position: absolute;
@@ -429,6 +433,48 @@
       z-index: 6;
     }
 
+    /* =====================================================
+       Cast Reveal Banner: 縦型ポートレートカード
+       （メインセクション専用。#cast-reveal-hero の横型は維持）
+       ===================================================== */
+    #cast-reveal-banner .cast-reveal-cards {
+      gap: 16px;
+      justify-content: center;
+    }
+
+    #cast-reveal-banner .cast-reveal-card {
+      flex-direction: column;
+      align-items: stretch;
+      height: auto;
+      min-width: 150px;
+      max-width: 180px;
+      flex: 0 0 158px;
+    }
+
+    #cast-reveal-banner .cast-reveal-img-wrap {
+      width: 100%;
+      min-width: unset;
+      height: 190px;
+    }
+
+    #cast-reveal-banner .cast-reveal-info {
+      text-align: center;
+      align-items: center;
+      padding: 10px 10px 14px;
+      gap: 5px;
+    }
+
+    /* 縦型: 金帯を左辺→上辺に変更 */
+    #cast-reveal-banner .cast-reveal-card.is-today::after {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: auto;
+      width: 100%;
+      height: 3px;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(to right, #cfaa6b, #8a6a30, #cfaa6b);
+    }
 
     /* Reduced margin for tighter layout */
     .section-head {
