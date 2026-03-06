@@ -22,27 +22,36 @@ window.newsData = [
     {
         id: "grand_open_20260308",
         hidden: false,
-        title: "あにあめもりあ、グランドオープン！",
+        title: "人間さん、ようこそ「あにあめもりあ」へ！",
         date: "2026.03.08",
         category: "お知らせ",
         image: "assets/news/2026-03-08/grand_open.png",
         imagePath: "assets/news/2026-03-08/grand_open.png",
-        desc: "3月8日 18:00より、あにあめもりあ公式サイトが正式オープンいたしました！",
+        desc: "本日3月8日 18:00、「あにあめもりあ」公式サイトを公開いたしました！",
         content: `
-            <p>皆様、お待たせいたしました！<br>
-            本日3月8日 18:00をもちまして、「あにあめもりあ」の公式サイトが正式にグランドオープンいたしました！🎉</p>
+            <p>人間さん、ようこそ「あにあめもりあ」へ！<br>
+            本日3月8日 18:00、「あにあめもりあ」公式サイトを公開いたしました！</p>
             
-            <p>このサイトを通じて、あにあめもりあの最新情報や、各キャスト（動物・妖怪・スタッフたち）の日常、イベント情報などを随時お届けしていく予定です。<br>
-            ぜひブックマークしていただき、日々の癒しとしてチェックしてみてくださいね！✨</p>
+            <p>このサイトでは、最新情報やイベントのお知らせ、ささやかなプレゼントをお届けしていく予定です！<br>
+            気が向いたときに、ふらりと遊びにきていただけたら嬉しいですっ！</p>
             
-            <p>現在公開中の<a href="./pages/people.html">キャスト紹介ページ</a>では、個性豊かなキャストたちのプロフィールをご覧いただけます。<br>
-            まだ非公開となっているキャストたちも、順次彼らの秘密が解禁されていく予定です……！🤫</p>
+            <p>現在公開中の<a href="./pages/people.html">キャスト紹介ページ</a>では、動物・妖怪・スタッフたちのプロフィールをご覧いただけます！<br>
+            まだ公開されていないキャストも、今後順次ご紹介していく予定です✨<br>
+            シルエットからどんな動物かなど、たくさん想像していただいて、是非毎日の答え合わせをお楽しみください！</p>
             
-            <p>最新情報や日々の小ネタなどは公式X（旧Twitter）でも発信しております。<br>
-            ぜひフォローと通知をONにして、あにあめもりあの新たな物語の始まりをお見逃しなく！📢</p>
+            <p>また、最新のお知らせなどは、公式X（旧Twitter）でも発信していきます。<br>
+            気になったら、ぜひフォローしてみてください！</p>
             
-            <p style="text-align: center; margin-top: 2em;">
+            <p>Vrchatのグループもご参加いただければ幸いです✨</p>
+            
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
                 <a href="https://x.com/ANIAMEMORIA" target="_blank" class="btn btn--primary">公式Xをフォローする</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" class="btn btn--ghost">VRChatグループに参加</a>
+            </p>
+            
+            <p style="text-align: center; margin-top: 24px; font-weight: bold; font-size: 0.95em;">
+                👇 サイトのブックマークはこちら 👇<br>
+                <a href="https://te74g.github.io/Te74g.github.io/" target="_blank" style="word-break: break-all;">https://te74g.github.io/Te74g.github.io/</a>
             </p>
         `
     },

@@ -34,6 +34,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="ledger-roster reveal" id="ledger-roster" aria-live="polite">
+                        <p class="ledger-roster-label">この頁の顔ぶれ</p>
+                        <ul class="ledger-roster-list" id="ledger-roster-list"></ul>
+                    </div>
                 </div>
             </section>
             <div id="people-list-container"></div>
@@ -49,6 +53,20 @@
     // フィルター初期化完了後に renderSequentially から呼び出すためのコールバック
     // var を使うことで TDZ を回避（const/let は early return 時に TDZ で TypeError になる）
     var _filterCallback = null;
+
+    // ロスター関連（if block 内外でスコープ共有）
+    let rosterData = {};
+    let _currentRosterSection = null;
+    let _updateRoster = () => {};
+
+    // HTML を除去し最初の1文を取得（最大 40 文字）
+    function extractBlurb(html) {
+        if (!html) return '';
+        const text = html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+        const m = text.match(/^[^。！？]+[。！？]/);
+        const sent = m ? m[0] : text;
+        return sent.length > 40 ? sent.slice(0, 40) + '…' : sent;
+    }
 
     /* -------------------------------------------------------
        1. キャスト一覧ページ (people.html) の生成
@@ -172,6 +190,14 @@
                         </div>
                         <div class="cheki-name">${displayName}</div>
                     `;
+                    // 説明文を追加（revealLevel >= 3 のみ）
+                    const blurb = extractBlurb(m.introduction);
+                    if (blurb) {
+                        const descDiv = document.createElement('p');
+                        descDiv.className = 'cheki-desc';
+                        descDiv.textContent = blurb;
+                        link.appendChild(descDiv);
+                    }
                 } else if (revealLevel === 2) {
                     // シルエット表示
                     const url = m.link || `member/profile.html?id=${m.id}`;
@@ -277,6 +303,51 @@
                     await delay(SECTION_LOAD_MS);
                 }
             }
+
+            // rosterData 構築
+            (window.membersData || []).forEach(m => {
+                const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
+                const level = displayInfo ? displayInfo.level : 3;
+                if (level < 3) return;
+                const sec = m.section;
+                if (!sec) return;
+                if (!rosterData[sec]) rosterData[sec] = [];
+                const displayName = m.pickupName || (m.name || '').split('（')[0];
+                rosterData[sec].push({ name: displayName, blurb: extractBlurb(m.introduction) });
+            });
+
+            // ロスター更新関数
+            _updateRoster = (sectionName) => {
+                const list = document.getElementById('ledger-roster-list');
+                if (!list) return;
+                const chars = rosterData[sectionName] || [];
+                list.style.opacity = '0';
+                setTimeout(() => {
+                    list.innerHTML = chars.map(c =>
+                        `<li><span class="roster-name">${c.name}</span><span class="roster-sep"> — </span><span class="roster-blurb">${c.blurb}</span></li>`
+                    ).join('');
+                    list.style.opacity = '1';
+                }, 150);
+            };
+
+            // ScrollSpy: viewport 中央付近のセクションを検知
+            const spy = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const sec = e.target.dataset.section;
+                        if (sec && sec !== _currentRosterSection) {
+                            _currentRosterSection = sec;
+                            _updateRoster(sec);
+                        }
+                    }
+                });
+            }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
+
+            document.querySelectorAll('.people-section-wrapper[data-section]').forEach(el => spy.observe(el));
+
+            // 初期表示: 最初のセクションを表示
+            const firstSection = Object.keys(rosterData)[0];
+            if (firstSection) { _currentRosterSection = firstSection; _updateRoster(firstSection); }
 
             // 全て読み込み終わったら絞り込み機能を適用（初期化）
             // _filterCallback は applyPeopleFilter が定義された後にセットされるため安全
@@ -462,6 +533,14 @@
             filterBtns.forEach(b => b.classList.remove('is-active'));
             btn.classList.add('is-active');
             applyPeopleFilter();
+            // ロスターも更新
+            const clickedValue = btn.dataset.value;
+            if (clickedValue !== 'all') {
+                const sectionName = TAG_TO_SECTION[clickedValue];
+                if (sectionName) { _currentRosterSection = sectionName; _updateRoster(sectionName); }
+            } else {
+                if (_currentRosterSection) _updateRoster(_currentRosterSection);
+            }
         });
     });
 

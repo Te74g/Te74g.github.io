@@ -379,7 +379,7 @@
     background-size: 320px 320px;
     background-blend-mode: multiply;
     /* グレインを背景色に重ねる（子要素には影響しない） */
-    padding: 14px 14px 64px 14px;
+    padding: 14px 14px 108px 14px;
     border: 1px solid rgba(207, 170, 107, 0.2);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
     transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, opacity 0.18s ease-out;
@@ -485,19 +485,36 @@
 
 .cheki-name {
     position: absolute;
-    bottom: 20px;
+    bottom: 58px;
     left: 0;
     right: 0;
     text-align: center;
     font-family: "Zen Old Mincho", serif;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     letter-spacing: 0.05em;
     color: #222;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 8px;
+}
+
+.cheki-desc {
+    position: absolute;
+    bottom: 10px;
+    left: 8px;
+    right: 8px;
+    font-family: var(--font-gothic, "Zen Kaku Gothic New", sans-serif);
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: #6b5240;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 0;
 }
 
 /* カード傾き削除: 案内帳スタイルでは全カード垂直整列 */
@@ -566,12 +583,17 @@
 /* Tablet & Mobile: Scale down text and spacings */
 @media (max-width: 1024px) {
     .cheki-name {
-        font-size: 1.25rem;
-        bottom: 12px;
+        font-size: 1.15rem;
+        bottom: 48px;
+    }
+
+    .cheki-desc {
+        font-size: 0.65rem;
+        bottom: 8px;
     }
 
     .cheki-card {
-        padding: 10px 10px 50px 10px;
+        padding: 10px 10px 86px 10px;
     }
 }
 
@@ -583,8 +605,12 @@
     }
 
     .cheki-name {
-        font-size: 1rem;
-        bottom: 8px;
+        font-size: 0.9rem;
+        bottom: 38px;
+    }
+
+    .cheki-desc {
+        display: none;
     }
 
     .cheki-tag-badge {
@@ -592,6 +618,6 @@
     }
 
     .cheki-card {
-        padding: 8px 8px 40px 8px;
+        padding: 8px 8px 60px 8px;
     }
 }
