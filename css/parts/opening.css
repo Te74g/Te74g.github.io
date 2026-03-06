@@ -346,7 +346,7 @@
     0% {
         opacity: 0;
         transform: translateX(-50%) scale(1.15);
-        filter: brightness(3);
+        filter: brightness(1.5);
     }
 
     15% {
@@ -354,7 +354,7 @@
     }
 
     20% {
-        filter: brightness(1.5);
+        filter: brightness(1.2);
     }
 
     100% {
@@ -385,7 +385,7 @@
     0% {
         opacity: 0;
         transform: scale(1.15);
-        filter: brightness(3);
+        filter: brightness(1.5);
     }
 
     15% {
@@ -393,12 +393,26 @@
     }
 
     20% {
-        filter: brightness(1.5);
+        filter: brightness(1.2);
     }
 
     100% {
         opacity: 1;
         transform: scale(1);
         filter: brightness(1);
+    }
+}
+
+/* タッチデバイス: brightness フィルターを省略（モバイルGPU発光防止）*/
+@media (hover: none) {
+    @keyframes hero-character-impact {
+        0%   { opacity: 0; transform: translateX(-50%) scale(1.15); }
+        15%  { opacity: 1; }
+        100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+    @keyframes hero-logo-impact {
+        0%   { opacity: 0; transform: scale(1.15); }
+        15%  { opacity: 1; }
+        100% { opacity: 1; transform: scale(1); }
     }
 }
