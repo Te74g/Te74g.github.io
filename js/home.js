@@ -251,7 +251,7 @@
                 }
 
                 // Staggered Entry (Animates the wrapper)
-                const delay = 100 + index * 200;
+                const delay = 50 + index * 100;
                 setTimeout(() => {
                     wrapper.classList.add('is-visible');
                 }, delay);

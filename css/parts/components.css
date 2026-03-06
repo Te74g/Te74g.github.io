@@ -376,23 +376,36 @@
     background: #fff;
     padding: 14px 14px 64px 14px;
     box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     text-decoration: none;
     color: #1a1a1a;
     position: relative;
-    transform-origin: center 20%;
+    transform-origin: center bottom;
     cursor: pointer;
-    border-radius: 12px;
-    /* Soften edges */
+    border-radius: 4px;
+    /* 紙っぽくエッジをシャープ寄りに */
     max-width: 380px;
     margin-inline: auto;
     width: 100%;
 }
 
-.cheki-card:hover {
-    transform: translateY(-12px) scale(1.02) rotate(1deg);
-    box-shadow: 4px 20px 30px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+/* トレイのホバーインタラクション (Grid全体がhoverされている時、個別のカードを少し後ろに隠す) */
+.cheki-grid:hover .cheki-card {
+    transform: scale(0.96) translateY(4px);
+    opacity: 0.85;
+    filter: brightness(0.9);
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* その中で実際にhover/focusされているカードだけ前に出す */
+.cheki-grid .cheki-card:hover,
+.cheki-grid .cheki-card:focus-visible {
+    transform: scale(1.05) translateY(-8px) !important;
+    opacity: 1 !important;
+    filter: brightness(1.05) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
+    z-index: 20;
+    outline: none;
 }
 
 /* Push Pin Decoration */
@@ -495,59 +508,20 @@
 }
 
 .cheki-card:nth-child(3n+1) {
-    transform: rotate(-1deg);
+    transform: translateY(4px) rotate(-1deg);
+    /* ほんの少しずらして弧を描くように */
 }
 
 .cheki-card:nth-child(3n+2) {
-    transform: rotate(1.5deg);
+    transform: translateY(0px) rotate(0deg);
+    /* 中央は真っ直ぐ */
 }
 
 .cheki-card:nth-child(3n+0) {
-    transform: rotate(-0.5deg);
+    transform: translateY(4px) rotate(1deg);
+    /* 左右対称に */
 }
 
-/* Rotation-preserving hover effects */
-.cheki-card:hover {
-    z-index: 10;
-}
-
-.cheki-card:nth-child(3n+1):hover {
-    transform: translateY(-12px) scale(1.02) rotate(-1deg) !important;
-}
-
-.cheki-card:nth-child(3n+2):hover {
-    transform: translateY(-12px) scale(1.02) rotate(1.5deg) !important;
-}
-
-.cheki-card:nth-child(3n+0):hover {
-    transform: translateY(-12px) scale(1.02) rotate(-0.5deg) !important;
-}
-
-/* Random Pickup Grid (Home page - wrapped in div.reveal) */
-/* Wrapper is the direct child, so we target wrapper's position to style the inner card */
-#random-pickup-grid>div:nth-child(3n+1)>.cheki-card {
-    transform: rotate(-1deg);
-}
-
-#random-pickup-grid>div:nth-child(3n+2)>.cheki-card {
-    transform: rotate(1.5deg);
-}
-
-#random-pickup-grid>div:nth-child(3n+0)>.cheki-card {
-    transform: rotate(-0.5deg);
-}
-
-#random-pickup-grid>div:nth-child(3n+1)>.cheki-card:hover {
-    transform: translateY(-12px) scale(1.02) rotate(-1deg) !important;
-}
-
-#random-pickup-grid>div:nth-child(3n+2)>.cheki-card:hover {
-    transform: translateY(-12px) scale(1.02) rotate(1.5deg) !important;
-}
-
-#random-pickup-grid>div:nth-child(3n+0)>.cheki-card:hover {
-    transform: translateY(-12px) scale(1.02) rotate(-0.5deg) !important;
-}
 
 /* Responsive Utilities */
 @media (min-width: 921px) {
