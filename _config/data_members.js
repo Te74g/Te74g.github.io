@@ -69,6 +69,7 @@ window.membersData = [
             "assets/member/てん/profile1.webp",
             "assets/member/てん/profile2.webp"
         ],
+        silhouetteImage: "assets/member/てん/profile1_silhouette.webp",
 
         section: "運営部",
         goals: [
@@ -103,6 +104,7 @@ window.membersData = [
             "assets/member/もも/profile1.webp",
             "assets/member/もも/profile2.webp"
         ],
+        silhouetteImage: "assets/member/もも/profile1_silhouette.webp",
         section: "運営部",
         goals: [
             "デカい猫の作った本やスタンプを広めて、外で暮らす仲間たちのご飯を豪華にすること",
@@ -134,6 +136,7 @@ window.membersData = [
             "assets/member/麗/profile1.webp",
             "assets/member/麗/profile2.webp"
         ],
+        silhouetteImage: "assets/member/麗/profile1_silhouette.webp",
         goals: [
             "家族が一番喜ぶ恩返しをすること",
         ],
@@ -159,6 +162,7 @@ window.membersData = [
             "assets/member/フィリア/profile2.webp",
             "assets/member/フィリア/profile3.webp"
         ],
+        silhouetteImage: "assets/member/フィリア/profile1_silhouette.webp",
         goals: [
             "恩人に恩を返すこと",
             "ごはんをいっぱい食べること",
@@ -186,6 +190,7 @@ window.membersData = [
             "assets/member/凪/profile2.webp",
             "assets/member/凪/profile3.webp"
         ],
+        silhouetteImage: "assets/member/凪/profile1_silhouette.webp",
         goals: [
             "ハンドラーと一緒に寝る",
             "人についての理解を深める",
@@ -215,6 +220,7 @@ window.membersData = [
             "assets/member/さくら/profile2.webp",
             "assets/member/さくら/profile3.webp"
         ],
+        silhouetteImage: "assets/member/さくら/profile1_silhouette.webp",
         goals: [
             "家族の役に立つこと！",
             "人間の本当の気持ちを知りたい！"
@@ -243,6 +249,7 @@ window.membersData = [
             "assets/member/キララ/profile2.webp",
             "assets/member/キララ/profile3.webp"
         ],
+        silhouetteImage: "assets/member/キララ/profile1_silhouette.webp",
         goals: [
             "キラキラになること",
             "愛されること",
@@ -272,6 +279,7 @@ window.membersData = [
             "assets/member/ビノ/profile2.webp",
             "assets/member/ビノ/profile3.webp"
         ],
+        silhouetteImage: "assets/member/ビノ/profile1_silhouette.webp",
 
         section: "野生区画",
         goals: [
@@ -306,6 +314,7 @@ window.membersData = [
             "assets/member/あず/profile2.webp",
             "assets/member/あず/profile3.webp"
         ],
+        silhouetteImage: "assets/member/あず/profile1_silhouette.webp",
         goals: [
             "居るかもしれない仲間たちを見つける",
             "にんげんのことをいっぱい知る"
@@ -336,6 +345,7 @@ window.membersData = [
             "assets/member/てと/profile2.webp",
             "assets/member/てと/profile3.webp"
         ],
+        silhouetteImage: "assets/member/てと/profile1_silhouette.webp",
         goals: [
             "美味しいものをお腹いっぱい食べること",
             "みんなと仲良くすること",
@@ -371,6 +381,7 @@ window.membersData = [
             "assets/member/きょすー！/profile2.webp",
             "assets/member/きょすー！/profile3.webp"
         ],
+        silhouetteImage: "assets/member/きょすー！/profile1_silhouette.webp",
         goals: [
             "人間と仲良くして、神社に遊びに来てもらう。",
             "音楽でちょっと成功してみたい。",
@@ -431,6 +442,7 @@ window.membersData = [
             "assets/member/えの/fox_profile2.webp",
             "assets/member/えの/fox_profile3.webp",
         ],
+        silhouetteImage: "assets/member/えの/fox_profile1_silhouette.webp",
         goals: [
             "人間の「好き」という感情を知ること",
             "忘れられない思い出を集めること",
@@ -466,6 +478,7 @@ window.membersData = [
             "assets/member/あき/profile2.webp",
             "assets/member/あき/profile3.webp"
         ],
+        silhouetteImage: "assets/member/あき/profile1_silhouette.webp",
         goals: [
             "いたずら三昧"
         ],
@@ -498,6 +511,7 @@ window.membersData = [
             "assets/member/むぎだんご/profile2.webp",
             "assets/member/むぎだんご/profile3.webp"
         ],
+        silhouetteImage: "assets/member/むぎだんご/profile1_silhouette.webp",
         goals: [
             "たくさんの人から駄菓子をもらう"
         ],
@@ -524,6 +538,7 @@ window.membersData = [
         motifAnimal: "ヒト",
         motifIcon: "assets/motif/human.webp",
         image: "assets/member/ひねくれ/profile.webp",
+        silhouetteImage: "assets/member/ひねくれ/profile_silhouette.webp",
 
         section: "スタッフ",
         goals: [
@@ -547,6 +562,7 @@ window.membersData = [
         tagLabel: "スタッフ",
         tags: "スタッフ",
         image: "assets/member/Wikira/profile1.webp",
+        silhouetteImage: "assets/member/Wikira/profile1_silhouette.webp",
 
         section: "スタッフ",
         motifAnimal: "ロボット",
