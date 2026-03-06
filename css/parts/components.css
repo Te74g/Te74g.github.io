@@ -373,8 +373,12 @@
 
 .cheki-card {
     display: block;
-    background: rgb(252, 248, 242);
+    background-color: rgb(252, 248, 242);
     /* 暖色紙: 白よりも喫茶店の世界観に溶ける */
+    background-image: url('../../assets/cinema/film_grain.webp');
+    background-size: 320px 320px;
+    background-blend-mode: multiply;
+    /* グレインを背景色に重ねる（子要素には影響しない） */
     padding: 14px 14px 64px 14px;
     border: 1px solid rgba(207, 170, 107, 0.2);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
@@ -504,6 +508,17 @@
    ========================================= */
 #random-pickup-grid .cheki-card {
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ピックアップのランダム傾き（div ラッパー経由で位置判定）*/
+#random-pickup-grid > div:nth-child(3n+1) > .cheki-card {
+    transform: translateY(4px) rotate(-1deg);
+}
+#random-pickup-grid > div:nth-child(3n+2) > .cheki-card {
+    transform: translateY(0) rotate(0.5deg);
+}
+#random-pickup-grid > div:nth-child(3n+0) > .cheki-card {
+    transform: translateY(4px) rotate(1deg);
 }
 
 #random-pickup-grid:hover .cheki-card {

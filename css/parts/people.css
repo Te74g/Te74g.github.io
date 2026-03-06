@@ -254,12 +254,12 @@
    案内帳: 少数カード中央揃えグリッド
    ========================================= */
 .cheki-grid--solo {
-    grid-template-columns: minmax(auto, 260px);
+    grid-template-columns: minmax(auto, 340px);
     justify-content: center;
 }
 
 .cheki-grid--duo {
-    grid-template-columns: repeat(2, minmax(auto, 260px));
+    grid-template-columns: repeat(2, minmax(auto, 300px));
     justify-content: center;
 }
 
