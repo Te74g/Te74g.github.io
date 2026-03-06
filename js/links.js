@@ -32,9 +32,9 @@
             bg: 'linear-gradient(145deg, #070e1f 0%, #0d1e3c 100%)',
             border: '1px solid rgba(66,165,245,0.22)',
             shadow: '0 24px 64px rgba(7,14,31,0.88)',
-            iconBg: 'linear-gradient(135deg, #1565c0, #42a5f5)',
+            iconBg: 'transparent',
             iconBorder: 'none',
-            iconSvg: `<img src="${window.fixPath ? window.fixPath('assets/icon/VRCicon.webp') : '../assets/icon/VRCicon.webp'}" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">`,
+            iconSvg: `<img src="${window.fixPath ? window.fixPath('assets/icon/VRCicon.webp') : '../assets/icon/VRCicon.webp'}" alt="VRChat" style="width: 100%; height: 100%; border-radius: 22px; object-fit: cover;">`,
         },
         youtube: {
             badge: 'YouTube',
