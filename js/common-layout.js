@@ -171,9 +171,6 @@
       // ここでは簡易的にファイル名が含まれているかで判定
       if (href && href !== '#' && currentPath.includes(href.replace(/^\.\//, ''))) {
         link.classList.add('is-active');
-        if (link.classList.contains('nav-item')) {
-          link.style.textDecoration = 'underline';
-        }
       }
     });
   };

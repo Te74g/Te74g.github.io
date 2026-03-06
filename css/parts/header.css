@@ -3,26 +3,21 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(26, 19, 17, 0.85);
-    /* Dark wood background */
-    /* More transparent for better glass effect */
+    background: rgba(30, 20, 15, 0.85);
+    /* 濃い茶色の半透明帯 */
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border-bottom: 1px solid rgba(207, 170, 107, 0.15);
-    /* Faint gold bottom border */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
-    /* Deep shadow */
-    /* Soft drop shadow */
-    transition: background-color .3s ease,
-                border-color .3s ease,
-                box-shadow .3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    /* Faint bottom border */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    /* soft shadow */
+    transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 
 .site-header.is-elevated {
     background: rgba(20, 15, 13, 0.95);
-    border-color: rgba(207, 170, 107, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(207, 170, 107, 0.2);
-    /* Deeper shadow on scroll */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
 }
 
 .header-inner {
@@ -59,45 +54,67 @@
 
 .nav-item {
     font-weight: 700;
-    color: var(--ink);
-    padding: 10px 24px;
-    border-radius: 6px;
-    /* Rounded rectangle instead of pill */
-    transition: all .3s ease;
+    color: #fffaf0;
+    /* アイボリー寄りの白 */
+    padding: 10px 16px;
+    transition: color 0.2s ease, text-shadow 0.2s ease, background 0.2s ease;
     font-family: 'Zen Old Mincho', serif;
-    /* Elegant serif font for plaques */
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     white-space: nowrap;
 
-    /* Gold Plaque Base Style */
-    background: linear-gradient(to bottom, #2a1b14, #140d0a);
-    border: 2px solid #5a4231;
-
-    /* Double Inner Gold Border */
-    box-shadow:
-        inset 0 0 0 1px #1a1311,
-        inset 0 0 0 2px var(--accent-gold),
-        0 4px 12px rgba(0, 0, 0, 0.5);
-
+    background: transparent;
+    border: none;
+    box-shadow: none;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 4px;
+}
+
+/* ライン（下線）の共通設定 */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: rgba(230, 215, 170, 0.8);
+    /* 淡い琥珀色 */
+    transition: width 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav-item:hover {
     text-decoration: none;
-    color: var(--accent-gold);
-    text-shadow: 0 0 10px rgba(207, 170, 107, 0.4);
-    box-shadow:
-        inset 0 0 0 1px #1a1311,
-        inset 0 0 0 2px var(--accent-gold),
-        inset 0 0 15px rgba(207, 170, 107, 0.2),
-        /* Inner glow */
-        0 6px 16px rgba(0, 0, 0, 0.7);
-    /* Deeper drop shadow */
-    transform: translateY(-2px);
-    border-color: var(--accent-gold);
+    color: #fffaf0;
+    background: rgba(255, 255, 255, 0.04);
+    /* hover時に少し明るく */
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.4);
+    box-shadow: none;
+    transform: none;
+    /* 立体感を消す */
+}
+
+/* ホバー時の下線（アクティブの少し弱い版） */
+.nav-item:hover::after {
+    width: 60%;
+    box-shadow: 0 0 6px rgba(230, 215, 170, 0.3);
+}
+
+.nav-item.is-active {
+    color: #fff;
+    text-shadow: 0 0 12px rgba(230, 215, 170, 0.6);
+    /* ぼやけた淡い発光 */
+    background: transparent;
+}
+
+.nav-item.is-active::after {
+    width: 80%;
+    background: rgba(230, 215, 170, 1);
+    box-shadow: 0 0 8px rgba(230, 215, 170, 0.7);
+    /* アクティブ項目下の細いラインと発光 */
 }
 
 /* Header Socials */
@@ -116,20 +133,24 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--paper);
-    border: 1px solid rgba(207, 170, 107, 0.3);
-    /* Gold border */
-    color: var(--ink);
-    transition: all .3s ease;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.5);
+    background: transparent;
+    border: none;
+    color: rgba(255, 250, 240, 0.85);
+    /* アイボリー寄りの白 */
+    transition: all .2s ease;
+    box-shadow: none;
+    /* 立体感を消す */
 }
 
 .social-link:hover {
-    transform: translateY(-2px);
+    transform: none;
     text-decoration: none;
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
-    box-shadow: inset 0 0 10px rgba(207, 170, 107, 0.2), 0 4px 8px rgba(0, 0, 0, 0.6), 0 0 10px rgba(207, 170, 107, 0.4);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    /* hoverは少し明るく */
+    box-shadow: none;
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.5);
+    /* 弱いグロー */
 }
 
 /* Menu Socials (Mobile) */
@@ -312,53 +333,38 @@ body.nav-open .menu-close {
     align-items: flex-end;
     gap: 12px;
     padding: 16px 24px;
-    border-radius: 8px;
+    border-radius: 4px;
     text-decoration: none;
     font-family: 'Zen Old Mincho', serif;
     letter-spacing: 0.1em;
-    color: var(--ink);
+    color: #fffaf0;
 
-    /* Gold Plaque Base Style */
-    background: linear-gradient(to bottom, #2a1b14, #140d0a);
-    border: 2px solid #5a4231;
-
-    /* Double Inner Gold Border Effect */
-    box-shadow:
-        inset 0 0 0 1px #1a1311,
-        inset 0 0 0 2px var(--accent-gold),
-        0 4px 12px rgba(0, 0, 0, 0.5);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    /* 項目間の区切り線として薄いライン */
+    box-shadow: none;
 
     position: relative;
-    transition: all .3s ease;
+    transition: all .2s ease;
 }
-
-/* Gold Rivets for Menu Links */
 
 .menu-link:hover {
     text-decoration: none;
-    transform: translateY(-2px);
-    color: var(--accent-gold);
-    border-color: var(--accent-gold);
-    text-shadow: 0 0 10px rgba(207, 170, 107, 0.4);
-    box-shadow:
-        inset 0 0 0 1px #1a1311,
-        inset 0 0 0 2px var(--accent-gold),
-        inset 0 0 15px rgba(207, 170, 107, 0.2),
-        /* Inner glow */
-        0 6px 16px rgba(0, 0, 0, 0.7);
-    /* Deeper drop shadow */
+    transform: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(230, 215, 170, 0.4);
+    box-shadow: none;
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.4);
 }
 
 .menu-link.is-active {
-    background: linear-gradient(to bottom, rgba(207, 170, 107, 0.2), rgba(20, 13, 10, 0.9));
-    border-color: var(--accent-gold);
-    box-shadow:
-        inset 0 0 0 1px #1a1311,
-        inset 0 0 0 2px var(--accent-gold),
-        inset 0 0 20px rgba(207, 170, 107, 0.3),
-        /* Stronger Inner glow */
-        0 4px 12px rgba(0, 0, 0, 0.5);
-    color: var(--accent-gold);
+    background: rgba(230, 215, 170, 0.06);
+    border-bottom: 1px solid rgba(230, 215, 170, 0.8);
+    box-shadow: none;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.5);
 }
 
 .menu-link__jp {
@@ -417,29 +423,29 @@ body.nav-open .menu-close {
 }
 
 .site-header {
-    background: rgba(15, 15, 15, 0.75);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(20, 15, 12, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .site-header.is-elevated {
-    background: rgba(20, 20, 20, 0.85);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    background: rgba(15, 10, 8, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
 }
 
 .menu {
-    background-color: rgba(15, 15, 15, 0.90) !important;
+    background-color: rgba(20, 15, 12, 0.95) !important;
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
 }
 
 .menu-link {
-    background: var(--paper);
+    background: transparent;
 }
 
 .menu-link.is-active {
-    background: linear-gradient(135deg, rgba(255, 79, 216, 0.25), rgba(57, 198, 255, 0.20));
+    background: rgba(230, 215, 170, 0.06);
 }
 
 /* Menu Button Dark Mode */
