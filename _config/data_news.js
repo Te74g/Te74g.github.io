@@ -49,10 +49,11 @@ window.newsData = [
                 <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" class="btn btn--ghost">VRChatグループに参加</a>
             </p>
             
-            <p style="text-align: center; margin-top: 24px; font-weight: bold; font-size: 0.95em;">
-                👇 サイトのブックマークはこちら 👇<br>
-                <a href="https://te74g.github.io/Te74g.github.io/" target="_blank" style="word-break: break-all;">https://te74g.github.io/Te74g.github.io/</a>
-            </p>
+            <div style="text-align: center; margin-top: 32px; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(207, 170, 107, 0.2); border-radius: 8px;">
+                <p style="margin: 0 0 10px; font-weight: bold;">サイトのブックマークはこちら</p>
+                <a href="https://aniamemoria.com/" target="_blank" style="word-break: break-all; font-weight: bold; font-size: 1.1em;">https://aniamemoria.com/</a>
+                <p style="margin: 10px 0 0; font-size: 0.85em; color: var(--muted);">※Ctrl+Dキー（MacはCmd+Dキー）でブックマークに追加できます</p>
+            </div>
         `
     },
 
