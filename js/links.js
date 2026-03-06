@@ -34,9 +34,7 @@
             shadow: '0 24px 64px rgba(7,14,31,0.88)',
             iconBg: 'linear-gradient(135deg, #1565c0, #42a5f5)',
             iconBorder: 'none',
-            iconSvg: `<svg width="34" height="34" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.5 7h-17C2.67 7 2 7.67 2 8.5v9c0 .83.67 1.5 1.5 1.5H8l2.5 2.5L13 19h7.5c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5zm-11 8.5c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm5.5 0c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
-            </svg>`,
+            iconSvg: `<img src="${window.fixPath ? window.fixPath('assets/icon/VRCicon.webp') : '../assets/icon/VRCicon.webp'}" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">`,
         },
         youtube: {
             badge: 'YouTube',
