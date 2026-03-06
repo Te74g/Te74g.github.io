@@ -375,35 +375,34 @@
     display: block;
     background: #fff;
     padding: 14px 14px 64px 14px;
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 1px solid rgba(207, 170, 107, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, opacity 0.18s ease-out;
     text-decoration: none;
     color: #1a1a1a;
     position: relative;
-    transform-origin: center bottom;
     cursor: pointer;
     border-radius: 4px;
-    /* 紙っぽくエッジをシャープ寄りに */
     max-width: 380px;
     margin-inline: auto;
     width: 100%;
+    transform: none;
 }
 
-/* トレイのホバーインタラクション (Grid全体がhoverされている時、個別のカードを少し後ろに隠す) */
+/* トレイのホバーインタラクション: scale廃止、opacity のみ */
 .cheki-grid:hover .cheki-card {
-    transform: scale(0.96) translateY(4px);
-    opacity: 0.85;
-    filter: brightness(0.9);
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.82;
+    filter: none;
+    transform: none;
 }
 
-/* その中で実際にhover/focusされているカードだけ前に出す */
+/* その中で実際にhover/focusされているカードだけ前に出す: 5px浮かせるだけ */
 .cheki-grid .cheki-card:hover,
 .cheki-grid .cheki-card:focus-visible {
-    transform: scale(1.05) translateY(-8px) !important;
+    transform: translateY(-5px) !important;
     opacity: 1 !important;
-    filter: brightness(1.05) !important;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
+    filter: none !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28) !important;
     z-index: 20;
     outline: none;
 }
@@ -473,21 +472,23 @@
 }
 
 .cheki-card:hover .cheki-img {
-    transform: scale(1.05);
+    transform: scale(1.02);
+    /* 案内帳スタイル: 控えめなズームのみ */
 }
 
 .cheki-tag-badge {
     position: absolute;
     top: 0;
     right: 0;
-    background: #000;
-    color: #fff;
-    font-weight: 900;
-    font-size: 14px;
-    padding: 6px 16px;
-    border-bottom-left-radius: 8px;
+    background: rgba(30, 20, 14, 0.75);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-bottom-left-radius: 6px;
     z-index: 10;
-    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: none;
+    letter-spacing: 0.06em;
 }
 
 .cheki-name {
@@ -507,20 +508,7 @@
     padding: 0 8px;
 }
 
-.cheki-card:nth-child(3n+1) {
-    transform: translateY(4px) rotate(-1deg);
-    /* ほんの少しずらして弧を描くように */
-}
-
-.cheki-card:nth-child(3n+2) {
-    transform: translateY(0px) rotate(0deg);
-    /* 中央は真っ直ぐ */
-}
-
-.cheki-card:nth-child(3n+0) {
-    transform: translateY(4px) rotate(1deg);
-    /* 左右対称に */
-}
+/* カード傾き削除: 案内帳スタイルでは全カード垂直整列 */
 
 
 /* Responsive Utilities */

@@ -18,7 +18,8 @@
             <section class="section people-page-section">
                 <div class="container">
                     <header class="section-head reveal">
-                        <h1 class="section-title cafe-signboard">キャスト紹介</h1>
+                        <p class="people-nav-label">キャスト紹介</p>
+                        <h1 class="section-title cafe-signboard">あにあめもりあ 案内帳</h1>
                     </header>
                     <div class="toolbar reveal">
                         <div class="field">
@@ -244,6 +245,10 @@
                 const card = createMemberCard(m, firstForm, 0, revealLevel);
                 grid.appendChild(card);
             });
+            // 少数カード中央揃え: 1枚→solo, 2枚→duo
+            const cardCount = grid.children.length;
+            if (cardCount === 1) grid.classList.add('cheki-grid--solo');
+            else if (cardCount === 2) grid.classList.add('cheki-grid--duo');
             innerContainer.appendChild(grid);
             wrapper.appendChild(innerContainer);
 
