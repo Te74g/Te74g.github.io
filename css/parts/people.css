@@ -17,8 +17,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 20px;
-    padding-bottom: 50px;
+    padding-top: 12px;
+    padding-bottom: 24px;
     overflow: hidden;
     /* Crop blurred edges */
 }
@@ -66,7 +66,7 @@
     /* Use Dark Mode White for all themes */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    margin: 0 0 40px;
+    margin: 0 0 20px;
 }
 
 /* Force divider line (::before from layout.css) to be white */
@@ -147,7 +147,7 @@
    フィルタリング結果（フラットビュー）
    ========================================= */
 .people-filter-results {
-    padding: 48px 0 80px;
+    padding: 16px 0 28px;
     min-height: 300px;
 }
 
@@ -200,8 +200,8 @@
    (pages/people.html の inline style 移行分)
    ========================================= */
 .people-page-section {
-    padding-top: 40px;
-    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 .people-page-section .section-head {

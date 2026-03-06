@@ -153,7 +153,7 @@
     box-shadow: var(--shadow);
     color: #e0e0e0 !important;
     overflow: hidden;
-    margin-bottom: 24px;
+    margin-bottom: 14px;
 }
 
 .parchment-frame p {
@@ -194,7 +194,7 @@
 
 /* --- Block 2: Goals Section --- */
 .goals-section {
-    margin-bottom: 24px;
+    margin-bottom: 14px;
 }
 
 .goals-title {
@@ -226,8 +226,8 @@
     display: flex;
     justify-content: center;
     gap: 16px;
-    margin-top: 24px;
-    margin-bottom: 32px;
+    margin-top: 14px;
+    margin-bottom: 14px;
 }
 
 .social-icon {
@@ -381,7 +381,7 @@
         display: grid;
         grid-template-columns: 1.05fr 0.95fr;
         grid-template-rows: auto 1fr;
-        gap: 24px 40px;
+        gap: 16px 32px;
         /* row gap, col gap */
         align-items: start;
     }
@@ -411,7 +411,7 @@
     .profile-layout-grid {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 16px;
     }
 
     /* Mobile Order: Visual -> Text -> Related */

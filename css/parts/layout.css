@@ -102,7 +102,7 @@ body.is-preloading {
 
 /* Section Headers */
 .section-head {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -163,7 +163,7 @@ body.is-preloading {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 60px 0 40px;
+    margin: 28px 0 20px;
     position: relative;
     width: 100%;
 }
@@ -280,7 +280,7 @@ body.is-preloading {
     align-items: center;
     justify-content: center;
     width: 60%;
-    margin: 40px auto;
+    margin: 22px auto;
     /* Vertical spacing */
     opacity: 0.8;
 }
