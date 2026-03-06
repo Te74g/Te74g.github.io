@@ -433,49 +433,6 @@
       z-index: 6;
     }
 
-    /* =====================================================
-       Cast Reveal Banner: 縦型ポートレートカード
-       （メインセクション専用。#cast-reveal-hero の横型は維持）
-       ===================================================== */
-    #cast-reveal-banner .cast-reveal-cards {
-      gap: 16px;
-      justify-content: center;
-    }
-
-    #cast-reveal-banner .cast-reveal-card {
-      flex-direction: column;
-      align-items: stretch;
-      height: auto;
-      min-width: 150px;
-      max-width: 180px;
-      flex: 0 0 158px;
-    }
-
-    #cast-reveal-banner .cast-reveal-img-wrap {
-      width: 100%;
-      min-width: unset;
-      height: 190px;
-    }
-
-    #cast-reveal-banner .cast-reveal-info {
-      text-align: center;
-      align-items: center;
-      padding: 10px 10px 14px;
-      gap: 5px;
-    }
-
-    /* 縦型: 金帯を左辺→上辺に変更 */
-    #cast-reveal-banner .cast-reveal-card.is-today::after {
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: auto;
-      width: 100%;
-      height: 3px;
-      border-radius: 10px 10px 0 0;
-      background: linear-gradient(to right, #cfaa6b, #8a6a30, #cfaa6b);
-    }
-
     /* Reduced margin for tighter layout */
     .section-head {
       margin-bottom: 20px !important;

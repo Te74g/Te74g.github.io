@@ -57,9 +57,9 @@
                 imgBase = images[0] ? window.fixPath(images[0]) : silPath;
                 imgHover = images[1] ? window.fixPath(images[1]) : imgBase;
             } else {
-                // 明日: シルエット固定
-                const sil = images[0]
-                    ? window.fixPath(images[0]).replace('.webp', '_silhouette.webp')
+                // 明日: キャストごとのシルエット (silhouetteImage 優先、なければ汎用)
+                const sil = member.silhouetteImage
+                    ? window.fixPath(member.silhouetteImage)
                     : silPath;
                 imgBase = sil;
                 imgHover = sil;
@@ -88,7 +88,7 @@
                 </div>
                 <div class="cast-reveal-info">
                     <span class="cast-reveal-tag">${member.tagLabel}</span>
-                    <span class="cast-reveal-name">${isToday ? member.name : '？？？'}</span>
+                    <span class="cast-reveal-name">${member.name}</span>
                     <span class="cast-reveal-date">${dateLabel}</span>
                 </div>
             </a>`;
