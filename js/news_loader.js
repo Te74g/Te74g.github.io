@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const headerEl = document.getElementById('dynamic-article-header');
         if (headerEl) {
             headerEl.innerHTML = `
-                <h1 class="cafe-signboard" style="font-size: clamp(1.4rem, 4vw, 2.0rem); margin-bottom: 0;">
+                <h1 class="cafe-signboard" style="font-size: clamp(1.1rem, 3vw, 1.4rem); line-height: 1.5; margin-bottom: 0;">
                     ${article.title}
                 </h1>
                 <div class="cafe-separator">
