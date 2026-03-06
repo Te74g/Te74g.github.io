@@ -167,10 +167,20 @@
     const navLinks = document.querySelectorAll('.pc-nav .nav-item, .menu-link');
     navLinks.forEach(link => {
       const href = link.getAttribute('href');
-      // hrefが相対パスの場合、絶対パスに変換して比較するなどの正規化が必要だが
-      // ここでは簡易的にファイル名が含まれているかで判定
-      if (href && href !== '#' && currentPath.includes(href.replace(/^\.\//, ''))) {
-        link.classList.add('is-active');
+      if (href && href !== '#') {
+        // '../' や './' などを取り除き、純粋なパス部分を抽出
+        const cleanHref = href.replace(/^(\.\/|\.\.\/)+/, '');
+
+        // 1. ディレクトリ全体（news/ や gallery/ など）としてマッチさせるか
+        const isDirMatch = cleanHref.endsWith('/index.html') && currentPath.includes(cleanHref.replace('index.html', ''));
+
+        // 2. ファイル名直指定での完全マッチ
+        const isFileMatch = currentPath.includes(cleanHref);
+
+        // トップページの想定を除外
+        if (cleanHref !== 'index.html' && (isDirMatch || isFileMatch)) {
+          link.classList.add('is-active');
+        }
       }
     });
   };
