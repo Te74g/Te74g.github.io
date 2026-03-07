@@ -811,3 +811,50 @@
         padding: 16px;
     }
 }
+
+/* =========================================
+   MOBILE OVERRIDES
+   ========================================= */
+
+/* 絞り込みタブ：スマホでは横スクロールバーに変換 */
+@media (max-width: 640px) {
+    .tag-filter-buttons {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 1px; /* border の視覚的ズレを吸収 */
+        margin-bottom: -1px;
+    }
+
+    .tag-filter-buttons::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tag-filter-btn {
+        flex-shrink: 0; /* ボタンが縮まないよう固定 */
+    }
+}
+
+/* ニュースカルーセル (トップページ)：スマホでコンパクトに */
+@media (max-width: 600px) {
+    .news-carousel-track {
+        height: 250px;
+    }
+
+    .news-card-slide {
+        width: 82%;
+        height: 210px;
+    }
+
+    .news-card-slide .title {
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+
+    .carousel-nav-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
