@@ -149,13 +149,15 @@
 
   <style>
     /* Parallax Fix: Content Sections must act as cover */
-    main {
+    /* layout.css の #main { padding-top: var(--header-h) } はID特殊性(0-1-0-0)のため
+       タイプセレクタ main(0-0-0-1)では負ける。#main で上書きして特殊性を揃え、
+       ソース順（後勝ち）でこちらを優先させる。 */
+    #main {
       padding-top: 100vh;
       /* fallback for older browsers */
       padding-top: 100dvh;
       /* Push content below fixed hero (dvh = hero と同じ単位でアドレスバー連動) */
       position: relative;
-      /* pointer-events: none;  Wait, main needs pointer events for buttons. */
     }
 
     /* Apply Texture to Sections to cover Hero */
