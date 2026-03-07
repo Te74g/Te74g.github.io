@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const rootPath = '../';
 
+    // ---- Cinema Stage Setup ----
+    main.classList.add('aikotoba-stage');
+
     // ---- ページ構造 ----
     main.insertAdjacentHTML('beforeend', `
         <section class="section">
@@ -18,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h1 class="section-title cafe-signboard">合言葉</h1>
                     <p class="section-lead">秘密の手紙</p>
                 </header>
-                <div class="aikotoba-divider" aria-hidden="true"></div>
+                <div class="perf-strip" aria-hidden="true"></div>
                 <div id="aikotoba-list" class="aikotoba-grid reveal"></div>
                 <div style="margin-top: 40px; text-align: center;">
                     <a href="../index.html" class="btn btn--primary">トップへ戻る</a>
