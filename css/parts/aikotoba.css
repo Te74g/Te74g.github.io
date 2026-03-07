@@ -1,5 +1,13 @@
 /* ===== Aikotoba Page ===== */
 
+/* 見出し下の区切り線 */
+.aikotoba-divider {
+    width: min(520px, 88%);
+    height: 1px;
+    margin: 12px auto 28px;
+    background: linear-gradient(to right, transparent, rgba(207, 170, 107, 0.5), transparent);
+}
+
 .aikotoba-grid {
     display: grid;
     gap: 16px;
