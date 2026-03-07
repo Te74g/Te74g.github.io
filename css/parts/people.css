@@ -50,8 +50,8 @@
    ========================================= */
 .ledger-header {
     border-bottom: 1px solid rgba(180, 140, 80, 0.2);
-    padding-bottom: 20px;
-    margin-bottom: 24px;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .people-nav-label {
@@ -65,6 +65,21 @@
 .ledger-header .section-title {
     color: #2a1f14;
     margin: 0;
+}
+
+/* 帳面内タイトル：黒プレートを除去して紙面に直接書かれた見出しに */
+.ledger-header .cafe-signboard {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 6px 0;
+    color: #2a1f14;
+    letter-spacing: 0.18em;
+}
+
+.ledger-header .cafe-signboard::before,
+.ledger-header .cafe-signboard::after {
+    color: rgba(160, 120, 60, 0.5);
 }
 
 /* reveal アニメーション（帳面内要素） */
@@ -91,7 +106,7 @@
     flex-wrap: wrap;
     gap: 0;
     border-bottom: 1px solid rgba(180, 140, 80, 0.25);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .ledger-tab {
@@ -123,16 +138,16 @@
    ScrollSpy 補足欄（帳面内の小さな添え書き）
    ========================================= */
 .ledger-note {
-    padding: 10px 0 14px;
+    padding: 8px 0 12px;
     border-bottom: 1px solid rgba(180, 140, 80, 0.15);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .ledger-note-label {
     font-family: "Zen Old Mincho", serif;
     font-size: 0.68rem;
     letter-spacing: 0.16em;
-    color: rgba(100, 75, 45, 0.5);
+    color: rgba(80, 55, 25, 0.72);
     margin: 0 0 6px;
 }
 
@@ -192,10 +207,10 @@
     font-size: 0.8rem;
     font-weight: 400;
     letter-spacing: 0.22em;
-    color: rgba(80, 55, 30, 0.55);
+    color: rgba(60, 38, 14, 0.78);
     border-bottom: 1px solid rgba(180, 140, 80, 0.2);
     padding-bottom: 6px;
-    margin: 0 0 20px;
+    margin: 0 0 16px;
 }
 
 /* 章のフェードイン */
@@ -215,7 +230,7 @@
    ========================================= */
 .meibo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
     gap: 20px;
     margin-bottom: 8px;
 }
@@ -361,7 +376,7 @@
 .meibo-desc {
     font-family: "Zen Kaku Gothic New", sans-serif;
     font-size: 0.66rem;
-    color: #7a5c38;
+    color: #5e4220;
     margin: 0;
     line-height: 1.55;
     overflow: hidden;
@@ -411,7 +426,7 @@
     }
 
     .meibo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
         gap: 14px;
     }
 }
@@ -436,7 +451,7 @@
     }
 
     .meibo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 10px;
     }
 
