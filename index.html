@@ -150,6 +150,8 @@
   <style>
     /* Parallax Fix: Content Sections must act as cover */
     main {
+      padding-top: 100vh;
+      /* fallback for older browsers */
       padding-top: 100dvh;
       /* Push content below fixed hero (dvh = hero と同じ単位でアドレスバー連動) */
       position: relative;
@@ -475,6 +477,12 @@
 
     /* Mobile: Stack Vertical (Text Top, Image Bottom) */
     @media (max-width: 768px) {
+      /* Hero 右サイドオーバーレイはデスクトップ専用: スマホでは非表示 */
+      /* モバイルでは #cast-reveal-overlay セクション(コンテンツボード内)が代わりに表示される */
+      #cast-reveal-hero {
+        display: none !important;
+      }
+
       .about-content {
         flex-direction: column;
         text-align: center;
