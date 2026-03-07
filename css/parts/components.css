@@ -373,48 +373,57 @@
 
 .cheki-card {
     display: block;
-    background-color: rgb(252, 248, 242);
-    /* 暖色紙: 白よりも喫茶店の世界観に溶ける */
-    background-image: url('../../assets/cinema/film_grain.webp');
-    background-size: 320px 320px;
-    background-blend-mode: multiply;
-    /* グレインを背景色に重ねる（子要素には影響しない） */
+    background: #fff;
     padding: 14px 14px 64px 14px;
-    border: 1px solid rgba(207, 170, 107, 0.2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, opacity 0.18s ease-out;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     text-decoration: none;
     color: #1a1a1a;
     position: relative;
+    transform-origin: center bottom;
     cursor: pointer;
     border-radius: 4px;
+    /* 紙っぽくエッジをシャープ寄りに */
     max-width: 380px;
     margin-inline: auto;
     width: 100%;
-    transform: none;
 }
 
-/* トレイのホバーインタラクション: scale廃止、opacity のみ */
+/* トレイのホバーインタラクション (Grid全体がhoverされている時、個別のカードを少し後ろに隠す) */
 .cheki-grid:hover .cheki-card {
-    opacity: 0.82;
-    filter: none;
-    transform: none;
+    transform: scale(0.96) translateY(4px);
+    opacity: 0.85;
+    filter: brightness(0.9);
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* その中で実際にhover/focusされているカードだけ前に出す: 5px浮かせるだけ */
+/* その中で実際にhover/focusされているカードだけ前に出す */
 .cheki-grid .cheki-card:hover,
 .cheki-grid .cheki-card:focus-visible {
-    transform: translateY(-5px) !important;
+    transform: scale(1.05) translateY(-8px) !important;
     opacity: 1 !important;
-    filter: none !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28) !important;
+    filter: brightness(1.05) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
     z-index: 20;
     outline: none;
 }
 
-/* Push Pin Decoration: 非表示（案内帳スタイル） */
+/* Push Pin Decoration */
 .cheki-card::before {
-    content: none;
+    content: "";
+    position: absolute;
+    top: -15px;
+    /* Pin sits on top edge */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    /* Red Pin Style (Default) */
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+    pointer-events: none;
 }
 
 /* Pin Color Variants */
@@ -464,23 +473,21 @@
 }
 
 .cheki-card:hover .cheki-img {
-    transform: scale(1.02);
-    /* 案内帳スタイル: 控えめなズームのみ */
+    transform: scale(1.05);
 }
 
 .cheki-tag-badge {
     position: absolute;
     top: 0;
     right: 0;
-    background: rgba(30, 20, 14, 0.75);
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 700;
-    font-size: 12px;
-    padding: 4px 12px;
-    border-bottom-left-radius: 6px;
+    background: #000;
+    color: #fff;
+    font-weight: 900;
+    font-size: 14px;
+    padding: 6px 16px;
+    border-bottom-left-radius: 8px;
     z-index: 10;
-    box-shadow: none;
-    letter-spacing: 0.06em;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .cheki-name {
@@ -500,44 +507,21 @@
     padding: 0 8px;
 }
 
-/* カード傾き削除: 案内帳スタイルでは全カード垂直整列 */
-
-/* =========================================
-   #random-pickup-grid: アニメーション復元
-   （.cheki-grid グローバル変更の影響を ID で上書き）
-   ========================================= */
-#random-pickup-grid .cheki-card {
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* ピックアップのランダム傾き（div ラッパー経由で位置判定）*/
-#random-pickup-grid > div:nth-child(3n+1) > .cheki-card {
+.cheki-card:nth-child(3n+1) {
     transform: translateY(4px) rotate(-1deg);
+    /* ほんの少しずらして弧を描くように */
 }
-#random-pickup-grid > div:nth-child(3n+2) > .cheki-card {
-    transform: translateY(0) rotate(0.5deg);
+
+.cheki-card:nth-child(3n+2) {
+    transform: translateY(0px) rotate(0deg);
+    /* 中央は真っ直ぐ */
 }
-#random-pickup-grid > div:nth-child(3n+0) > .cheki-card {
+
+.cheki-card:nth-child(3n+0) {
     transform: translateY(4px) rotate(1deg);
+    /* 左右対称に */
 }
 
-#random-pickup-grid:hover .cheki-card {
-    transform: scale(0.96) translateY(4px);
-    opacity: 0.85;
-    filter: brightness(0.9);
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-#random-pickup-grid .cheki-card:hover {
-    transform: scale(1.05) translateY(-8px) !important;
-    opacity: 1 !important;
-    filter: brightness(1.05) !important;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
-}
-
-#random-pickup-grid .cheki-card:hover .cheki-img {
-    transform: scale(1.05);
-}
 
 /* Responsive Utilities */
 @media (min-width: 921px) {
