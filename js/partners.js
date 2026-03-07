@@ -21,7 +21,6 @@
                         <h1 class="section-title cafe-signboard">提携イベント一覧</h1>
                         <p class="section-lead">あにあめもりあと提携している素敵なイベントのご紹介。</p>
                     </header>
-                    <div class="perf-strip" aria-hidden="true"></div>
                 </div>
             </section>
             <section class="section">
