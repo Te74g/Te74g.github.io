@@ -128,6 +128,7 @@
                         <h1 class="section-title cafe-signboard">関連リンク</h1>
                         <p class="section-lead">最新情報の受け取り・コミュニティへの参加はこちらから！</p>
                     </header>
+                    <div class="perf-strip" aria-hidden="true"></div>
                     <div id="links-grid" class="links-grid"></div>
                     <div style="margin-top: 48px; text-align: center;">
                         <a href="../index.html" class="btn btn--primary">トップへ戻る</a>

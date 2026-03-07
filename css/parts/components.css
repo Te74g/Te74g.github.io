@@ -579,3 +579,15 @@
         padding: 8px 8px 40px 8px;
     }
 }
+
+/* =========================================
+   パーフォレーション帯 — 共通デコレーション
+   ========================================= */
+.perf-strip {
+    width: min(520px, 88%);
+    height: 22px;
+    margin: 12px auto 28px;
+    background: url("../../assets/cinema/perforation.svg") center / contain no-repeat;
+    opacity: 0.5;
+    filter: invert(1);
+}

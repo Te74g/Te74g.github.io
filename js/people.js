@@ -20,6 +20,7 @@
                     <header class="section-head reveal">
                         <h1 class="section-title cafe-signboard">キャスト紹介</h1>
                     </header>
+                    <div class="perf-strip" aria-hidden="true"></div>
                     <div class="toolbar reveal">
                         <div class="field">
                             <div id="people-tag-filter" class="tag-filter-buttons">
