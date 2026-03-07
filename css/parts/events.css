@@ -41,7 +41,7 @@
 
 /* 左：サムネイル */
 .event-card__thumb {
-    flex: 0 0 240px;
+    flex: 0 0 220px;
     overflow: hidden;
     position: relative;
 }
@@ -77,20 +77,32 @@
     min-width: 0;
 }
 
+.event-card__top {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.event-card__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .event-card__meta {
     display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 10px;
+    align-items: center;
+    gap: 8px;
 }
 
 .event-card__org-icon {
-    width: 18px;
-    height: 18px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
     opacity: 0.9;
+    box-shadow: 0 0 0 1px rgba(207, 170, 107, 0.3);
 }
 
 .event-card__organizer {
@@ -101,31 +113,40 @@
     white-space: nowrap;
 }
 
-.event-card__date {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    line-height: 1.4;
-}
-
 .event-card__name {
     font-family: "Zen Old Mincho", serif;
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--text);
-    margin: 0 0 8px;
+    margin: 0;
     line-height: 1.5;
 }
 
 .event-card__desc {
     font-size: 0.82rem;
     color: var(--muted);
-    margin: 0 0 14px;
+    margin: 0;
     line-height: 1.65;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.event-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.event-card__date {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    flex: 1;
+    min-width: 0;
 }
 
 .event-card__cta {
@@ -137,7 +158,8 @@
     align-items: center;
     gap: 5px;
     transition: color 0.15s ease;
-    align-self: flex-start;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .event-card__cta::after {

@@ -65,14 +65,20 @@
                         <img src="${imgUrl}" alt="${item.name}" class="event-card__img" loading="lazy">
                     </div>
                     <div class="event-card__body">
-                        <div class="event-card__meta">
-                            ${item.organizerLogo ? `<img src="${window.fixPath(item.organizerLogo)}" alt="" class="event-card__org-icon" aria-hidden="true">` : ''}
-                            <span class="event-card__organizer">${item.organizer}</span>
-                            <span class="event-card__date">${item.date}</span>
+                        <div class="event-card__top">
+                            <div class="event-card__meta">
+                                ${item.organizerLogo ? `<img src="${window.fixPath(item.organizerLogo)}" alt="" class="event-card__org-icon" aria-hidden="true">` : ''}
+                                <span class="event-card__organizer">${item.organizer}</span>
+                            </div>
+                            <h3 class="event-card__name">${item.name}</h3>
                         </div>
-                        <h3 class="event-card__name">${item.name}</h3>
-                        <p class="event-card__desc">${item.desc}</p>
-                        <span class="event-card__cta">詳細を見る</span>
+                        <div class="event-card__bottom">
+                            <p class="event-card__desc">${item.desc}</p>
+                            <div class="event-card__footer">
+                                <span class="event-card__date">${item.date}</span>
+                                <span class="event-card__cta">詳細を見る</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
             `;
