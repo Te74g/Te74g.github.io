@@ -15,32 +15,29 @@
     const main = document.getElementById('main');
     if (main) {
         main.insertAdjacentHTML('beforeend', `
-            <section class="section people-page-section">
-                <div class="container">
-                    <header class="section-head reveal">
+            <div class="ledger-page">
+                <div class="ledger-bg"></div>
+                <div class="ledger-book">
+                    <header class="ledger-header reveal">
                         <p class="people-nav-label">キャスト紹介</p>
                         <h1 class="section-title cafe-signboard">あにあめもりあ 案内帳</h1>
                     </header>
-                    <div class="toolbar reveal">
-                        <div class="field">
-                            <div id="people-tag-filter" class="tag-filter-buttons">
-                                <button class="tag-filter-btn is-active" data-value="all">すべて</button>
-                                <button class="tag-filter-btn" data-value="運営">運営</button>
-                                <button class="tag-filter-btn" data-value="飼育">飼育</button>
-                                <button class="tag-filter-btn" data-value="野生">野生</button>
-                                <button class="tag-filter-btn" data-value="妖怪">妖怪</button>
-                                <button class="tag-filter-btn" data-value="キャスト">キャスト</button>
-                                <button class="tag-filter-btn" data-value="スタッフ">スタッフ</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ledger-roster reveal" id="ledger-roster" aria-live="polite">
-                        <p class="ledger-roster-label">この頁の顔ぶれ</p>
-                        <ul class="ledger-roster-list" id="ledger-roster-list"></ul>
-                    </div>
+                    <nav id="people-tag-filter" class="ledger-tabs reveal" aria-label="セクション絞り込み">
+                        <button class="ledger-tab is-active" data-value="all">すべて</button>
+                        <button class="ledger-tab" data-value="運営">運営</button>
+                        <button class="ledger-tab" data-value="飼育">飼育</button>
+                        <button class="ledger-tab" data-value="野生">野生</button>
+                        <button class="ledger-tab" data-value="妖怪">妖怪</button>
+                        <button class="ledger-tab" data-value="キャスト">キャスト</button>
+                        <button class="ledger-tab" data-value="スタッフ">スタッフ</button>
+                    </nav>
+                    <aside class="ledger-note reveal" id="ledger-note" aria-live="polite">
+                        <p class="ledger-note-label">この章の顔ぶれ</p>
+                        <ul class="ledger-note-list" id="ledger-roster-list"></ul>
+                    </aside>
+                    <div class="ledger-body" id="people-list-container"></div>
                 </div>
-            </section>
-            <div id="people-list-container"></div>
+            </div>
         `);
     }
 
@@ -90,80 +87,47 @@
             grouped[sec].push(member);
         });
 
-        // HTML生成
-        // HTML生成関数
-        const createSectionElement = (sec, list) => {
-            // Section Background Map
-            const bgMap = {
-                "運営部": "../assets/page/unei_low_res.webp",
-                "飼育区画": "../assets/page/shiiku_low_res.webp",
-                "野生区画": "../assets/page/yasei_low_res.webp",
-                "妖怪区画": "../assets/page/yo-kai_low_res.webp",
-                "スタッフ": "../assets/page/staff_low_res.webp"
-            };
+        // ---- 章（セクション）要素生成 ----
+        const createLedgerChapter = (sec, list) => {
+            // 帳面の章コンテナ（背景なし・点線なし）
+            const chapter = document.createElement("div");
+            chapter.className = "ledger-chapter reveal";
+            chapter.dataset.section = sec;
 
-            // Create Wrapper
-            const wrapper = document.createElement("section");
-            wrapper.className = "people-section-wrapper reveal"; // reveal class triggers fadeIn animation
-            wrapper.dataset.section = sec; // フィルタリングで特定するための識別子
+            // 章見出し（紙面内のインライン見出し）
+            const title = document.createElement("h2");
+            title.className = "ledger-chapter-title";
+            title.textContent = sec;
+            chapter.appendChild(title);
 
-            const bgDiv = document.createElement("div");
-            bgDiv.className = "people-section-bg";
-
-            const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : "";
-            if (bgPath) {
-                bgDiv.style.backgroundImage = `url('${bgPath}')`;
-            } else {
-                bgDiv.style.backgroundColor = "transparent";
-            }
-            wrapper.appendChild(bgDiv);
-
-            // Inner Container
-            const innerContainer = document.createElement("div");
-            innerContainer.className = "container";
-
-            // Section Header
-            const divider = document.createElement("div");
-            divider.className = "section-divider";
-            divider.innerHTML = `<span class="section-label">${sec}</span>`;
-            innerContainer.appendChild(divider);
-
-            // Grid
+            // 名簿グリッド
             const grid = document.createElement("div");
-            grid.className = "cheki-grid";
+            grid.className = "meibo-grid";
 
             // キャスト表示制御の設定を取得
             const castConfig = window.siteConfig?.castDisplay || {};
-            const showAll = castConfig.showAllMembers;
-            const visibleList = castConfig.visibleMembers || [];
 
-            // カード生成関数
+            // ---- カード生成 ----
             const createMemberCard = (m, form, formIndex, revealLevel) => {
                 const link = document.createElement("a");
 
                 // form がある場合は画像だけマージ（名前は親のnameを使用）
                 const effectiveMember = form ? {
                     ...m,
-                    // 表示名は親のnameを維持（一覧では「えの / エノ」のような統合名を使用）
                     name: m.name,
                     pickupName: m.pickupName || m.name,
-                    tagLabel: m.tagLabel,  // 親のタグを使用
-                    // 画像だけフォームから取得
+                    tagLabel: m.tagLabel,
                     profileImages: (form.profileImages && form.profileImages.length > 0) ? form.profileImages : m.profileImages,
                     image: form.image || m.image,
                 } : m;
 
-                const pinClass = window.getPinClass(m.tags);
-                link.className = `cheki-card ${pinClass}`;
+                link.className = "meibo-card";
                 link.setAttribute("data-name", effectiveMember.name);
                 link.setAttribute("data-tags", m.tags);
 
-                // 既存の表示許可チェック（互換性のため残す）
                 const visible = window.isMemberVisible(m, castConfig);
 
-                // revealLevel 3（完全公開）の場合
                 if (revealLevel >= 3) {
-                    // forms がある場合は form パラメータを URL に追加
                     let url = m.link || `member/profile.html?id=${m.id}`;
                     if (form && formIndex !== undefined) {
                         url += `${url.includes('?') ? '&' : '?'}form=${formIndex}`;
@@ -171,33 +135,38 @@
                     link.href = window.fixPath(url);
                     const displayName = effectiveMember.pickupName || effectiveMember.name;
 
-                    // Random Image Selection
                     const targetImage = (effectiveMember.profileImages && effectiveMember.profileImages.length > 0)
                         ? effectiveMember.profileImages[Math.floor(Math.random() * effectiveMember.profileImages.length)]
                         : effectiveMember.image;
 
+                    const fPath = window.getMemberFrame ? window.getMemberFrame(m.tags) : null;
+                    const frameOverlay = fPath
+                        ? `<div style="position:absolute;inset:0;background-image:url('${window.fixPath(fPath)}');background-size:100% 100%;pointer-events:none;z-index:3;"></div>`
+                        : '';
+
                     link.innerHTML = `
-                        <div class="cheki-visual" style="${(() => {
-                            const bgPath = window.getMemberBackground(m.tags);
-                            return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
-                        })()}">
-                            <img src="${window.fixPath(targetImage)}" alt="${effectiveMember.name}" class="cheki-img" loading="lazy">
-                            <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
-                            ${(() => {
-                            const fPath = window.getMemberFrame(m.tags);
-                            return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
-                        })()}
+                        <div class="meibo-photo">
+                            <img src="${window.fixPath(targetImage)}" alt="${effectiveMember.name}" class="meibo-img" loading="lazy">
+                            <span class="meibo-tag">${effectiveMember.tagLabel}</span>
+                            ${frameOverlay}
                         </div>
-                        <div class="cheki-name">${displayName}</div>
+                        <div class="meibo-info">
+                            <p class="meibo-name">${displayName}</p>
+                        </div>
                     `;
-                    // 説明文を追加（revealLevel >= 3 のみ）
+
+                    // 説明文（revealLevel >= 3 のみ）
                     const blurb = extractBlurb(m.introduction);
                     if (blurb) {
-                        const descDiv = document.createElement('p');
-                        descDiv.className = 'cheki-desc';
-                        descDiv.textContent = blurb;
-                        link.appendChild(descDiv);
+                        const descP = link.querySelector('.meibo-info');
+                        if (descP) {
+                            const d = document.createElement('p');
+                            d.className = 'meibo-desc';
+                            d.textContent = blurb;
+                            descP.appendChild(d);
+                        }
                     }
+
                 } else if (revealLevel === 2) {
                     // シルエット表示
                     const url = m.link || `member/profile.html?id=${m.id}`;
@@ -210,15 +179,15 @@
                         : (castConfig.placeholderImage || m.image);
 
                     link.innerHTML = `
-                        <div class="cheki-visual silhouette-mode" style="${(() => {
-                            const bgPath = window.getMemberBackground(m.tags);
-                            return bgPath ? `background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;` : '';
-                        })()}">
-                            <img src="${window.fixPath(silhouetteImg)}" alt="${effectiveMember.name}" class="cheki-img silhouette" loading="lazy">
-                            <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
+                        <div class="meibo-photo silhouette-mode">
+                            <img src="${window.fixPath(silhouetteImg)}" alt="${effectiveMember.name}" class="meibo-img silhouette" loading="lazy">
+                            <span class="meibo-tag">${effectiveMember.tagLabel}</span>
                         </div>
-                        <div class="cheki-name">${effectiveMember.name}</div>
+                        <div class="meibo-info">
+                            <p class="meibo-name">${effectiveMember.name}</p>
+                        </div>
                     `;
+
                 } else if (revealLevel === 1) {
                     // Coming Soon表示
                     link.href = "javascript:void(0)";
@@ -229,13 +198,16 @@
                     const comingSoonName = castConfig.comingSoonName || "???";
 
                     link.innerHTML = `
-                        <div class="cheki-visual coming-soon">
-                            <img src="${window.fixPath(comingSoonImg)}" alt="Coming Soon" class="cheki-img" loading="lazy">
-                            <span class="cheki-tag-badge">???</span>
+                        <div class="meibo-photo coming-soon">
+                            <img src="${window.fixPath(comingSoonImg)}" alt="Coming Soon" class="meibo-img" loading="lazy">
+                            <span class="meibo-tag">???</span>
                             <div class="coming-soon-overlay">Coming Soon</div>
                         </div>
-                        <div class="cheki-name">${comingSoonName}</div>
+                        <div class="meibo-info">
+                            <p class="meibo-name">${comingSoonName}</p>
+                        </div>
                     `;
+
                 } else if (!visible) {
                     // 旧式の準備中表示（互換性のため残す）
                     const placeholderImage = castConfig.placeholderImage || '';
@@ -246,12 +218,13 @@
                     link.classList.add("preparing");
 
                     link.innerHTML = `
-                        <div class="cheki-visual preparing">
-                            <img src="${window.fixPath(placeholderImage)}" alt="準備中" class="cheki-img silhouette" loading="lazy">
-                            <span class="cheki-tag-badge">${m.tagLabel}</span>
-                            <div class="preparing-overlay">${preparingText}</div>
+                        <div class="meibo-photo preparing">
+                            <img src="${window.fixPath(placeholderImage)}" alt="準備中" class="meibo-img silhouette" loading="lazy">
+                            <span class="meibo-tag">${m.tagLabel}</span>
                         </div>
-                        <div class="cheki-name">???</div>
+                        <div class="meibo-info">
+                            <p class="meibo-name">???</p>
+                        </div>
                     `;
                 }
 
@@ -259,26 +232,22 @@
             };
 
             list.forEach(m => {
-                // revealLevelを確認（0の場合は表示しない）
                 const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
                 const revealLevel = displayInfo ? displayInfo.level : 3;
-
-                // Level 0 は完全非表示
                 if (revealLevel === 0) return;
 
-                // forms を持つメンバーの場合、最初の形態のデータを使用（1枚のカードで表示）
                 const firstForm = (m.forms && m.forms.length > 0) ? m.forms[0] : null;
                 const card = createMemberCard(m, firstForm, 0, revealLevel);
                 grid.appendChild(card);
             });
-            // 少数カード中央揃え: 1枚→solo, 2枚→duo
-            const cardCount = grid.children.length;
-            if (cardCount === 1) grid.classList.add('cheki-grid--solo');
-            else if (cardCount === 2) grid.classList.add('cheki-grid--duo');
-            innerContainer.appendChild(grid);
-            wrapper.appendChild(innerContainer);
 
-            return wrapper;
+            // 少数カード中央揃え
+            const cardCount = grid.children.length;
+            if (cardCount === 1) grid.classList.add('meibo-grid--solo');
+            else if (cardCount === 2) grid.classList.add('meibo-grid--duo');
+
+            chapter.appendChild(grid);
+            return chapter;
         };
 
         // 順次読み込み (Async Sequential Loading)
@@ -288,18 +257,13 @@
             for (const sec of sectionOrder) {
                 const list = grouped[sec];
                 if (list && list.length > 0) {
-                    const sectionEl = createSectionElement(sec, list);
-                    peopleContainer.appendChild(sectionEl);
+                    const chapterEl = createLedgerChapter(sec, list);
+                    peopleContainer.appendChild(chapterEl);
 
-                    // アニメーション用クラス付与 (Force reflow to ensure animation triggers if needed, though reveal handles it)
-                    // existing .reveal in CSS handles fadeIn. 
-                    // We can also add 'is-visible' to match existing logic explicitly if needed, but .reveal handles it.
-                    // Adding is-visible for consistency with text/other reveal elements.
                     requestAnimationFrame(() => {
-                        sectionEl.classList.add('is-visible');
+                        chapterEl.classList.add('is-visible');
                     });
 
-                    // Wait before showing next section
                     await delay(SECTION_LOAD_MS);
                 }
             }
@@ -324,7 +288,7 @@
                 list.style.opacity = '0';
                 setTimeout(() => {
                     list.innerHTML = chars.map(c =>
-                        `<li><span class="roster-name">${c.name}</span><span class="roster-sep"> — </span><span class="roster-blurb">${c.blurb}</span></li>`
+                        `<li><span class="roster-name">${c.name}</span>${c.blurb ? `<span class="roster-sep"> — </span><span class="roster-blurb">${c.blurb}</span>` : ''}</li>`
                     ).join('');
                     list.style.opacity = '1';
                 }, 150);
@@ -343,32 +307,25 @@
                 });
             }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
 
-            document.querySelectorAll('.people-section-wrapper[data-section]').forEach(el => spy.observe(el));
+            document.querySelectorAll('.ledger-chapter[data-section]').forEach(el => spy.observe(el));
 
-            // 初期表示: 最初のセクションを表示
+            // 初期表示
             const firstSection = Object.keys(rosterData)[0];
             if (firstSection) { _currentRosterSection = firstSection; _updateRoster(firstSection); }
 
-            // 全て読み込み終わったら絞り込み機能を適用（初期化）
-            // _filterCallback は applyPeopleFilter が定義された後にセットされるため安全
+            // 全て読み込み終わったら絞り込み機能を適用
             if (_filterCallback) _filterCallback();
         };
 
-        // Start Loading
         renderSequentially();
-
-        // Note: IntersectionObserver is removed because we are forcing visibility sequentially.
-        // If we want to keep scroll-triggering for sections *outside* the initial viewport, 
-        // we might need a hybrid approach. But the user request specifically asked to 
-        // "load Management, Breeding... in order with animation", which implies a sequence.
     }
 
     /* -------------------------------------------------------
        2. PEOPLE FILTERING SYSTEM (絞り込み)
        ------------------------------------------------------- */
-    const searchInput = document.getElementById('people-search'); // 削除済みの場合は null
+    const searchInput = document.getElementById('people-search');
     const tagFilterContainer = document.getElementById('people-tag-filter');
-    const filterBtns = tagFilterContainer ? tagFilterContainer.querySelectorAll('.tag-filter-btn') : [];
+    const filterBtns = tagFilterContainer ? tagFilterContainer.querySelectorAll('.ledger-tab') : [];
 
     if (!tagFilterContainer) return;
 
@@ -396,27 +353,24 @@
         });
     };
 
-    // フィルタ状態（tag・query・マッチカード・対象ラッパー）を返す純粋関数
+    // フィルタ状態を返す純粋関数
     const getFilterState = () => {
         const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
-        const activeBtn = tagFilterContainer.querySelector('.tag-filter-btn.is-active');
+        const activeBtn = tagFilterContainer.querySelector('.ledger-tab.is-active');
         const tag = (activeBtn ? activeBtn.dataset.value : null) || 'all';
         const isFiltering = tag !== 'all' || query.length > 0;
 
-        // セクション系タグ（飼育・野生・妖怪等）は targetWrapper を先に確定する
         const targetSectionName = TAG_TO_SECTION[tag];
         const targetWrapper = targetSectionName
-            ? document.querySelector(`#people-list-container .people-section-wrapper[data-section="${targetSectionName}"]`)
+            ? document.querySelector(`#people-list-container .ledger-chapter[data-section="${targetSectionName}"]`)
             : null;
 
-        const allCards = Array.from(document.querySelectorAll('#people-list-container .cheki-grid:not(.filter-injected-grid) .cheki-card'));
+        const allCards = Array.from(document.querySelectorAll('#people-list-container .meibo-grid:not(.filter-injected-grid) .meibo-card'));
         const matchingCards = allCards.filter(card => {
             const name = (card.getAttribute('data-name') || '').toLowerCase();
             const tags = (card.getAttribute('data-tags') || '').toLowerCase();
             const nameMatch = !query || name.includes(query);
             if (targetWrapper) {
-                // セクション絞り込み: タグではなく「そのセクションに属するカード」で判定
-                // → 複合タグ（例: "妖怪 飼育"）を持つメンバーが別セクションに漏れるのを防ぐ
                 return nameMatch && targetWrapper.contains(card);
             }
             return nameMatch && (tag === 'all' || tags.includes(tag.toLowerCase()));
@@ -430,68 +384,64 @@
         const flatContainer = document.getElementById('people-filter-results');
         if (flatContainer) flatContainer.style.display = 'none';
         if (peopleContainer) peopleContainer.style.display = '';
-        document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
+        document.querySelectorAll('#people-list-container .ledger-chapter').forEach(w => {
             w.style.display = '';
-            const origGrid = w.querySelector('.cheki-grid:not(.filter-injected-grid)');
+            const origGrid = w.querySelector('.meibo-grid:not(.filter-injected-grid)');
             const injGrid = w.querySelector('.filter-injected-grid');
             if (origGrid) origGrid.style.display = '';
             if (injGrid) injGrid.style.display = 'none';
         });
-        document.querySelectorAll('#people-list-container .cheki-card').forEach(c => {
+        document.querySelectorAll('#people-list-container .meibo-card').forEach(c => {
             c.style.display = '';
             c.classList.add('is-visible');
         });
     };
 
-    // セクション背景を維持してマッチカードを集約（タグ絞り込み時）
+    // セクション絞り込み（章を1つだけ表示）
     const renderSectionFilter = (targetWrapper, matchingCards) => {
         const flatContainer = document.getElementById('people-filter-results');
         if (flatContainer) flatContainer.style.display = 'none';
         if (peopleContainer) peopleContainer.style.display = '';
 
-        document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
+        document.querySelectorAll('#people-list-container .ledger-chapter').forEach(w => {
             w.style.display = 'none';
         });
 
         targetWrapper.style.display = '';
         targetWrapper.classList.remove('is-visible');
-        void targetWrapper.offsetWidth; // force reflow
+        void targetWrapper.offsetWidth;
         requestAnimationFrame(() => targetWrapper.classList.add('is-visible'));
 
-        const origGrid = targetWrapper.querySelector('.cheki-grid:not(.filter-injected-grid)');
+        const origGrid = targetWrapper.querySelector('.meibo-grid:not(.filter-injected-grid)');
         if (origGrid) origGrid.style.display = 'none';
 
         let injGrid = targetWrapper.querySelector('.filter-injected-grid');
         if (!injGrid) {
             injGrid = document.createElement('div');
-            injGrid.className = 'cheki-grid filter-injected-grid';
-            const container = targetWrapper.querySelector('.container');
-            if (container) container.appendChild(injGrid);
+            injGrid.className = 'meibo-grid filter-injected-grid';
+            targetWrapper.appendChild(injGrid);
         }
         injGrid.style.display = '';
         injGrid.innerHTML = '';
 
         if (matchingCards.length === 0) {
-            injGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:#fff;">${NOT_FOUND_MSG}</p>`;
+            injGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);">${NOT_FOUND_MSG}</p>`;
         } else {
             animateCardsIn(matchingCards, injGrid);
         }
     };
 
-    // セクション対応なし（キャスト絞り込み）→ フラットビュー
+    // キャスト名絞り込み → フラットビュー（帳面内に展開）
     const renderFlatFilter = (matchingCards) => {
         let flatContainer = document.getElementById('people-filter-results');
         if (!flatContainer && peopleContainer) {
             flatContainer = document.createElement('div');
             flatContainer.id = 'people-filter-results';
             flatContainer.className = 'people-filter-results';
-            const inner = document.createElement('div');
-            inner.className = 'container';
             const grid = document.createElement('div');
             grid.id = 'people-filter-grid';
-            grid.className = 'cheki-grid';
-            inner.appendChild(grid);
-            flatContainer.appendChild(inner);
+            grid.className = 'meibo-grid';
+            flatContainer.appendChild(grid);
             peopleContainer.insertAdjacentElement('afterend', flatContainer);
         }
 
@@ -522,12 +472,11 @@
         if (targetWrapper) { renderSectionFilter(targetWrapper, matchingCards); return; }
         renderFlatFilter(matchingCards);
     };
-    // renderSequentially から安全に呼び出せるようコールバックをセット
     _filterCallback = applyPeopleFilter;
 
     if (searchInput) searchInput.addEventListener('input', applyPeopleFilter);
 
-    // タグボタンのクリックでアクティブ切り替え＆フィルタ実行
+    // タブクリック
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('is-active'));
@@ -544,17 +493,14 @@
         });
     });
 
-    // URLパラメータからタグ自動適用（プロフィールページのタグリンクから遷移した場合など）
+    // URLパラメータからタグ自動適用
     const urlParams = new URLSearchParams(window.location.search);
     const urlTag = urlParams.get('tag');
     if (urlTag) {
-        const matchBtn = tagFilterContainer.querySelector(`.tag-filter-btn[data-value="${urlTag}"]`);
+        const matchBtn = tagFilterContainer.querySelector(`.ledger-tab[data-value="${urlTag}"]`);
         if (matchBtn) {
             filterBtns.forEach(b => b.classList.remove('is-active'));
             matchBtn.classList.add('is-active');
         }
     }
-
-    // 初期実行は renderSequentially 完了後に _filterCallback() で行う
-    // （全セクション DOM 構築後の実行を保証するため setTimeout は使わない）
 })();
