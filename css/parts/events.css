@@ -32,6 +32,13 @@
     min-height: 170px;
 }
 
+.event-card__link:hover,
+.event-card__link:focus,
+.event-card__link:active {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* 左：サムネイル */
 .event-card__thumb {
     flex: 0 0 240px;
@@ -75,6 +82,15 @@
     align-items: baseline;
     gap: 12px;
     margin-bottom: 10px;
+}
+
+.event-card__org-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    opacity: 0.9;
 }
 
 .event-card__organizer {

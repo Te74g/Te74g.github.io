@@ -66,6 +66,7 @@
                     </div>
                     <div class="event-card__body">
                         <div class="event-card__meta">
+                            ${item.organizerLogo ? `<img src="${window.fixPath(item.organizerLogo)}" alt="" class="event-card__org-icon" aria-hidden="true">` : ''}
                             <span class="event-card__organizer">${item.organizer}</span>
                             <span class="event-card__date">${item.date}</span>
                         </div>
