@@ -41,6 +41,11 @@
 
     // ---- 設定定数 ----
     const SECTION_ORDER = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
+    const KUKAKU_SECTION_IMGS = {
+        '飼育区画': 'assets/kukaku/shiiku.png',
+        '野生区画': 'assets/kukaku/yasei.png',
+        '妖怪区画': 'assets/kukaku/youkai.png',
+    };
     const SECTION_LOAD_MS = 300;   // renderSequentially のセクション間ウェイト
     const CARD_STAGGER_MS = 50;    // フィルタアニメのカード間ディレイ
     const NOT_FOUND_MSG = '該当するキャストが見つかりませんでした。';
@@ -104,10 +109,25 @@
             innerContainer.className = "container";
 
             // Section Header
-            const divider = document.createElement("div");
-            divider.className = "section-divider";
-            divider.innerHTML = `<span class="section-label">${sec}</span>`;
-            innerContainer.appendChild(divider);
+            const kukakuImg = KUKAKU_SECTION_IMGS[sec];
+            if (kukakuImg) {
+                const header = document.createElement("div");
+                header.className = "kukaku-section-header";
+                header.innerHTML = `
+                    <div class="perf-strip" aria-hidden="true"></div>
+                    <div class="kukaku-section-sign">
+                        <img src="${window.fixPath(kukakuImg)}" alt="${sec}" class="kukaku-section-img" loading="lazy">
+                    </div>
+                    <div class="perf-strip" aria-hidden="true"></div>
+                `;
+                innerContainer.appendChild(header);
+            } else {
+                // 運営部・スタッフ：画像が揃い次第置き換え予定
+                const divider = document.createElement("div");
+                divider.className = "section-divider";
+                divider.innerHTML = `<span class="section-label">${sec}</span>`;
+                innerContainer.appendChild(divider);
+            }
 
             // Grid
             const grid = document.createElement("div");

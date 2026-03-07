@@ -232,3 +232,32 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
     transition-delay: var(--card-delay, 0ms);
 }
+
+/* =========================================
+   Kukaku Section Header (区画看板ヘッダー)
+   ========================================= */
+.kukaku-section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 28px;
+}
+
+.kukaku-section-sign {
+    display: flex;
+    justify-content: center;
+    padding: 2px 0;
+}
+
+.kukaku-section-img {
+    max-width: 360px;
+    width: 55%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.7));
+}
+
+.kukaku-section-header .perf-strip {
+    margin: 4px auto;
+    width: min(400px, 80%);
+}
