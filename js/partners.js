@@ -25,7 +25,7 @@
             </section>
             <section class="section">
                 <div class="container">
-                    <div id="partner-events-list-container" class="grid" role="list"></div>
+                    <div id="partner-events-list-container" class="event-list" role="list"></div>
                 </div>
             </section>
         `);
@@ -41,7 +41,7 @@
 
         visibleEvents.forEach(item => {
             const card = document.createElement("article");
-            card.className = "card reveal is-visible";
+            card.className = "event-card reveal is-visible";
             card.setAttribute("role", "listitem");
 
             let imgUrl = item.image;
@@ -60,30 +60,20 @@
             const targetAttr = isExternal ? 'target="_blank" rel="noopener"' : '';
 
             card.innerHTML = `
-                <div class="card-top" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center; height: 180px; border-radius: 8px 8px 0 0; position: relative;">
-                   <!-- 画像エリア -->
-                </div>
-                <div style="padding: 1.5rem;">
-                    <h3 class="card-title" style="margin-top:0;">${item.name}</h3>
-                    <p class="card-desc" style="font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem;">${item.desc}</p>
-
-                    <dl class="meta">
-                        <div>
-                            <dt>日時</dt>
-                            <dd>${item.date}</dd>
-                        </div>
-                        <div>
-                            <dt>主催</dt>
-                            <dd>${item.organizer}</dd>
-                        </div>
-                    </dl>
-
-                    <div class="card-actions" style="margin-top: 1.5rem;">
-                        <a class="more" href="${linkUrl}" ${targetAttr}>もっとみる→</a>
+                <a class="event-card__link" href="${linkUrl}" ${targetAttr}>
+                    <div class="event-card__thumb">
+                        <img src="${imgUrl}" alt="${item.name}" class="event-card__img" loading="lazy">
                     </div>
-                </div>
-                <!-- Watermark -->
-                <div class="watermark-logo"></div>
+                    <div class="event-card__body">
+                        <div class="event-card__meta">
+                            <span class="event-card__organizer">${item.organizer}</span>
+                            <span class="event-card__date">${item.date}</span>
+                        </div>
+                        <h3 class="event-card__name">${item.name}</h3>
+                        <p class="event-card__desc">${item.desc}</p>
+                        <span class="event-card__cta">詳細を見る</span>
+                    </div>
+                </a>
             `;
             partnerContainer.appendChild(card);
         });
