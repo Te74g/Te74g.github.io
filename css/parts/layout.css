@@ -28,6 +28,8 @@ main,
     flex: 1;
     position: relative;
     /* Context for loader overlay */
+    padding-top: var(--header-h);
+    /* Fixed header offset — index.html の inline <style> が 100dvh で上書きするので home page は影響なし */
 }
 
 /* Preloading State: Hide content until loader completes */

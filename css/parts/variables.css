@@ -1,5 +1,7 @@
 :root {
     --container: 1100px;
+    --header-h: 76px;
+    /* Site header height — sync with .header-inner padding + brand-logo height */
 
     /* Base Colors (Rich Dark Wood Theme) */
     --bg: #1a1311;
