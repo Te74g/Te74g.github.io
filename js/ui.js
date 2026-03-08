@@ -92,23 +92,50 @@
     });
 
     // Reveal Animation
-    const targets = Array.from(document.querySelectorAll(".reveal"));
-    if (targets.length) {
+    // transition ベースのため、is-visible が付かないと opacity:0 のまま。
+    // home.js / people.js 等が非同期で挿入する .reveal 要素も拾えるよう
+    // MutationObserver でフォールバックする。
+    let revealIo = null;
+
+    const revealEl = (el) => {
+        if (el.classList.contains("is-visible")) return; // 二重付与防止
         if (prefersReducedMotion) {
-            targets.forEach((t) => t.classList.add("is-visible"));
-        } else if ("IntersectionObserver" in window) {
-            const io = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((e) => {
-                        if (e.isIntersecting) e.target.classList.add("is-visible");
-                    });
-                },
-                { threshold: 0.14 }
-            );
-            targets.forEach((t) => io.observe(t));
+            el.classList.add("is-visible");
+        } else if (revealIo) {
+            revealIo.observe(el);
         } else {
-            targets.forEach((t) => t.classList.add("is-visible"));
+            el.classList.add("is-visible");
         }
+    };
+
+    if (!prefersReducedMotion && "IntersectionObserver" in window) {
+        revealIo = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add("is-visible");
+                        revealIo.unobserve(e.target); // 可視化後は監視解除
+                    }
+                });
+            },
+            { threshold: 0.14 }
+        );
+    }
+
+    // 静的要素（スクリプト実行時点でDOMにある要素）
+    document.querySelectorAll(".reveal").forEach(revealEl);
+
+    // 動的挿入要素（home.js / people.js 等が後から追加する .reveal 要素）
+    if ("MutationObserver" in window) {
+        new MutationObserver((mutations) => {
+            mutations.forEach((m) => {
+                m.addedNodes.forEach((node) => {
+                    if (node.nodeType !== 1) return;
+                    if (node.classList?.contains("reveal")) revealEl(node);
+                    node.querySelectorAll?.(".reveal").forEach(revealEl);
+                });
+            });
+        }).observe(document.body, { childList: true, subtree: true });
     }
 
     // Throttle utility: fn を limit ms に1回だけ実行する
