@@ -26,7 +26,7 @@ window.siteConfig = {
 
     // ヒーローセクションの画像設定（ここで画像パスを変更できます）
     heroImages: {
-        character: "./assets/opening/Tatie3.webp", // 立ち絵
+        character: "assets/page/unei.webp", // 立ち絵（暫定: 本番KV未作成のため高解像度版で代替）
         logo: "./assets/logo/aniamemoria_logo.webp", // ロゴ（ライトモード）
         logoDark: "./assets/opening/aniamemoria_logo_darktheme_shadow.webp", // ロゴ（ダークモード）
         background: "./assets/page/unei_low_res.webp" // 背景画像
