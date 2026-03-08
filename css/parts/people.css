@@ -90,7 +90,7 @@
 .people-section-wrapper.reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .people-section-wrapper.reveal.is-visible {
@@ -221,17 +221,13 @@
    カードフィルタアニメーション
    (js/people.js の inline style 移行分)
    ========================================= */
-.cheki-card.card-enter {
+.cheki-card.reveal {
     opacity: 0;
     transform: translateY(20px);
+    transition: opacity 0.4s ease var(--reveal-delay, 0ms),
+                transform 0.4s ease var(--reveal-delay, 0ms);
 }
-
-.cheki-card.card-enter.is-entering {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    transition-delay: var(--card-delay, 0ms);
-}
+/* .cheki-card.reveal.is-visible は layout.css の .reveal.is-visible を継承 */
 
 /* =========================================
    Kukaku Section Header (区画看板ヘッダー)

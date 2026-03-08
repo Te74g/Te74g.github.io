@@ -186,7 +186,7 @@
                             <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                             ${(() => {
                             const fPath = window.getMemberFrame(m.tags);
-                            return fPath ? `<div style="position:absolute; inset:0; background-image:url('${window.fixPath(fPath)}'); background-size:100% 100%; pointer-events:none; z-index:3;"></div>` : '';
+                            return fPath ? `<div class="cheki-frame" style="background-image:url('${window.fixPath(fPath)}');"></div>` : '';
                         })()}
                         </div>
                         <div class="cheki-name">${displayName}</div>
@@ -331,11 +331,11 @@
     const animateCardsIn = (cards, container) => {
         cards.forEach((card, i) => {
             const clone = card.cloneNode(true);
-            clone.style.setProperty('--card-delay', `${i * CARD_STAGGER_MS}ms`);
-            clone.classList.add('card-enter', 'is-visible');
+            clone.style.setProperty('--reveal-delay', `${i * CARD_STAGGER_MS}ms`);
+            clone.classList.add('reveal');
             container.appendChild(clone);
             requestAnimationFrame(() => requestAnimationFrame(() => {
-                clone.classList.add('is-entering');
+                clone.classList.add('is-visible');
             }));
         });
     };
