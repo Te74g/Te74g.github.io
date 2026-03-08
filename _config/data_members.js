@@ -552,7 +552,7 @@ window.membersData = [
         目立たないポジションだけど、誇りを持って重大なお仕事に取り組んでいる立派な人。<br>
         店長からは「夜行性のひねくれ」と呼ばれているが、一体……？`,
         socials: [
-            { type: "twitter", url: "https://x.com/https://x.com/hinekure_vrc" },
+            { type: "twitter", url: "https://x.com/hinekure_vrc" },
         ]
     },
     {

@@ -65,14 +65,6 @@ window.siteConfig = {
     // メンテナンスモード（true にするとサイト全体が maintenance.html にリダイレクト）
     maintenanceMode: true,
 
-    // デバッグモード設定（特定操作で全キャスト情報を公開）
-    // password: ロック解除のための合言葉
-    debugMode: {
-        password: "tetenpuipui",
-        // デフォルトでは無効にしておく（セッションストレージで管理）
-        enabled: false
-    },
-
     // キャスト表示制御
     castDisplay: {
         // 全メンバー表示フラグ（trueなら全員表示、falseならvisibleMembersで制御）

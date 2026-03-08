@@ -212,8 +212,9 @@
                             const password = prompt('【DEBUG】 パスワードを入力してください：');
 
                             if (password) {
-                                // data_site.js を直接読んでいなくてもここで直接照合（もしくはオブジェクトがあれば読む）
-                                const correctPassword = window.siteConfig?.debugMode?.password || 'tetenpuipui';
+                                // 静的サイトではJS内の文字列は秘匿できないため、
+                                // これは開発者向けの簡易トリガーとしてのみ扱う
+                                const correctPassword = 'tetenpuipui';
                                 if (password === correctPassword) {
                                     sessionStorage.setItem('debugMode', 'true');
                                     alert('デバッグモードが有効になりました。\\n隠し要素がすべて公開された状態で表示されます。');
