@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // 1. Get Member ID from URL
-    const params = new URLSearchParams(window.location.search);
-    let memberId = params.get('id');
+    // 優先順: スタブ変数 → URLクエリ → data-member-id属性（テスト用）
+    let memberId = window.__memberId || new URLSearchParams(window.location.search).get('id');
 
     // Fallback: If no ID in URL, check if there's a hardcoded ID in the HTML (e.g. for testing)
     if (!memberId) {

@@ -205,6 +205,10 @@
 
 ---
 
+`2026-03-09` | `scripts/generate_stubs.js` | スタブ自動生成スクリプト追加。`--dry/--force/--cast/--news` フラグ対応
+
+`2026-03-09` | `js/profile_loader.js` `js/news_loader.js` | `window.__memberId` / `window.__newsId` を優先読み、`?id=` にフォールバック（スタブ方式対応）
+
 `2026-03-09` | `css/parts/top.css` `js/top.js` `pages/top_preview.html` | 新トップページ作成（スクロール morph Hero・Latest・Cast Preview・Concept・Guide）
 
 `2026-03-09` | `_config/data_site.js` | `heroImages.character` を `assets/page/unei.webp` に変更（暫定 KV）

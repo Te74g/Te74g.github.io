@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+    // 優先順: スタブ変数 → URLクエリ
+    const id = window.__newsId || new URLSearchParams(window.location.search).get('id');
 
     if (!id) {
         console.warn('No news ID specified.');
