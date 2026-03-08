@@ -161,11 +161,9 @@
 
             selected.forEach((m, index) => {
                 // Create Wrapper for Animation
+                // レイアウト (width/display/justifyContent) は .cheki-grid > div で CSS 管理
                 const wrapper = document.createElement("div");
                 wrapper.className = "reveal";
-                wrapper.style.width = "100%"; // Ensure it fills grid cell
-                wrapper.style.display = "flex"; // Ensure centering if needed
-                wrapper.style.justifyContent = "center";
 
                 const a = document.createElement("a");
                 const pinClass = window.getPinClass(m.tags);
@@ -238,23 +236,19 @@
                 }
 
                 // Frame Overlay
+                // 固定値スタイルは .cheki-frame クラスで CSS 管理、URL のみ JS で設定
                 const fPath = window.getMemberFrame(m.tags);
                 if (fPath) {
                     const frameEl = document.createElement('div');
-                    frameEl.style.position = 'absolute';
-                    frameEl.style.inset = '0';
+                    frameEl.className = 'cheki-frame';
                     frameEl.style.backgroundImage = `url('${window.fixPath(fPath)}')`;
-                    frameEl.style.backgroundSize = '100% 100%';
-                    frameEl.style.pointerEvents = 'none';
-                    frameEl.style.zIndex = '4'; // Badge is 5, so 4 is below badge but above image
                     visualDiv.appendChild(frameEl);
                 }
 
-                // Staggered Entry (Animates the wrapper)
-                const delay = 50 + index * 100;
-                setTimeout(() => {
-                    wrapper.classList.add('is-visible');
-                }, delay);
+                // Staggered Entry — CSS transition-delay で制御（prefers-reduced-motion 対応）
+                const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                wrapper.style.setProperty('--reveal-delay', prefersReduced ? '0ms' : `${index * 120}ms`);
+                wrapper.classList.add('is-visible');
             });
         }
     }

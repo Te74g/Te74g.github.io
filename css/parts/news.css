@@ -418,41 +418,18 @@
     overflow: hidden;
 }
 
-/* Card pop animation — scale + spring easing でポポポン */
-@keyframes newsFadeIn {
-    from {
-        opacity: 0
-    }
-
-    to {
-        opacity: 1
-    }
-}
-
-@keyframes newsPopIn {
-    0% {
-        transform: scale(.85)
-    }
-
-    70% {
-        transform: scale(1.05)
-    }
-
-    100% {
-        transform: scale(1)
-    }
-}
-
-.news-card.card-enter {
+/* Card pop animation — transition ベース（reveal/is-visible 統一形式） */
+.news-card.reveal {
     opacity: 0;
     transform: scale(0.85);
+    transition:
+        opacity .5s ease var(--reveal-delay, 0ms),
+        transform .35s cubic-bezier(0.34, 1.56, 0.64, 1) var(--reveal-delay, 0ms);
 }
 
-.news-card.card-enter.is-entering {
-    animation:
-        newsFadeIn .5s ease forwards,
-        newsPopIn .35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    animation-delay: var(--card-delay, 0ms), var(--card-delay, 0ms);
+.news-card.reveal.is-visible {
+    opacity: 1;
+    transform: none;
 }
 
 /* No-results message (flex child → width: 100%) */

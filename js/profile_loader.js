@@ -93,13 +93,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.body.appendChild(navContainer);
 
             // Swipe gesture navigation (スワイプでキャスト切り替え / モバイル向け)
+            // #main に限定してヘッダー・フッター上のスワイプ誤検知を防止
+            const swipeTarget = document.getElementById('main') ?? document;
             let _swipeStartX = null;
             let _swipeStartY = null;
-            document.addEventListener('touchstart', e => {
+            swipeTarget.addEventListener('touchstart', e => {
                 _swipeStartX = e.touches[0].clientX;
                 _swipeStartY = e.touches[0].clientY;
             }, { passive: true });
-            document.addEventListener('touchend', e => {
+            swipeTarget.addEventListener('touchend', e => {
                 if (_swipeStartX === null) return;
                 const dx = e.changedTouches[0].clientX - _swipeStartX;
                 const dy = e.changedTouches[0].clientY - _swipeStartY;

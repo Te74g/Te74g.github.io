@@ -64,8 +64,8 @@
         const animateCardsIn = (cards, featuredContainer, listContainer) => {
             cards.forEach((card, i) => {
                 const clone = card.cloneNode(true);
-                clone.style.setProperty('--card-delay', `${i * CARD_STAGGER_MS}ms`);
-                clone.classList.add('card-enter');
+                clone.style.setProperty('--reveal-delay', `${i * CARD_STAGGER_MS}ms`);
+                clone.classList.add('reveal');
 
                 if (i === 0) {
                     clone.classList.add('news-card--featured');
@@ -76,7 +76,7 @@
                 }
 
                 requestAnimationFrame(() => requestAnimationFrame(() => {
-                    clone.classList.add('is-entering');
+                    clone.classList.add('is-visible');
                 }));
             });
         };
@@ -114,11 +114,11 @@
             // 初期ロード時のスタガーアニメーション
             const allCards = Array.from(newsContainer.querySelectorAll('.news-card'));
             allCards.forEach((card, i) => {
-                card.classList.add('card-enter');
-                card.style.setProperty('--card-delay', `${i * CARD_STAGGER_MS}ms`);
+                card.classList.add('reveal');
+                card.style.setProperty('--reveal-delay', `${i * CARD_STAGGER_MS}ms`);
             });
             requestAnimationFrame(() => requestAnimationFrame(() => {
-                allCards.forEach(card => card.classList.add('is-entering'));
+                allCards.forEach(card => card.classList.add('is-visible'));
             }));
         }
 
