@@ -153,10 +153,8 @@
        タイプセレクタ main(0-0-0-1)では負ける。#main で上書きして特殊性を揃え、
        ソース順（後勝ち）でこちらを優先させる。 */
     #main {
-      padding-top: 100vh;
-      /* fallback for older browsers */
-      padding-top: 100dvh;
-      /* Push content below fixed hero (dvh = hero と同じ単位でアドレスバー連動) */
+      padding-top: 100vh;    /* フォールバック */
+      padding-top: 100svh;   /* hero と単位統一 → アドレスバー変動によるレイアウトズレ解消 */
       position: relative;
     }
 

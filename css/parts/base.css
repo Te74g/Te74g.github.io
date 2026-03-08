@@ -54,7 +54,10 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+a:not([class]):hover {
+    /* クラスなしの素のリンクのみ下線 */
+    /* .btn / .nav-item / .menu-link 等はクラスを持つため対象外 */
+    /* Safari iOS: タップ後ホバー状態が残ってもボタンに下線が出なくなる */
     text-decoration: underline;
 }
 

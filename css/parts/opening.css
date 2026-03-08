@@ -12,9 +12,10 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100dvh;
-    /* Use dvh for iOS address bar */
-    min-height: 100dvh;
+    height: 100vh;      /* フォールバック（Safari 15.3以前） */
+    height: 100svh;     /* iOS Safari: アドレスバー開閉で変化しない安定値 = ぐわんぐわん防止 */
+    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +26,10 @@
     /* Behind main content */
 
     padding-bottom: 10vh;
+
+    /* GPU合成レイヤーに昇格 → iOS fixed 要素の再描画を抑制 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 /* Scroll Down Indicator */
