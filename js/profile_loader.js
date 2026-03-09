@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Level 0（非表示）または Level 1（Coming Soon）はプロフィールページにアクセス不可
     if (revealLevel <= 1) {
         // キャスト一覧にリダイレクト
-        window.location.href = window.fixPath ? window.fixPath('pages/people.html') : '../pages/people.html';
+        window.location.href = '/cast/';
         return;
     }
     // ==========================================
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (mergedMember.tagLabel) {
                 mainTags = mergedMember.tagLabel.split(/[\s/／]+/).filter(t => t.trim() !== '');
                 mainTags.forEach(t => {
-                    tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+                    tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
                 });
             }
             if (member.tags) {
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tagsList.forEach(t => {
                     if (!mainTags.includes(t)) {
                         const isSolid = SOLID_TAGS.includes(t);
-                        tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
+                        tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
                     }
                 });
             }
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (initialMember.tagLabel) {
             mainTags = initialMember.tagLabel.split(/[\s/／]+/).filter(t => t.trim() !== '');
             mainTags.forEach(t => {
-                tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+                tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
             });
         }
         if (member.tags) {
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tagsList.forEach(t => {
                 if (!mainTags.includes(t)) {
                     const isSolid = SOLID_TAGS.includes(t);
-                    tagsHtml += `<a href="../pages/people.html?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
+                    tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
                 }
             });
         }

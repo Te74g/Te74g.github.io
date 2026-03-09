@@ -182,16 +182,12 @@
         }
         // -----------------------------
 
-        // Calculate required depth from Main Root
-        // Root (index.html) -> depth 0
-        // SubDir (pages/xxx) -> depth 1
-
-        const subDirs = ["/member/", "/news/", "/partner_events/", "/pages/", "/gallery/"];
-        let depth = 0;
-
-        if (subDirs.some(dir => window.location.pathname.includes(dir))) {
-            depth += 1;
-        }
+        // Calculate required depth from Main Root by counting path segments
+        // Root (/) -> depth 0
+        // /cast/ -> depth 1
+        // /cast/ten/ -> depth 2
+        const pathParts = window.location.pathname.split('/').filter(p => p && !p.includes('.'));
+        const depth = pathParts.length;
 
         // Construct prefix
         let prefix = "";

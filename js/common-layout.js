@@ -31,17 +31,17 @@
     const headerHTML = `
   <header class="site-header" data-elevate>
     <div class="container header-inner">
-      <a class="brand" href="${navRootPath}index.html" aria-label="あにあめもりあ（イベント）">
+      <a class="brand" href="${navRootPath}" aria-label="あにあめもりあ（イベント）">
         <img src="${logoDark}" alt="あにあめもりあ" class="brand-logo" />
       </a>
 
       <nav class="pc-nav hide-sm">
-        <a href="${navRootPath}news/index.html" class="nav-item">ニュース</a>
-        <a href="${navRootPath}pages/people.html" class="nav-item">キャスト紹介</a>
-        <a href="${navRootPath}gallery/index.html" class="nav-item">ギャラリー</a>
-        <a href="${navRootPath}pages/partner_events.html" class="nav-item">提携イベント</a>
-        <a href="${navRootPath}pages/links.html" class="nav-item">関連リンク</a>
-        <a href="${navRootPath}pages/aikotoba.html" class="nav-item">合言葉</a>
+        <a href="${navRootPath}news/" class="nav-item">ニュース</a>
+        <a href="${navRootPath}cast/" class="nav-item">キャスト紹介</a>
+        <a href="${navRootPath}gallery/" class="nav-item">ギャラリー</a>
+        <a href="${navRootPath}partner/" class="nav-item">提携イベント</a>
+        <a href="${navRootPath}links/" class="nav-item">関連リンク</a>
+        <a href="${navRootPath}aikotoba/" class="nav-item">合言葉</a>
       </nav>
 
       <div class="header-socials hide-sm">
@@ -76,27 +76,27 @@
         </div>
 
         <div class="menu-links">
-          <a class="menu-link" href="${navRootPath}news/index.html">
+          <a class="menu-link" href="${navRootPath}news/">
             <span class="menu-link__jp">ニュース</span>
             <span class="menu-link__sub">NEWS</span>
           </a>
-          <a class="menu-link" href="${navRootPath}pages/people.html">
+          <a class="menu-link" href="${navRootPath}cast/">
             <span class="menu-link__jp">キャスト紹介</span>
-            <span class="menu-link__sub">PEOPLE</span>
+            <span class="menu-link__sub">CAST</span>
           </a>
-          <a class="menu-link" href="${navRootPath}gallery/index.html">
+          <a class="menu-link" href="${navRootPath}gallery/">
             <span class="menu-link__jp">ギャラリー</span>
             <span class="menu-link__sub">GALLERY</span>
           </a>
-          <a class="menu-link" href="${navRootPath}pages/partner_events.html">
+          <a class="menu-link" href="${navRootPath}partner/">
             <span class="menu-link__jp">提携イベント</span>
             <span class="menu-link__sub">PARTNER</span>
           </a>
-          <a class="menu-link" href="${navRootPath}pages/links.html">
+          <a class="menu-link" href="${navRootPath}links/">
             <span class="menu-link__jp">関連リンク</span>
             <span class="menu-link__sub">LINKS</span>
           </a>
-          <a class="menu-link" href="${navRootPath}pages/aikotoba.html">
+          <a class="menu-link" href="${navRootPath}aikotoba/">
             <span class="menu-link__jp">合言葉</span>
             <span class="menu-link__sub">AIKOTOBA</span>
           </a>
@@ -134,9 +134,9 @@
         <img src="${logoDark}" alt="あにあめもりあ" class="brand-logo" />
       </p>
       <p class="footer-links">
-        <a href="${navRootPath}pages/privacy.html">プライバシーポリシー</a>
-        <a href="${navRootPath}pages/terms.html">利用規約</a>
-        <a href="${navRootPath}pages/contact.html">お問い合わせ</a>
+        <a href="${navRootPath}privacy/">プライバシーポリシー</a>
+        <a href="${navRootPath}terms/">利用規約</a>
+        <a href="${navRootPath}contact/">お問い合わせ</a>
       </p>
       <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
       <a class="to-top" href="#top" aria-label="上へ戻る">
@@ -170,17 +170,10 @@
       if (href && href !== '#') {
         // '../' や './' などを取り除き、純粋なパス部分を抽出
         const cleanHref = href.replace(/^(\.\/|\.\.\/)+/, '');
-
-        // 1. ディレクトリ全体（news/ や gallery/ など）としてマッチさせるか
-        const isDirMatch = cleanHref.endsWith('/index.html') && currentPath.includes(cleanHref.replace('index.html', ''));
-
-        // 2. ファイル名直指定での完全マッチ
-        const isFileMatch = currentPath.includes(cleanHref);
-
-        // トップページの想定を除外
-        if (cleanHref !== 'index.html' && (isDirMatch || isFileMatch)) {
-          link.classList.add('is-active');
-        }
+        // ディレクトリURLか index.html の両方に対応
+        const dirSegment = cleanHref.replace('index.html', '');
+        const isMatch = dirSegment.length > 1 && currentPath.includes(dirSegment);
+        if (isMatch) link.classList.add('is-active');
       }
     });
   };

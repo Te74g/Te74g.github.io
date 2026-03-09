@@ -205,6 +205,8 @@
 
 ---
 
+`2026-03-09` | URL 再設計 | `pages/` 廃止。各ページを `cast/ partner/ aikotoba/ contact/ links/ privacy/ terms/` へ移動。`cast/{id}/` `news/{slug}/` スタブ16+1件生成。`common-layout.js` ナビ全リンク更新。`utils.js` fixPath depth をセグメント数で正確計算。`data_news.js` 内リンクを絶対パス `/cast/` に修正
+
 `2026-03-09` | `scripts/generate_stubs.js` | スタブ自動生成スクリプト追加。`--dry/--force/--cast/--news` フラグ対応
 
 `2026-03-09` | `js/profile_loader.js` `js/news_loader.js` | `window.__memberId` / `window.__newsId` を優先読み、`?id=` にフォールバック（スタブ方式対応）
