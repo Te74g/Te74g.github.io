@@ -34,9 +34,18 @@
     /**
      * Ease-out expo — approximates cubic-bezier(0.22, 1, 0.36, 1).
      * Front-loads motion: rapid start, gradual settle.
+     * (Kept for potential future use; morph engine now uses easeInOutCubic.)
      */
     function easeOutExpo(t) {
         return t === 0 ? 0 : t === 1 ? 1 : 1 - Math.pow(2, -9 * t);
+    }
+
+    /**
+     * Ease-in-out cubic — slow start, fast middle, slow end.
+     * Creates intentional, readable motion for the KV morph.
+     */
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
     /* =============================================
@@ -408,6 +417,37 @@
         return window.innerWidth < 769;
     }
 
+    /* --------------------------------------------------
+       KV destination (computed from DOM, refreshed on resize/load)
+       Defaults cover the 1440×900 baseline if DOM read fails.
+    -------------------------------------------------- */
+    var destTx     = -420;  // desktop translate X destination (px)
+    var destTy     = -250;  // desktop translate Y destination (px)
+    var destScaleD = 0.56;  // desktop scale destination
+    var destScaleM = 0.60;  // mobile scale destination
+    var destTyM    = -170;  // mobile translate Y destination (px)
+
+    function computeKVDest() {
+        var stageEl = document.querySelector('.top-hero__stage');
+        var cardEl  = document.querySelector('#top-latest-cards .top-news-card');
+        // If no news cards (0 items), keep default values
+        if (!stageEl || !kvEl || !cardEl) return;
+        var sr = stageEl.getBoundingClientRect();
+        var kr = kvEl.getBoundingClientRect();
+        var tr = cardEl.getBoundingClientRect();
+        var kvCx  = (kr.left - sr.left) + kr.width  / 2;
+        var kvCy  = (kr.top  - sr.top)  + kr.height / 2;
+        destScaleD = 0.50;
+        var thumbW = kr.width  * destScaleD;
+        var thumbH = kr.height * destScaleD;
+        // Land KV thumbnail at upper-left corner of main card + 8px inset
+        var landCx = (tr.left - sr.left) + thumbW / 2 + 8;
+        var landCy = (tr.top  - sr.top)  + thumbH / 2 + 8;
+        destTx = landCx - kvCx;
+        destTy = landCy - kvCy;
+    }
+    computeKVDest();
+
     function updateMorph() {
         var scrollY     = window.scrollY;
         var heroTop     = heroEl.offsetTop;
@@ -430,26 +470,28 @@
         lastMobile = mobile;
 
         /* --------------------------------------------------
-           KV transform — eased sub-range 0→0.58
-           Desktop: scale 1→0.56, tx 0→-420px, ty 0→-250px
-           Mobile:  scale 1→0.64, ty 0→-190px (no tx)
+           KV transform — eased sub-range 0.15→0.70
+           Hold period 0→0.15 keeps KV still while copy is readable.
+           easeInOutCubic: slow start, peak mid, slow settle.
+           Desktop: scale 1→destScaleD, tx/ty computed by computeKVDest()
+           Mobile:  scale 1→destScaleM, ty 0→destTyM (no tx)
         -------------------------------------------------- */
-        var kvRaw  = subP(p, 0, 0.58);
-        var kvEase = easeOutExpo(kvRaw);
+        var kvRaw  = subP(p, 0.15, 0.70);
+        var kvEase = easeInOutCubic(kvRaw);
 
         if (mobile) {
-            var mScale  = lerp(1.0,  0.64, kvEase);
-            var mTy     = lerp(0,  -190,   kvEase);
-            var mRadius = lerp(20,  14,    kvEase);
+            var mScale  = lerp(1.0,  destScaleM, kvEase);
+            var mTy     = lerp(0,    destTyM,    kvEase);
+            var mRadius = lerp(20,   14,          kvEase);
             kvEl.style.setProperty('--kv-scale',  mScale);
             kvEl.style.setProperty('--kv-tx',     '0px');
             kvEl.style.setProperty('--kv-ty',     mTy + 'px');
             kvEl.style.setProperty('--kv-radius', mRadius + 'px');
         } else {
-            var dScale  = lerp(1.0,  0.56, kvEase);
-            var dTx     = lerp(0,  -420,   kvEase);
-            var dTy     = lerp(0,  -250,   kvEase);
-            var dRadius = lerp(28,  18,    kvEase);
+            var dScale  = lerp(1.0,  destScaleD, kvEase);
+            var dTx     = lerp(0,    destTx,      kvEase);
+            var dTy     = lerp(0,    destTy,      kvEase);
+            var dRadius = lerp(28,   18,           kvEase);
             kvEl.style.setProperty('--kv-scale',  dScale);
             kvEl.style.setProperty('--kv-tx',     dTx + 'px');
             kvEl.style.setProperty('--kv-ty',     dTy + 'px');
@@ -457,19 +499,19 @@
         }
 
         /* --------------------------------------------------
-           Dark overlay — linear sub-range 0.18→0.58
+           Dark overlay — linear sub-range 0.22→0.68
         -------------------------------------------------- */
         if (overlayEl) {
             overlayEl.style.setProperty(
                 '--overlay-opacity',
-                lerp(0, 0.44, subP(p, 0.18, 0.58))
+                lerp(0, 0.44, subP(p, 0.22, 0.68))
             );
         }
 
         /* --------------------------------------------------
-           Copy + Actions fade out — sub-range 0→0.28
+           Copy + Actions fade out — sub-range 0.12→0.40
         -------------------------------------------------- */
-        var copyT  = subP(p, 0, 0.28);
+        var copyT  = subP(p, 0.12, 0.40);
         var copyOp = lerp(1, 0, copyT);
         var copyTy = lerp(0, -24, copyT) + 'px';
 
@@ -483,12 +525,12 @@
         }
 
         /* --------------------------------------------------
-           Scroll cue fade out — sub-range 0→0.20
+           Scroll cue fade out — sub-range 0→0.18
         -------------------------------------------------- */
         if (scrollcueEl) {
             scrollcueEl.style.setProperty(
                 '--scrollcue-opacity',
-                lerp(1, 0, subP(p, 0, 0.20))
+                lerp(1, 0, subP(p, 0, 0.18))
             );
         }
 
@@ -498,24 +540,24 @@
         if (latestHeroEl) {
             latestHeroEl.style.setProperty(
                 '--latest-events',
-                p > 0.36 ? 'auto' : 'none'
+                p > 0.52 ? 'auto' : 'none'
             );
         }
 
         /* --------------------------------------------------
-           Latest heading fade in — sub-range 0.32→0.46
+           Latest heading fade in — sub-range 0.50→0.65
         -------------------------------------------------- */
         if (latestHeadingEl) {
-            var lhT = subP(p, 0.32, 0.46);
+            var lhT = subP(p, 0.50, 0.65);
             latestHeadingEl.style.setProperty('--lh-opacity', lerp(0, 1, lhT));
             latestHeadingEl.style.setProperty('--lh-ty',      lerp(32, 0, lhT) + 'px');
         }
 
         /* --------------------------------------------------
-           Latest cards fade in — sub-range 0.40→0.56
+           Latest cards fade in — sub-range 0.57→0.72
         -------------------------------------------------- */
         if (latestCardsEl) {
-            var lcT = subP(p, 0.40, 0.56);
+            var lcT = subP(p, 0.57, 0.72);
             latestCardsEl.style.setProperty('--lc-opacity', lerp(0, 1, lcT));
             latestCardsEl.style.setProperty('--lc-ty',      lerp(40, 0, lcT) + 'px');
         }
@@ -531,7 +573,22 @@
     }
 
     window.addEventListener('scroll', requestTick, { passive: true });
-    window.addEventListener('resize', requestTick, { passive: true });
+
+    // Resize: debounce computeKVDest (forces layout — keep infrequent) then repaint
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            computeKVDest();
+            requestTick();
+        }, 200);
+    }, { passive: true });
+
+    // Load: recompute after fonts/images may have shifted layout
+    window.addEventListener('load', function () {
+        computeKVDest();
+        requestTick();
+    });
 
     // Initial paint
     updateMorph();
