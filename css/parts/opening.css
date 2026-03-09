@@ -7,29 +7,48 @@
    ========================================= */
 
 #hero-section {
-    position: fixed;
-    /* Parallax Effect: Fixed behind content */
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;      /* フォールバック（Safari 15.3以前） */
-    height: 100svh;     /* iOS Safari: アドレスバー開閉で変化しない安定値 = ぐわんぐわん防止 */
+    height: 100vh;
+    height: 100svh;
     min-height: 100vh;
     min-height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    /* User requested background */
     background: url('../../assets/page/unei_low_res.webp') no-repeat center center/cover;
-    z-index: -1;
-    /* Behind main content */
+    z-index: 1;
 
     padding-bottom: 10vh;
 
-    /* GPU合成レイヤーに昇格 → iOS fixed 要素の再描画を抑制 */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    /* circle clip-path スクロール駆動アニメーション (kv-scroll.js) */
+    clip-path: circle(38% at 50% 50%);
+    will-change: clip-path;
+}
+
+/* KV Scroll Zone: circle 展開スクロールコンテナ */
+#kv-scroll-zone {
+    height: 200vh;
+    position: relative;
+    background-color: #000; /* 円の外側に見える暗色 */
+}
+
+/* prefers-reduced-motion: アニメーション無効化 → 即全画面固定表示 */
+@media (prefers-reduced-motion: reduce) {
+    #hero-section {
+        clip-path: none !important;
+        position: fixed;
+        z-index: -1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    #kv-scroll-zone {
+        height: 100svh;
+    }
 }
 
 /* Scroll Down Indicator */

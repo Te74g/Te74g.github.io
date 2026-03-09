@@ -30,6 +30,7 @@
 <div id="header-placeholder"></div>
 
 <main id="main">
+  <div id="kv-scroll-zone">
   <!-- Hero Section -->
   <section id="hero-section">
     <!-- Flash Overlay -->
@@ -49,6 +50,7 @@
     <!-- Cast Reveal Hero Overlay: Desktop only (right side of hero) -->
     <div id="cast-reveal-hero" style="display:none;"></div>
   </section>
+  </div><!-- /#kv-scroll-zone -->
 
   <!-- Content Board (Wrapper for continuous background) -->
   <div id="content-board" class="bg-texture news-overlap">
@@ -153,8 +155,7 @@
        タイプセレクタ main(0-0-0-1)では負ける。#main で上書きして特殊性を揃え、
        ソース順（後勝ち）でこちらを優先させる。 */
     #main {
-      padding-top: 100vh;    /* フォールバック */
-      padding-top: 100svh;   /* hero と単位統一 → アドレスバー変動によるレイアウトズレ解消 */
+      padding-top: 0; /* #kv-scroll-zone (200vh) が高さを提供するため不要 */
       position: relative;
     }
 
@@ -515,6 +516,7 @@
 <script src="./js/ui.js"></script>
 <script src="./js/home.js"></script>
 <script src="./js/news.js"></script>
+<script src="./js/kv-scroll.js"></script>
 <script>
   // Add scroll lock immediately
   document.body.classList.add('is-preloading');
@@ -831,23 +833,7 @@
     setTimeout(() => { sparkle.remove(); }, 1000);
   }
 
-  // =====================================================
-  // スクロールフェード（ぼかし）
-  // =====================================================
-  (function () {
-    const heroContent = document.querySelector('.hero-content');
-    if (!heroContent) return;
-
-    window.addEventListener('scroll', () => {
-      const vh = window.innerHeight;
-      const y = window.scrollY;
-
-      // 70vh〜95vh でフェードアウト＋ぼかし
-      const t = Math.max(0, Math.min(1, (y - vh * 0.70) / (vh * 0.25)));
-      heroContent.style.opacity = String(1 - t);
-      heroContent.style.filter = t > 0 ? `blur(${(t * 6).toFixed(1)}px)` : '';
-    }, { passive: true });
-  })();
+  // スクロールフェードは kv-scroll.js に移管（circle 拡張と連動）
 </script>
 </body>
 
