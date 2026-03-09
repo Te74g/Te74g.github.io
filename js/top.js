@@ -152,6 +152,12 @@
             if (logoPath) logoImg.src = fp(logoPath);
         }
 
+        // Stage background (low-res texture behind the KV)
+        var stageBg = document.getElementById('top-stage-bg');
+        if (stageBg && cfg.heroImages && cfg.heroImages.background) {
+            stageBg.style.backgroundImage = 'url("' + fp(cfg.heroImages.background) + '")';
+        }
+
         // Random subtitle from heroSubtitle array
         var subtitleEl = document.getElementById('top-subtitle');
         if (subtitleEl && Array.isArray(cfg.heroSubtitle) && cfg.heroSubtitle.length) {
@@ -170,8 +176,7 @@
             ? '<img class="top-news-card__img" src="' + imgPath + '" alt="' + escHtml(item.title) + '" loading="lazy">'
             : '<div class="top-news-card__img-placeholder" aria-hidden="true">✦</div>';
 
-        // Link to news listing; adjust if individual detail pages exist
-        var href = 'news.html';
+        var href = fp('news/');
 
         var descHtml = (isMain && item.desc)
             ? '<p class="top-news-card__desc">' + escHtml(item.desc) + '</p>'
@@ -219,7 +224,11 @@
         }).join('');
 
         if (heroCardsEl)  heroCardsEl.innerHTML  = html;
-        if (sectionCards) sectionCards.innerHTML = html;
+        if (sectionCards) {
+            // Set column count to match actual item count (1→1col, 2→2col, 3→3col)
+            sectionCards.style.setProperty('--latest-section-cols', String(items.length));
+            sectionCards.innerHTML = html;
+        }
     }
 
     /**
@@ -258,7 +267,7 @@
         var html = preview.map(function (m) {
             var images  = m.profileImages || [];
             var imgSrc  = images[0] ? fp(images[0]) : placeholder;
-            var href    = fp('member/profile.html?id=' + m.id);
+            var href    = fp('cast/' + m.id + '/');
             var name    = m.pickupName || m.name;
             var label   = m.tagLabel || '';
             return '<a class="top-cast-card reveal" href="' + href + '">'

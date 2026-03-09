@@ -391,7 +391,7 @@
     position: static;
     opacity: 1;
     transform: none;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(var(--latest-section-cols, 3), 1fr);
     grid-template-rows: auto;
     height: auto;
 }

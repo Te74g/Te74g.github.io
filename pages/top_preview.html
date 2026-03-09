@@ -25,6 +25,9 @@
         <section class="top-hero" id="top-hero" aria-label="ヒーロー">
             <div class="top-hero__stage">
 
+                <!-- Background texture (JS sets background-image from siteConfig.heroImages.background) -->
+                <div class="top-hero__stage-bg" id="top-stage-bg" aria-hidden="true"></div>
+
                 <!-- Dark overlay (opacity driven by --overlay-opacity, JS sets it) -->
                 <div class="top-hero__overlay" aria-hidden="true"></div>
 
@@ -56,8 +59,8 @@
 
                 <!-- CTA buttons -->
                 <div class="top-hero__actions" id="top-actions">
-                    <a class="top-btn top-btn--primary" href="people.html">キャストを見る</a>
-                    <a class="top-btn top-btn--secondary" href="schedule.html">スケジュール</a>
+                    <a class="top-btn top-btn--primary" href="../cast/">キャストを見る</a>
+                    <a class="top-btn top-btn--secondary" href="../schedule/">スケジュール</a>
                 </div>
 
                 <!-- Scroll cue indicator -->
@@ -123,7 +126,7 @@
                 </div>
 
                 <div class="top-cast__more">
-                    <a class="top-btn top-btn--outline" href="people.html">全キャストを見る</a>
+                    <a class="top-btn top-btn--outline" href="../cast/">全キャストを見る</a>
                 </div>
             </div>
         </section>
@@ -156,17 +159,17 @@
                 </header>
 
                 <div class="top-guide__links">
-                    <a class="top-guide-link reveal" href="people.html">
+                    <a class="top-guide-link reveal" href="../cast/">
                         <span class="top-guide-link__icon" aria-hidden="true">🎭</span>
                         <div class="top-guide-link__title">キャスト紹介</div>
                         <p class="top-guide-link__desc">個性豊かな動物・妖怪・スタッフたちのプロフィールをご覧ください</p>
                     </a>
-                    <a class="top-guide-link reveal" href="schedule.html">
+                    <a class="top-guide-link reveal" href="../schedule/">
                         <span class="top-guide-link__icon" aria-hidden="true">📅</span>
                         <div class="top-guide-link__title">スケジュール</div>
                         <p class="top-guide-link__desc">イベントの開催日程や出演キャスト情報をチェック</p>
                     </a>
-                    <a class="top-guide-link reveal" href="news.html">
+                    <a class="top-guide-link reveal" href="../news/">
                         <span class="top-guide-link__icon" aria-hidden="true">📢</span>
                         <div class="top-guide-link__title">お知らせ</div>
                         <p class="top-guide-link__desc">最新のイベント情報やお知らせをお届けします</p>
