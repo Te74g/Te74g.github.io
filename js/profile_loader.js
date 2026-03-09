@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Get Member ID from URL
     // 優先順: スタブ変数 → URLクエリ → data-member-id属性（テスト用）
-    let memberId = window.__memberId || new URLSearchParams(window.location.search).get('id');
+    const params = new URLSearchParams(window.location.search);
+    let memberId = window.__memberId || params.get('id');
 
     // Fallback: If no ID in URL, check if there's a hardcoded ID in the HTML (e.g. for testing)
     if (!memberId) {
@@ -76,8 +77,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const prevMember = visibleMembers[prevIndex];
             const nextMember = visibleMembers[nextIndex];
 
-            const prevHref = `?id=${prevMember.id}`;
-            const nextHref = `?id=${nextMember.id}`;
+            // スタブページ（window.__memberId 設定済み）は ?id= が無視されるため絶対パスで遷移
+            const useStubNav = !!window.__memberId;
+            const prevHref = useStubNav ? `/cast/${prevMember.id}/` : `?id=${prevMember.id}`;
+            const nextHref = useStubNav ? `/cast/${nextMember.id}/` : `?id=${nextMember.id}`;
 
             const navContainer = document.createElement('div');
             navContainer.className = 'profile-pagination';
