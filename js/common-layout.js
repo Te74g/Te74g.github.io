@@ -4,30 +4,102 @@
  */
 
 (function () {
-  // -----------------------------------------------------------
-  // 1. 各ページで設定されたルートパスを取得 (引数がない場合は自動判定)
-  // -----------------------------------------------------------
-  // ※ renderLayout関数の引数 path が基本ですが、
-  //    scriptタグのdata属性などで渡すことも検討できますが、
-  //    今回はシンプルに renderLayout('relative/path/to/root') で呼び出す方式を想定。
 
-  // Helper to resolve path if manifest is ready (best effort)
+  // =======================================================
+  // MENU
+  // [jp, en, slug]
+  // =======================================================
+  const menus = [
+    ['ニュース',    'NEWS',     'news/'],
+    ['キャスト紹介', 'CAST',    'cast/'],
+    ['ギャラリー',  'GALLERY',  'gallery/'],
+    ['提携イベント', 'PARTNER', 'partner/'],
+    ['関連リンク',  'LINKS',    'links/'],
+    ['合言葉',     'AIKOTOBA', 'aikotoba/'],
+  ];
+
+  // =======================================================
+  // OFFICIAL SNS
+  // [label, slug, url]
+  // =======================================================
+  const sns = [
+    ['X',      'x',      'https://x.com/ANIAMEMORIA'],
+    ['YouTube','youtube', '#'],
+    ['VRChat', 'vrchat',  'https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06'],
+  ];
+
+  // SVG アイコン (slug → HTML 文字列。画像系は renderLayout 内で処理)
+  const SNS_SVG = {
+    x: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    youtube: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>',
+  };
+
+  // =======================================================
+  // FOOTER LINKS
+  // [label, slug]
+  // =======================================================
+  const footerLinks = [
+    ['プライバシーポリシー', 'privacy/'],
+    ['利用規約',             'terms/'],
+    ['お問い合わせ',          'contact/'],
+  ];
+
+  // -------------------------------------------------------
+  // Path helper (imageManifest 準備後は fixPath に委譲)
+  // -------------------------------------------------------
   const resolvePath = (path) => {
     if (window.fixPath && window.imageManifest) return window.fixPath(path);
     return path;
   };
 
+  // =======================================================
+  // renderLayout
+  // =======================================================
   window.renderLayout = function (rootPath) {
-    let navRootPath = rootPath;
+    const navRootPath = rootPath;
 
-    // Helper: Use rootPath for assets, navRootPath for links
+    // ---------------------------------------------------
+    // ASSETS
+    // ---------------------------------------------------
+    const logoDark   = resolvePath(rootPath + 'assets/logo/aniamemoria_logo_darktheme.webp');
+    const vrchatLogo = resolvePath(rootPath + 'assets/logo/VRChat Logo Black.webp');
 
-    // Construct paths
-    const logoDark = resolvePath(rootPath + 'assets/logo/aniamemoria_logo_darktheme.webp');
-    const logoLight = resolvePath(rootPath + 'assets/logo/aniamemoria_logo.webp');
+    // ---------------------------------------------------
+    // BUILD: PC nav + mobile menu links
+    // ---------------------------------------------------
+    let pcNavHtml    = '';
+    let menuLinkHtml = '';
+    menus.forEach(([jp, en, slug]) => {
+      const href = navRootPath + slug;
+      pcNavHtml    += `<a href="${href}" class="nav-item">${jp}</a>\n        `;
+      menuLinkHtml += `
+          <a class="menu-link" href="${href}">
+            <span class="menu-link__jp">${jp}</span>
+            <span class="menu-link__sub">${en}</span>
+          </a>`;
+    });
 
-    // ... 
+    // ---------------------------------------------------
+    // BUILD: SNS links (header と menu で同一 HTML を共有)
+    // ---------------------------------------------------
+    let snsHtml = '';
+    sns.forEach(([label, slug, url]) => {
+      const icon = slug === 'vrchat'
+        ? `<img src="${vrchatLogo}" alt="VRChat" style="width:32px;height:32px;object-fit:contain;">`
+        : (SNS_SVG[slug] || '');
+      snsHtml += `<a href="${url}" target="_blank" rel="noopener" class="social-link" aria-label="${label}">${icon}</a>\n        `;
+    });
 
+    // ---------------------------------------------------
+    // BUILD: Footer links
+    // ---------------------------------------------------
+    const footerLinksHtml = footerLinks
+      .map(([label, slug]) => `<a href="${navRootPath + slug}">${label}</a>`)
+      .join('\n        ');
+
+    // ---------------------------------------------------
+    // HEADER HTML
+    // ---------------------------------------------------
     const headerHTML = `
   <header class="site-header" data-elevate>
     <div class="container header-inner">
@@ -36,28 +108,11 @@
       </a>
 
       <nav class="pc-nav hide-sm">
-        <a href="${navRootPath}news/" class="nav-item">ニュース</a>
-        <a href="${navRootPath}cast/" class="nav-item">キャスト紹介</a>
-        <a href="${navRootPath}gallery/" class="nav-item">ギャラリー</a>
-        <a href="${navRootPath}partner/" class="nav-item">提携イベント</a>
-        <a href="${navRootPath}links/" class="nav-item">関連リンク</a>
-        <a href="${navRootPath}aikotoba/" class="nav-item">合言葉</a>
+        ${pcNavHtml.trimEnd()}
       </nav>
 
       <div class="header-socials hide-sm">
-        <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener" class="social-link" aria-label="X">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
-        </a>
-        <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-          </svg>
-        </a>
-        <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener" class="social-link" aria-label="VRChat Group">
-          <img src="${rootPath}assets/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
-        </a>
+        ${snsHtml.trimEnd()}
       </div>
 
       <button class="menu-btn hide-md" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -75,58 +130,21 @@
           <button class="menu-close" type="button" aria-label="メニューを閉じる">×</button>
         </div>
 
-        <div class="menu-links">
-          <a class="menu-link" href="${navRootPath}news/">
-            <span class="menu-link__jp">ニュース</span>
-            <span class="menu-link__sub">NEWS</span>
-          </a>
-          <a class="menu-link" href="${navRootPath}cast/">
-            <span class="menu-link__jp">キャスト紹介</span>
-            <span class="menu-link__sub">CAST</span>
-          </a>
-          <a class="menu-link" href="${navRootPath}gallery/">
-            <span class="menu-link__jp">ギャラリー</span>
-            <span class="menu-link__sub">GALLERY</span>
-          </a>
-          <a class="menu-link" href="${navRootPath}partner/">
-            <span class="menu-link__jp">提携イベント</span>
-            <span class="menu-link__sub">PARTNER</span>
-          </a>
-          <a class="menu-link" href="${navRootPath}links/">
-            <span class="menu-link__jp">関連リンク</span>
-            <span class="menu-link__sub">LINKS</span>
-          </a>
-          <a class="menu-link" href="${navRootPath}aikotoba/">
-            <span class="menu-link__jp">合言葉</span>
-            <span class="menu-link__sub">AIKOTOBA</span>
-          </a>
+        <div class="menu-links">${menuLinkHtml}
         </div>
 
         <div class="menu-foot">
           <div class="menu-socials">
-            <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener" class="social-link" aria-label="X">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-              </svg>
-            </a>
-            <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener" class="social-link" aria-label="VRChat">
-              <img src="${rootPath}assets/logo/VRChat Logo Black.webp" alt="VRChat" style="width: 32px; height: 32px; object-fit: contain;">
-            </a>
+            ${snsHtml.trimEnd()}
           </div>
         </div>
       </div>
     </nav>
-  </header>
-        `;
+  </header>`;
 
-    // -----------------------------------------------------------
-    // 3. HTMLテンプレート (Footer)
-    // -----------------------------------------------------------
+    // ---------------------------------------------------
+    // FOOTER HTML
+    // ---------------------------------------------------
     const footerHTML = `
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -134,9 +152,7 @@
         <img src="${logoDark}" alt="あにあめもりあ" class="brand-logo" />
       </p>
       <p class="footer-links">
-        <a href="${navRootPath}privacy/">プライバシーポリシー</a>
-        <a href="${navRootPath}terms/">利用規約</a>
-        <a href="${navRootPath}contact/">お問い合わせ</a>
+        ${footerLinksHtml}
       </p>
       <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
       <a class="to-top" href="#top" aria-label="上へ戻る">
@@ -145,36 +161,29 @@
         </svg>
       </a>
     </div>
-  </footer>
-        `;
+  </footer>`;
 
-    // -----------------------------------------------------------
-    // 4. プレースホルダーへの注入
-    // -----------------------------------------------------------
+    // ---------------------------------------------------
+    // INJECT INTO DOM
+    // ---------------------------------------------------
     const headerPlaceholder = document.getElementById('header-placeholder');
     const footerPlaceholder = document.getElementById('footer-placeholder');
-
-
     if (headerPlaceholder) headerPlaceholder.outerHTML = headerHTML;
-
     if (footerPlaceholder) footerPlaceholder.innerHTML = footerHTML;
 
-    // -----------------------------------------------------------
-    // 5. カレントページのハイライト（簡易実装）
-    // -----------------------------------------------------------
+    // ---------------------------------------------------
+    // ACTIVE PAGE HIGHLIGHT
+    // ---------------------------------------------------
     const currentPath = window.location.pathname;
-    // リンクのhref属性と現在のパスを比較して is-active を付与
-    const navLinks = document.querySelectorAll('.pc-nav .nav-item, .menu-link');
-    navLinks.forEach(link => {
+    document.querySelectorAll('.pc-nav .nav-item, .menu-link').forEach(link => {
       const href = link.getAttribute('href');
-      if (href && href !== '#') {
-        // '../' や './' などを取り除き、純粋なパス部分を抽出
-        const cleanHref = href.replace(/^(\.\/|\.\.\/)+/, '');
-        // ディレクトリURLか index.html の両方に対応
-        const dirSegment = cleanHref.replace('index.html', '');
-        const isMatch = dirSegment.length > 1 && currentPath.includes(dirSegment);
-        if (isMatch) link.classList.add('is-active');
+      if (!href || href === '#') return;
+      const cleanHref  = href.replace(/^(\.\/|\.\.\/)+/, '');
+      const dirSegment = cleanHref.replace('index.html', '');
+      if (dirSegment.length > 1 && currentPath.includes(dirSegment)) {
+        link.classList.add('is-active');
       }
     });
   };
+
 })();
