@@ -316,6 +316,17 @@
 
     if (!tagFilterContainer) return;
 
+    // タグ → 対応するセクション名のマッピング
+    const TAG_TO_SECTION = {
+        '運営': '運営部',
+        '店長': '運営部',
+        '副店長': '運営部',
+        '飼育': '飼育区画',
+        '野生': '野生区画',
+        '妖怪': '妖怪区画',
+        'スタッフ': 'スタッフ',
+    };
+
     // カードをアニメーション付きでコンテナに挿入するヘルパー
     const animateCardsIn = (cards, container) => {
         cards.forEach((card, i) => {
@@ -329,23 +340,33 @@
         });
     };
 
-    // フィルタ状態（tag・query・マッチカード）を返す純粋関数
+    // フィルタ状態（tag・query・マッチカード・対象ラッパー）を返す純粋関数
     const getFilterState = () => {
         const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
         const activeBtn = tagFilterContainer.querySelector('.tag-filter-btn.is-active');
         const tag = (activeBtn ? activeBtn.dataset.value : null) || 'all';
         const isFiltering = tag !== 'all' || query.length > 0;
 
+        // セクション系タグ（飼育・野生・妖怪等）は targetWrapper を先に確定する
+        const targetSectionName = TAG_TO_SECTION[tag];
+        const targetWrapper = targetSectionName
+            ? document.querySelector(`#people-list-container .people-section-wrapper[data-section="${targetSectionName}"]`)
+            : null;
+
         const allCards = Array.from(document.querySelectorAll('#people-list-container .cheki-grid:not(.filter-injected-grid) .cheki-card'));
         const matchingCards = allCards.filter(card => {
             const name = (card.getAttribute('data-name') || '').toLowerCase();
             const tags = (card.getAttribute('data-tags') || '').toLowerCase();
             const nameMatch = !query || name.includes(query);
-            // タグ文字列で判定（DOM 包含ではなくタグ一致）— セクション横断メンバーも正しく表示
+            if (targetWrapper) {
+                // セクション絞り込み: タグではなく「そのセクションに属するカード」で判定
+                // → 複合タグ（例: "妖怪 飼育"）を持つメンバーが別セクションに漏れるのを防ぐ
+                return nameMatch && targetWrapper.contains(card);
+            }
             return nameMatch && (tag === 'all' || tags.includes(tag.toLowerCase()));
         });
 
-        return { tag, query, isFiltering, matchingCards };
+        return { tag, query, isFiltering, matchingCards, targetWrapper };
     };
 
     // "すべて" 表示：元のセクション別ビューに戻す
@@ -366,7 +387,42 @@
         });
     };
 
-    // タグ絞り込み → フラットビュー（セクション横断で全マッチカードを表示）
+    // セクション背景を維持してマッチカードを集約（タグ絞り込み時）
+    const renderSectionFilter = (targetWrapper, matchingCards) => {
+        const flatContainer = document.getElementById('people-filter-results');
+        if (flatContainer) flatContainer.style.display = 'none';
+        if (peopleContainer) peopleContainer.style.display = '';
+
+        document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
+            w.style.display = 'none';
+        });
+
+        targetWrapper.style.display = '';
+        targetWrapper.classList.remove('is-visible');
+        void targetWrapper.offsetWidth; // force reflow
+        requestAnimationFrame(() => targetWrapper.classList.add('is-visible'));
+
+        const origGrid = targetWrapper.querySelector('.cheki-grid:not(.filter-injected-grid)');
+        if (origGrid) origGrid.style.display = 'none';
+
+        let injGrid = targetWrapper.querySelector('.filter-injected-grid');
+        if (!injGrid) {
+            injGrid = document.createElement('div');
+            injGrid.className = 'cheki-grid filter-injected-grid';
+            const container = targetWrapper.querySelector('.container');
+            if (container) container.appendChild(injGrid);
+        }
+        injGrid.style.display = '';
+        injGrid.innerHTML = '';
+
+        if (matchingCards.length === 0) {
+            injGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:#fff;">${NOT_FOUND_MSG}</p>`;
+        } else {
+            animateCardsIn(matchingCards, injGrid);
+        }
+    };
+
+    // セクション対応なし（キャスト絞り込み）→ フラットビュー
     const renderFlatFilter = (matchingCards) => {
         let flatContainer = document.getElementById('people-filter-results');
         if (!flatContainer && peopleContainer) {
@@ -383,14 +439,6 @@
             peopleContainer.insertAdjacentElement('afterend', flatContainer);
         }
 
-        // ① クリア前に先行して非表示（点滅防止）
-        if (flatContainer) {
-            flatContainer.style.transition = 'none';
-            flatContainer.style.opacity = '0';
-            flatContainer.style.display = '';
-        }
-        if (peopleContainer) peopleContainer.style.display = 'none';
-
         const flatGrid = document.getElementById('people-filter-grid');
         if (flatGrid) {
             flatGrid.innerHTML = '';
@@ -401,18 +449,21 @@
             }
         }
 
-        // ② カード挿入後にフェードイン
+        if (peopleContainer) peopleContainer.style.display = 'none';
         if (flatContainer) {
+            flatContainer.style.opacity = '0';
+            flatContainer.style.transition = 'opacity 0.5s ease';
+            flatContainer.style.display = '';
             requestAnimationFrame(() => requestAnimationFrame(() => {
-                flatContainer.style.transition = 'opacity 0.3s ease';
                 flatContainer.style.opacity = '1';
             }));
         }
     };
 
     const applyPeopleFilter = () => {
-        const { isFiltering, matchingCards } = getFilterState();
+        const { isFiltering, matchingCards, targetWrapper } = getFilterState();
         if (!isFiltering) { resetToAllSections(); return; }
+        if (targetWrapper) { renderSectionFilter(targetWrapper, matchingCards); return; }
         renderFlatFilter(matchingCards);
     };
     // renderSequentially から安全に呼び出せるようコールバックをセット
