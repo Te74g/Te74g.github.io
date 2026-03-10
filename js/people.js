@@ -383,6 +383,14 @@
             peopleContainer.insertAdjacentElement('afterend', flatContainer);
         }
 
+        // ① クリア前に先行して非表示（点滅防止）
+        if (flatContainer) {
+            flatContainer.style.transition = 'none';
+            flatContainer.style.opacity = '0';
+            flatContainer.style.display = '';
+        }
+        if (peopleContainer) peopleContainer.style.display = 'none';
+
         const flatGrid = document.getElementById('people-filter-grid');
         if (flatGrid) {
             flatGrid.innerHTML = '';
@@ -393,12 +401,10 @@
             }
         }
 
-        if (peopleContainer) peopleContainer.style.display = 'none';
+        // ② カード挿入後にフェードイン
         if (flatContainer) {
-            flatContainer.style.opacity = '0';
-            flatContainer.style.transition = 'opacity 0.5s ease';
-            flatContainer.style.display = '';
             requestAnimationFrame(() => requestAnimationFrame(() => {
+                flatContainer.style.transition = 'opacity 0.3s ease';
                 flatContainer.style.opacity = '1';
             }));
         }
