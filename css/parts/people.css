@@ -225,9 +225,14 @@
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.4s ease var(--reveal-delay, 0ms),
-                transform 0.4s ease var(--reveal-delay, 0ms);
+        transform 0.4s ease var(--reveal-delay, 0ms);
 }
-/* .cheki-card.reveal.is-visible は layout.css の .reveal.is-visible を継承 */
+
+/* .cheki-card.reveal.is-visible は layout.css の .reveal.is-visible を同等詳細度で上書きしてしまうため、ここに明記する */
+.cheki-card.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 /* =========================================
    Kukaku Section Header (区画看板ヘッダー)
