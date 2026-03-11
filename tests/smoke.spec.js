@@ -54,4 +54,21 @@ test.describe('Smoke Tests - General Routing & Interaction', () => {
         await expect(visibleSections).toHaveAttribute('data-section', '妖怪区画');
     });
 
+    test('Common Layout - Deep subpage renders correct relative paths', async ({ page }) => {
+        // Go to a deeply nested page to verify path resolution (e.g., /cast/ten/index.html)
+        await page.goto('/cast/ten/index.html');
+
+        // Check that the logo image resolved correctly
+        const brandLogo = page.locator('.brand-logo').first();
+        await expect(brandLogo).toHaveAttribute('src', /\.\.\/\.\.\/assets\/logo\/aniamemoria_logo_darktheme\.webp/);
+
+        // Check that the "News" nav item resolved correctly
+        const newsLink = page.locator('.pc-nav .nav-item').first();
+        await expect(newsLink).toHaveAttribute('href', '../../news/');
+
+        // Verify active page highlight worked
+        const castLink = page.locator('.pc-nav .nav-item:text("キャスト紹介")');
+        await expect(castLink).toHaveClass(/is-active/);
+    });
+
 });

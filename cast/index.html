@@ -25,10 +25,8 @@
     <main id="main"><!-- people.js がページを構築します --></main>
 
     <div id="footer-placeholder"></div>
-    <script src="../js/common-layout.js"></script>
-    <script>
-        renderLayout('../');
-    </script>
+    
+    
 
     <!-- Data Files -->
     <script src="../_config/data_members.js"></script>
@@ -38,7 +36,7 @@
     <script src="../_config/data_links.js"></script>
     <script src="../_config/data_site.js"></script>
     <script src="../js/utils.js"></script>
-    <script src="../js/ui.js"></script>
+    <script type="module">import { initUI } from "../js/ui.js"; initUI();</script>
     <script src="../js/people.js"></script>
 </body>
 

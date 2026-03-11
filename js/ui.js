@@ -3,25 +3,26 @@
  * Common UI interactions (Menu, Header, Reveal, etc.)
  */
 
-// =======================================================
-// メンテナンスモードリダイレクト
-// =======================================================
-(function () {
-    // メンテナンスページ自身はスキップ
-    if (window.location.pathname.includes('maintenance.html')) return;
+import { renderLayout } from './app/layout.js';
+import { getSiteConfig } from './app/data.js';
 
-    // メンテナンスモードの裏技解除フラグ（セッション中有効）またはデバッグモードが立っていればスキップ
-    if (sessionStorage.getItem('maintenanceBypass') === 'true' || sessionStorage.getItem('debugMode') === 'true') return;
+export async function initUI() {
+    // 1. Build common layout (header/footer) automatically
+    await renderLayout();
 
-    // siteConfigのメンテナンスモードをチェック
-    if (window.siteConfig?.maintenanceMode) {
-        // 相対パスでmaintenance.htmlにリダイレクト
-        const basePath = window.fixPath ? window.fixPath('maintenance.html') : './maintenance.html';
-        window.location.href = basePath;
+    // 2. メンテナンスモードリダイレクト (maintenance page is skipped inside)
+    if (!window.location.pathname.includes('maintenance.html')) {
+        const config = getSiteConfig();
+        const bypass = sessionStorage.getItem('maintenanceBypass') === 'true' || sessionStorage.getItem('debugMode') === 'true';
+
+        if (config?.maintenanceMode && !bypass) {
+            const basePath = window.fixPath ? window.fixPath('maintenance.html') : './maintenance.html';
+            window.location.href = basePath;
+            return; // Stop execution if redirecting
+        }
     }
-})();
 
-(function () {
+
     const prefersReducedMotion =
         window.matchMedia &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -174,4 +175,4 @@
         window.addEventListener('resize', throttledAdjust, { passive: true });
         adjustToTop(); // init
     }
-})();
+}
