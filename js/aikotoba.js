@@ -4,6 +4,7 @@
  * ページ構造（cinema stage / section / header）もここで生成するため、
  * HTML 側は <main id="main"></main> だけでよい。
  */
+/* global aikotobaData */
 document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main');
     if (!main) return;

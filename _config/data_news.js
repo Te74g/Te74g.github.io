@@ -25,8 +25,8 @@ window.newsData = [
         title: "人間さん、ようこそ「あにあめもりあ」へ！",
         date: "2026.03.08",
         category: "お知らせ",
-        image: "assets/news/2026-03-08/grand_open.png",
-        imagePath: "assets/news/2026-03-08/grand_open.png",
+        image: "assets/news/2026-03-08/grand_open.webp",
+        imagePath: "assets/news/2026-03-08/grand_open.webp",
         desc: "本日3月8日 18:00、「あにあめもりあ」公式サイトを公開いたしました！",
         content: `
             <p>本日3月8日 18:00、「あにあめもりあ」公式サイトを公開いたしました！</p>

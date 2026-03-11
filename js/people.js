@@ -56,7 +56,7 @@ import { fadeIn } from './app/motion.js';
     if (!peopleContainer || !membersData || membersData.length === 0) return;
 
     // ---- 設定定数 ----
-    const SECTION_ORDER = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
+    const SECTION_ORDER = ['運営部', '飼育区画', '野生区画', '妖怪区画', 'スタッフ'];
     const KUKAKU_SECTION_IMGS = {
         '飼育区画': 'assets/kukaku/shiiku.webp',
         '野生区画': 'assets/kukaku/yasei.webp',
@@ -93,7 +93,7 @@ import { fadeIn } from './app/motion.js';
     SECTION_ORDER.forEach(sec => grouped[sec] = []);
 
     visibleMembers.forEach(member => {
-        const sec = member.section || "その他";
+        const sec = member.section || 'その他';
         if (!grouped[sec]) grouped[sec] = [];
         grouped[sec].push(member);
     });
@@ -102,7 +102,7 @@ import { fadeIn } from './app/motion.js';
     const allCardElements = []; // { card: HTMLElement, data: Object, section: string, isVisible: boolean }
 
     const createMemberCard = (m, form, formIndex, revealLevel) => {
-        const link = document.createElement("a");
+        const link = document.createElement('a');
         const effectiveMember = form ? {
             ...m,
             name: m.name,
@@ -118,8 +118,8 @@ import { fadeIn } from './app/motion.js';
         // （表示/非表示は display: none などの CSS 切替で済ませる）
         link.classList.add('reveal', 'is-visible');
 
-        link.setAttribute("data-name", effectiveMember.name);
-        link.setAttribute("data-tags", m.tags);
+        link.setAttribute('data-name', effectiveMember.name);
+        link.setAttribute('data-tags', m.tags);
 
         if (revealLevel >= 3) {
             let url = m.link || `member/profile.html?id=${m.id}`;
@@ -146,7 +146,7 @@ import { fadeIn } from './app/motion.js';
         } else if (revealLevel === 2) {
             const url = m.link || `member/profile.html?id=${m.id}`;
             link.href = window.fixPath(url);
-            link.classList.add("silhouette-mode");
+            link.classList.add('silhouette-mode');
             const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
             const silhouetteImg = displayInfo && displayInfo.imagePath ? displayInfo.imagePath[0] : (castConfig.placeholderImage || m.image);
             const bgPath = window.getMemberBackground(m.tags);
@@ -160,11 +160,11 @@ import { fadeIn } from './app/motion.js';
                 <div class="cheki-name">${effectiveMember.name}</div>
             `;
         } else if (revealLevel === 1) {
-            link.href = "javascript:void(0)";
-            link.style.cursor = "default";
-            link.classList.add("coming-soon");
+            link.href = 'javascript:void(0)';
+            link.style.cursor = 'default';
+            link.classList.add('coming-soon');
             const comingSoonImg = castConfig.comingSoonImage || '';
-            const comingSoonName = castConfig.comingSoonName || "???";
+            const comingSoonName = castConfig.comingSoonName || '???';
             link.innerHTML = `
                 <div class="cheki-visual coming-soon">
                     <img src="${window.fixPath(comingSoonImg)}" alt="Coming Soon" class="cheki-img" loading="lazy">
@@ -178,9 +178,9 @@ import { fadeIn } from './app/motion.js';
             if (!visible) {
                 const placeholderImage = castConfig.placeholderImage || '';
                 const preparingText = castConfig.preparingText || '準備中';
-                link.href = "javascript:void(0)";
-                link.style.cursor = "default";
-                link.classList.add("preparing");
+                link.href = 'javascript:void(0)';
+                link.style.cursor = 'default';
+                link.classList.add('preparing');
                 link.innerHTML = `
                     <div class="cheki-visual preparing">
                         <img src="${window.fixPath(placeholderImage)}" alt="準備中" class="cheki-img silhouette" loading="lazy">
@@ -195,11 +195,11 @@ import { fadeIn } from './app/motion.js';
     };
 
     const bgMap = {
-        "運営部": "../assets/page/unei_low_res.webp",
-        "飼育区画": "../assets/page/shiiku_low_res.webp",
-        "野生区画": "../assets/page/yasei_low_res.webp",
-        "妖怪区画": "../assets/page/yo-kai_low_res.webp",
-        "スタッフ": "../assets/page/staff_low_res.webp"
+        '運営部': '../assets/page/unei_low_res.webp',
+        '飼育区画': '../assets/page/shiiku_low_res.webp',
+        '野生区画': '../assets/page/yasei_low_res.webp',
+        '妖怪区画': '../assets/page/yo-kai_low_res.webp',
+        'スタッフ': '../assets/page/staff_low_res.webp'
     };
 
     // Construct the DOM for all sections ONCE
@@ -208,27 +208,27 @@ import { fadeIn } from './app/motion.js';
         const list = grouped[sec];
         if (!list || list.length === 0) return;
 
-        const wrapper = document.createElement("section");
-        wrapper.className = "people-section-wrapper reveal is-visible";
+        const wrapper = document.createElement('section');
+        wrapper.className = 'people-section-wrapper reveal is-visible';
         wrapper.dataset.section = sec;
 
         // Hide by default unless it's needed in the initial state
         wrapper.style.display = 'none';
 
-        const bgDiv = document.createElement("div");
-        bgDiv.className = "people-section-bg";
-        const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : "";
+        const bgDiv = document.createElement('div');
+        bgDiv.className = 'people-section-bg';
+        const bgPath = bgMap[sec] ? window.fixPath(bgMap[sec]) : '';
         if (bgPath) bgDiv.style.backgroundImage = `url('${bgPath}')`;
-        else bgDiv.style.backgroundColor = "transparent";
+        else bgDiv.style.backgroundColor = 'transparent';
         wrapper.appendChild(bgDiv);
 
-        const innerContainer = document.createElement("div");
-        innerContainer.className = "container";
+        const innerContainer = document.createElement('div');
+        innerContainer.className = 'container';
 
         const kukakuImg = KUKAKU_SECTION_IMGS[sec];
         if (kukakuImg) {
-            const header = document.createElement("div");
-            header.className = "kukaku-section-header";
+            const header = document.createElement('div');
+            header.className = 'kukaku-section-header';
             header.innerHTML = `
                 <div class="perf-strip" aria-hidden="true"></div>
                 <div class="kukaku-section-sign">
@@ -238,14 +238,14 @@ import { fadeIn } from './app/motion.js';
             `;
             innerContainer.appendChild(header);
         } else {
-            const divider = document.createElement("div");
-            divider.className = "section-divider";
+            const divider = document.createElement('div');
+            divider.className = 'section-divider';
             divider.innerHTML = `<span class="section-label">${sec}</span>`;
             innerContainer.appendChild(divider);
         }
 
-        const grid = document.createElement("div");
-        grid.className = "cheki-grid";
+        const grid = document.createElement('div');
+        grid.className = 'cheki-grid';
 
         list.forEach(m => {
             const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m) : null;
@@ -267,13 +267,13 @@ import { fadeIn } from './app/motion.js';
         });
 
         // Add "Not found" message container
-        const noResults = document.createElement("p");
-        noResults.className = "no-results-msg";
-        noResults.style.display = "none";
-        noResults.style.gridColumn = "1/-1";
-        noResults.style.textAlign = "center";
-        noResults.style.padding = "2rem";
-        noResults.style.color = "#fff";
+        const noResults = document.createElement('p');
+        noResults.className = 'no-results-msg';
+        noResults.style.display = 'none';
+        noResults.style.gridColumn = '1/-1';
+        noResults.style.textAlign = 'center';
+        noResults.style.padding = '2rem';
+        noResults.style.color = '#fff';
         noResults.textContent = NOT_FOUND_MSG;
         grid.appendChild(noResults);
 

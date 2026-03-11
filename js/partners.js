@@ -34,15 +34,15 @@
     /* -------------------------------------------------------
        提携イベント一覧 (partner_events.html) の生成
        ------------------------------------------------------- */
-    const partnerContainer = document.getElementById("partner-events-list-container");
+    const partnerContainer = document.getElementById('partner-events-list-container');
     if (partnerContainer && window.partnerEventsData) {
         // フィルタリング
         const visibleEvents = window.partnerEventsData.filter(item => window.shouldShowItem(item));
 
         visibleEvents.forEach(item => {
-            const card = document.createElement("article");
-            card.className = "event-card reveal is-visible";
-            card.setAttribute("role", "listitem");
+            const card = document.createElement('article');
+            card.className = 'event-card reveal is-visible';
+            card.setAttribute('role', 'listitem');
 
             let imgUrl = item.image;
             if (!imgUrl && item.images && item.images.length > 0) {

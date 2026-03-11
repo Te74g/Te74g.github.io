@@ -57,49 +57,49 @@
     }
 
     function bindElements() {
-        modal = document.getElementById("gallery-modal");
-        track = document.getElementById("modal-track");
-        closeBtn = document.querySelector(".gallery-modal-close");
-        prevBtn = document.querySelector(".gallery-nav.prev");
-        nextBtn = document.querySelector(".gallery-nav.next");
-        mTitle = document.getElementById("modal-title");
-        mDesc = document.getElementById("modal-desc");
-        overlay = document.querySelector(".gallery-modal-overlay");
+        modal = document.getElementById('gallery-modal');
+        track = document.getElementById('modal-track');
+        closeBtn = document.querySelector('.gallery-modal-close');
+        prevBtn = document.querySelector('.gallery-nav.prev');
+        nextBtn = document.querySelector('.gallery-nav.next');
+        mTitle = document.getElementById('modal-title');
+        mDesc = document.getElementById('modal-desc');
+        overlay = document.querySelector('.gallery-modal-overlay');
     }
 
     function bindEvents() {
         if (!modal) return;
 
         // Close
-        closeBtn?.addEventListener("click", closeLightbox);
-        overlay?.addEventListener("click", () => {
+        closeBtn?.addEventListener('click', closeLightbox);
+        overlay?.addEventListener('click', () => {
             if (!isDragging) closeLightbox();
         });
 
         // Nav
-        prevBtn?.addEventListener("click", (e) => { e.stopPropagation(); prevImage(); });
-        nextBtn?.addEventListener("click", (e) => { e.stopPropagation(); nextImage(); });
+        prevBtn?.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+        nextBtn?.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
 
         // Keyboard
-        document.addEventListener("keydown", (e) => {
-            if (!modal || modal.style.display === "none") return;
-            if (e.key === "Escape") closeLightbox();
-            if (e.key === "ArrowRight") nextImage();
-            if (e.key === "ArrowLeft") prevImage();
+        document.addEventListener('keydown', (e) => {
+            if (!modal || modal.style.display === 'none') return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
         });
 
         // Zoom / Pan Events (Pointer & Wheel)
         if (track) {
             // Wheel Zoom
-            track.addEventListener("wheel", (e) => {
-                if (!track.querySelector(".gallery-slide.is-active")) return;
+            track.addEventListener('wheel', (e) => {
+                if (!track.querySelector('.gallery-slide.is-active')) return;
                 e.preventDefault();
                 const delta = e.deltaY > 0 ? -0.2 : 0.2;
                 applyZoom(delta);
             }, { passive: false });
 
             // Pointer Events
-            track.addEventListener("pointerdown", (e) => {
+            track.addEventListener('pointerdown', (e) => {
                 if (zoomScale <= 1) return;
                 isDragging = true;
                 startX = e.clientX - panX;
@@ -108,7 +108,7 @@
                 updateTransform();
             });
 
-            track.addEventListener("pointermove", (e) => {
+            track.addEventListener('pointermove', (e) => {
                 if (!isDragging) return;
                 e.preventDefault();
                 panX = e.clientX - startX;
@@ -116,12 +116,12 @@
                 updateTransform();
             });
 
-            track.addEventListener("pointerup", () => { isDragging = false; updateTransform(); });
-            track.addEventListener("pointerleave", () => { isDragging = false; updateTransform(); });
+            track.addEventListener('pointerup', () => { isDragging = false; updateTransform(); });
+            track.addEventListener('pointerleave', () => { isDragging = false; updateTransform(); });
 
             // Double click/tap
             let lastTap = 0;
-            track.addEventListener("click", (e) => {
+            track.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'IMG') return;
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTap;
@@ -152,50 +152,50 @@
         const item = currentImages[currentIndex];
         const infoDiv = modal.querySelector('.gallery-info');
         if (item.title || item.desc) {
-            if (infoDiv) infoDiv.style.display = "block";
-            if (mTitle) mTitle.textContent = item.title || "";
-            if (mDesc) mDesc.textContent = item.desc || "";
+            if (infoDiv) infoDiv.style.display = 'block';
+            if (mTitle) mTitle.textContent = item.title || '';
+            if (mDesc) mDesc.textContent = item.desc || '';
         } else {
-            if (infoDiv) infoDiv.style.display = "none";
+            if (infoDiv) infoDiv.style.display = 'none';
         }
 
         // Show Modal
-        modal.style.display = "flex";
+        modal.style.display = 'flex';
         requestAnimationFrame(() => {
-            modal.setAttribute("aria-hidden", "false");
-            modal.classList.add("is-open");
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('is-open');
         });
-        document.body.style.overflow = "hidden";
-        document.body.classList.add("lightbox-open");
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('lightbox-open');
         resetZoom();
     }
 
     function closeLightbox() {
         if (!modal) return;
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
         setTimeout(() => {
-            modal.style.display = "none";
-            if (track) track.innerHTML = "";
+            modal.style.display = 'none';
+            if (track) track.innerHTML = '';
         }, 300);
-        document.body.style.overflow = "";
-        document.body.classList.remove("lightbox-open");
+        document.body.style.overflow = '';
+        document.body.classList.remove('lightbox-open');
     }
 
     function renderSlides() {
         if (!track) return;
-        track.innerHTML = "";
+        track.innerHTML = '';
 
         // Only render current, prev, next for performance? Or all?
         // Since it's usually small for news, render all is fine.
         currentImages.forEach((item, i) => {
-            const slide = document.createElement("div");
-            slide.className = "gallery-slide";
-            if (i === currentIndex) slide.classList.add("is-active");
+            const slide = document.createElement('div');
+            slide.className = 'gallery-slide';
+            if (i === currentIndex) slide.classList.add('is-active');
 
-            const img = document.createElement("img");
+            const img = document.createElement('img');
             img.src = item.src;
-            img.alt = item.title || "";
+            img.alt = item.title || '';
             img.draggable = false;
 
             slide.appendChild(img);
@@ -232,14 +232,14 @@
     }
 
     function updateTransform() {
-        const activeImg = track?.querySelector(".gallery-slide.is-active img");
+        const activeImg = track?.querySelector('.gallery-slide.is-active img');
         if (!activeImg) return;
         activeImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
 
         if (zoomScale > 1) {
-            activeImg.style.cursor = isDragging ? "grabbing" : "grab";
+            activeImg.style.cursor = isDragging ? 'grabbing' : 'grab';
         } else {
-            activeImg.style.cursor = "zoom-in";
+            activeImg.style.cursor = 'zoom-in';
         }
     }
 
@@ -267,16 +267,16 @@
         // so that the order matches the DOM order.
 
         elements.forEach((el, index) => {
-            el.style.cursor = "zoom-in";
-            el.addEventListener("click", (e) => {
+            el.style.cursor = 'zoom-in';
+            el.addEventListener('click', (e) => {
                 e.preventDefault();
 
                 // Re-query to ensure order and content
                 const currentElements = document.querySelectorAll(selector);
                 currentImages = Array.from(currentElements).map(img => ({
                     src: img.src || img.href, // support <a> wrapping <img> if needed
-                    title: img.alt || img.title || "",
-                    desc: ""
+                    title: img.alt || img.title || '',
+                    desc: ''
                 }));
 
                 // Find index of clicked element

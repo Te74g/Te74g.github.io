@@ -278,7 +278,7 @@ function renderEventContent(eventItem, normalizePath) {
             `;
 
             if (images.length > 1) {
-                galleryHtml += `<div class="event-thumbnails">`;
+                galleryHtml += '<div class="event-thumbnails">';
                 images.forEach((img, index) => {
                     const thumbPath = normalizePath(img);
                     const isActive = index === 0 ? 'is-active' : '';
@@ -289,7 +289,7 @@ function renderEventContent(eventItem, normalizePath) {
                         </div>
                     `;
                 });
-                galleryHtml += `</div>`;
+                galleryHtml += '</div>';
             }
         }
 

@@ -68,7 +68,7 @@
         if (member.revealDate && !isDebugMode) {
             hasRevealDate = true;
             const today = new Date();
-            const revealDate = new Date(member.revealDate + "T18:00:00+09:00");
+            const revealDate = new Date(member.revealDate + 'T18:00:00+09:00');
             const diffTime = revealDate - today;
             daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -109,9 +109,9 @@
                 break;
 
             case 1: // coming_soon
-                info.name = config.comingSoonName || "???";
-                info.fullName = config.comingSoonName || "???";
-                info.tagLabel = "???";
+                info.name = config.comingSoonName || '???';
+                info.fullName = config.comingSoonName || '???';
+                info.tagLabel = '???';
                 info.imagePath = config.comingSoonImage ? [config.comingSoonImage] : null;
                 info.linkable = false;
                 info.showIntro = false;
@@ -120,7 +120,7 @@
                 info.showMotif = false;
                 break;
 
-            case 2: // silhouette
+            case 2: { // silhouette
                 let silImage = member.silhouetteImage || null;
                 if (!silImage && info.imagePath && info.imagePath[0]) {
                     // Generate silhouette path dynamically from the first image
@@ -141,6 +141,7 @@
                     info.showMotif = false;
                 }
                 break;
+            }
 
             case 3: // full
             default:
@@ -152,17 +153,17 @@
     };
 
     window.fixPath = (path) => {
-        if (!path) return "";
+        if (!path) return '';
         // Keep absolute paths, protocol-relative paths, or anchors
-        if (path.match(/^(http|\/\/)/) || path.startsWith("#") || path.startsWith("mailto:")) return path;
+        if (path.match(/^(http|\/\/)/) || path.startsWith('#') || path.startsWith('mailto:')) return path;
 
         // "assets/..." -> "./assets/..." normalization for processing
         let cleanPath = path;
 
         // Normalize: Strip existing traversal to re-calculate based on current depth
         // We assume inputs from data files are root-relative (e.g. "assets/img.webp" or "./assets/img.webp")
-        while (cleanPath.startsWith("../")) cleanPath = cleanPath.substring(3);
-        while (cleanPath.startsWith("./")) cleanPath = cleanPath.substring(2);
+        while (cleanPath.startsWith('../')) cleanPath = cleanPath.substring(3);
+        while (cleanPath.startsWith('./')) cleanPath = cleanPath.substring(2);
 
         // --- WebP Resolution Logic ---
         // If manifest is loaded, check if we can swap to WebP
@@ -190,14 +191,14 @@
         const depth = pathParts.length;
 
         // Construct prefix
-        let prefix = "";
+        let prefix = '';
         for (let i = 0; i < depth; i++) {
-            prefix += "../";
+            prefix += '../';
         }
 
         // If we are at root (depth 0) and path doesn't start with ./, add it for consistency
-        if (depth === 0 && !cleanPath.startsWith(".")) {
-            return "./" + cleanPath;
+        if (depth === 0 && !cleanPath.startsWith('.')) {
+            return './' + cleanPath;
         }
 
         return prefix + cleanPath;
@@ -234,9 +235,9 @@
     loadManifest().then(() => {
         // Once manifest is loaded, try to replace static images existing in DOM
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', replaceStaticImages);
+            document.addEventListener('DOMContentLoaded', window.replaceStaticImages);
         } else {
-            replaceStaticImages();
+            window.replaceStaticImages();
         }
     });
 
@@ -333,11 +334,11 @@
             'E': 'assets/member_parts/aniamemoria_member_background_E.webp'
         };
 
-        if (tags.includes("運営")) return BG_MAP['E'];
-        if (tags.includes("妖怪")) return BG_MAP['B'];
-        if (tags.includes("飼育")) return BG_MAP['A'];
-        if (tags.includes("野生")) return BG_MAP['C'];
-        if (tags.includes("スタッフ")) return BG_MAP['D'];
+        if (tags.includes('運営')) return BG_MAP['E'];
+        if (tags.includes('妖怪')) return BG_MAP['B'];
+        if (tags.includes('飼育')) return BG_MAP['A'];
+        if (tags.includes('野生')) return BG_MAP['C'];
+        if (tags.includes('スタッフ')) return BG_MAP['D'];
 
         return null; // or default?
     };
@@ -359,11 +360,11 @@
             'E': 'assets/member_parts/aniamemoria_member_frame_E.webp'
         };
 
-        if (tags.includes("運営")) return FRAME_MAP['E'];
-        if (tags.includes("妖怪")) return FRAME_MAP['B'];
-        if (tags.includes("飼育")) return FRAME_MAP['A'];
-        if (tags.includes("野生")) return FRAME_MAP['C'];
-        if (tags.includes("スタッフ")) return FRAME_MAP['D'];
+        if (tags.includes('運営')) return FRAME_MAP['E'];
+        if (tags.includes('妖怪')) return FRAME_MAP['B'];
+        if (tags.includes('飼育')) return FRAME_MAP['A'];
+        if (tags.includes('野生')) return FRAME_MAP['C'];
+        if (tags.includes('スタッフ')) return FRAME_MAP['D'];
 
         return null;
     };
@@ -376,11 +377,11 @@
     window.getPinClass = (tags) => {
         if (!tags) return 'pin-red'; // Default
 
-        if (tags.includes("運営")) return 'pin-red'; // Dark Red
-        if (tags.includes("妖怪")) return 'pin-gray'; // Gray/White
-        if (tags.includes("飼育")) return 'pin-brown'; // Brown
-        if (tags.includes("野生")) return 'pin-green'; // Green
-        if (tags.includes("スタッフ")) return 'pin-black'; // Black/Dark
+        if (tags.includes('運営')) return 'pin-red'; // Dark Red
+        if (tags.includes('妖怪')) return 'pin-gray'; // Gray/White
+        if (tags.includes('飼育')) return 'pin-brown'; // Brown
+        if (tags.includes('野生')) return 'pin-green'; // Green
+        if (tags.includes('スタッフ')) return 'pin-black'; // Black/Dark
 
         return 'pin-red'; // Fallback
     };
@@ -402,11 +403,11 @@
             'E': 'assets/page/unei_low_res.webp'   // Operation
         };
 
-        if (tags.includes("運営")) return BG_MAP['E'];
-        if (tags.includes("妖怪")) return BG_MAP['B'];
-        if (tags.includes("飼育")) return BG_MAP['A'];
-        if (tags.includes("野生")) return BG_MAP['C'];
-        if (tags.includes("スタッフ")) return BG_MAP['D'];
+        if (tags.includes('運営')) return BG_MAP['E'];
+        if (tags.includes('妖怪')) return BG_MAP['B'];
+        if (tags.includes('飼育')) return BG_MAP['A'];
+        if (tags.includes('野生')) return BG_MAP['C'];
+        if (tags.includes('スタッフ')) return BG_MAP['D'];
 
         return null;
     };
@@ -421,7 +422,7 @@
     window.isMemberVisible = (member, castConfig) => {
         if (!castConfig) return true;
         if (castConfig.showAllMembers) return true;
-        if (member.section === "運営部" || member.section === "スタッフ") return true;
+        if (member.section === '運営部' || member.section === 'スタッフ') return true;
         return (castConfig.visibleMembers || []).includes(member.id);
     };
 

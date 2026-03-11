@@ -42,9 +42,9 @@ export const fadeIn = (element, visibleClass = 'is-visible', forceReflow = false
 export const fadeOutElement = (element, durationMs = 300) => {
     if (!element) return;
 
-    element.style.transition = \`opacity \${durationMs}ms ease\`;
+    element.style.transition = `opacity ${durationMs}ms ease`;
     element.style.opacity = '0';
-    
+
     setTimeout(() => {
         element.style.display = 'none';
         element.style.opacity = '';

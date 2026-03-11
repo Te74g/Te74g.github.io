@@ -13,7 +13,7 @@
     /* -------------------------------------------------------
        GALLERY GENERATION
        ------------------------------------------------------- */
-    const galleryContainer = document.getElementById("gallery-grid");
+    const galleryContainer = document.getElementById('gallery-grid');
 
     // Filtered Data (Scope to share with lightbox)
     let displayGalleryData = [];
@@ -35,11 +35,11 @@
             `;
         } else {
             displayGalleryData.forEach((item, index) => {
-                const card = document.createElement("article");
-                card.className = "gallery-polaroid reveal";
+                const card = document.createElement('article');
+                card.className = 'gallery-polaroid reveal';
                 if (item.landscape) card.classList.add('is-landscape');
 
-                const thumbUrl = window.fixPath(item.thumb || (item.images && item.images[0]) || "");
+                const thumbUrl = window.fixPath(item.thumb || (item.images && item.images[0]) || '');
                 const count = item.images ? item.images.length : 0;
 
                 card.innerHTML = `
@@ -61,7 +61,7 @@
                 setTimeout(() => card.classList.add('is-visible'), index * 100);
 
                 // Click event to open lightbox
-                card.addEventListener("click", () => openLightbox(index));
+                card.addEventListener('click', () => openLightbox(index));
                 galleryContainer.appendChild(card);
             });
         }
@@ -70,14 +70,14 @@
     /* -------------------------------------------------------
        Lightbox Logic
        ------------------------------------------------------- */
-    const modal = document.getElementById("gallery-modal");
-    const track = document.getElementById("modal-track");
-    const closeBtn = document.querySelector(".gallery-modal-close");
-    const prevBtn = document.querySelector(".gallery-nav.prev");
-    const nextBtn = document.querySelector(".gallery-nav.next");
-    const mTitle = document.getElementById("modal-title");
-    const mDesc = document.getElementById("modal-desc");
-    const overlay = document.querySelector(".gallery-modal-overlay");
+    const modal = document.getElementById('gallery-modal');
+    const track = document.getElementById('modal-track');
+    const closeBtn = document.querySelector('.gallery-modal-close');
+    const prevBtn = document.querySelector('.gallery-nav.prev');
+    const nextBtn = document.querySelector('.gallery-nav.next');
+    const mTitle = document.getElementById('modal-title');
+    const mDesc = document.getElementById('modal-desc');
+    const overlay = document.querySelector('.gallery-modal-overlay');
 
     let currentGalleryIndex = -1;
     let currentImageIndex = 0;
@@ -103,45 +103,45 @@
 
         // Update Info
         if (mTitle) mTitle.textContent = item.title;
-        if (mDesc) mDesc.textContent = (item.date ? item.date + " " : "") + (item.desc || "");
+        if (mDesc) mDesc.textContent = (item.date ? item.date + ' ' : '') + (item.desc || '');
 
         renderSlides();
 
         // Show Modal
-        modal.style.display = "flex";
+        modal.style.display = 'flex';
         requestAnimationFrame(() => {
-            modal.setAttribute("aria-hidden", "false");
-            modal.classList.add("is-open");
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('is-open');
         });
-        document.body.style.overflow = "hidden";
-        document.body.classList.add("lightbox-open");
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('lightbox-open');
         resetZoom();
     }
 
     function closeLightbox() {
         if (!modal) return;
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
         setTimeout(() => {
-            modal.style.display = "none";
-            track.innerHTML = "";
+            modal.style.display = 'none';
+            track.innerHTML = '';
         }, 300);
-        document.body.style.overflow = "";
-        document.body.classList.remove("lightbox-open");
+        document.body.style.overflow = '';
+        document.body.classList.remove('lightbox-open');
     }
 
     function renderSlides() {
         if (!track) return;
-        track.innerHTML = "";
+        track.innerHTML = '';
 
         currentImages.forEach((src, i) => {
-            const slide = document.createElement("div");
-            slide.className = "gallery-slide";
-            if (i === currentImageIndex) slide.classList.add("is-active");
+            const slide = document.createElement('div');
+            slide.className = 'gallery-slide';
+            if (i === currentImageIndex) slide.classList.add('is-active');
 
-            const img = document.createElement("img");
+            const img = document.createElement('img');
             img.src = window.fixPath(src);
-            img.alt = "";
+            img.alt = '';
             img.draggable = false;
 
             slide.appendChild(img);
@@ -153,9 +153,9 @@
     }
 
     function updateNav() {
-        const slides = track.querySelectorAll(".gallery-slide");
+        const slides = track.querySelectorAll('.gallery-slide');
         slides.forEach((s, i) => {
-            s.classList.toggle("is-active", i === currentImageIndex);
+            s.classList.toggle('is-active', i === currentImageIndex);
         });
     }
 
@@ -181,15 +181,15 @@
     }
 
     function updateTransform() {
-        const activeImg = track.querySelector(".gallery-slide.is-active img");
+        const activeImg = track.querySelector('.gallery-slide.is-active img');
         if (!activeImg) return;
 
         activeImg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
 
         if (zoomScale > 1) {
-            activeImg.style.cursor = isDragging ? "grabbing" : "grab";
+            activeImg.style.cursor = isDragging ? 'grabbing' : 'grab';
         } else {
-            activeImg.style.cursor = "zoom-in";
+            activeImg.style.cursor = 'zoom-in';
         }
     }
 
@@ -207,26 +207,26 @@
     }
 
     // Events
-    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
     // Overlay click: Close if not dragging
-    if (overlay) overlay.addEventListener("click", () => {
+    if (overlay) overlay.addEventListener('click', () => {
         if (!isDragging) closeLightbox();
     });
 
-    if (nextBtn) nextBtn.addEventListener("click", (e) => { e.stopPropagation(); nextImage(); });
-    if (prevBtn) prevBtn.addEventListener("click", (e) => { e.stopPropagation(); prevImage(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
 
     if (track) {
         // Wheel Zoom
-        track.addEventListener("wheel", (e) => {
-            if (!track.querySelector(".gallery-slide.is-active")) return;
+        track.addEventListener('wheel', (e) => {
+            if (!track.querySelector('.gallery-slide.is-active')) return;
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.2 : 0.2;
             applyZoom(delta);
         }, { passive: false });
 
         // Pointer Events (Mouse/Touch)
-        track.addEventListener("pointerdown", (e) => {
+        track.addEventListener('pointerdown', (e) => {
             if (zoomScale <= 1) return;
             isDragging = true;
             startX = e.clientX - panX;
@@ -235,7 +235,7 @@
             updateTransform();
         });
 
-        track.addEventListener("pointermove", (e) => {
+        track.addEventListener('pointermove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
             panX = e.clientX - startX;
@@ -243,19 +243,19 @@
             updateTransform();
         });
 
-        track.addEventListener("pointerup", () => {
+        track.addEventListener('pointerup', () => {
             isDragging = false;
             updateTransform();
         });
 
-        track.addEventListener("pointerleave", () => {
+        track.addEventListener('pointerleave', () => {
             isDragging = false;
             updateTransform();
         });
 
         // Double click/tap to toggle zoom
         let lastTap = 0;
-        track.addEventListener("click", (e) => {
+        track.addEventListener('click', (e) => {
             if (e.target.tagName !== 'IMG') return;
 
             const currentTime = new Date().getTime();
@@ -275,11 +275,11 @@
     }
 
     // Keyboard support
-    document.addEventListener("keydown", (e) => {
-        if (!modal || modal.style.display === "none") return;
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowRight") nextImage();
-        if (e.key === "ArrowLeft") prevImage();
+    document.addEventListener('keydown', (e) => {
+        if (!modal || modal.style.display === 'none') return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
     });
 
 })();

@@ -1,3 +1,4 @@
+/* global ProfileImageSwitcher */
 /**
  * home.js
  * Unified Top Page Engine
@@ -21,7 +22,7 @@ updateState('home', { skipAnimation: false });
 // =======================================================
 function injectData() {
     // Loader Text
-    const loadingMsgs = cfg.loadingMessages || ["Loading..."];
+    const loadingMsgs = cfg.loadingMessages || ['Loading...'];
     const textEl = document.querySelector('.loader-text');
     if (textEl) textEl.textContent = loadingMsgs[Math.floor(Math.random() * loadingMsgs.length)];
 
@@ -370,7 +371,7 @@ function buildLegacyFeatures() {
     }
 
     // Random Pickup
-    const pickupContainer = document.getElementById("random-pickup-grid");
+    const pickupContainer = document.getElementById('random-pickup-grid');
     if (pickupContainer && membersData && membersData.length > 0) {
         const castConfig = cfg.castDisplay || {};
         const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
@@ -389,26 +390,26 @@ function buildLegacyFeatures() {
         } else {
             const selected = [...filteredMembers].sort(() => 0.5 - Math.random()).slice(0, 3);
             selected.forEach((m, index) => {
-                const wrapper = document.createElement("div");
-                wrapper.className = "reveal";
+                const wrapper = document.createElement('div');
+                wrapper.className = 'reveal';
 
-                const a = document.createElement("a");
+                const a = document.createElement('a');
                 const pinClass = window.getPinClass ? window.getPinClass(m.tags) : '';
                 a.className = `cheki-card ${pinClass}`;
                 a.href = window.fixPath ? window.fixPath(m.link || `member/profile.html?id=${m.id}`) : m.link || `member/profile.html?id=${m.id}`;
 
                 const visualDiv = document.createElement('div');
-                visualDiv.className = "cheki-visual";
+                visualDiv.className = 'cheki-visual';
 
                 const bgPath = window.getMemberBackground ? window.getMemberBackground(m.tags) : null;
                 if (bgPath) {
                     visualDiv.style.backgroundImage = `url('${window.fixPath ? window.fixPath(bgPath) : bgPath}')`;
-                    visualDiv.style.backgroundSize = "cover";
-                    visualDiv.style.backgroundPosition = "center";
+                    visualDiv.style.backgroundSize = 'cover';
+                    visualDiv.style.backgroundPosition = 'center';
                 }
 
                 const nameDiv = document.createElement('div');
-                nameDiv.className = "cheki-name";
+                nameDiv.className = 'cheki-name';
                 nameDiv.textContent = m.pickupName || m.name;
 
                 a.appendChild(visualDiv);
@@ -433,9 +434,9 @@ function buildLegacyFeatures() {
                     }
                     const badgeText = m.tagLabel.split(/[\s/／]+/)[0] || m.tagLabel;
                     const badge = document.createElement('span');
-                    badge.className = "cheki-tag-badge";
+                    badge.className = 'cheki-tag-badge';
                     badge.textContent = badgeText;
-                    badge.style.zIndex = "5";
+                    badge.style.zIndex = '5';
                     visualDiv.appendChild(badge);
                 }
 
@@ -455,29 +456,29 @@ function buildLegacyFeatures() {
     }
 
     // Event filtering
-    const q = document.getElementById("q");
-    const status = document.getElementById("status");
-    const grid = document.getElementById("eventGrid");
-    const empty = document.getElementById("empty");
+    const q = document.getElementById('q');
+    const status = document.getElementById('status');
+    const grid = document.getElementById('eventGrid');
+    const empty = document.getElementById('empty');
 
     if (grid) {
         const applyFilter = () => {
-            const query = (q?.value || "").trim().toLowerCase();
-            const st = status?.value || "all";
-            const cards = Array.from(grid.querySelectorAll("[data-status]"));
+            const query = (q?.value || '').trim().toLowerCase();
+            const st = status?.value || 'all';
+            const cards = Array.from(grid.querySelectorAll('[data-status]'));
             let visible = 0;
             cards.forEach((card) => {
-                const s = card.getAttribute("data-status") || "";
-                const keywords = (card.getAttribute("data-keywords") || "").toLowerCase();
-                const text = (card.textContent || "").toLowerCase();
-                const ok = (st === "all" || s === st) && (!query || keywords.includes(query) || text.includes(query));
-                card.style.display = ok ? "" : "none";
+                const s = card.getAttribute('data-status') || '';
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                const text = (card.textContent || '').toLowerCase();
+                const ok = (st === 'all' || s === st) && (!query || keywords.includes(query) || text.includes(query));
+                card.style.display = ok ? '' : 'none';
                 if (ok) visible++;
             });
             if (empty) empty.hidden = visible !== 0;
         };
-        q?.addEventListener("input", applyFilter);
-        status?.addEventListener("change", applyFilter);
+        q?.addEventListener('input', applyFilter);
+        status?.addEventListener('change', applyFilter);
         applyFilter();
     }
 }
