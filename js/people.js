@@ -274,7 +274,27 @@
         const renderSequentially = async () => {
             const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-            for (const sec of sectionOrder) {
+            // URLパラメータからタグ初期状態を取得
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlTag = urlParams.get('tag');
+
+            // もし初期タグ指定があるなら、該当するセクションだけ先に・あるいは全体をスキップして即時描画する
+            let targetOrder = sectionOrder;
+            if (urlTag && urlTag !== 'all') {
+                const targetSectionName = {
+                    '運営': '運営部', '店長': '運営部', '副店長': '運営部',
+                    '飼育': '飼育区画', '野生': '野生区画',
+                    '妖怪': '妖怪区画', 'スタッフ': 'スタッフ',
+                }[urlTag];
+
+                if (targetSectionName) {
+                    targetOrder = [targetSectionName]; // 指定セクションのみレンダリング
+                } else {
+                    targetOrder = []; // キャスト絞り込み等のため一旦空で進める（フラット描画に任せる）
+                }
+            }
+
+            for (const sec of targetOrder) {
                 const list = grouped[sec];
                 if (list && list.length > 0) {
                     const sectionEl = createSectionElement(sec, list);
@@ -291,6 +311,23 @@
                     // Wait before showing next section
                     await delay(SECTION_LOAD_MS);
                 }
+            }
+
+            // Not rendering skipped sections initially ensures no heavy reflows or delays.
+            // They will be rendered if the user clicks "all" later, but for now we optimize initial load.
+            // However, our current filter logic expects all wrappers to exist in the DOM.
+            // To fix this, we'll silently render the remaining hidden sections *without* waiting for animation frames.
+            if (urlTag && urlTag !== 'all') {
+                sectionOrder.forEach(sec => {
+                    if (!targetOrder.includes(sec)) {
+                        const list = grouped[sec];
+                        if (list && list.length > 0) {
+                            const sectionEl = createSectionElement(sec, list);
+                            sectionEl.style.display = 'none';
+                            peopleContainer.appendChild(sectionEl);
+                        }
+                    }
+                });
             }
 
             // 全て読み込み終わったら絞り込み機能を適用（初期化）
