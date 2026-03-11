@@ -13,7 +13,7 @@
     /* -------------------------------------------------------
        1. ニュース一覧ページ (news/index.html) の生成
        ------------------------------------------------------- */
-    const newsContainer = document.getElementById("news-list-container");
+    const newsContainer = document.getElementById('news-list-container');
     if (newsContainer) {
         const CARD_STAGGER_MS = 80;
         const NOT_FOUND_MSG = '該当するニュースが見つかりませんでした。';
@@ -22,17 +22,17 @@
 
         // --- カード生成 (サムネイルメイン型) ---
         const createNewsCard = (item, index) => {
-            const a = document.createElement("a");
+            const a = document.createElement('a');
             const pageUrl = item.linkPath
                 ? window.fixPath(item.linkPath)
-                : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
-            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
+                : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
+            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || '');
 
             a.href = pageUrl;
 
             // 最新1件目は大きく表示（スマホではCSSで1列に戻る）
-            a.className = index === 0 ? "news-card news-card--featured" : "news-card";
-            a.dataset.category = item.category || "その他";
+            a.className = index === 0 ? 'news-card news-card--featured' : 'news-card';
+            a.dataset.category = item.category || 'その他';
 
             // 3日以内、または最新1件目（絞り込み結果含む）ならNEWをつける
             const itemDate = new Date(item.date);
@@ -40,7 +40,7 @@
             const diffTime = Math.abs(now - itemDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const isNew = diffDays <= 3 || index === 0;
-            const badgeHtml = isNew ? `<div class="news-badge-new">NEW!</div>` : '';
+            const badgeHtml = isNew ? '<div class="news-badge-new">NEW!</div>' : '';
 
             a.innerHTML = `
                 ${badgeHtml}
@@ -83,7 +83,7 @@
 
         // --- 初期レンダリング --- (Skipping unaltered rendering code for brevity)
         if (visibleNews.length === 0) {
-            newsContainer.innerHTML = `<div class="empty-content"><p>現在お知らせはありません。</p></div>`;
+            newsContainer.innerHTML = '<div class="empty-content"><p>現在お知らせはありません。</p></div>';
         } else {
             // Container setup for magazine layout
             newsContainer.innerHTML = ''; // clear original
@@ -123,7 +123,7 @@
         }
 
         // --- フィルターロジック ---
-        const tagFilterContainer = document.getElementById("news-tag-filter");
+        const tagFilterContainer = document.getElementById('news-tag-filter');
         if (tagFilterContainer) {
 
             const getFilterState = () => {
@@ -196,19 +196,19 @@
     /* -------------------------------------------------------
        2. ニュースカルーセル (index.html)
        ------------------------------------------------------- */
-    const track = document.getElementById("news-carousel-track");
+    const track = document.getElementById('news-carousel-track');
     if (track && window.newsData) {
         // フィルタリング
         const visibleNews = window.newsData.filter(item => window.shouldShowItem(item));
         const carouselItems = visibleNews.slice(0, 5); // 最新5件
 
         carouselItems.forEach((item, i) => {
-            const card = document.createElement("a");
-            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || "#"));
-            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || "");
+            const card = document.createElement('a');
+            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
+            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || '');
 
             card.href = pageUrl;
-            card.className = "news-card-slide";
+            card.className = 'news-card-slide';
 
             // 3日以内の判定、または先頭要素
             const itemDate = new Date(item.date);
@@ -216,7 +216,7 @@
             const diffTime = Math.abs(now - itemDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const isNew = diffDays <= 3 || i === 0;
-            const badgeHtml = isNew ? `<div class="news-badge-new">NEW!</div>` : '';
+            const badgeHtml = isNew ? '<div class="news-badge-new">NEW!</div>' : '';
 
             card.innerHTML = `
                 ${badgeHtml}
@@ -237,8 +237,8 @@
 
         // カルーセルの動作ロジック
         const initCarousel = () => {
-            const prevBtn = document.getElementById("carousel-prev");
-            const nextBtn = document.getElementById("carousel-next");
+            const prevBtn = document.getElementById('carousel-prev');
+            const nextBtn = document.getElementById('carousel-next');
             const cards = Array.from(track.children);
             const total = cards.length;
             if (total === 0) return;

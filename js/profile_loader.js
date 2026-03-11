@@ -4,6 +4,7 @@
  * Requires: site_data.js (membersData), profile_switcher.js (ProfileImageSwitcher)
  */
 
+/* global membersData, ProfileImageSwitcher */
 document.addEventListener('DOMContentLoaded', async () => {
     // Wait for Manifest to ensure WebP paths are resolved
     if (window.manifestPromise) {
@@ -218,8 +219,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const motifContainer = document.getElementById('dynamic-motif-container');
         if (motifContainer && mergedMember.motifAnimal && mergedMember.motifIcon) {
             let showMotif = revealLevel >= 3 || (displayInfo && displayInfo.showMotif);
-            let iconPath = showMotif ? window.fixPath(mergedMember.motifIcon) : window.fixPath("assets/member/silhouette.webp");
-            let animalText = showMotif ? mergedMember.motifAnimal : "???";
+            let iconPath = showMotif ? window.fixPath(mergedMember.motifIcon) : window.fixPath('assets/member/silhouette.webp');
+            let animalText = showMotif ? mergedMember.motifAnimal : '???';
 
             motifContainer.innerHTML = `
                 <div class="motif-container">
@@ -260,7 +261,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (h1Title) h1Title.textContent = initialMember.name;
 
     // 1. Tags
-    const SOLID_TAGS = ["野生", "妖怪", "店長", "副店長", "飼育", "運営", "キャスト", "スタッフ"];
+    const SOLID_TAGS = ['野生', '妖怪', '店長', '副店長', '飼育', '運営', 'キャスト', 'スタッフ'];
     const tagsContainer = document.getElementById('dynamic-tags-container');
     if (tagsContainer) {
         let tagsHtml = '';
@@ -350,8 +351,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const motifContainer = document.getElementById('dynamic-motif-container');
         if (motifContainer) {
             let showMotif = revealLevel >= 3 || (displayInfo && displayInfo.showMotif);
-            let iconPath = showMotif ? window.fixPath(initialMember.motifIcon) : window.fixPath("assets/member/silhouette.webp");
-            let animalText = showMotif ? initialMember.motifAnimal : "???";
+            let iconPath = showMotif ? window.fixPath(initialMember.motifIcon) : window.fixPath('assets/member/silhouette.webp');
+            let animalText = showMotif ? initialMember.motifAnimal : '???';
 
             motifContainer.innerHTML = `
                 <div class="motif-container">

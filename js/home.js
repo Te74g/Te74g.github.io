@@ -1,22 +1,277 @@
+/* global ProfileImageSwitcher */
 /**
  * home.js
- * Home page specific logic (Random Pickup, Event Filter)
- * Depends on: utils.js, data_members.js
+ * Unified Top Page Engine
+ * Handles Initial Loading, Hero Animations, Scroll Morphing, Pickups & Event Filters
  */
 
-(async function () {
-    // Wait for Manifest
-    if (window.manifestPromise) {
-        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+import { sleep, fadeIn } from './app/motion.js';
+import { State, updateState } from './app/state.js';
+import { getSiteConfig, getMembersData } from './app/data.js';
+
+// Global start time equivalent for loader duration check
+const initTime = Date.now();
+
+// --- Global Setup ---
+const cfg = getSiteConfig();
+const membersData = getMembersData();
+updateState('home', { skipAnimation: false });
+
+// =======================================================
+// 1. Data Injection (Loader, Hero, About)
+// =======================================================
+function injectData() {
+    // Loader Text
+    const loadingMsgs = cfg.loadingMessages || ['Loading...'];
+    const textEl = document.querySelector('.loader-text');
+    if (textEl) textEl.textContent = loadingMsgs[Math.floor(Math.random() * loadingMsgs.length)];
+
+    // Loader Logo (Dark theme hardcoded for now)
+    const loaderCfg = cfg.loaderLogos?.opening || { dark: './assets/logo/aniamemoria_logo_darktheme.webp' };
+    const defaultLogo = loaderCfg.dark;
+    const logoBack = document.querySelector('.loader-logo-back');
+    const logoFront = document.querySelector('.loader-logo-front');
+    if (logoBack) logoBack.src = defaultLogo;
+    if (logoFront) logoFront.src = defaultLogo;
+
+    const logoWrapper = document.querySelector('.logo-wrapper');
+    if (logoWrapper) logoWrapper.classList.add('is-ready');
+
+    // Hero Subtitle Setup (Typewriter SPANs)
+    const subtitleEl = document.querySelector('.hero-subtitle');
+    if (subtitleEl && cfg.heroSubtitle) {
+        const subs = cfg.heroSubtitle;
+        const text = Array.isArray(subs) ? subs[Math.floor(Math.random() * subs.length)] : subs;
+        subtitleEl.innerHTML = '';
+        [...text].forEach(char => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.classList.add('char');
+            if (char === ' ') span.style.width = '0.5em';
+            subtitleEl.appendChild(span);
+        });
     }
 
-    /* -------------------------------------------------------
-       0. 本日・翌日公開キャストバナー
-       ------------------------------------------------------- */
+    // Hero Images
+    if (cfg.heroImages) {
+        const charEl = document.querySelector('.hero-character');
+        if (charEl && cfg.heroImages.character) charEl.src = cfg.heroImages.character;
+
+        const heroSection = document.getElementById('hero-section');
+        if (heroSection && cfg.heroImages.background) {
+            heroSection.style.backgroundImage = `url('${window.fixPath ? window.fixPath(cfg.heroImages.background) : cfg.heroImages.background}')`;
+        }
+
+        const logoEl = document.querySelector('.hero-logo');
+        if (logoEl && cfg.heroImages.logoDark) logoEl.src = cfg.heroImages.logoDark;
+    }
+
+    // About Section
+    const aboutSection = document.getElementById('about-section');
+    if (aboutSection && cfg.aboutSection) {
+        const titleEl = aboutSection.querySelector('.section-title');
+        if (titleEl) titleEl.textContent = cfg.aboutSection.title;
+
+        const leadEl = aboutSection.querySelector('.section-lead');
+        if (leadEl) leadEl.textContent = cfg.aboutSection.subTitle;
+
+        const textContainer = aboutSection.querySelector('.about-text-content');
+        if (textContainer && cfg.aboutSection.text) {
+            textContainer.innerHTML = '';
+            cfg.aboutSection.text.forEach(line => {
+                const p = document.createElement('p');
+                p.textContent = line;
+                textContainer.appendChild(p);
+            });
+        }
+
+        const imgEl = aboutSection.querySelector('.about-image img');
+        if (imgEl && cfg.aboutSection.image) {
+            imgEl.src = cfg.aboutSection.image;
+        } else if (imgEl) {
+            imgEl.style.display = 'none';
+        }
+    }
+}
+
+// =======================================================
+// 2. Opening & Skip Animations (Async managed logic)
+// =======================================================
+function spawnSparkle(targetRect) {
+    const heroContent = document.querySelector('.hero-content');
+    if (!heroContent) return;
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('hero-sparkle');
+    if (Math.random() > 0.5) sparkle.classList.add('star');
+
+    const folderRect = heroContent.getBoundingClientRect();
+    const centerX = targetRect.left - folderRect.left + targetRect.width / 2;
+    const centerY = targetRect.top - folderRect.top + targetRect.height / 2;
+    const offsetX = (Math.random() - 0.5) * 40;
+    const offsetY = (Math.random() - 0.5) * 40;
+
+    sparkle.style.left = `${centerX + offsetX}px`;
+    sparkle.style.top = `${centerY + offsetY}px`;
+    const scale = 0.5 + Math.random() * 1.0;
+    sparkle.style.transform = `scale(${scale})`;
+    sparkle.classList.add('hero-sparkle-anim');
+
+    heroContent.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1000);
+}
+
+async function runOpeningSequence() {
+    const loader = document.getElementById('opening-loader-overlay');
+    const hero = document.getElementById('hero-section');
+    const skipHint = document.getElementById('skip-hint');
+
+    // Fade out loader
+    if (loader) {
+        requestAnimationFrame(() => requestAnimationFrame(() => loader.classList.add('is-hidden')));
+    }
+
+    if (State.home.skipAnimation) return finishSequence();
+
+    await sleep(500);
+    if (loader) loader.style.display = 'none';
+
+    // Show skip hint
+    if (skipHint) {
+        skipHint.style.display = 'block';
+        requestAnimationFrame(() => skipHint.style.opacity = '1');
+    }
+
+    await sleep(400);
+    if (State.home.skipAnimation) return finishSequence();
+
+    // Start Hero Anim
+    if (hero) hero.classList.add('animate-start');
+    await sleep(1000);
+    if (State.home.skipAnimation) return finishSequence();
+
+    const charEl = document.querySelector('.hero-character');
+    if (charEl) charEl.classList.add('with-shadow');
+    await sleep(800);
+    if (State.home.skipAnimation) return finishSequence();
+
+    // Typewriter effect
+    const chars = document.querySelectorAll('.hero-subtitle .char');
+    for (const char of chars) {
+        if (State.home.skipAnimation) return finishSequence();
+        char.classList.add('is-visible');
+        const rect = char.getBoundingClientRect();
+        spawnSparkle(rect);
+        if (Math.random() > 0.5) spawnSparkle(rect);
+        await sleep(100);
+    }
+    await sleep(500);
+
+    finishSequence();
+}
+
+function finishSequence() {
+    const loader = document.getElementById('opening-loader-overlay');
+    const hero = document.getElementById('hero-section');
+    const charEl = document.querySelector('.hero-character');
+    const chars = document.querySelectorAll('.hero-subtitle .char');
+    const scroll = document.querySelector('.scroll-down');
+    const skipHint = document.getElementById('skip-hint');
+
+    if (loader) loader.style.display = 'none';
+    if (hero) hero.classList.add('animate-start');
+    if (charEl) charEl.classList.add('with-shadow');
+    chars.forEach(c => c.classList.add('is-visible'));
+    if (scroll) scroll.classList.add('is-visible');
+
+    document.body.classList.remove('is-preloading');
+
+    if (skipHint) {
+        skipHint.style.opacity = '0';
+        setTimeout(() => skipHint.style.display = 'none', 400);
+    }
+}
+
+function setupSkip() {
+    const skipHint = document.createElement('div');
+    skipHint.id = 'skip-hint';
+    skipHint.textContent = 'ダブルタップでスキップ';
+    skipHint.style.cssText = [
+        'position:fixed', 'bottom:24px', 'right:24px',
+        'font-size:0.72rem', 'color:rgba(255,255,255,0.55)',
+        'background:rgba(0,0,0,0.28)', 'padding:5px 12px',
+        'border-radius:20px', 'pointer-events:none',
+        'display:none', 'z-index:9999',
+        'backdrop-filter:blur(4px)', 'transition:opacity 0.4s',
+        'letter-spacing:0.05em'
+    ].join(';');
+    document.body.appendChild(skipHint);
+
+    let lastTapTime = 0;
+    const handleTap = () => {
+        const now = Date.now();
+        if (now - lastTapTime < 300 && now - lastTapTime > 50) {
+            updateState('home', { skipAnimation: true });
+            document.body.classList.add('is-skipped');
+            finishSequence();
+            lastTapTime = 0;
+        } else {
+            lastTapTime = now;
+        }
+    };
+    document.addEventListener('click', handleTap);
+    document.addEventListener('touchend', handleTap, { passive: true });
+}
+
+// =======================================================
+// 3. Scroll Morphing (from legacy kv-scroll.js)
+// =======================================================
+function setupScrollMorph() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const hero = document.getElementById('hero-section');
+    const zone = document.getElementById('kv-scroll-zone');
+    const content = document.querySelector('.hero-content');
+    if (!hero || !zone) return;
+
+    let ticking = false;
+    const update = () => {
+        const travel = zone.offsetHeight - window.innerHeight;
+        if (travel <= 0) {
+            hero.style.clipPath = 'none';
+            ticking = false;
+            return;
+        }
+        const rawP = Math.max(0, Math.min(1, window.scrollY / travel));
+        const eased = rawP < 0.5 ? 2 * rawP * rawP : -1 + (4 - 2 * rawP) * rawP;
+        const radius = 38 + (150 - 38) * eased;
+
+        hero.style.clipPath = rawP >= 1 ? 'none' : `circle(${radius.toFixed(1)}% at 50% 50%)`;
+
+        if (content) {
+            const opacity = Math.max(0, 1 - rawP / 0.4);
+            content.style.opacity = opacity.toFixed(3);
+        }
+        ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+}
+
+// =======================================================
+// 4. Legacy Features (Reveal Banner, Pickup, Event Filter)
+// =======================================================
+function buildLegacyFeatures() {
+    // Reveal Banner
     const revealBanner = document.getElementById('cast-reveal-banner');
     const revealSection = document.getElementById('cast-reveal-overlay');
-
-    if (revealBanner && revealSection && window.membersData) {
+    if (revealBanner && revealSection && membersData && membersData.length > 0) {
         const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
         const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
         const REVEAL_HOUR_JST = 18;
@@ -24,7 +279,7 @@
         const todayTargets = [];
         const tomorrowTargets = [];
 
-        window.membersData.forEach(m => {
+        membersData.forEach(m => {
             if (!allowedRoles.includes(m.tagLabel)) return;
             if (!m.revealDate) return;
 
@@ -34,11 +289,9 @@
             const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
             if (isDebugMode) {
-                // デバッグ: revealDate がある全員を today 扱いで表示
                 todayTargets.push(m);
             } else {
                 if (diffDays <= 0) {
-                    // 今日公開済み（当日18時以降）
                     const midnight = new Date();
                     midnight.setHours(0, 0, 0, 0);
                     if (revealDt >= midnight) todayTargets.push(m);
@@ -50,21 +303,20 @@
 
         const buildCard = (member, isToday) => {
             const images = member.profileImages || [];
-            const silPath = window.fixPath('assets/member/silhouette.webp');
+            const silPath = window.fixPath ? window.fixPath('assets/member/silhouette.webp') : 'assets/member/silhouette.webp';
             let imgBase, imgHover;
 
             if (isToday) {
-                imgBase = images[0] ? window.fixPath(images[0]) : silPath;
-                imgHover = images[1] ? window.fixPath(images[1]) : imgBase;
+                imgBase = images[0] ? (window.fixPath ? window.fixPath(images[0]) : images[0]) : silPath;
+                imgHover = images[1] ? (window.fixPath ? window.fixPath(images[1]) : images[1]) : imgBase;
             } else {
-                // 明日: silhouetteImage優先、なければ本人画像をCSSで黒塗りシルエット化
                 imgBase = member.silhouetteImage
-                    ? window.fixPath(member.silhouetteImage)
-                    : (images[0] ? window.fixPath(images[0]) : silPath);
+                    ? (window.fixPath ? window.fixPath(member.silhouetteImage) : member.silhouetteImage)
+                    : (images[0] ? (window.fixPath ? window.fixPath(images[0]) : images[0]) : silPath);
                 imgHover = imgBase;
             }
 
-            const href = window.fixPath(`member/profile.html?id=${member.id}`);
+            const href = window.fixPath ? window.fixPath(`member/profile.html?id=${member.id}`) : `member/profile.html?id=${member.id}`;
             const revealDt = member.revealDate
                 ? new Date(member.revealDate + `T${String(REVEAL_HOUR_JST).padStart(2, '0')}:00:00+09:00`)
                 : null;
@@ -72,11 +324,11 @@
                 ? `明日 ${revealDt.getMonth() + 1}月${revealDt.getDate()}日 ${REVEAL_HOUR_JST}:00 公開予定`
                 : `本日 ${new Date().getMonth() + 1}月${new Date().getDate()}日 公開`;
 
-            const bgPath = window.getMemberBackground(member.tags);
-            const bgStyle = bgPath ? ` style="background-image: url('${window.fixPath(bgPath)}'); background-size: cover; background-position: center;"` : '';
+            const bgPath = window.getMemberBackground ? window.getMemberBackground(member.tags) : null;
+            const bgStyle = bgPath ? ` style="background-image: url('${window.fixPath ? window.fixPath(bgPath) : bgPath}'); background-size: cover; background-position: center;"` : '';
 
-            const fPath = window.getMemberFrame(member.tags);
-            const frameHtml = fPath ? `<div style="position: absolute; inset: 0; background-image: url('${window.fixPath(fPath)}'); background-size: 100% 100%; pointer-events: none; z-index: 4;"></div>` : '';
+            const fPath = window.getMemberFrame ? window.getMemberFrame(member.tags) : null;
+            const frameHtml = fPath ? `<div style="position: absolute; inset: 0; background-image: url('${window.fixPath ? window.fixPath(fPath) : fPath}'); background-size: 100% 100%; pointer-events: none; z-index: 4;"></div>` : '';
 
             return `
             <a class="cast-reveal-card ${isToday ? 'is-today' : 'is-tomorrow'} reveal" href="${href}">
@@ -94,31 +346,22 @@
         };
 
         let html = '';
-
         if (todayTargets.length > 0) {
             html += `<div class="cast-reveal-group">
                 <div class="cast-reveal-group-label">✦ 本日公開</div>
-                <div class="cast-reveal-cards">
-                    ${todayTargets.map(m => buildCard(m, true)).join('')}
-                </div>
+                <div class="cast-reveal-cards">${todayTargets.map(m => buildCard(m, true)).join('')}</div>
             </div>`;
         }
-
         if (tomorrowTargets.length > 0) {
             html += `<div class="cast-reveal-group">
                 <div class="cast-reveal-group-label">◈ 明日公開</div>
-                <div class="cast-reveal-cards">
-                    ${tomorrowTargets.map(m => buildCard(m, false)).join('')}
-                </div>
+                <div class="cast-reveal-cards">${tomorrowTargets.map(m => buildCard(m, false)).join('')}</div>
             </div>`;
         }
 
         if (html) {
-            // Section banner (mobile: above News)
             revealBanner.innerHTML = html;
             revealSection.style.display = '';
-
-            // Hero overlay (desktop: right side of hero)
             const heroOverlay = document.getElementById('cast-reveal-hero');
             if (heroOverlay) {
                 heroOverlay.innerHTML = html;
@@ -127,166 +370,143 @@
         }
     }
 
-    /* -------------------------------------------------------
-       1. ランダムピックアップ (index.html)
-       ------------------------------------------------------- */
-    const pickupContainer = document.getElementById("random-pickup-grid");
-    if (pickupContainer && window.membersData) {
-        // キャスト表示制御の設定を取得
-        const castConfig = window.siteConfig?.castDisplay || {};
-        const showAll = castConfig.showAllMembers;
-        const visibleList = castConfig.visibleMembers || [];
-
-        // Filter members by allowed roles (exclude 'スタッフ')
+    // Random Pickup
+    const pickupContainer = document.getElementById('random-pickup-grid');
+    if (pickupContainer && membersData && membersData.length > 0) {
+        const castConfig = cfg.castDisplay || {};
         const allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
 
-        // 表示許可されたメンバーのみフィルタ（revealLevel 2以上のみランダムピックアップに表示）
-        const filteredMembers = window.membersData.filter(m => {
+        const filteredMembers = membersData.filter(m => {
             if (!allowedRoles.includes(m.tagLabel)) return false;
-            if (!window.isMemberVisible(m, castConfig)) return false;
-            if (!window.shouldShowItem(m)) return false;
-
+            if (window.isMemberVisible && !window.isMemberVisible(m, castConfig)) return false;
+            if (window.shouldShowItem && !window.shouldShowItem(m)) return false;
             const level = window.getRevealLevel ? window.getRevealLevel(m) : 3;
-            return level >= 2; // revealLevel 2（シルエット）も表示する
+            return level >= 2;
         });
 
-        // 表示可能なメンバーがいない場合はセクションを非表示
         if (filteredMembers.length === 0) {
             const section = pickupContainer.closest('section');
             if (section) section.style.display = 'none';
         } else {
-            // シャッフルして3人選ぶ
-            const shuffled = [...filteredMembers].sort(() => 0.5 - Math.random());
-            const selected = shuffled.slice(0, 3);
-
+            const selected = [...filteredMembers].sort(() => 0.5 - Math.random()).slice(0, 3);
             selected.forEach((m, index) => {
-                // Create Wrapper for Animation
-                // レイアウト (width/display/justifyContent) は .cheki-grid > div で CSS 管理
-                const wrapper = document.createElement("div");
-                wrapper.className = "reveal";
+                const wrapper = document.createElement('div');
+                wrapper.className = 'reveal';
 
-                const a = document.createElement("a");
-                const pinClass = window.getPinClass(m.tags);
-                a.className = `cheki-card ${pinClass}`; // Add specific pin color class
-                const url = m.link || `member/profile.html?id=${m.id}`;
-                a.href = window.fixPath(url);
+                const a = document.createElement('a');
+                const pinClass = window.getPinClass ? window.getPinClass(m.tags) : '';
+                a.className = `cheki-card ${pinClass}`;
+                a.href = window.fixPath ? window.fixPath(m.link || `member/profile.html?id=${m.id}`) : m.link || `member/profile.html?id=${m.id}`;
 
-                // Create container for image
                 const visualDiv = document.createElement('div');
-                visualDiv.className = "cheki-visual";
+                visualDiv.className = 'cheki-visual';
 
-                const bgPath = window.getMemberBackground(m.tags);
+                const bgPath = window.getMemberBackground ? window.getMemberBackground(m.tags) : null;
                 if (bgPath) {
-                    visualDiv.style.backgroundImage = `url('${window.fixPath(bgPath)}')`;
-                    visualDiv.style.backgroundSize = "cover";
-                    visualDiv.style.backgroundPosition = "center";
+                    visualDiv.style.backgroundImage = `url('${window.fixPath ? window.fixPath(bgPath) : bgPath}')`;
+                    visualDiv.style.backgroundSize = 'cover';
+                    visualDiv.style.backgroundPosition = 'center';
                 }
 
-                a.appendChild(visualDiv);
-
-                // Name label
                 const nameDiv = document.createElement('div');
-                nameDiv.className = "cheki-name";
+                nameDiv.className = 'cheki-name';
                 nameDiv.textContent = m.pickupName || m.name;
-                a.appendChild(nameDiv);
 
+                a.appendChild(visualDiv);
                 a.appendChild(nameDiv);
-
                 wrapper.appendChild(a);
                 pickupContainer.appendChild(wrapper);
 
-                // getMemberDisplayInfo を通じて正しい画像パスを取得（シルエット対応）
-                const castConfig2 = window.siteConfig?.castDisplay || {};
-                const displayInfo = window.getMemberDisplayInfo
-                    ? window.getMemberDisplayInfo(m, castConfig2)
-                    : null;
-
+                const displayInfo = window.getMemberDisplayInfo ? window.getMemberDisplayInfo(m, castConfig) : null;
                 const effectiveImagePaths = displayInfo?.imagePath || m.profileImages || (m.image ? [m.image] : []);
 
                 let images = [];
                 if (effectiveImagePaths && effectiveImagePaths.length > 0) {
-                    images = effectiveImagePaths.map(p => window.fixPath(p));
+                    images = effectiveImagePaths.map(p => window.fixPath ? window.fixPath(p) : p);
                 }
 
                 if (images.length > 0) {
-                    // If multiple, interactive switcher without indicators
-                    if (images.length > 1) {
+                    if (images.length > 1 && window.ProfileImageSwitcher) {
                         visualDiv.classList.add('profile-switcher');
-                        // Ensure ProfileImageSwitcher is available
-                        if (window.ProfileImageSwitcher) {
-                            new ProfileImageSwitcher(visualDiv, images, { showIndicators: false });
-                        } else {
-                            // Fallback
-                            visualDiv.innerHTML = `<img src="${images[0]}" alt="${m.name}" class="cheki-img"><span class="cheki-tag-badge">${m.tagLabel}</span>`;
-                        }
+                        new ProfileImageSwitcher(visualDiv, images, { showIndicators: false });
                     } else {
-                        // Single image standard
                         visualDiv.innerHTML = `<img src="${images[0]}" alt="${m.name}" class="cheki-img"><span class="cheki-tag-badge">${m.tagLabel}</span>`;
                     }
-
-                    // Re-append badge (if not simple img)
-                    // Note: If using ProfileImageSwitcher, it clears content. So we append badge after.
-
                     const badgeText = m.tagLabel.split(/[\s/／]+/)[0] || m.tagLabel;
                     const badge = document.createElement('span');
-                    badge.className = "cheki-tag-badge";
+                    badge.className = 'cheki-tag-badge';
                     badge.textContent = badgeText;
-                    badge.style.zIndex = "5";
+                    badge.style.zIndex = '5';
                     visualDiv.appendChild(badge);
                 }
 
-                // Frame Overlay
-                // 固定値スタイルは .cheki-frame クラスで CSS 管理、URL のみ JS で設定
-                const fPath = window.getMemberFrame(m.tags);
+                const fPath = window.getMemberFrame ? window.getMemberFrame(m.tags) : null;
                 if (fPath) {
                     const frameEl = document.createElement('div');
                     frameEl.className = 'cheki-frame';
-                    frameEl.style.backgroundImage = `url('${window.fixPath(fPath)}')`;
+                    frameEl.style.backgroundImage = `url('${window.fixPath ? window.fixPath(fPath) : fPath}')`;
                     visualDiv.appendChild(frameEl);
                 }
 
-                // Staggered Entry — CSS transition-delay で制御（prefers-reduced-motion 対応）
                 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                 wrapper.style.setProperty('--reveal-delay', prefersReduced ? '0ms' : `${index * 120}ms`);
-                wrapper.classList.add('is-visible');
+                fadeIn(wrapper, 'is-visible', false);
             });
         }
     }
 
-    /* -------------------------------------------------------
-       2. Event filtering (search + status) for Home Page
-       ------------------------------------------------------- */
-    const q = document.getElementById("q");
-    const status = document.getElementById("status");
-    const grid = document.getElementById("eventGrid");
-    const empty = document.getElementById("empty");
+    // Event filtering
+    const q = document.getElementById('q');
+    const status = document.getElementById('status');
+    const grid = document.getElementById('eventGrid');
+    const empty = document.getElementById('empty');
 
     if (grid) {
         const applyFilter = () => {
-            const query = (q?.value || "").trim().toLowerCase();
-            const st = status?.value || "all";
-            const cards = Array.from(grid.querySelectorAll("[data-status]"));
-
+            const query = (q?.value || '').trim().toLowerCase();
+            const st = status?.value || 'all';
+            const cards = Array.from(grid.querySelectorAll('[data-status]'));
             let visible = 0;
-
             cards.forEach((card) => {
-                const s = card.getAttribute("data-status") || "";
-                const keywords = (card.getAttribute("data-keywords") || "").toLowerCase();
-                const text = (card.textContent || "").toLowerCase();
-
-                const okStatus = st === "all" || s === st;
-                const okQuery = !query || keywords.includes(query) || text.includes(query);
-
-                const ok = okStatus && okQuery;
-                card.style.display = ok ? "" : "none";
-                if (ok) visible += 1;
+                const s = card.getAttribute('data-status') || '';
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                const text = (card.textContent || '').toLowerCase();
+                const ok = (st === 'all' || s === st) && (!query || keywords.includes(query) || text.includes(query));
+                card.style.display = ok ? '' : 'none';
+                if (ok) visible++;
             });
-
             if (empty) empty.hidden = visible !== 0;
         };
-
-        q?.addEventListener("input", applyFilter);
-        status?.addEventListener("change", applyFilter);
+        q?.addEventListener('input', applyFilter);
+        status?.addEventListener('change', applyFilter);
         applyFilter();
     }
+}
+
+// =======================================================
+// Main Execution
+// =======================================================
+(async function initHome() {
+    if (window.manifestPromise) {
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+    }
+
+    injectData();
+    setupSkip();
+    setupScrollMorph();
+    buildLegacyFeatures();
+
+    // Manage opening sequence based on load timing
+    const MIN_DISPLAY_TIME = 2000;
+
+    window.addEventListener('load', () => {
+        const loadTime = Date.now();
+        const elapsed = loadTime - initTime;
+        const remainingTime = Math.max(0, MIN_DISPLAY_TIME - elapsed);
+
+        setTimeout(() => {
+            runOpeningSequence();
+        }, remainingTime);
+    });
+
 })();

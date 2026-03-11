@@ -117,10 +117,10 @@ class ProfileImageSwitcher {
         // 3. Create Indicators (Only if multiple images AND showIndicators is true)
         if (this.images.length > 1 && this.options.showIndicators) {
             this.indicatorContainer = document.createElement('div');
-            this.indicatorContainer.className = "profile-indicators";
+            this.indicatorContainer.className = 'profile-indicators';
             this.images.forEach((_, i) => {
                 const dot = document.createElement('span');
-                dot.className = "profile-dot";
+                dot.className = 'profile-dot';
                 this.indicatorContainer.appendChild(dot);
             });
             this.container.appendChild(this.indicatorContainer);
@@ -228,7 +228,7 @@ class ProfileImageSwitcher {
 window.addEventListener('DOMContentLoaded', async () => {
     // Wait for manifest here too just in case
     if (window.manifestPromise) {
-        try { await window.manifestPromise; } catch (e) { }
+        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
     }
     ProfileImageSwitcher.initAll();
 });

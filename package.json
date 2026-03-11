@@ -1,5 +1,19 @@
 {
+  "name": "aniamemoria",
+  "version": "1.0.0",
+  "description": "Aniamemoria Site",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "lint": "eslint js/**/*.js",
+    "lint:fix": "eslint js/**/*.js --fix"
+  },
   "dependencies": {
     "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.24",
+    "eslint": "^8.57.0"
   }
 }
