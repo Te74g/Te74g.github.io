@@ -4,6 +4,11 @@
  * Depends on: utils.js, data_members.js
  */
 
+import { State, updateState } from './app/state.js';
+import { getUrlParam, updateUrlParam, removeUrlParam } from './app/url.js';
+import { getMembersData, getSiteConfig } from './app/data.js';
+import { fadeIn } from './app/motion.js';
+
 (async function () {
     // Wait for Manifest
     if (window.manifestPromise) {
@@ -46,8 +51,9 @@
     const peopleContainer = document.getElementById('people-list-container');
     const flatContainer = document.getElementById('people-filter-results');
     const flatGrid = document.getElementById('people-filter-grid');
+    const membersData = getMembersData();
 
-    if (!peopleContainer || !window.membersData) return;
+    if (!peopleContainer || !membersData || membersData.length === 0) return;
 
     // ---- 設定定数 ----
     const SECTION_ORDER = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
@@ -64,31 +70,25 @@
     };
 
     // --- State Initialization ---
-    // 状態を一つにし、最初から真実を反映させる
-    const state = {
-        tag: 'all',
-        query: ''
-    };
-
+    // App Kernel の State 管理へ委譲
     const searchInput = document.getElementById('people-search');
     const tagFilterContainer = document.getElementById('people-tag-filter');
     const filterBtns = tagFilterContainer ? Array.from(tagFilterContainer.querySelectorAll('.tag-filter-btn')) : [];
 
-    // Parse URL on init (一回だけ読む)
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlTag = urlParams.get('tag');
+    // Parse URL on init via url.js
+    const urlTag = getUrlParam('tag');
     if (urlTag && filterBtns.some(b => b.dataset.value === urlTag)) {
-        state.tag = urlTag;
+        updateState('people', { tag: urlTag });
     }
 
     // Set initial button active state
     filterBtns.forEach(b => {
-        if (b.dataset.value === state.tag) b.classList.add('is-active');
+        if (b.dataset.value === State.people.tag) b.classList.add('is-active');
         else b.classList.remove('is-active');
     });
 
     // --- DOM Construction (一回だけ描く) ---
-    const visibleMembers = window.membersData.filter(m => window.shouldShowItem(m));
+    const visibleMembers = membersData.filter(m => window.shouldShowItem(m));
     const grouped = {};
     SECTION_ORDER.forEach(sec => grouped[sec] = []);
 
@@ -98,7 +98,7 @@
         grouped[sec].push(member);
     });
 
-    const castConfig = window.siteConfig?.castDisplay || {};
+    const castConfig = getSiteConfig().castDisplay || {};
     const allCardElements = []; // { card: HTMLElement, data: Object, section: string, isVisible: boolean }
 
     const createMemberCard = (m, form, formIndex, revealLevel) => {
@@ -287,7 +287,7 @@
     // --- Core Filter Render Engine ---
     // 絞り込みは表示切替だけにする。DOMを破棄しない。
     const renderFilterState = () => {
-        const { tag, query } = state;
+        const { tag, query } = State.people;
         const isFiltering = tag !== 'all' || query.length > 0;
         const targetSection = TAG_TO_SECTION[tag] || null;
 
@@ -380,7 +380,7 @@
     // --- Interaction Events ---
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            state.query = e.target.value.trim().toLowerCase();
+            updateState('people', { query: e.target.value.trim().toLowerCase() });
             renderFilterState();
         });
     }
@@ -388,19 +388,23 @@
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const nextTag = btn.dataset.value;
-            if (state.tag === nextTag) return; // Guard: 同じタグなら何もしない
+            if (State.people.tag === nextTag) return; // Guard: 同じタグなら何もしない
 
-            state.tag = nextTag;
+            updateState('people', { tag: nextTag });
+
+            // Sync with URL 
+            if (nextTag === 'all') removeUrlParam('tag');
+            else updateUrlParam('tag', nextTag);
 
             filterBtns.forEach(b => b.classList.remove('is-active'));
             btn.classList.add('is-active');
 
-            // Apply specific lightweight fade logic to flat container if needed,
-            // but otherwise let the visibility toggles handle changes instantly without wrapper reflows.
+            // Apply specific lightweight fade logic to flat container if needed
             if (!TAG_TO_SECTION[nextTag] && nextTag !== 'all') {
                 flatContainer.style.opacity = '0';
                 renderFilterState();
-                requestAnimationFrame(() => flatContainer.style.opacity = '1');
+                requestAnimationFrame(() => fadeIn(flatContainer, 'is-visible', false));
+                flatContainer.style.opacity = '1';
             } else {
                 renderFilterState();
             }

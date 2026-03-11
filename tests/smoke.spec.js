@@ -2,6 +2,13 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Smoke Tests - General Routing & Interaction', () => {
 
+    test.beforeEach(async ({ page }) => {
+        // Bypass the legacy maintenance redirect logic during automated tests
+        await page.addInitScript(() => {
+            window.sessionStorage.setItem('maintenanceBypass', 'true');
+        });
+    });
+
     test('Top page preview resolves and renders without errors', async ({ page }) => {
         // Go to the index page
         await page.goto('/');
