@@ -31,7 +31,7 @@ test.describe('Smoke Tests - General Routing & Interaction', () => {
         await expect(activeBtn).toHaveText('飼育');
 
         // Make sure the 飼育 section is the only one visible on initial load
-        const visibleSections = page.locator('.people-section-wrapper[style=""]');
+        const visibleSections = page.locator('.people-section-wrapper:visible');
         await expect(visibleSections).toHaveCount(1);
         await expect(visibleSections).toHaveAttribute('data-section', '飼育区画');
     });
@@ -49,7 +49,7 @@ test.describe('Smoke Tests - General Routing & Interaction', () => {
         await expect(activeBtn).toHaveText('妖怪');
 
         // Verify 妖怪 is visible
-        const visibleSections = page.locator('.people-section-wrapper[style=""]');
+        const visibleSections = page.locator('.people-section-wrapper:visible');
         await expect(visibleSections).toHaveCount(1);
         await expect(visibleSections).toHaveAttribute('data-section', '妖怪区画');
     });
