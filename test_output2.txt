@@ -1,0 +1,143 @@
+
+> aniamemoria@1.0.0 test
+> playwright test --reporter=list
+
+
+Running 15 tests using 8 workers
+
+  x   1 [firefox] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors (5ms)
+  x   4 [webkit] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors (6ms)
+  x   6 [firefox] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately (4ms)
+  x   7 [firefox] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting (10ms)
+  x   8 [webkit] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting (4ms)
+  x   9 [webkit] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately (7ms)
+  ok  2 [chromium] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors (2.7s)
+  x  12 [Mobile Safari] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors (5ms)
+  ok  3 [chromium] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting (3.4s)
+  ok  5 [chromium] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately (3.4s)
+  ok 10 [Mobile Chrome] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting (1.3s)
+  ok 11 [Mobile Chrome] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors (1.7s)
+  x  14 [Mobile Safari] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting (7ms)
+  ok 13 [Mobile Chrome] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately (1.9s)
+  x  15 [Mobile Safari] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately (3ms)
+
+
+  1) [firefox] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\firefox-1509\firefox\firefox.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  2) [firefox] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\firefox-1509\firefox\firefox.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  3) [firefox] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\firefox-1509\firefox\firefox.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  4) [webkit] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\webkit-2248\Playwright.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  5) [webkit] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\webkit-2248\Playwright.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  6) [webkit] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\webkit-2248\Playwright.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  7) [Mobile Safari] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\webkit-2248\Playwright.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  8) [Mobile Safari] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\webkit-2248\Playwright.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  9) [Mobile Safari] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately 
+
+    Error: browserType.launch: Executable doesn't exist at C:\Users\user\AppData\Local\ms-playwright\webkit-2248\Playwright.exe
+    ╔═════════════════════════════════════════════════════════════════════════╗
+    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+    ║ Please run the following command to download new browsers:              ║
+    ║                                                                         ║
+    ║     npx playwright install                                              ║
+    ║                                                                         ║
+    ║ <3 Playwright Team                                                      ║
+    ╚═════════════════════════════════════════════════════════════════════════╝
+
+  9 failed
+    [firefox] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors 
+    [firefox] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting 
+    [firefox] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately 
+    [webkit] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors 
+    [webkit] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting 
+    [webkit] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately 
+    [Mobile Safari] › tests\smoke.spec.js:12:5 › Smoke Tests - General Routing & Interaction › Top page preview resolves and renders without errors 
+    [Mobile Safari] › tests\smoke.spec.js:25:5 › Smoke Tests - General Routing & Interaction › People Page - URL tags filter rendering correctly without halting 
+    [Mobile Safari] › tests\smoke.spec.js:39:5 › Smoke Tests - General Routing & Interaction › People Page - Click filtering does not freeze or reset inappropriately 
+  6 passed (9.5s)

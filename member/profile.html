@@ -124,15 +124,13 @@
     <script src="../_config/data_gallery.js"></script>
     <script src="../_config/data_links.js"></script>
     <!-- Layout (Header/Footer) -->
-    <script src="../js/common-layout.js"></script>
-    <script>
-        renderLayout('../');
-    </script>
+    
+    
     <!-- Dynamic Loader (The Core Logic) -->
     <script src="../js/utils.js"></script>
 
     <!-- Common UI Script -->
-    <script src="../js/ui.js"></script>
+    <script type="module">import { initUI } from "../js/ui.js"; initUI();</script>
 
     <!-- Profile Components -->
     <script src="../js/profile_switcher.js"></script>
