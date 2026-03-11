@@ -42,9 +42,9 @@
     // ---- 設定定数 ----
     const SECTION_ORDER = ["運営部", "飼育区画", "野生区画", "妖怪区画", "スタッフ"];
     const KUKAKU_SECTION_IMGS = {
-        '飼育区画': 'assets/kukaku/shiiku.png',
-        '野生区画': 'assets/kukaku/yasei.png',
-        '妖怪区画': 'assets/kukaku/youkai.png',
+        '飼育区画': 'assets/kukaku/shiiku.webp',
+        '野生区画': 'assets/kukaku/yasei.webp',
+        '妖怪区画': 'assets/kukaku/youkai.webp',
     };
     const SECTION_LOAD_MS = 300;   // renderSequentially のセクション間ウェイト
     const CARD_STAGGER_MS = 50;    // フィルタアニメのカード間ディレイ
@@ -327,25 +327,16 @@
         'スタッフ': 'スタッフ',
     };
 
-    // カードをアニメーション付きでコンテナに挿入するヘルパー
-    const animateCardsIn = (cards, container) => {
-        cards.forEach((card, i) => {
-            const clone = card.cloneNode(true);
-            clone.style.setProperty('--reveal-delay', `${i * CARD_STAGGER_MS}ms`);
-            clone.classList.add('reveal');
-            container.appendChild(clone);
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-                clone.classList.add('is-visible');
-            }));
-        });
-    };
-
     // フィルタ状態（tag・query・マッチカード・対象ラッパー）を返す純粋関数
     const getFilterState = () => {
         const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
         const activeBtn = tagFilterContainer.querySelector('.tag-filter-btn.is-active');
         const tag = (activeBtn ? activeBtn.dataset.value : null) || 'all';
         const isFiltering = tag !== 'all' || query.length > 0;
+
+        // Track previous state to know if we're coming from "all"
+        const previousTag = tagFilterContainer.dataset.previousTag || 'all';
+        tagFilterContainer.dataset.previousTag = tag;
 
         // セクション系タグ（飼育・野生・妖怪等）は targetWrapper を先に確定する
         const targetSectionName = TAG_TO_SECTION[tag];
@@ -375,32 +366,49 @@
         if (flatContainer) flatContainer.style.display = 'none';
         if (peopleContainer) peopleContainer.style.display = '';
         document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
+            const wasHidden = w.style.display === 'none';
             w.style.display = '';
             const origGrid = w.querySelector('.cheki-grid:not(.filter-injected-grid)');
             const injGrid = w.querySelector('.filter-injected-grid');
             if (origGrid) origGrid.style.display = '';
             if (injGrid) injGrid.style.display = 'none';
+
+            if (wasHidden) {
+                w.classList.remove('is-visible');
+                void w.offsetWidth;
+                requestAnimationFrame(() => w.classList.add('is-visible'));
+            }
         });
         document.querySelectorAll('#people-list-container .cheki-card').forEach(c => {
             c.style.display = '';
-            c.classList.add('is-visible');
         });
     };
 
     // セクション背景を維持してマッチカードを集約（タグ絞り込み時）
-    const renderSectionFilter = (targetWrapper, matchingCards) => {
+    const renderSectionFilter = (targetWrapper, matchingCards, cameFromAll) => {
         const flatContainer = document.getElementById('people-filter-results');
         if (flatContainer) flatContainer.style.display = 'none';
         if (peopleContainer) peopleContainer.style.display = '';
 
+        const wasHidden = targetWrapper.style.display === 'none';
+
+        // Hide other wrappers, make sure target is visible
         document.querySelectorAll('#people-list-container .people-section-wrapper').forEach(w => {
-            w.style.display = 'none';
+            if (w !== targetWrapper) {
+                w.style.display = 'none';
+                w.classList.remove('is-visible');
+            }
         });
 
         targetWrapper.style.display = '';
-        targetWrapper.classList.remove('is-visible');
-        void targetWrapper.offsetWidth; // force reflow
-        requestAnimationFrame(() => targetWrapper.classList.add('is-visible'));
+
+        // Only trigger the wrapper fade-in if it was previously hidden 
+        // OR if returning from "all" (which hides sections completely before re-showing them)
+        if (wasHidden || cameFromAll) {
+            targetWrapper.classList.remove('is-visible');
+            void targetWrapper.offsetWidth; // force reflow
+            requestAnimationFrame(() => targetWrapper.classList.add('is-visible'));
+        }
 
         const origGrid = targetWrapper.querySelector('.cheki-grid:not(.filter-injected-grid)');
         if (origGrid) origGrid.style.display = 'none';
@@ -412,13 +420,22 @@
             const container = targetWrapper.querySelector('.container');
             if (container) container.appendChild(injGrid);
         }
+
         injGrid.style.display = '';
         injGrid.innerHTML = '';
 
+        // Instead of relying on a staggering inner clone, just directly pop the cards in 
+        // so they appear instantly without flashing, while the background (wrapper) fades smoothly once
         if (matchingCards.length === 0) {
             injGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:#fff;">${NOT_FOUND_MSG}</p>`;
         } else {
-            animateCardsIn(matchingCards, injGrid);
+            matchingCards.forEach((card) => {
+                const clone = card.cloneNode(true);
+                clone.style.removeProperty('--reveal-delay');
+                clone.classList.remove('reveal');
+                clone.classList.add('is-visible');
+                injGrid.appendChild(clone);
+            });
         }
     };
 
@@ -445,51 +462,71 @@
             if (matchingCards.length === 0) {
                 flatGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);">${NOT_FOUND_MSG}</p>`;
             } else {
-                animateCardsIn(matchingCards, flatGrid);
+                matchingCards.forEach((card) => {
+                    const clone = card.cloneNode(true);
+                    clone.style.removeProperty('--reveal-delay');
+                    clone.classList.remove('reveal');
+                    clone.classList.add('is-visible');
+                    flatGrid.appendChild(clone);
+                });
             }
         }
 
         if (peopleContainer) peopleContainer.style.display = 'none';
+
+        const wasHidden = !flatContainer.style.display || flatContainer.style.display === 'none';
         if (flatContainer) {
-            flatContainer.style.opacity = '0';
-            flatContainer.style.transition = 'opacity 0.5s ease';
             flatContainer.style.display = '';
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-                flatContainer.style.opacity = '1';
-            }));
+            if (wasHidden) {
+                flatContainer.style.opacity = '0';
+                flatContainer.style.transition = 'opacity 0.5s ease';
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    flatContainer.style.opacity = '1';
+                }));
+            }
         }
     };
 
-    const applyPeopleFilter = () => {
-        const { isFiltering, matchingCards, targetWrapper } = getFilterState();
+    const applyPeopleFilter = (isInitialLoad = false) => {
+        const { tag, query, isFiltering, matchingCards, targetWrapper } = getFilterState();
+        const previousTag = tagFilterContainer.dataset.previousTag || 'all';
+        const cameFromAll = previousTag === 'all' && tag !== 'all';
+
         if (!isFiltering) { resetToAllSections(); return; }
-        if (targetWrapper) { renderSectionFilter(targetWrapper, matchingCards); return; }
+        // For initial load with a tag, we might want to skip the "cameFromAll" entrance animation 
+        // because the section is just being revealed for the first time by renderSequentially anyway.
+        // But for simplicity, we just pass cameFromAll as false during initial load.
+        if (targetWrapper) { renderSectionFilter(targetWrapper, matchingCards, isInitialLoad ? false : cameFromAll); return; }
         renderFlatFilter(matchingCards);
     };
     // renderSequentially から安全に呼び出せるようコールバックをセット
-    _filterCallback = applyPeopleFilter;
+    _filterCallback = () => {
+        // 初期ロード完了時にURLパラメータをチェックして適用する
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlTag = urlParams.get('tag');
+        if (urlTag) {
+            const matchBtn = tagFilterContainer.querySelector(`.tag-filter-btn[data-value="${urlTag}"]`);
+            if (matchBtn) {
+                filterBtns.forEach(b => b.classList.remove('is-active'));
+                matchBtn.classList.add('is-active');
+            }
+        }
+        applyPeopleFilter(true); // isInitialLoad = true
+    };
 
     if (searchInput) searchInput.addEventListener('input', applyPeopleFilter);
 
     // タグボタンのクリックでアクティブ切り替え＆フィルタ実行
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            if (btn.classList.contains('is-active')) return;
             filterBtns.forEach(b => b.classList.remove('is-active'));
             btn.classList.add('is-active');
             applyPeopleFilter();
         });
     });
 
-    // URLパラメータからタグ自動適用（プロフィールページのタグリンクから遷移した場合など）
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlTag = urlParams.get('tag');
-    if (urlTag) {
-        const matchBtn = tagFilterContainer.querySelector(`.tag-filter-btn[data-value="${urlTag}"]`);
-        if (matchBtn) {
-            filterBtns.forEach(b => b.classList.remove('is-active'));
-            matchBtn.classList.add('is-active');
-        }
-    }
+    // ↑ 初期実行(_filterCallback)に移動しました
 
     // 初期実行は renderSequentially 完了後に _filterCallback() で行う
     // （全セクション DOM 構築後の実行を保証するため setTimeout は使わない）
