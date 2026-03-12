@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const dataPath = '_config/data_members.js';
+const dataPath = 'data/members.js';
 let content = fs.readFileSync(dataPath, 'utf8');
 
 // 1. Remove dummy members from the file content entirely

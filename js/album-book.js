@@ -1,10 +1,13 @@
+import { fixPath } from './app/url.js';
+import { getGalleryData } from './app/data.js';
+
 /**
  * album-book.js
  * 3D page-flip album book for index.html Gallery section.
  * Depends on: utils.js, data_gallery.js
  */
 
-(function () {
+export async function initGalleryPage() {
     'use strict';
 
     /* ----------------------------------------------------------
@@ -22,7 +25,7 @@
 
         // Wait for manifestPromise if available (WebP resolution)
         const dataReady = window.manifestPromise
-            ? window.manifestPromise.catch(() => {})
+            ? window.manifestPromise.catch(() => { })
             : Promise.resolve();
 
         dataReady.then(() => buildBook(scene));
@@ -32,7 +35,7 @@
        Build the album book inside #album-scene
        ---------------------------------------------------------- */
     function buildBook(scene) {
-        const allData = window.galleryData || [];
+        const allData = getGalleryData() || [];
         const albums = allData.filter(item => {
             if (typeof window.shouldShowItem === 'function') return window.shouldShowItem(item);
             return !item.hidden;
@@ -81,20 +84,20 @@
         `;
 
         /* ---- DOM refs ---- */
-        const leftPage      = document.getElementById('book-page-left');
-        const rightPage     = document.getElementById('book-page-right');
-        const turner        = document.getElementById('book-turner');
-        const turnerFront   = document.getElementById('turner-front');
-        const turnerBackIn  = document.getElementById('turner-back-inner');
-        const prevBtn       = document.getElementById('album-prev');
-        const nextBtn       = document.getElementById('album-next');
-        const indicator     = document.getElementById('album-page-indicator');
-        const selector      = document.getElementById('album-selector');
+        const leftPage = document.getElementById('book-page-left');
+        const rightPage = document.getElementById('book-page-right');
+        const turner = document.getElementById('book-turner');
+        const turnerFront = document.getElementById('turner-front');
+        const turnerBackIn = document.getElementById('turner-back-inner');
+        const prevBtn = document.getElementById('album-prev');
+        const nextBtn = document.getElementById('album-next');
+        const indicator = document.getElementById('album-page-indicator');
+        const selector = document.getElementById('album-selector');
 
         /* ---- State ---- */
-        let currentAlbum  = 0;
+        let currentAlbum = 0;
         let currentSpread = 0;
-        let isAnimating   = false;
+        let isAnimating = false;
 
         /* ----------------------------------------------------------
            Helper: build "pages" array for an album
@@ -131,7 +134,7 @@
                     </div>`;
             }
             // photo
-            const src = (typeof window.fixPath === 'function') ? window.fixPath(page.src) : page.src;
+            const src = (typeof fixPath === 'function') ? fixPath(page.src) : page.src;
             const safeSrc = src.replace(/"/g, '&quot;');
             return `
                 <div class="album-photo-mount" data-src="${safeSrc}">
@@ -154,18 +157,18 @@
            Load an album at a given spread (no animation)
            ---------------------------------------------------------- */
         function loadAlbum(albumIdx, spreadIdx) {
-            currentAlbum  = albumIdx;
+            currentAlbum = albumIdx;
             currentSpread = spreadIdx;
 
             const pages = getPages(albumIdx);
             const li = spreadIdx * 2;
             const ri = li + 1;
 
-            const leftHTML  = pageHTML(pages[li]  || null);
-            const rightHTML = pageHTML(pages[ri]  || null);
+            const leftHTML = pageHTML(pages[li] || null);
+            const rightHTML = pageHTML(pages[ri] || null);
 
-            leftPage.innerHTML    = leftHTML;
-            rightPage.innerHTML   = rightHTML;
+            leftPage.innerHTML = leftHTML;
+            rightPage.innerHTML = rightHTML;
             turnerFront.innerHTML = rightHTML;
             turnerBackIn.innerHTML = '';
 
@@ -180,7 +183,7 @@
         function goNext() {
             if (isAnimating) return;
 
-            const pages   = getPages(currentAlbum);
+            const pages = getPages(currentAlbum);
             const maxSpread = totalSpreads(currentAlbum) - 1;
 
             if (currentSpread < maxSpread) {
@@ -189,11 +192,11 @@
                 const nLi = ns * 2;
                 const nRi = nLi + 1;
 
-                const nextLeft  = pageHTML(pages[nLi] || null);
+                const nextLeft = pageHTML(pages[nLi] || null);
                 const nextRight = pageHTML(pages[nRi] || null);
 
                 // Prepare: right-page (background) gets the upcoming right content
-                rightPage.innerHTML  = nextRight;
+                rightPage.innerHTML = nextRight;
                 // Turner back gets the upcoming left content
                 turnerBackIn.innerHTML = nextLeft;
 
@@ -205,7 +208,7 @@
                     // 1. turner は -180deg で停止中:
                     //    leftPage は turner の裏に隠れており、
                     //    turnerFront は backface-hidden → どちらも不可視なので先に更新しても見えない
-                    leftPage.innerHTML    = nextLeft;
+                    leftPage.innerHTML = nextLeft;
                     turnerFront.innerHTML = nextRight;
 
                     // 2. アニメーションなしでターナーを 0deg に戻す（スナップ）
@@ -242,11 +245,11 @@
                 const li = ps * 2;
                 const ri = li + 1;
 
-                const leftHTML  = pageHTML(pages[li] || null);
+                const leftHTML = pageHTML(pages[li] || null);
                 const rightHTML = pageHTML(pages[ri] || null);
 
-                leftPage.innerHTML    = leftHTML;
-                rightPage.innerHTML   = rightHTML;
+                leftPage.innerHTML = leftHTML;
+                rightPage.innerHTML = rightHTML;
                 turnerFront.innerHTML = rightHTML;
                 turnerBackIn.innerHTML = '';
 
@@ -287,8 +290,8 @@
                     const ri = li + 1;
                     const lH = pageHTML(pages[li] || null);
                     const rH = pageHTML(pages[ri] || null);
-                    leftPage.innerHTML    = lH;
-                    rightPage.innerHTML   = rH;
+                    leftPage.innerHTML = lH;
+                    rightPage.innerHTML = rH;
                     turnerFront.innerHTML = rH;
                     turnerBackIn.innerHTML = '';
                     currentSpread = idx;
@@ -351,7 +354,7 @@
             const inView = rect.top < window.innerHeight && rect.bottom > 0;
             if (!inView) return;
             if (e.key === 'ArrowRight') goNext();
-            if (e.key === 'ArrowLeft')  goPrev();
+            if (e.key === 'ArrowLeft') goPrev();
         });
 
         // Touch swipe support
@@ -363,7 +366,7 @@
             touchStartX = null;
             if (Math.abs(dx) < 40) return;
             if (dx < 0) goNext();
-            else        goPrev();
+            else goPrev();
         }, { passive: true });
 
         /* ---- Initial load ---- */
@@ -419,4 +422,4 @@
         }
     }
 
-})();
+}

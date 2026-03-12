@@ -5,8 +5,8 @@ Also removes references to files that no longer exist on disk.
 import re
 import os
 
-path = r'c:\Users\user\Desktop\unti\Te74g.github.io\_config\data_members.js'
-root = r'c:\Users\user\Desktop\unti\Te74g.github.io'
+root = os.path.dirname(os.path.abspath(__file__))
+path = os.path.join(root, 'data', 'members.js')
 
 with open(path, 'r', encoding='utf-8') as f:
     content = f.read()
