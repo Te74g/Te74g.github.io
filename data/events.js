@@ -32,7 +32,7 @@ window.partnerEventsData = [
         headerTextColor: "white", // Option to force white text
         titleImage: "assets/partner_events/kitsunekotan/title_logo.webp",
         image: "assets/partner_events/kitsunekotan/logo.webp",
-        link: "partner_events/event.html?id=kitsunekotan",
+        link: "partner_events/event/?id=kitsunekotan",
         desc: "休憩処 キツネコタンの提携ページです。",
         poster: "assets/partner_events/kitsunekotan/poster.webp", // Moved to subfolder
         backgroundImage: "assets/partner_events/kitsunekotan/bg_floor.webp", // Moved to subfolder

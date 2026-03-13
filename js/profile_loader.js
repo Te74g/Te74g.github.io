@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // cast/{id}/ stubs are minimal. If profile layout is missing, route via template page.
     if (!document.querySelector('.profile-layout-grid')) {
         const legacyBase = window.fixPath
-            ? window.fixPath(`member/profile.html?id=${encodeURIComponent(memberId)}`)
-            : `/member/profile.html?id=${encodeURIComponent(memberId)}`;
+            ? window.fixPath(`member/profile/?id=${encodeURIComponent(memberId)}`)
+            : `/member/profile/?id=${encodeURIComponent(memberId)}`;
         const formParam = params.get('form');
         const target = formParam !== null
             ? `${legacyBase}&form=${encodeURIComponent(formParam)}`

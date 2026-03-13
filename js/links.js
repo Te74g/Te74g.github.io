@@ -130,7 +130,7 @@
                     </header>
                     <div id="links-grid" class="links-grid"></div>
                     <div style="margin-top: 48px; text-align: center;">
-                        <a href="../index.html" class="btn btn--primary">トップへ戻る</a>
+                        <a href="../" class="btn btn--primary">トップへ戻る</a>
                     </div>
                 </div>
             </section>

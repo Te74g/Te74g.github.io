@@ -29,7 +29,7 @@ export async function initNewsPage() {
             const a = document.createElement('a');
             const pageUrl = item.linkPath
                 ? fixPath(item.linkPath)
-                : (item.id ? fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
+                : (item.id ? fixPath(`news/article/?id=${item.id}`) : (item.link || '#'));
             const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
 
             a.href = pageUrl;
@@ -208,7 +208,7 @@ export async function initNewsPage() {
 
         carouselItems.forEach((item, i) => {
             const card = document.createElement('a');
-            const pageUrl = item.linkPath ? fixPath(item.linkPath) : (item.id ? fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
+            const pageUrl = item.linkPath ? fixPath(item.linkPath) : (item.id ? fixPath(`news/article/?id=${item.id}`) : (item.link || '#'));
             const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
 
             card.href = pageUrl;

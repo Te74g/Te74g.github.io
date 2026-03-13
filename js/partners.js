@@ -52,7 +52,7 @@
 
             let linkUrl = item.link;
             if (!linkUrl && item.id) {
-                linkUrl = `partner_events/event.html?id=${item.id}`;
+                linkUrl = `partner_events/event/?id=${item.id}`;
             }
             linkUrl = window.fixPath(linkUrl);
 

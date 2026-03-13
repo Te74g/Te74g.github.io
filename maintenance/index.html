@@ -13,16 +13,16 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
     rel="stylesheet">
-  <link rel="icon" href="./assets/favicon/multi_favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="icon" href="../assets/favicon/multi_favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body id="top" class="bg-texture">
   <a class="skip-link" href="#main">本文へスキップ</a>
 
   <header class="site-header" data-elevate>
     <div class="container header-inner">
-      <a class="brand" href="./" aria-label="あにあめもりあ（イベント）">
-        <img src="./assets/logo/aniamemoria_logo_darktheme.webp" alt="あにあめもりあ" class="brand-logo" />
+      <a class="brand" href="../" aria-label="あにあめもりあ（イベント）">
+        <img src="../assets/logo/aniamemoria_logo_darktheme.webp" alt="あにあめもりあ" class="brand-logo" />
       </a>
     </div>
   </header>
@@ -33,7 +33,7 @@
         <div class="maintenance-box card"
           style="max-width: 600px; margin: 0 auto; padding: 48px 24px; position: relative; overflow: hidden; text-align: center;">
 
-          <img id="secret-trigger" src="./assets/logo/aniamemoria_logo_darktheme.webp" alt="あにあめもりあ"
+          <img id="secret-trigger" src="../assets/logo/aniamemoria_logo_darktheme.webp" alt="あにあめもりあ"
             style="display: block; margin-bottom: 32px; opacity: 0.8; position: relative; z-index: 2; width: 280px; height: 120px; object-fit: contain; margin: 0 auto; cursor: pointer;" />
 
           <p class="kicker"
@@ -67,7 +67,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-brand">
-        <img src="./assets/logo/aniamemoria_logo_darktheme.webp" alt="あにあめもりあ" class="brand-logo" />
+        <img src="../assets/logo/aniamemoria_logo_darktheme.webp" alt="あにあめもりあ" class="brand-logo" />
       </p>
       <p class="footer-note">© <span id="year"></span> AniameMoria.</p>
       <a class="to-top" href="#top" aria-label="上へ戻る">
@@ -79,7 +79,7 @@
     </div>
   </footer>
 
-  <script src="./js/ui.js"></script>
+  <script src="../js/ui.js"></script>
 
   <!-- Secret Admin Bypass -->
   <script>
@@ -108,7 +108,7 @@
             if (password === '2020') {
               alert('メンテナンスモードを解除しました。トップページへ移動します。');
               sessionStorage.setItem('maintenanceBypass', 'true');
-              window.location.href = './';
+              window.location.href = '../';
             } else if (password !== null) {
               alert('パスワードが違います。');
             }
