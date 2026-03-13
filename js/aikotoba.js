@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.getElementById('main');
     if (!main) return;
 
-    const rootPath = '../';
-
     // ---- Cinema Stage Setup ----
     main.classList.add('aikotoba-stage');
 

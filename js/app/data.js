@@ -1,22 +1,29 @@
 /**
  * js/app/data.js
- * 
- * Centralized Data Fetching and Normalization.
- * Replaces the scattered dependencies on global variables inside legacy components.
+ * Centralized data access module.
+ * Abstracts global variables defined in `data/*.js`.
  */
 
-/**
- * Retrieves the global members data.
- * @returns {Array<Object>} The members array, or an empty array if undefined.
- */
-export const getMembersData = () => {
+export function getSiteConfig() {
+    return window.siteConfig || null;
+}
+
+export function getMembersData() {
     return window.membersData || [];
-};
+}
 
-/**
- * Retrieves the global site config.
- * @returns {Object} Site configuration object.
- */
-export const getSiteConfig = () => {
-    return window.siteConfig || {};
-};
+export function getEventsData() {
+    return window.eventsData || [];
+}
+
+export function getGalleryData() {
+    return window.galleryData || [];
+}
+
+export function getNewsData() {
+    return window.newsData || [];
+}
+
+export function getLinksData() {
+    return window.linksData || [];
+}

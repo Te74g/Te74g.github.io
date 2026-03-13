@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (loaderEl) loaderEl.classList.add('is-hidden');
             if (mainEl) mainEl.classList.remove('is-preloading');
             document.body.classList.remove('is-preloading');
+
+            // Final explicit hide to remove overlay from hit-testing
+            setTimeout(() => {
+                if (loaderEl) loaderEl.style.display = 'none';
+            }, 800);
         };
 
         // Helper: Update Progress Gauge (Logo Fill)
@@ -161,14 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Allow 100% to be seen
         await new Promise(r => setTimeout(r, 400));
 
-        if (loaderEl) loaderEl.classList.add('is-hidden');
-        if (mainEl) mainEl.classList.remove('is-preloading');
-        document.body.classList.remove('is-preloading');
-
-        // Final explicit hide
-        setTimeout(() => {
-            if (loaderEl) loaderEl.style.display = 'none';
-        }, 800);
+        hideLoader();
 
 
         // --- Step 6: Load Remaining Group Images (Lazy) ---

@@ -4,7 +4,11 @@
  * Depends on: utils.js, data_news.js
  */
 
-(async function () {
+import { fixPath } from '../app/url.js';
+import { getNewsData } from '../app/data.js';
+import { shouldShowItem } from '../app/member-utils.js';
+
+export async function initNewsPage() {
     // Wait for Manifest
     if (window.manifestPromise) {
         try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
@@ -18,15 +22,15 @@
         const CARD_STAGGER_MS = 80;
         const NOT_FOUND_MSG = '該当するニュースが見つかりませんでした。';
 
-        const visibleNews = (window.newsData || []).filter(item => window.shouldShowItem(item));
+        const visibleNews = (getNewsData() || []).filter(item => shouldShowItem(item));
 
         // --- カード生成 (サムネイルメイン型) ---
         const createNewsCard = (item, index) => {
             const a = document.createElement('a');
             const pageUrl = item.linkPath
-                ? window.fixPath(item.linkPath)
-                : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
-            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || '');
+                ? fixPath(item.linkPath)
+                : (item.id ? fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
+            const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
 
             a.href = pageUrl;
 
@@ -197,15 +201,15 @@
        2. ニュースカルーセル (index.html)
        ------------------------------------------------------- */
     const track = document.getElementById('news-carousel-track');
-    if (track && window.newsData) {
+    if (track && getNewsData()) {
         // フィルタリング
-        const visibleNews = window.newsData.filter(item => window.shouldShowItem(item));
+        const visibleNews = getNewsData().filter(item => shouldShowItem(item));
         const carouselItems = visibleNews.slice(0, 5); // 最新5件
 
         carouselItems.forEach((item, i) => {
             const card = document.createElement('a');
-            const pageUrl = item.linkPath ? window.fixPath(item.linkPath) : (item.id ? window.fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
-            const imgUrl = item.imagePath ? window.fixPath(item.imagePath) : (item.image || '');
+            const pageUrl = item.linkPath ? fixPath(item.linkPath) : (item.id ? fixPath(`news/article.html?id=${item.id}`) : (item.link || '#'));
+            const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
 
             card.href = pageUrl;
             card.className = 'news-card-slide';
@@ -281,4 +285,4 @@
 
         initCarousel();
     }
-})();
+}

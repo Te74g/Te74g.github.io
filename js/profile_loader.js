@@ -46,6 +46,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    const castIndexHref = window.fixPath ? window.fixPath('cast/') : '/cast/';
+    const getProfileHref = (id, formIndex = null) => {
+        const base = window.fixPath ? window.fixPath(`cast/${id}/`) : `/cast/${id}/`;
+        if (formIndex === null || formIndex === undefined || `${formIndex}` === '' || `${formIndex}` === '0') {
+            return base;
+        }
+        return `${base}?form=${encodeURIComponent(String(formIndex))}`;
+    };
+    const getCastTagHref = (tag) => `${castIndexHref}?tag=${encodeURIComponent(tag)}`;
+
+    // cast/{id}/ stubs are minimal. If profile layout is missing, route via template page.
+    if (!document.querySelector('.profile-layout-grid')) {
+        const legacyBase = window.fixPath
+            ? window.fixPath(`member/profile.html?id=${encodeURIComponent(memberId)}`)
+            : `/member/profile.html?id=${encodeURIComponent(memberId)}`;
+        const formParam = params.get('form');
+        const target = formParam !== null
+            ? `${legacyBase}&form=${encodeURIComponent(formParam)}`
+            : legacyBase;
+        window.location.replace(target);
+        return;
+    }
+
+    // Keep clean URL while rendering through the shared template.
+    if (window.location.pathname.includes('/member/')) {
+        const canonical = getProfileHref(memberId, params.get('form'));
+        window.history.replaceState({}, '', canonical);
+    }
+
+    document.querySelectorAll('a[href="../cast/"], a[href="./cast/"], a[href="/cast/"]').forEach((a) => {
+        a.setAttribute('href', castIndexHref);
+    });
+
     // ==========================================
     // revealLevelに応じたアクセス制御
     // ==========================================
@@ -55,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Level 0（非表示）または Level 1（Coming Soon）はプロフィールページにアクセス不可
     if (revealLevel <= 1) {
         // キャスト一覧にリダイレクト
-        window.location.href = '/cast/';
+        window.location.href = castIndexHref;
         return;
     }
     // ==========================================
@@ -79,9 +112,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const nextMember = visibleMembers[nextIndex];
 
             // スタブページ（window.__memberId 設定済み）は ?id= が無視されるため絶対パスで遷移
-            const useStubNav = !!window.__memberId;
-            const prevHref = useStubNav ? `/cast/${prevMember.id}/` : `?id=${prevMember.id}`;
-            const nextHref = useStubNav ? `/cast/${nextMember.id}/` : `?id=${nextMember.id}`;
+            const prevHref = getProfileHref(prevMember.id);
+            const nextHref = getProfileHref(nextMember.id);
 
             const navContainer = document.createElement('div');
             navContainer.className = 'profile-pagination';
@@ -128,7 +160,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (member.forms && member.forms.length > 0) {
         currentFormIndex = Math.min(currentFormIndex, member.forms.length - 1);
     }
-    let activeForm = null;
 
     // 形態に基づいてメンバー情報をマージする関数
     const getMergedMemberData = (formIndex) => {
@@ -200,7 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (mergedMember.tagLabel) {
                 mainTags = mergedMember.tagLabel.split(/[\s/／]+/).filter(t => t.trim() !== '');
                 mainTags.forEach(t => {
-                    tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+                    tagsHtml += `<a href="${getCastTagHref(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
                 });
             }
             if (member.tags) {
@@ -208,7 +239,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tagsList.forEach(t => {
                     if (!mainTags.includes(t)) {
                         const isSolid = SOLID_TAGS.includes(t);
-                        tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
+                        tagsHtml += `<a href="${getCastTagHref(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
                     }
                 });
             }
@@ -253,7 +284,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     // 初期データを取得（forms がある場合は最初の形態）
-    const initialMember = getMergedMemberData(0);
+    const initialMember = getMergedMemberData(currentFormIndex);
 
     // 0. Update Page Title and H1
     document.title = `あにあめもりあ | ${initialMember.name}`;
@@ -269,7 +300,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (initialMember.tagLabel) {
             mainTags = initialMember.tagLabel.split(/[\s/／]+/).filter(t => t.trim() !== '');
             mainTags.forEach(t => {
-                tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+                tagsHtml += `<a href="${getCastTagHref(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
             });
         }
         if (member.tags) {
@@ -277,7 +308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tagsList.forEach(t => {
                 if (!mainTags.includes(t)) {
                     const isSolid = SOLID_TAGS.includes(t);
-                    tagsHtml += `<a href="../cast/?tag=${encodeURIComponent(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
+                    tagsHtml += `<a href="${getCastTagHref(t)}" class="tag tag--link${isSolid ? '' : ' tag--soft'}"${isSolid ? ' style="background:#000; color:#fff;"' : ''}>${t}</a>`;
                 }
             });
         }
@@ -445,32 +476,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             imgPath = window.fixPath(imgPath);
 
-            // Link path fix
-            let linkPath = relatedMember.link || `member/profile.html?id=${relatedMember.id}`;
-            // Assuming we are in member/ directory, we want links to be like "profile.html?id=rayno"
-            // BUT existing links in data are "member/profile_rayno.html".
-            // We should ideally convert these to the new format if we want fully dynamic,
-            // OR keep using the old files if they exist.
-            // For now, let's respect the `link` property in data, but fix relative path.
-
-            // Fix: If we are migrating to dynamic, we might want to change this.
-            // But user said "Experiment with Ten". So others still use old links.
-            // We'll trust the link in data, just fixing relative path.
-            if (!linkPath.startsWith('http') && !linkPath.startsWith('../') && !linkPath.startsWith('/')) {
-                // linkPath is "member/profile_x.html". Current page is "member/profile.html".
-                // So we want "../member/profile_x.html" -> "./profile_x.html"
-                // simple fix:
-                if (linkPath.startsWith('member/')) {
-                    linkPath = linkPath.replace('member/', './');
-                } else {
-                    linkPath = './' + linkPath;
-                }
-            }
-            // Better robust fix logic:
-            if (!linkPath.match(/^(http|\/)/)) {
-                // If it's relative, and we are in member/, and link is member/..., remove member/
-                if (linkPath.startsWith('member/')) linkPath = linkPath.replace('member/', '');
-            }
+            const linkPath = getProfileHref(relatedMember.id);
 
             html += `
                 <a href="${linkPath}" class="cast-slot" title="${relatedMember.name}">
@@ -551,15 +557,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Elements to reveal after background loads
     const contentElements = document.querySelectorAll('.profile-visual-area, .profile-text-area, .profile-related-area');
+    const hasContentElements = contentElements.length > 0;
 
     // Initially hide content (if not already handled by CSS)
-    contentElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.8s ease';
-        el.classList.remove('reveal'); // Remove default reveal if present to control manually
-    });
+    if (hasContentElements) {
+        contentElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transition = 'opacity 0.8s ease';
+            el.classList.remove('reveal'); // Remove default reveal if present to control manually
+        });
+    }
 
     const revealContent = () => {
+        if (!hasContentElements) return;
         // Add a slight delay for dramatic effect
         setTimeout(() => {
             contentElements.forEach((el, index) => {
@@ -598,7 +608,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Safety timeout in case onload never fires
         setTimeout(() => {
-            if (contentElements[0].style.opacity === '0') {
+            if (hasContentElements && contentElements[0].style.opacity === '0') {
                 console.log('Background load timeout, forcing reveal.');
                 revealContent();
             }
