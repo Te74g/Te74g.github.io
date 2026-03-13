@@ -6,7 +6,8 @@
   "scripts": {
     "test": "playwright test",
     "lint": "eslint js/**/*.js",
-    "lint:fix": "eslint js/**/*.js --fix"
+    "lint:fix": "eslint js/**/*.js --fix",
+    "verify": "node scripts/verify.js"
   },
   "dependencies": {
     "sharp": "^0.34.5"

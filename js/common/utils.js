@@ -249,7 +249,6 @@
         if (!window.imageManifest) return;
 
         const images = document.querySelectorAll('img');
-        const normalize = (p) => p.replace(/^(\.\/|\.\.\/)+/, ''); // Remove ./ or ../ prefixes
 
         images.forEach(img => {
             // Get the raw src attribute value (not absolute URL)

@@ -1,5 +1,5 @@
 const fs = require('fs');
-let content = fs.readFileSync('_config/data_members.js', 'utf8');
+let content = fs.readFileSync('data/members.js', 'utf8');
 
 const revealDates = {
     'ten': '2026-03-06',
@@ -28,5 +28,5 @@ for (const [id, date] of Object.entries(revealDates)) {
     content = content.replace(searchString, replaceString);
 }
 
-fs.writeFileSync('_config/data_members.js', content, 'utf8');
+fs.writeFileSync('data/members.js', content, 'utf8');
 console.log('Updated data_members.js');

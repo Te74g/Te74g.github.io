@@ -42,9 +42,9 @@ function loadDataFile(relPath) {
     return mock;
 }
 
-const siteCtx    = loadDataFile('_config/data_site.js');
-const membersCtx = loadDataFile('_config/data_members.js');
-const newsCtx    = loadDataFile('_config/data_news.js');
+const siteCtx    = loadDataFile('data/site.js');
+const membersCtx = loadDataFile('data/members.js');
+const newsCtx    = loadDataFile('data/news.js');
 
 const members    = membersCtx.membersData || [];
 const newsItems  = newsCtx.newsData       || [];
@@ -127,9 +127,9 @@ function castStubHtml(id, name) {
   <main id="main"></main>
   <div id="footer-placeholder"></div>
 
-  <script src="/_config/data_site.js"></script>
-  <script src="/_config/data_members.js"></script>
-  <script src="/js/utils.js"></script>
+  <script src="/data/site.js"></script>
+  <script src="/data/members.js"></script>
+  <script src="/js/common/utils.js"></script>
   <script src="/js/common-layout.js"></script>
   <script>renderLayout('/');</script>
   <script src="/js/profile_loader.js"></script>
@@ -181,9 +181,9 @@ function newsStubHtml(id, slug, title) {
   <main id="main"></main>
   <div id="footer-placeholder"></div>
 
-  <script src="/_config/data_site.js"></script>
-  <script src="/_config/data_news.js"></script>
-  <script src="/js/utils.js"></script>
+  <script src="/data/site.js"></script>
+  <script src="/data/news.js"></script>
+  <script src="/js/common/utils.js"></script>
   <script src="/js/common-layout.js"></script>
   <script>renderLayout('/');</script>
   <script src="/js/news_loader.js"></script>

@@ -281,7 +281,7 @@
 
                 // Find index of clicked element
                 const clickedIndex = Array.from(currentElements).indexOf(el);
-                openLightbox(clickedIndex >= 0 ? clickedIndex : 0);
+                openLightbox(clickedIndex >= 0 ? clickedIndex : index);
             });
         });
     };

@@ -96,7 +96,7 @@ class ProfileImageSwitcher {
 
         // 2. Render Slides
         this.slides = [];
-        this.images.forEach((src, i) => {
+        this.images.forEach((src) => {
             const slide = document.createElement('div');
             slide.className = 'profile-slide';
 
@@ -118,7 +118,7 @@ class ProfileImageSwitcher {
         if (this.images.length > 1 && this.options.showIndicators) {
             this.indicatorContainer = document.createElement('div');
             this.indicatorContainer.className = 'profile-indicators';
-            this.images.forEach((_, i) => {
+            this.images.forEach(() => {
                 const dot = document.createElement('span');
                 dot.className = 'profile-dot';
                 this.indicatorContainer.appendChild(dot);
