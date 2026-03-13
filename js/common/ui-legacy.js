@@ -15,8 +15,8 @@
 
     // siteConfigのメンテナンスモードをチェック
     if (window.siteConfig?.maintenanceMode) {
-        // 相対パスでmaintenance.htmlにリダイレクト
-        const basePath = window.fixPath ? window.fixPath('maintenance/') : './maintenance/';
+        // fixPath 未読込ページでも誤って /{section}/maintenance/ へ飛ばないよう絶対パスを使う
+        const basePath = window.fixPath ? window.fixPath('maintenance/') : '/maintenance/';
         window.location.href = basePath;
     }
 })();
