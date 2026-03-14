@@ -19,6 +19,8 @@ test.describe('Footer links', () => {
     '/partner_events/event/',
     '/member/profile/',
     '/member/profile.html?id=aki',
+    '/maintenance/',
+    '/maintenance.html',
   ];
 
   test.beforeEach(async ({ page }) => {
