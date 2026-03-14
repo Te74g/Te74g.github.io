@@ -27,6 +27,7 @@ const DRY       = process.argv.includes('--dry');
 const FORCE     = process.argv.includes('--force');
 const CAST_ONLY = process.argv.includes('--cast');
 const NEWS_ONLY = process.argv.includes('--news');
+const BLOG_ONLY = process.argv.includes('--blog');
 
 /* ─────────────────────────────────────────
    データファイルのロード
@@ -45,9 +46,13 @@ function loadDataFile(relPath) {
 const siteCtx    = loadDataFile('data/site.js');
 const membersCtx = loadDataFile('data/members.js');
 const newsCtx    = loadDataFile('data/news.js');
+const blogCtx    = (() => {
+    try { return loadDataFile('data/blog.js'); } catch (e) { return {}; }
+})();
 
 const members    = membersCtx.membersData || [];
 const newsItems  = newsCtx.newsData       || [];
+const blogItems  = blogCtx.blogData       || [];
 
 /* ─────────────────────────────────────────
    ユーティリティ
@@ -120,19 +125,19 @@ function castStubHtml(id, name) {
   <title>${name} — あにあめもりあ</title>
   <!-- スタブ: profile_loader.js が window.__memberId を優先して読む -->
   <script>window.__memberId = '${id}';</script>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
   <main id="main"></main>
   <div id="footer-placeholder"></div>
 
-  <script src="/data/site.js"></script>
-  <script src="/data/members.js"></script>
-  <script src="/js/common/utils.js"></script>
-  <script src="/js/common-layout.js"></script>
-  <script>renderLayout('/');</script>
-  <script src="/js/profile_loader.js"></script>
+  <script src="../../data/site.js"></script>
+  <script src="../../data/members.js"></script>
+  <script src="../../js/common/utils.js"></script>
+  <script src="../../js/common-layout.js"></script>
+  <script>renderLayout('../../');</script>
+  <script src="../../js/profile_loader.js"></script>
 </body>
 </html>
 `;
@@ -174,19 +179,73 @@ function newsStubHtml(id, slug, title) {
   <title>${title} — あにあめもりあ</title>
   <!-- スタブ: news_loader.js が window.__newsId を優先して読む -->
   <script>window.__newsId = '${id}';</script>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
   <main id="main"></main>
   <div id="footer-placeholder"></div>
 
-  <script src="/data/site.js"></script>
-  <script src="/data/news.js"></script>
-  <script src="/js/common/utils.js"></script>
-  <script src="/js/common-layout.js"></script>
-  <script>renderLayout('/');</script>
-  <script src="/js/news_loader.js"></script>
+  <script src="../../data/site.js"></script>
+  <script src="../../data/news.js"></script>
+  <script src="../../js/common/utils.js"></script>
+  <script src="../../js/common-layout.js"></script>
+  <script>renderLayout('../../');</script>
+  <script src="../../js/news_loader.js"></script>
+</body>
+</html>
+`;
+}
+
+/* ─────────────────────────────────────────
+   ブログスタブ生成
+   blog/{id}/index.html
+───────────────────────────────────────── */
+function generateBlogStubs() {
+    console.log('\n── ブログスタブ ──────────────────────');
+    let ok = 0, skip = 0;
+
+    for (const item of blogItems) {
+        if (!item.id) continue;
+        if (item.hidden === true) {
+            console.log('  [HIDE]  ', `blog/${toSlug(item.id)}/  (hidden)`);
+            skip++;
+            continue;
+        }
+
+        const slug  = item.slug || toSlug(item.id);
+        const title = escHtml(item.title || item.id);
+        const html  = blogStubHtml(item.id, slug, title);
+        writeFile(`blog/${slug}/index.html`, html);
+        ok++;
+    }
+
+    console.log(`  → ${ok} 件生成対象 / ${skip} 件スキップ`);
+}
+
+function blogStubHtml(id, slug, title) {
+    return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title} — あにあめもりあ</title>
+  <!-- スタブ: blog_loader.js が window.__blogId を優先して読む -->
+  <script>window.__blogId = '${id}';<\/script>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main id="main"></main>
+  <div id="footer-placeholder"></div>
+
+  <script src="../../data/site.js"><\/script>
+  <script src="../../data/members.js"><\/script>
+  <script src="../../data/blog.js"><\/script>
+  <script src="../../js/common/utils.js"><\/script>
+  <script src="../../js/common-layout.js"><\/script>
+  <script>renderLayout('../../');<\/script>
+  <script src="../../js/blog_loader.js"><\/script>
 </body>
 </html>
 `;
@@ -199,7 +258,8 @@ console.log('');
 console.log('=== generate_stubs.js ===');
 console.log(DRY   ? '[DRY RUN — ファイルを書かない]' : FORCE ? '[FORCE — 既存も上書き]' : '[通常 — 既存はスキップ]');
 
-if (!NEWS_ONLY) generateCastStubs();
-if (!CAST_ONLY) generateNewsStubs();
+if (!NEWS_ONLY && !BLOG_ONLY) generateCastStubs();
+if (!CAST_ONLY && !BLOG_ONLY) generateNewsStubs();
+if (!CAST_ONLY && !NEWS_ONLY) generateBlogStubs();
 
 console.log('\n完了。');

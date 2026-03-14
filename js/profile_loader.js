@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    const castIndexHref = window.fixPath ? window.fixPath('cast/') : '/cast/';
+    const getCastIndexHref = () => (window.fixPath ? window.fixPath('cast/') : '/cast/');
     const getProfileHref = (id, formIndex = null) => {
         const base = window.fixPath ? window.fixPath(`cast/${id}/`) : `/cast/${id}/`;
         if (formIndex === null || formIndex === undefined || `${formIndex}` === '' || `${formIndex}` === '0') {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return `${base}?form=${encodeURIComponent(String(formIndex))}`;
     };
-    const getCastTagHref = (tag) => `${castIndexHref}?tag=${encodeURIComponent(tag)}`;
+    const getCastTagHref = (tag) => `${getCastIndexHref()}?tag=${encodeURIComponent(tag)}`;
 
     // cast/{id}/ stubs are minimal. If profile layout is missing, route via template page.
     if (!document.querySelector('.profile-layout-grid')) {
@@ -75,9 +75,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.history.replaceState({}, '', canonical);
     }
 
-    document.querySelectorAll('a[href="../cast/"], a[href="./cast/"], a[href="/cast/"]').forEach((a) => {
-        a.setAttribute('href', castIndexHref);
-    });
+    {
+        const castIndexHref = getCastIndexHref();
+        document.querySelectorAll('a[href="../cast/"], a[href="./cast/"], a[href="/cast/"]').forEach((a) => {
+            a.setAttribute('href', castIndexHref);
+        });
+    }
 
     // ==========================================
     // revealLevelに応じたアクセス制御
@@ -88,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Level 0（非表示）または Level 1（Coming Soon）はプロフィールページにアクセス不可
     if (revealLevel <= 1) {
         // キャスト一覧にリダイレクト
-        window.location.href = castIndexHref;
+        window.location.href = getCastIndexHref();
         return;
     }
     // ==========================================
