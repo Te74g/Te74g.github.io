@@ -99,4 +99,16 @@ test.describe('Footer links', () => {
 
     expect(failures, failures.join('\n')).toEqual([]);
   });
+
+  test('legal page content is visible without ui.js reveal init', async ({ page }) => {
+    const legalRoutes = ['/privacy/', '/terms/', '/contact/', '/pages/privacy.html', '/pages/terms.html', '/pages/contact.html'];
+
+    for (const route of legalRoutes) {
+      await page.goto(route, { waitUntil: 'networkidle' });
+      const hiddenRevealCount = await page.$$eval('.reveal:not(.is-visible)', (nodes) =>
+        nodes.filter((n) => getComputedStyle(n).opacity === '0').length
+      );
+      expect(hiddenRevealCount, `${route}: reveal elements remained hidden`).toBe(0);
+    }
+  });
 });
