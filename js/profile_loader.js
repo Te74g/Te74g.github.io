@@ -55,6 +55,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         return `${base}?form=${encodeURIComponent(String(formIndex))}`;
     };
     const getCastTagHref = (tag) => `${getCastIndexHref()}?tag=${encodeURIComponent(tag)}`;
+    const normalizeLayoutLinks = () => {
+        const slugs = ['news/', 'cast/', 'gallery/', 'partner/', 'links/', 'aikotoba/', 'privacy/', 'terms/', 'contact/'];
+        document.querySelectorAll('a[href]').forEach((a) => {
+            const href = a.getAttribute('href');
+            if (!href) return;
+            if (/^(https?:|mailto:|tel:|#|javascript:)/i.test(href)) return;
+
+            const cleanHref = href.split('?')[0].split('#')[0];
+            const slug = slugs.find((s) => cleanHref.endsWith(s));
+            if (!slug) return;
+
+            const normalized = window.fixPath ? window.fixPath(slug) : `/${slug}`;
+            a.setAttribute('href', normalized);
+        });
+    };
 
     // cast/{id}/ stubs are minimal. If profile layout is missing, route via template page.
     if (!document.querySelector('.profile-layout-grid')) {
@@ -73,6 +88,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (window.location.pathname.includes('/member/')) {
         const canonical = getProfileHref(memberId, params.get('form'));
         window.history.replaceState({}, '', canonical);
+        // member/profile.html から clean URL へ差し替えた直後、相対リンクが /cast/* 基準になるのを防ぐ
+        normalizeLayoutLinks();
     }
 
     {
