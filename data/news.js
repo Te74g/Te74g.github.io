@@ -4,14 +4,6 @@
  */
 window.newsData = [
     {
-        "id": "tuiki",
-        "title": "tuiki",
-        "date": "2026.03.14",
-        "category": "お知らせ",
-        "desc": "tuki",
-        "content": "aa"
-    },
-    {
         "id": "grand_open_20260308",
         "hidden": false,
         "title": "人間さん、ようこそ「あにあめもりあ」へ！",
