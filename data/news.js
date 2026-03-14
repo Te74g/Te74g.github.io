@@ -12,22 +12,6 @@ window.newsData = [
         "content": "aa"
     },
     {
-        "id": "a",
-        "title": "two",
-        "date": "2026.03.14",
-        "category": "お知らせ",
-        "desc": "3",
-        "content": "one"
-    },
-    {
-        "id": "a",
-        "title": "two",
-        "date": "2026.03.14",
-        "category": "お知らせ",
-        "desc": "3",
-        "content": "one"
-    },
-    {
         "id": "grand_open_20260308",
         "hidden": false,
         "title": "人間さん、ようこそ「あにあめもりあ」へ！",
