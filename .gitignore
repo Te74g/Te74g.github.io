@@ -14,3 +14,15 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# 管理ツール（Electron app）
+admin-tool/node_modules/
+admin-tool/dist/
+admin-tool/.env
+admin-tool/main.js        # GitHub PAT を含むため git 管理外
+
+# 管理ツール・運営版（Electron app）
+admin-tool-owner/node_modules/
+admin-tool-owner/dist/
+admin-tool-owner/.env
+admin-tool-owner/main.js  # GitHub PAT を含むため git 管理外

@@ -27,3 +27,11 @@ export function getNewsData() {
 export function getLinksData() {
     return window.linksData || [];
 }
+
+export function getBlogData() {
+    return window.blogData || [];
+}
+
+export function getAikotobaData() {
+    return window.aikotobaData || [];
+}

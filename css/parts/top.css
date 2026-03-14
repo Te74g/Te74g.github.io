@@ -54,16 +54,18 @@
    ========================================= */
 .top-hero__kv {
     position: absolute;
-    left: calc(50vw - 410px);
-    top: calc(52.2vh - 310px);
-    width: 820px;
-    height: 620px;
+    left: calc(50% - min(28.5vw, 410px));
+    top: clamp(88px, 18vh, 220px);
+    width: clamp(560px, 57vw, 820px);
+    height: clamp(420px, 43vw, 620px);
     border-radius: var(--kv-radius, 28px);
     overflow: hidden;
     transform-origin: 50% 50%;
     transform: translate(var(--kv-tx, 0px), var(--kv-ty, 0px)) scale(var(--kv-scale, 1));
-    will-change: transform, border-radius;
-    z-index: 3;
+    will-change: transform, border-radius, opacity;
+    z-index: var(--kv-z, 3);
+    pointer-events: var(--kv-events, auto);
+    opacity: var(--kv-opacity, 1);
     box-shadow:
         0 24px 64px rgba(0, 0, 0, 0.75),
         0 0 48px rgba(207, 170, 107, 0.08);
@@ -85,9 +87,9 @@
    ========================================= */
 .top-hero__copy {
     position: absolute;
-    left: 110px;
-    top: 180px;
-    width: 420px;
+    left: clamp(24px, 7.6vw, 110px);
+    top: clamp(118px, 18vh, 180px);
+    width: min(420px, calc(100vw - 48px));
     opacity: var(--copy-opacity, 1);
     transform: translateY(var(--copy-ty, 0px));
     will-change: opacity, transform;
@@ -122,8 +124,8 @@
    ========================================= */
 .top-hero__actions {
     position: absolute;
-    left: 110px;
-    top: 470px;
+    left: clamp(24px, 7.6vw, 110px);
+    top: clamp(360px, 47vh, 470px);
     display: flex;
     gap: 16px;
     align-items: center;
@@ -139,7 +141,7 @@
    ========================================= */
 .top-hero__scrollcue {
     position: absolute;
-    right: calc(100vw - 1280px);
+    right: clamp(20px, calc((100vw - 1280px) + 32px), 160px);
     bottom: 64px;
     width: 80px;
     display: flex;
@@ -181,11 +183,11 @@
    ========================================= */
 .top-latest-hero {
     position: absolute;
-    left: 96px;
-    top: 96px;
-    right: 96px;
-    bottom: 96px;
-    z-index: 1;
+    left: clamp(24px, 6.7vw, 96px);
+    top: clamp(72px, 9.5vh, 96px);
+    right: clamp(24px, 6.7vw, 96px);
+    bottom: clamp(72px, 9.5vh, 96px);
+    z-index: var(--latest-z, 1);
     pointer-events: var(--latest-events, none);
 }
 
@@ -223,12 +225,23 @@
     top: 94px;
     right: 0;
     display: grid;
-    grid-template-columns: 760px 1fr;
-    grid-template-rows: 198px 198px;
-    gap: 28px;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    grid-template-rows: minmax(176px, 20vh) minmax(176px, 20vh);
+    gap: clamp(14px, 2.1vw, 28px);
     opacity: var(--lc-opacity, 0);
     transform: translateY(var(--lc-ty, 40px));
     will-change: opacity, transform;
+}
+
+.top-latest-hero__cards[data-count="1"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    max-width: min(780px, 100%);
+}
+
+.top-latest-hero__cards[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
 }
 
 .top-latest-hero__cards .top-news-card--main {
@@ -238,6 +251,11 @@
 
 .top-latest-hero__cards .top-news-card--side {
     grid-column: 2;
+}
+
+.top-latest-hero__cards[data-count="1"] .top-news-card--side,
+.top-latest-hero__cards[data-count="2"] .top-news-card--side {
+    grid-column: auto;
 }
 
 /* =========================================

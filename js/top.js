@@ -166,17 +166,34 @@
         }
     }
 
+    function resolveNewsHref(item) {
+        if (!item) return fp('news/');
+        if (typeof item.linkPath === 'string' && item.linkPath.trim()) {
+            return fp(item.linkPath.trim());
+        }
+        if (item.id) {
+            return fp('news/article/?id=' + encodeURIComponent(String(item.id)));
+        }
+        if (typeof item.link === 'string' && item.link.trim()) {
+            var raw = item.link.trim();
+            if (/^(https?:)?\/\//.test(raw) || raw.startsWith('#')) return raw;
+            return fp(raw);
+        }
+        return fp('news/');
+    }
+
     /**
      * Build a single news card HTML string.
-     * isMain: true → large card (grid-column span)
+     * variant: "main" | "side"
      */
-    function buildNewsCard(item, isMain) {
+    function buildNewsCard(item, variant) {
         var imgPath = item.imagePath ? fp(item.imagePath) : null;
         var imgHtml = imgPath
             ? '<img class="top-news-card__img" src="' + imgPath + '" alt="' + escHtml(item.title) + '" loading="lazy">'
             : '<div class="top-news-card__img-placeholder" aria-hidden="true">✦</div>';
 
-        var href = fp('news/');
+        var href = resolveNewsHref(item);
+        var isMain = variant === 'main';
 
         var descHtml = (isMain && item.desc)
             ? '<p class="top-news-card__desc">' + escHtml(item.desc) + '</p>'
@@ -219,14 +236,19 @@
             return;
         }
 
+        var useMainLayout = items.length >= 3;
         var html = items.map(function (item, i) {
-            return buildNewsCard(item, i === 0);
+            return buildNewsCard(item, useMainLayout && i === 0 ? 'main' : 'side');
         }).join('');
 
-        if (heroCardsEl)  heroCardsEl.innerHTML  = html;
+        if (heroCardsEl) {
+            heroCardsEl.setAttribute('data-count', String(items.length));
+            heroCardsEl.innerHTML = html;
+        }
         if (sectionCards) {
             // Set column count to match actual item count (1→1col, 2→2col, 3→3col)
             sectionCards.style.setProperty('--latest-section-cols', String(items.length));
+            sectionCards.setAttribute('data-count', String(items.length));
             sectionCards.innerHTML = html;
         }
     }
@@ -418,6 +440,8 @@
         // Global scroll progress p ∈ [0, 1]
         var rawP = scrollRange > 0 ? (scrollY - heroTop) / scrollRange : 0;
         var p    = clamp(rawP, 0, 1);
+        // Keep motion active until near the end of hero range (avoid long dead zone).
+        var activeP = subP(p, 0, 0.92);
 
         var mobile = isMobile();
 
@@ -430,46 +454,46 @@
         lastMobile = mobile;
 
         /* --------------------------------------------------
-           KV transform — eased sub-range 0→0.58
-           Desktop: scale 1→0.56, tx 0→-420px, ty 0→-250px
-           Mobile:  scale 1→0.64, ty 0→-190px (no tx)
+           KV transform — eased sub-range 0→0.72
         -------------------------------------------------- */
-        var kvRaw  = subP(p, 0, 0.58);
+        var kvRaw  = subP(activeP, 0, 0.72);
         var kvEase = easeOutExpo(kvRaw);
 
         if (mobile) {
-            var mScale  = lerp(1.0,  0.64, kvEase);
-            var mTy     = lerp(0,  -190,   kvEase);
+            var mScale  = lerp(1.0,  0.72, kvEase);
+            var mTy     = lerp(0,  -Math.min(180, window.innerHeight * 0.23),   kvEase);
             var mRadius = lerp(20,  14,    kvEase);
             kvEl.style.setProperty('--kv-scale',  mScale);
             kvEl.style.setProperty('--kv-tx',     '0px');
             kvEl.style.setProperty('--kv-ty',     mTy + 'px');
             kvEl.style.setProperty('--kv-radius', mRadius + 'px');
         } else {
-            var dScale  = lerp(1.0,  0.56, kvEase);
-            var dTx     = lerp(0,  -420,   kvEase);
-            var dTy     = lerp(0,  -250,   kvEase);
+            var dScaleTarget = window.innerWidth < 1200 ? 0.62 : 0.56;
+            var dScale  = lerp(1.0, dScaleTarget, kvEase);
+            var dTx     = lerp(0, -Math.min(420, window.innerWidth * 0.29), kvEase);
+            var dTy     = lerp(0, -Math.min(250, window.innerHeight * 0.28), kvEase);
             var dRadius = lerp(28,  18,    kvEase);
             kvEl.style.setProperty('--kv-scale',  dScale);
             kvEl.style.setProperty('--kv-tx',     dTx + 'px');
             kvEl.style.setProperty('--kv-ty',     dTy + 'px');
             kvEl.style.setProperty('--kv-radius', dRadius + 'px');
         }
+        kvEl.style.setProperty('--kv-opacity', lerp(1, 0.7, subP(activeP, 0.56, 0.84)));
 
         /* --------------------------------------------------
-           Dark overlay — linear sub-range 0.18→0.58
+           Dark overlay — linear sub-range 0.22→0.72
         -------------------------------------------------- */
         if (overlayEl) {
             overlayEl.style.setProperty(
                 '--overlay-opacity',
-                lerp(0, 0.44, subP(p, 0.18, 0.58))
+                lerp(0, 0.44, subP(activeP, 0.22, 0.72))
             );
         }
 
         /* --------------------------------------------------
-           Copy + Actions fade out — sub-range 0→0.28
+           Copy + Actions fade out — sub-range 0→0.40
         -------------------------------------------------- */
-        var copyT  = subP(p, 0, 0.28);
+        var copyT  = subP(activeP, 0, 0.40);
         var copyOp = lerp(1, 0, copyT);
         var copyTy = lerp(0, -24, copyT) + 'px';
 
@@ -483,39 +507,44 @@
         }
 
         /* --------------------------------------------------
-           Scroll cue fade out — sub-range 0→0.20
+           Scroll cue fade out — sub-range 0→0.30
         -------------------------------------------------- */
         if (scrollcueEl) {
             scrollcueEl.style.setProperty(
                 '--scrollcue-opacity',
-                lerp(1, 0, subP(p, 0, 0.20))
+                lerp(1, 0, subP(activeP, 0, 0.30))
             );
         }
 
         /* --------------------------------------------------
-           Latest (in-hero) — enable pointer events when visible
+           Latest (in-hero) — enable pointer events when visible.
+           Also raise Latest layer above KV to avoid click-through dead zone.
         -------------------------------------------------- */
+        var latestInteractive = activeP > 0.56;
         if (latestHeroEl) {
             latestHeroEl.style.setProperty(
                 '--latest-events',
-                p > 0.36 ? 'auto' : 'none'
+                latestInteractive ? 'auto' : 'none'
             );
+            latestHeroEl.style.setProperty('--latest-z', latestInteractive ? '6' : '1');
         }
+        kvEl.style.setProperty('--kv-z', latestInteractive ? '2' : '3');
+        kvEl.style.setProperty('--kv-events', latestInteractive ? 'none' : 'auto');
 
         /* --------------------------------------------------
-           Latest heading fade in — sub-range 0.32→0.46
+           Latest heading fade in — sub-range 0.50→0.72
         -------------------------------------------------- */
         if (latestHeadingEl) {
-            var lhT = subP(p, 0.32, 0.46);
+            var lhT = subP(activeP, 0.50, 0.72);
             latestHeadingEl.style.setProperty('--lh-opacity', lerp(0, 1, lhT));
             latestHeadingEl.style.setProperty('--lh-ty',      lerp(32, 0, lhT) + 'px');
         }
 
         /* --------------------------------------------------
-           Latest cards fade in — sub-range 0.40→0.56
+           Latest cards fade in — sub-range 0.58→0.82
         -------------------------------------------------- */
         if (latestCardsEl) {
-            var lcT = subP(p, 0.40, 0.56);
+            var lcT = subP(activeP, 0.58, 0.82);
             latestCardsEl.style.setProperty('--lc-opacity', lerp(0, 1, lcT));
             latestCardsEl.style.setProperty('--lc-ty',      lerp(40, 0, lcT) + 'px');
         }
