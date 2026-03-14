@@ -12,16 +12,6 @@ window.newsData = [
         "content": "aa"
     },
     {
-        "id": "iku-",
-        "title": "s",
-        "date": "2026.03.14",
-        "category": "お知らせ",
-        "image": "assets/news/2026-03-14/iku-.png",
-        "imagePath": "assets/news/2026-03-14/iku-.png",
-        "desc": "s",
-        "content": "d"
-    },
-    {
         "id": "a",
         "title": "two",
         "date": "2026.03.14",
