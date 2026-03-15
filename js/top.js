@@ -126,14 +126,29 @@
        ============================================= */
 
     var isDebug = sessionStorage.getItem('debugMode') === 'true';
-    var fp = window.fixPath || function (p) { return p; };
+    var runtime = {
+        siteConfig: window.siteConfig || null,
+        newsData: Array.isArray(window.newsData) ? window.newsData : [],
+        membersData: Array.isArray(window.membersData) ? window.membersData : [],
+        fixPath: typeof window.fixPath === 'function' ? window.fixPath : function (p) { return p; },
+        isMemberVisible: typeof window.isMemberVisible === 'function'
+            ? window.isMemberVisible
+            : function () { return true; },
+        shouldShowItem: typeof window.shouldShowItem === 'function'
+            ? window.shouldShowItem
+            : function (item) { return !item || !item.hidden; },
+        getRevealLevel: typeof window.getRevealLevel === 'function'
+            ? window.getRevealLevel
+            : function () { return 3; }
+    };
+    var fp = runtime.fixPath;
 
     /**
      * 2a. Hero KV — reads heroImages from siteConfig.
      * Image paths come from data_site.js; never hardcoded here.
      */
     function initHeroKV() {
-        var cfg = window.siteConfig;
+        var cfg = runtime.siteConfig;
         if (!cfg) return;
 
         // KV character image
@@ -217,9 +232,9 @@
      * If 0 visible items: hides both elements (Concept繰り上がり).
      */
     function initLatest() {
-        if (!window.newsData) return;
+        if (!runtime.newsData.length) return;
 
-        var visible = window.newsData.filter(function (n) {
+        var visible = runtime.newsData.filter(function (n) {
             return isDebug || !n.hidden;
         });
         var items = visible.slice(0, 3);
@@ -259,18 +274,18 @@
      */
     function initCastPreview() {
         var grid = document.getElementById('top-cast-grid');
-        if (!grid || !window.membersData) return;
+        if (!grid || !runtime.membersData.length) return;
 
-        var castConfig   = (window.siteConfig && window.siteConfig.castDisplay) || {};
+        var castConfig   = (runtime.siteConfig && runtime.siteConfig.castDisplay) || {};
         var allowedRoles = ['店長', '副店長', '飼育', '野生', '妖怪'];
 
-        var filtered = window.membersData.filter(function (m) {
+        var filtered = runtime.membersData.filter(function (m) {
             if (allowedRoles.indexOf(m.tagLabel) === -1) return false;
             if (!isDebug) {
-                if (window.isMemberVisible && !window.isMemberVisible(m, castConfig)) return false;
-                if (window.shouldShowItem  && !window.shouldShowItem(m))               return false;
+                if (!runtime.isMemberVisible(m, castConfig)) return false;
+                if (!runtime.shouldShowItem(m)) return false;
             }
-            var level = window.getRevealLevel ? window.getRevealLevel(m) : 3;
+            var level = runtime.getRevealLevel(m);
             return level >= 3; // Cast Preview: fully public members only
         });
 
@@ -311,7 +326,7 @@
     function initConcept() {
         var blocksEl = document.getElementById('top-concept-blocks');
         if (!blocksEl) return;
-        var texts = window.siteConfig && window.siteConfig.aboutSection && window.siteConfig.aboutSection.text;
+        var texts = runtime.siteConfig && runtime.siteConfig.aboutSection && runtime.siteConfig.aboutSection.text;
         if (!Array.isArray(texts) || texts.length === 0) return;
 
         blocksEl.innerHTML = texts.map(function (t) {
