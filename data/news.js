@@ -4,16 +4,6 @@
  */
 window.newsData = [
     {
-        "id": "event",
-        "title": "event",
-        "date": "2026.03.14",
-        "category": "お知らせ",
-        "image": "assets/news/2026-03-14/event.png",
-        "imagePath": "assets/news/2026-03-14/event.png",
-        "desc": "test",
-        "content": "test<br>\ntest<br>\n"
-    },
-    {
         "id": "grand_open_20260308",
         "hidden": false,
         "title": "人間さん、ようこそ「あにあめもりあ」へ！",
