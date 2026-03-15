@@ -4,6 +4,16 @@
  */
 window.newsData = [
     {
+        "id": "Test",
+        "title": "test",
+        "date": "2026.03.15",
+        "category": "お知らせ",
+        "image": "assets/news/2026-03-15/Test.png",
+        "imagePath": "assets/news/2026-03-15/Test.png",
+        "desc": "test",
+        "content": "tobidasibouya"
+    },
+    {
         "id": "event",
         "title": "event",
         "date": "2026.03.14",
