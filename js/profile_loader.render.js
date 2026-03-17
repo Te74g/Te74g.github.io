@@ -89,14 +89,9 @@ export function renderMotif(activeMember, revealContext) {
     const animalText = showMotif ? activeMember.motifAnimal : '???';
 
     motifContainer.innerHTML = `
-        <div class="motif-container">
-            <div class="motif-icon-box">
-                <img src="${iconPath}" alt="" class="motif-icon-image">
-            </div>
-            <div class="motif-text-box">
-                <span class="motif-label">変身元</span>
-                <span class="motif-value">${animalText}</span>
-            </div>
+        <div class="origin-card" style="--origin-image: url('${iconPath}')">
+            <span class="origin-label">変身元</span>
+            <span class="origin-value">${animalText}</span>
         </div>
     `;
     motifContainer.style.display = 'block';
