@@ -14,99 +14,54 @@
     <link rel="stylesheet" href="../../css/styles.css" />
 </head>
 
-<body>
-    <div id="fixed-page-background" class="bg-texture"></div>
+<body id="top">
+    <div id="fixed-page-background" class="bg-texture" aria-hidden="true"></div>
     <a class="skip-link" href="#main">本文へスキップ</a>
 
     <div id="header-placeholder"></div>
 
-    <main id="main">
-        <section class="section">
-            <div class="container">
+    <main id="main" class="profile-page">
+        <section class="section profile-section">
+            <div class="container profile-container">
                 <div class="profile-layout-grid">
-                    <!-- 1. Visual Area -->
-                    <div class="reveal profile-visual-area">
-                        <div class="cheki-visual"
-                            style="border-radius: 12px; box-shadow: var(--shadow-strong); position: relative; overflow: visible;">
-                            <!-- Background Image (Table Texture) -->
-                            <div class="profile-bg-texture" style="
-                                position: absolute;
-                                inset: 0;
-                                background-image: url('../../assets/table/aniamemoria_table_D_1tai1.webp');
-                                background-size: 100% 100%;
-                                background-position: center;
-                                border-radius: 12px;
-                                z-index: 0;
-                            "></div>
-
-                            <!-- Profile Switcher Container (ID will be set by JS) -->
-                            <div class="profile-switcher-container" style="position: absolute; inset: 0; z-index: 1;">
-                            </div>
-
-                            <!-- Signature (Top Right) -->
-                            <img src="" id="profile-sign-img" class="profile-sign" alt="Signature" style="
-                                position: absolute;
-                                top: 2%;
-                                right: -5%;
-                                width: 55%;
-                                z-index: 4; /* Above frame (3) */
-                                transform: rotate(10deg);
-                                display: none; /* Show when loaded */
-                                pointer-events: none;
-                            ">
+                    <article class="reveal profile-visual-area profile-panel">
+                        <div class="cheki-visual profile-visual-card">
+                            <div class="profile-bg-texture"></div>
+                            <div class="profile-switcher-container"></div>
+                            <img src="" id="profile-sign-img" class="profile-sign" alt="サイン">
                         </div>
-                        <!-- Motif Animal Display -->
-                        <div id="dynamic-motif-container" style="display: none; margin-top: 8px; width: 100%;">
-                            <!-- Injected via JS -->
+                        <div id="dynamic-motif-container" class="profile-motif"></div>
+                    </article>
+
+                    <article class="reveal profile-text-area profile-panel">
+                        <div id="dynamic-tags-container" class="profile-tags"></div>
+                        <h1 class="profile-name">プロフィール</h1>
+
+                        <div class="parchment-frame">
+                            <p id="dynamic-intro-text">読み込み中...</p>
+                            <div class="watermark-logo"></div>
                         </div>
-                    </div>
 
-                    <!-- 2. Text Area -->
-                    <div class="reveal profile-text-area">
-                        <div id="dynamic-tags-container" style="margin-bottom: 2px;">
-                            <!-- Dynamic Tags -->
-                        </div>
-                        <div style="padding-left: 0.5em;">
-                            <h1
-                                style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0px; margin-top: 0px; font-family: 'Zen Old Mincho', serif;">
-                                名前</h1>
-
-                            <!-- Block 1: Intro with Parchment Frame -->
-                            <div class="parchment-frame">
-                                <p id="dynamic-intro-text">読み込み中...</p>
-                                <div class="watermark-logo"></div>
-                            </div>
-
-                            <!-- Block 2: Goals Section (Dynamic) -->
-                            <div class="goals-section">
-                                <h3 class="goals-title">夢</h3>
-                                <div id="dynamic-goals-container">
-                                    <!-- Goals will be injected here -->
-                                    <div class="goals-text">読み込み中...</div>
-                                </div>
-                            </div>
-
-                            <!-- Block 3: Social Icons -->
-                            <div class="social-icons-container" id="dynamic-socials-container">
-                                <!-- Dynamically loaded from site_data.js -->
-                            </div>
-
-
-                            <div style="text-align: center; margin-bottom: 20px;">
-                                <a href="../../cast/" class="btn btn--ghost btn--sm">一覧に戻る</a>
+                        <div class="goals-section">
+                            <h2 class="goals-title">目標</h2>
+                            <div id="dynamic-goals-container">
+                                <div class="goals-text">読み込み中...</div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- 3. Related Area -->
-                    <div class="reveal profile-related-area">
+                        <div class="social-icons-container" id="dynamic-socials-container"></div>
+
+                        <div class="profile-actions">
+                            <a href="../../cast/" class="btn btn--ghost btn--sm">一覧に戻る</a>
+                        </div>
+                    </article>
+
+                    <aside class="reveal profile-related-area profile-panel">
                         <div class="related-cast">
-                            <div class="related-label">関連キャスト</div>
-                            <div class="related-slots" id="dynamic-related-cast">
-                                <!-- Dynamically loaded -->
-                            </div>
+                            <h2 class="related-label">関連キャスト</h2>
+                            <div class="related-slots" id="dynamic-related-cast"></div>
                         </div>
-                    </div>
+                    </aside>
                 </div>
             </div>
         </section>
@@ -114,29 +69,15 @@
 
     <div id="footer-placeholder"></div>
 
-    <!-- Scripts -->
-    <!-- Data -->
-    <!-- Data Files -->
     <script src="../../data/site.js"></script>
     <script src="../../data/members.js"></script>
-    <script src="../../data/news.js"></script>
-    <script src="../../data/events.js"></script>
-    <script src="../../data/gallery.js"></script>
-    <script src="../../data/links.js"></script>
-    <!-- Layout (Header/Footer) -->
+    <script src="../../js/common/utils.js"></script>
     <script src="../../js/common-layout.js"></script>
     <script>
         renderLayout('../../');
     </script>
-    <!-- Dynamic Loader (The Core Logic) -->
-    <script src="../../js/common/utils.js"></script>
-
-    <!-- Common UI Script -->
     <script src="../../js/ui.js"></script>
-
-    <!-- Profile Components -->
     <script src="../../js/profile_switcher.js"></script>
-
     <script src="../../js/profile_loader.js"></script>
 
 </body>

@@ -147,9 +147,7 @@ class ProfileImageSwitcher {
 
             const img = document.createElement('img');
             img.src = src;
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
+            img.className = 'profile-slide-image';
             img.draggable = false;
             slide.appendChild(img);
 

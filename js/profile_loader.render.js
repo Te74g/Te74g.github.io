@@ -12,29 +12,25 @@ import {
     normalizePathList
 } from './profile_loader.core.js';
 
-const BRAND_TITLE = '\u3042\u306b\u3042\u3081\u3082\u308a\u3042';
-const SOLID_TAGS = ['\u91ce\u751f', '\u5996\u602a', '\u5e97\u9577', '\u526f\u5e97\u9577', '\u98fc\u80b2', '\u904b\u55b6', '\u30ad\u30e3\u30b9\u30c8', '\u30b9\u30bf\u30c3\u30d5'];
+const BRAND_TITLE = 'あにあめもりあ';
+const SOLID_TAGS = ['野生', '妖怪', '店長', '副店長', '飼育', '運営', 'キャスト', 'スタッフ'];
 
 const SOCIAL_ICONS = {
     youtube: {
         colorClass: 'social-icon--red',
-        iconHtml: '<svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>',
-        style: 'background-color: #FF0000; border-color: #FF0000; color: white;'
+        iconHtml: '<svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>'
     },
     twitter: {
         colorClass: 'social-icon--blue',
-        iconHtml: '<svg viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>',
-        style: ''
+        iconHtml: '<svg viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>'
     },
     x: {
         colorClass: 'social-icon--black',
-        iconHtml: '<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
-        style: 'background-color: #000000; border-color: #000000; color: white;'
+        iconHtml: '<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>'
     },
     facebook: {
         colorClass: 'social-icon--blue',
-        iconHtml: '<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>',
-        style: ''
+        iconHtml: '<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
     }
 };
 
@@ -55,7 +51,7 @@ function buildTagHtml(activeMember, baseMember) {
     if (activeMember.tagLabel) {
         mainTags = splitTagLabel(activeMember.tagLabel);
         mainTags.forEach((t) => {
-            tagsHtml += `<a href="${getCastTagHref(t)}" class="tag tag--link" style="background:#000; color:#fff;">${t}</a>`;
+            tagsHtml += `<a href="${getCastTagHref(t)}" class="tag tag--link tag--solid">${t}</a>`;
         });
     }
 
@@ -63,9 +59,8 @@ function buildTagHtml(activeMember, baseMember) {
         baseMember.tags.split(' ').forEach((t) => {
             if (mainTags.includes(t)) return;
             const isSolid = SOLID_TAGS.includes(t);
-            const className = `tag tag--link${isSolid ? '' : ' tag--soft'}`;
-            const style = isSolid ? ' style="background:#000; color:#fff;"' : '';
-            tagsHtml += `<a href="${getCastTagHref(t)}" class="${className}"${style}>${t}</a>`;
+            const className = `tag tag--link${isSolid ? ' tag--solid' : ' tag--soft'}`;
+            tagsHtml += `<a href="${getCastTagHref(t)}" class="${className}">${t}</a>`;
         });
     }
 
@@ -96,10 +91,10 @@ export function renderMotif(activeMember, revealContext) {
     motifContainer.innerHTML = `
         <div class="motif-container">
             <div class="motif-icon-box">
-                <img src="${iconPath}" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="${iconPath}" alt="" class="motif-icon-image">
             </div>
             <div class="motif-text-box">
-                <span>\u30e2\u30c1\u30fc\u30d5\uff1a${animalText}</span>
+                <span>モチーフ: ${animalText}</span>
             </div>
         </div>
     `;
@@ -110,8 +105,8 @@ function buildCondensationOverlayHtml(baseMember, revealContext) {
     const revealDateText = getRevealDateText(baseMember.revealDate || (revealContext.displayInfo && revealContext.displayInfo.revealDate));
     return `
         <div class="condensation-blur-overlay">
-            \u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u306e\u516c\u958b\u306f<br>
-            ${revealDateText}\u3092\u4e88\u5b9a\u3057\u3066\u3044\u307e\u3059
+            プロフィールの公開は<br>
+            ${revealDateText}を予定しています
         </div>
     `;
 }
@@ -157,13 +152,13 @@ function renderGoals(baseMember, revealContext, overlayHtml) {
     const randomGoal = baseMember.goals[Math.floor(Math.random() * baseMember.goals.length)];
 
     if (shouldShowGoals) {
-        goalsContainer.innerHTML = `<div class="goals-text" style="margin-bottom:8px;">${randomGoal}</div>`;
+        goalsContainer.innerHTML = `<div class="goals-text goals-text--single">${randomGoal}</div>`;
         return;
     }
 
     goalsContainer.innerHTML = `
-        <div class="goals-text condensation-blur-wrapper" style="margin-bottom:8px; padding: 0; justify-content: center; background: transparent; border: none;">
-            <div class="condensation-blur-content" style="background-color: #333; padding: 12px 16px; border-radius: 4px; border: 1px solid #444; width: 100%; min-height: 3.5rem; display: flex; align-items: center;">${randomGoal}</div>
+        <div class="goals-text goals-text--blurred condensation-blur-wrapper">
+            <div class="condensation-blur-content goals-text-inner">${randomGoal}</div>
             ${overlayHtml}
         </div>
     `;
@@ -173,45 +168,45 @@ function buildSocialEntry(type) {
     if (type === 'vrchat') {
         return {
             colorClass: 'social-icon--dark',
-            iconHtml: `<img src="${resolvePath('assets/logo/VRChat Logo Black.webp')}" alt="VRChat" style="width: 50px; height: 50px; object-fit: contain;">`,
-            style: 'background-color: #ffffff; border-color: #ccc;'
+            iconHtml: `<img src="${resolvePath('assets/logo/VRChat Logo Black.webp')}" alt="VRChat" class="social-icon-media">`
         };
     }
 
     if (type === 'booth') {
         return {
-            colorClass: 'social-icon--red',
-            iconHtml: `<img src="${resolvePath('assets/logo/Booth_logo_icon.svg')}" alt="Booth" style="width: 45px; height: 45px; object-fit: contain;">`,
-            style: ''
+            colorClass: 'social-icon--white',
+            iconHtml: `<img src="${resolvePath('assets/logo/Booth_logo_icon.svg')}" alt="Booth" class="social-icon-media">`
         };
     }
 
     if (type === 'note') {
         return {
             colorClass: 'social-icon--white',
-            iconHtml: `<img src="${resolvePath('assets/icon/note_icon.svg')}" alt="note" style="width: 85%; height: 85%; object-fit: contain;">`,
-            style: 'background-color: #ffffff; border-color: #ccc; display: flex; align-items: center; justify-content: center;'
+            iconHtml: `<img src="${resolvePath('assets/icon/note_icon.svg')}" alt="note" class="social-icon-media">`
         };
     }
 
     return SOCIAL_ICONS[type] || {
         colorClass: 'social-icon--brown',
-        iconHtml: '<svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>',
-        style: ''
+        iconHtml: '<svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>'
     };
 }
 
 function renderSocials(baseMember, revealContext) {
     const shouldShowSocials = revealContext.level >= 3 || (revealContext.displayInfo && revealContext.displayInfo.showSocials);
-    if (!shouldShowSocials || !baseMember.socials || !Array.isArray(baseMember.socials)) return;
-
     const socialContainer = document.getElementById('dynamic-socials-container');
     if (!socialContainer) return;
+
+    if (!shouldShowSocials || !baseMember.socials || !Array.isArray(baseMember.socials)) {
+        socialContainer.innerHTML = '';
+        return;
+    }
 
     socialContainer.innerHTML = baseMember.socials.map((s) => {
         const type = (s.type || '').toLowerCase();
         const config = buildSocialEntry(type);
-        return `<a href="${s.url}" class="social-icon ${config.colorClass}" target="_blank" aria-label="${type}" style="${config.style}">${config.iconHtml}</a>`;
+        const href = s.url || '#';
+        return `<a href="${href}" class="social-icon ${config.colorClass}" target="_blank" rel="noopener noreferrer" aria-label="${type}">${config.iconHtml}</a>`;
     }).join('');
 }
 
@@ -284,12 +279,7 @@ function applyProfileVisualBackground(baseMember, revealContext) {
 
     const frameEl = document.createElement('div');
     frameEl.className = 'profile-frame-overlay';
-    frameEl.style.position = 'absolute';
-    frameEl.style.inset = '0';
     frameEl.style.backgroundImage = `url('${resolvePath(framePath)}')`;
-    frameEl.style.backgroundSize = '100% 100%';
-    frameEl.style.pointerEvents = 'none';
-    frameEl.style.zIndex = '3';
     visualArea.appendChild(frameEl);
 }
 
@@ -364,4 +354,3 @@ export function setupFormSwitcher(member, initialFormIndex, onChange) {
         });
     });
 }
-

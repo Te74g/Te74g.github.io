@@ -78,11 +78,13 @@ function injectData() {
     // Hero Images
     if (cfg.heroImages) {
         const charEl = document.querySelector('.hero-character');
-        if (charEl && cfg.heroImages.character) charEl.src = cfg.heroImages.character;
+        if (charEl && cfg.heroImages.character) {
+            charEl.src = fixPath ? fixPath(cfg.heroImages.character) : cfg.heroImages.character;
+        }
 
-        const heroSection = document.getElementById('hero-section');
-        if (heroSection && cfg.heroImages.background) {
-            heroSection.style.backgroundImage = `url('${fixPath ? fixPath(cfg.heroImages.background) : cfg.heroImages.background}')`;
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg && cfg.heroImages.background) {
+            heroBg.style.backgroundImage = `url('${fixPath ? fixPath(cfg.heroImages.background) : cfg.heroImages.background}')`;
         }
 
         const logoEl = document.querySelector('.hero-logo');
