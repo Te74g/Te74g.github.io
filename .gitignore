@@ -40,3 +40,11 @@ admin-tool-owner/main.js  # GitHub PAT を含むため git 管理外
 # テスト生成物
 playwright-report/
 test-results/
+
+# Local utility projects / temporary artifacts (not part of site publish)
+admin-tool/
+admin-tool-owner/
+accessory/
+tmp_gallery_heading_target.png
+tests/snap_gallery_heading_target.spec.js
+assets/news/2026-03-15/Test.png
