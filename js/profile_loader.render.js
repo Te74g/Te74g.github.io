@@ -17,19 +17,19 @@ const SOLID_TAGS = ['野生', '妖怪', '店長', '副店長', '飼育', '運営
 
 const SOCIAL_ICONS = {
     youtube: {
-        colorClass: 'social-icon--red',
+        colorClass: 'social-icon--mono',
         iconHtml: '<svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>'
     },
     twitter: {
-        colorClass: 'social-icon--blue',
+        colorClass: 'social-icon--mono',
         iconHtml: '<svg viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>'
     },
     x: {
-        colorClass: 'social-icon--neutral',
+        colorClass: 'social-icon--mono',
         iconHtml: '<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>'
     },
     facebook: {
-        colorClass: 'social-icon--blue',
+        colorClass: 'social-icon--mono',
         iconHtml: '<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.791-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
     }
 };
@@ -168,27 +168,27 @@ function renderGoals(baseMember, revealContext, overlayHtml) {
 function buildSocialEntry(type) {
     if (type === 'vrchat') {
         return {
-            colorClass: 'social-icon--dark',
+            colorClass: 'social-icon--mono',
             iconHtml: `<img src="${resolvePath('assets/logo/VRChat Logo Black.webp')}" alt="VRChat" class="social-icon-media">`
         };
     }
 
     if (type === 'booth') {
         return {
-            colorClass: 'social-icon--white',
+            colorClass: 'social-icon--mono',
             iconHtml: `<img src="${resolvePath('assets/logo/Booth_logo_icon.svg')}" alt="Booth" class="social-icon-media">`
         };
     }
 
     if (type === 'note') {
         return {
-            colorClass: 'social-icon--white',
+            colorClass: 'social-icon--mono',
             iconHtml: `<img src="${resolvePath('assets/icon/note_icon.svg')}" alt="note" class="social-icon-media">`
         };
     }
 
     return SOCIAL_ICONS[type] || {
-        colorClass: 'social-icon--brown',
+        colorClass: 'social-icon--mono',
         iconHtml: '<svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>'
     };
 }
