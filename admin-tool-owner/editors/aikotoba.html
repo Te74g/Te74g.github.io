@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>合言葉編集</title>
+<link rel="stylesheet" href="editor.css">
+<style>
+.aikotoba-row {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+.aikotoba-row .row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.aikotoba-row .row-num {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 700;
+}
+</style>
+</head>
+<body>
+
+<div class="editor-header">
+    <h1>合言葉を編集</h1>
+    <!-- 確認なし -->
+</div>
+
+<div class="editor-scroll">
+    <div class="hint" style="margin-bottom:16px;">
+        合言葉の一覧を編集します。追加・削除・並び替えができます。
+    </div>
+
+    <div id="aikotoba-list"></div>
+
+    <button class="btn-add-row" id="add-item" style="margin-top:8px;">＋ 合言葉を追加</button>
+</div>
+
+<div class="editor-footer">
+    <button class="btn-cancel" id="btn-cancel">キャンセル</button>
+    <span class="status-msg" id="status-msg"></span>
+    <button class="btn-publish" id="btn-publish">保存して公開</button>
+</div>
+
+<script>
+'use strict';
+
+const listEl = document.getElementById('aikotoba-list');
+let items = [];
+
+/* ── 初期化 ── */
+async function loadData() {
+    try {
+        items = await window.api.readData('aikotoba') || [];
+    } catch (e) {
+        items = [];
+    }
+    render();
+}
+
+function render() {
+    listEl.innerHTML = '';
+    items.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'aikotoba-row';
+        row.innerHTML = `
+            <div class="row-header">
+                <span class="row-num"># ${idx + 1}</span>
+                <button class="btn-remove" data-idx="${idx}">✕ 削除</button>
+            </div>
+            <div class="cols-2">
+                <div class="form-group">
+                    <label>名前・ラベル</label>
+                    <input type="text" data-field="name" value="${esc(item.name || '')}" placeholder="例: 春のキャンペーン">
+                </div>
+                <div class="form-group">
+                    <label>合言葉テキスト</label>
+                    <input type="text" data-field="text" value="${esc(item.text || '')}" placeholder="例: さくらさくさく">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>リンク先URL</label>
+                <input type="text" data-field="link" value="${esc(item.link || '')}" placeholder="例: /partner_events/">
+            </div>
+            <div class="form-group">
+                <label>画像パス</label>
+                <div class="img-row">
+                    <img class="img-thumb" src="${esc(item.image||'')}" alt="" style="${item.image?'':'display:none'}">
+                    <span class="img-path">${esc(item.image || '未選択')}</span>
+                    <button class="btn-img-pick" data-pick="${idx}">📂 選択</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="display:flex;align-items:center;cursor:pointer;">
+                    <input type="checkbox" data-field="hidden" ${item.hidden?'checked':''}> 非表示
+                </label>
+            </div>
+        `;
+        // フィールド変更
+        row.querySelectorAll('[data-field]').forEach(el => {
+            el.addEventListener('change', (e) => {
+                const f = el.dataset.field;
+                items[idx][f] = el.type === 'checkbox' ? el.checked : el.value;
+            });
+            el.addEventListener('input', (e) => {
+                if (el.type !== 'checkbox') items[idx][el.dataset.field] = el.value;
+            });
+        });
+        // 削除
+        row.querySelector('.btn-remove').addEventListener('click', () => {
+            if (confirm(`# ${idx+1} 「${item.name || item.text || '?'}」を削除しますか？`)) {
+                items.splice(idx, 1);
+                render();
+            }
+        });
+        // 画像選択
+        row.querySelector(`[data-pick="${idx}"]`).addEventListener('click', async () => {
+            const lp = await window.api.pickImage();
+            if (!lp) return;
+            const ext = lp.split('.').pop();
+            const dest = `assets/aikotoba/${Date.now()}.${ext}`;
+            const rp = await window.api.copyImageToAssets(lp, dest);
+            items[idx].image = rp;
+            render();
+        });
+
+        listEl.appendChild(row);
+    });
+}
+
+/* ── 追加 ── */
+document.getElementById('add-item').addEventListener('click', () => {
+    items.push({ name: '', text: '', image: '', link: '' });
+    render();
+});
+
+/* ── 公開 ── */
+document.getElementById('btn-publish').addEventListener('click', async () => {
+    setStatus('保存中...', 'saving');
+    document.getElementById('btn-publish').disabled = true;
+
+    try {
+        // 現在のフォーム値を収集（inputのvalueを直接読む）
+        const rows = listEl.querySelectorAll('.aikotoba-row');
+        const collected = Array.from(rows).map((row, i) => {
+            const get = (f) => row.querySelector(`[data-field="${f}"]`);
+            return {
+                name:   get('name')?.value.trim() || '',
+                text:   get('text')?.value.trim() || '',
+                link:   get('link')?.value.trim() || '',
+                image:  items[i]?.image || '',
+                hidden: get('hidden')?.checked || undefined,
+            };
+        }).map(o => { Object.keys(o).forEach(k => o[k] === undefined && delete o[k]); return o; });
+
+        await window.api.writeData('aikotoba', collected);
+        await window.api.commitToGitHub(['data/aikotoba.js'], '合言葉を更新');
+
+        setStatus('✅ 保存しました！', 'ok');
+        setTimeout(() => window.api.closeEditor(), 1500);
+
+    } catch (err) {
+        setStatus(`❌ ${err.message}`, 'error');
+        document.getElementById('btn-publish').disabled = false;
+    }
+});
+
+document.getElementById('btn-cancel').addEventListener('click', () => window.api.closeEditor());
+
+function setStatus(msg, type) {
+    const el = document.getElementById('status-msg');
+    el.textContent = msg;
+    el.className = `status-msg ${type}`;
+}
+function esc(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+loadData();
+</script>
+</body>
+</html>

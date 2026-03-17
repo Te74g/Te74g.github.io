@@ -1,0 +1,39 @@
+{
+  "name": "aniamemoria-admin-owner",
+  "version": "0.1.0-beta",
+  "description": "あにあめもりあ 管理ツール [運営]",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build:dir": "electron-builder --win --dir"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.1.1",
+    "electron-store": "^8.2.0",
+    "express": "^4.18.2",
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "electron": "^29.4.6",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "io.te74g.admin.owner",
+    "productName": "あにあめもりあ管理ツール[運営]",
+    "directories": {
+      "output": "release4"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "files": [
+      "**/*",
+      "!dist/**",
+      "!dist2/**",
+      "!release/**",
+      "!node_modules/.cache/**",
+      "!**/*.map"
+    ]
+  }
+}

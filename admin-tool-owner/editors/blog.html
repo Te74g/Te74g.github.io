@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ブログ記事編集</title>
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+
+<div class="editor-header">
+    <h1 id="editor-title">ブログ記事を追加</h1>
+    <!-- 確認なし -->
+</div>
+
+<div class="editor-scroll">
+
+    <div class="form-group">
+        <label>ID <span class="required">*</span></label>
+        <input type="text" id="f-id" placeholder="例: diary-20260401（英数字・ハイフン）">
+        <div class="hint">URLの一部になります。後から変更不可。</div>
+    </div>
+
+    <div class="cols-2">
+        <div class="form-group">
+            <label>日付 <span class="required">*</span></label>
+            <input type="date" id="f-date">
+        </div>
+        <div class="form-group">
+            <label>カテゴリ</label>
+            <select id="f-category">
+                <option value="日記">日記</option>
+                <option value="活動報告">活動報告</option>
+                <option value="お知らせ">お知らせ</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>著者（キャストID）</label>
+        <input type="text" id="f-author" placeholder="例: sakura（members.js の id）">
+        <div class="hint">自分のIDを入れてください。管理者が後で一覧から選べるようになる予定。</div>
+    </div>
+
+    <div class="form-group">
+        <label>タイトル <span class="required">*</span></label>
+        <input type="text" id="f-title" placeholder="例: 今日の日記🌸">
+    </div>
+
+    <div class="form-group">
+        <label>簡単な説明（一覧表示用）</label>
+        <input type="text" id="f-desc" placeholder="例: 今日はとても楽しい一日でした…">
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">アイキャッチ画像</div>
+
+    <div class="img-row">
+        <img class="img-thumb" id="thumb-img" src="" alt="" style="display:none;">
+        <span class="img-path" id="thumb-path">未選択</span>
+        <button class="btn-img-pick" id="thumb-pick">📂 選択</button>
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">本文</div>
+
+    <div class="form-group">
+        <div class="tb-bar">
+            <button type="button" class="tb-btn" id="tb-bold"   title="太字 (Ctrl+B)"><b>B</b></button>
+            <button type="button" class="tb-btn" id="tb-italic" title="斜体 (Ctrl+I)"><i>I</i></button>
+            <span class="tb-sep"></span>
+            <button type="button" class="tb-btn" id="tb-br"   title="改行を挿入">↵ 改行</button>
+            <button type="button" class="tb-btn" id="tb-link" title="リンクを挿入">🔗 リンク</button>
+            <span class="tb-hint">文字を選択してボタンを押す ／ Ctrl+B 太字 ／ Ctrl+I 斜体</span>
+        </div>
+        <textarea id="f-content" rows="16" placeholder="普通に文章を書いてください。&#10;Enterキーで改行できます。&#10;&#10;太字にしたい部分は選択して B ボタンを押してください。"></textarea>
+        <div class="hint">改行はそのまま反映されます。HTMLタグも直接書けます。</div>
+    </div>
+
+    <div class="form-group">
+        <label style="display:flex;align-items:center;cursor:pointer;">
+            <input type="checkbox" id="f-hidden"> 非表示（下書きとして保存）
+        </label>
+    </div>
+
+</div>
+
+<div class="editor-footer">
+    <button class="btn-cancel" id="btn-cancel">キャンセル</button>
+    <span class="status-msg" id="status-msg"></span>
+    <button class="btn-publish" id="btn-publish">公開する</button>
+</div>
+
+<script>
+'use strict';
+
+let thumbLocalPath = '';
+let thumbRepoPath  = '';
+let mode = 'add';
+
+// 今日の日付をデフォルトに
+document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+
+/* ── 初期化（編集モード） ── */
+window.api.onInit((data) => {
+    if (data && data.article) {
+        mode = 'edit';
+        document.getElementById('editor-title').textContent = 'ブログ記事を編集';
+        const a = data.article;
+        document.getElementById('f-id').value       = a.id       || '';
+        document.getElementById('f-id').disabled    = true;
+        document.getElementById('f-date').value     = (a.date || '').replace(/\./g, '-');
+        document.getElementById('f-category').value = a.category || '日記';
+        document.getElementById('f-author').value   = a.author   || '';
+        document.getElementById('f-title').value    = a.title    || '';
+        document.getElementById('f-desc').value     = a.desc     || '';
+        document.getElementById('f-content').value  = a.content  || '';
+        document.getElementById('f-hidden').checked = !!a.hidden;
+        if (a.image) {
+            thumbRepoPath = a.image;
+            document.getElementById('thumb-path').textContent = a.image;
+        }
+    }
+});
+
+/* ── サムネイル選択 ── */
+document.getElementById('thumb-pick').addEventListener('click', async () => {
+    const lp = await window.api.pickImage();
+    if (!lp) return;
+    thumbLocalPath = lp;
+    document.getElementById('thumb-path').textContent = lp.split(/[\\/]/).pop();
+    document.getElementById('thumb-img').src = lp;
+    document.getElementById('thumb-img').style.display = '';
+});
+
+/* ── 公開（確認なし） ── */
+document.getElementById('btn-publish').addEventListener('click', async () => {
+    const id    = document.getElementById('f-id').value.trim();
+    const title = document.getElementById('f-title').value.trim();
+    const date  = document.getElementById('f-date').value;
+
+    if (!id)    return alert('IDを入力してください');
+    if (!title) return alert('タイトルを入力してください');
+    if (!date)  return alert('日付を選択してください');
+
+    setStatus('保存中...', 'saving');
+    document.getElementById('btn-publish').disabled = true;
+
+    try {
+        if (thumbLocalPath) {
+            const ext = thumbLocalPath.split('.').pop();
+            thumbRepoPath = `assets/blog/${date}/${id}.${ext}`;
+            await window.api.copyImageToAssets(thumbLocalPath, thumbRepoPath);
+        }
+
+        const blogItem = {
+            id,
+            hidden:   document.getElementById('f-hidden').checked || undefined,
+            title,
+            date:     date.replace(/-/g, '.'),
+            author:   document.getElementById('f-author').value.trim() || undefined,
+            category: document.getElementById('f-category').value,
+            image:    thumbRepoPath || undefined,
+            desc:     document.getElementById('f-desc').value.trim() || undefined,
+            content:  contentToHtml(document.getElementById('f-content').value),
+        };
+        Object.keys(blogItem).forEach(k => blogItem[k] === undefined && delete blogItem[k]);
+
+        const items = await window.api.readData('blog');
+        const idx = items.findIndex(i => i.id === id);
+        if (idx >= 0) items[idx] = blogItem;
+        else items.unshift(blogItem);
+        await window.api.writeData('blog', items);
+
+        // スタブ生成
+        await window.api.runStubs(['--blog']);
+
+        // GitHub コミット
+        const slug = id.replace(/_/g, '-').toLowerCase();
+        const files = ['data/blog.js', `blog/${slug}/index.html`];
+        if (thumbRepoPath) files.push(thumbRepoPath);
+        await window.api.commitToGitHub(files, `ブログ${mode === 'add' ? '追加' : '更新'}: ${title}`);
+
+        setStatus('✅ 公開しました！', 'ok');
+        setTimeout(() => window.api.closeEditor(), 1500);
+
+    } catch (err) {
+        setStatus(`❌ ${err.message}`, 'error');
+        document.getElementById('btn-publish').disabled = false;
+    }
+});
+
+document.getElementById('btn-cancel').addEventListener('click', () => window.api.closeEditor());
+
+/* ── 書式ツールバー ── */
+(function () {
+    const ta = document.getElementById('f-content');
+    function wrapSel(open, close) {
+        const s = ta.selectionStart, e = ta.selectionEnd;
+        const sel = ta.value.substring(s, e);
+        ta.value = ta.value.substring(0, s) + open + sel + close + ta.value.substring(e);
+        ta.selectionStart = s + open.length;
+        ta.selectionEnd   = s + open.length + sel.length;
+        ta.focus();
+    }
+    document.getElementById('tb-bold').addEventListener('click',   () => wrapSel('<strong>', '</strong>'));
+    document.getElementById('tb-italic').addEventListener('click', () => wrapSel('<em>', '</em>'));
+    document.getElementById('tb-br').addEventListener('click', () => {
+        const pos = ta.selectionStart;
+        ta.value = ta.value.substring(0, pos) + '<br>\n' + ta.value.substring(pos);
+        ta.selectionStart = ta.selectionEnd = pos + 5;
+        ta.focus();
+    });
+    document.getElementById('tb-link').addEventListener('click', () => {
+        const url = prompt('リンク先URL（例: https://x.com/xxx）:');
+        if (!url) return;
+        const s = ta.selectionStart, e = ta.selectionEnd;
+        const sel = ta.value.substring(s, e) || 'リンクテキスト';
+        const ins = '<a href="' + url + '">' + sel + '</a>';
+        ta.value = ta.value.substring(0, s) + ins + ta.value.substring(e);
+        ta.selectionStart = s; ta.selectionEnd = s + ins.length;
+        ta.focus();
+    });
+    ta.addEventListener('keydown', e => {
+        if (e.ctrlKey && e.key === 'b') { e.preventDefault(); wrapSel('<strong>', '</strong>'); }
+        if (e.ctrlKey && e.key === 'i') { e.preventDefault(); wrapSel('<em>', '</em>'); }
+    });
+})();
+
+/* プレーンテキストの改行を <br> に変換（HTMLタグがなければ） */
+function contentToHtml(text) {
+    if (/<[a-z][\s\S]*?>/i.test(text)) return text;
+    return text.replace(/\n/g, '<br>\n');
+}
+
+function setStatus(msg, type) {
+    const el = document.getElementById('status-msg');
+    el.textContent = msg;
+    el.className = `status-msg ${type}`;
+}
+</script>
+</body>
+</html>

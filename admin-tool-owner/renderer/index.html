@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あにあめもりあ 管理ツール</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<!-- ── 初期設定オーバーレイ ── -->
+<div id="setup-overlay">
+    <div class="setup-box">
+        <div class="setup-icon">⚙️</div>
+        <h2>初期設定が必要です</h2>
+        <p>GitHubトークンを設定してください。<br>設定後、管理ツールが使えるようになります。</p>
+        <button id="open-settings-btn" class="btn-primary">設定を開く</button>
+    </div>
+</div>
+
+<!-- ── メインレイアウト ── -->
+<div id="app-layout">
+
+    <!-- サイドバー -->
+    <nav id="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🏠</span>
+            <span class="brand-name">管理ツール</span>
+        </div>
+
+        <ul class="nav-list" id="nav-list">
+            <li class="nav-item" data-url="/" data-label="トップ">
+                <span class="nav-icon">🏠</span><span>トップ</span>
+            </li>
+            <li class="nav-item" data-url="/cast/" data-label="キャスト">
+                <span class="nav-icon">👥</span><span>キャスト</span>
+            </li>
+            <li class="nav-item" data-url="/news/" data-label="ニュース">
+                <span class="nav-icon">📰</span><span>ニュース</span>
+            </li>
+            <li class="nav-item" data-url="/blog/" data-label="ブログ">
+                <span class="nav-icon">✍</span><span>ブログ</span>
+            </li>
+            <li class="nav-item" data-url="/aikotoba/" data-label="合言葉">
+                <span class="nav-icon">🔑</span><span>合言葉</span>
+            </li>
+            <li class="nav-item" data-url="/partner/" data-label="提携イベント">
+                <span class="nav-icon">🎪</span><span>提携イベント</span>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button id="settings-btn" class="btn-icon-label" title="設定">
+                <span>⚙️</span><span>設定</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- プレビューエリア -->
+    <div id="preview-area">
+        <!-- アドレスバー -->
+        <div id="address-bar">
+            <button id="nav-reload" class="addr-btn" title="再読み込み">↺</button>
+            <span id="current-url">http://localhost:3939/</span>
+            <span id="publish-status"></span>
+        </div>
+
+        <!-- プレビュー本体 -->
+        <div id="preview-wrap">
+            <iframe
+                id="preview-frame"
+                src="about:blank"
+                allow="scripts"
+                title="サイトプレビュー"
+            ></iframe>
+
+            <!-- ＋ボタンオーバーレイ（pointer-events:none でクリックを iframe に通す） -->
+            <div id="overlay" aria-hidden="true">
+                <!-- app.js が動的に生成する -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
