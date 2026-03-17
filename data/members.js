@@ -89,7 +89,7 @@ window.membersData = [
             { type: "youtube", url: "https://www.youtube.com/@tanakamaikeru" },
             { type: "twitter", url: "https://x.com/tetenpuipui" }
         ],
-        related: ["momo", "ray"],
+        related: ["momo"],
     },
     {
         id: "momo",
@@ -121,7 +121,7 @@ window.membersData = [
             { type: "twitter", url: "https://x.com/necomoinumosuki" },
             { type: "kindle", url: "https://www.amazon.co.jp/stores/author/B0FCCMNWNL" },
         ],
-        related: ["ten", "ray"]
+        related: ["ten"]
     },
 
     // --- 飼育区画 ---

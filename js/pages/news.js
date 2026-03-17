@@ -1,30 +1,30 @@
 /**
  * news.js
- * News list generation and Carousel logic
- * Depends on: utils.js, data_news.js
+ * News list and top-page carousel renderer.
  */
 
 import { fixPath } from '../app/url.js';
 import { getNewsData } from '../app/data.js';
 import { shouldShowItem } from '../app/member-utils.js';
 
+const DEFAULT_CATEGORY = '\u305D\u306E\u4ED6';
+const EMPTY_NEWS_MSG = '\u73FE\u5728\u304A\u77E5\u3089\u305B\u306F\u3042\u308A\u307E\u305B\u3093\u3002';
+const NOT_FOUND_MSG = '\u8A72\u5F53\u3059\u308B\u30CB\u30E5\u30FC\u30B9\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002';
+
 export async function initNewsPage() {
-    // Wait for Manifest
     if (window.manifestPromise) {
-        try { await window.manifestPromise; } catch (e) { console.warn('Manifest wait failed', e); }
+        try {
+            await window.manifestPromise;
+        } catch (e) {
+            console.warn('Manifest wait failed', e);
+        }
     }
 
-    /* -------------------------------------------------------
-       1. ニュース一覧ページ (news/index.html) の生成
-       ------------------------------------------------------- */
     const newsContainer = document.getElementById('news-list-container');
     if (newsContainer) {
         const CARD_STAGGER_MS = 80;
-        const NOT_FOUND_MSG = '該当するニュースが見つかりませんでした。';
+        const visibleNews = (getNewsData() || []).filter((item) => shouldShowItem(item));
 
-        const visibleNews = (getNewsData() || []).filter(item => shouldShowItem(item));
-
-        // --- カード生成 (サムネイルメイン型) ---
         const createNewsCard = (item, index) => {
             const a = document.createElement('a');
             const pageUrl = item.linkPath
@@ -33,12 +33,9 @@ export async function initNewsPage() {
             const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
 
             a.href = pageUrl;
-
-            // 最新1件目は大きく表示（スマホではCSSで1列に戻る）
             a.className = index === 0 ? 'news-card news-card--featured' : 'news-card';
-            a.dataset.category = item.category || 'その他';
+            a.dataset.category = item.category || DEFAULT_CATEGORY;
 
-            // 3日以内、または最新1件目（絞り込み結果含む）ならNEWをつける
             const itemDate = new Date(item.date);
             const now = new Date();
             const diffTime = Math.abs(now - itemDate);
@@ -54,7 +51,7 @@ export async function initNewsPage() {
                 <div class="news-card-body">
                     <div class="news-card-meta">
                         <span class="news-card-date">${item.date}</span>
-                        <span class="news-card-category">${item.category || 'その他'}</span>
+                        <span class="news-card-category">${item.category || DEFAULT_CATEGORY}</span>
                     </div>
                     <p class="news-card-title">${item.title}</p>
                     <p class="news-card-desc">${item.desc || ''}</p>
@@ -64,7 +61,6 @@ export async function initNewsPage() {
             return a;
         };
 
-        // --- アニメーション付きクローン挿入 (フィルター用) ---
         const animateCardsIn = (cards, featuredContainer, listContainer) => {
             cards.forEach((card, i) => {
                 const clone = card.cloneNode(true);
@@ -85,19 +81,15 @@ export async function initNewsPage() {
             });
         };
 
-        // --- 初期レンダリング --- (Skipping unaltered rendering code for brevity)
         if (visibleNews.length === 0) {
-            newsContainer.innerHTML = '<div class="empty-content"><p>現在お知らせはありません。</p></div>';
+            newsContainer.innerHTML = `<div class="empty-content"><p>${EMPTY_NEWS_MSG}</p></div>`;
         } else {
-            // Container setup for magazine layout
-            newsContainer.innerHTML = ''; // clear original
+            newsContainer.innerHTML = '';
             newsContainer.className = 'news-magazine-layout';
 
-            // Left (Featured) Container
             const featuredWrapper = document.createElement('div');
             featuredWrapper.className = 'news-magazine-featured';
 
-            // Right (Scrollable List) Container
             const listWrapper = document.createElement('div');
             listWrapper.className = 'news-magazine-list';
 
@@ -115,28 +107,25 @@ export async function initNewsPage() {
                 newsContainer.appendChild(listWrapper);
             }
 
-            // 初期ロード時のスタガーアニメーション
             const allCards = Array.from(newsContainer.querySelectorAll('.news-card'));
             allCards.forEach((card, i) => {
                 card.classList.add('reveal');
                 card.style.setProperty('--reveal-delay', `${i * CARD_STAGGER_MS}ms`);
             });
             requestAnimationFrame(() => requestAnimationFrame(() => {
-                allCards.forEach(card => card.classList.add('is-visible'));
+                allCards.forEach((card) => card.classList.add('is-visible'));
             }));
         }
 
-        // --- フィルターロジック ---
         const tagFilterContainer = document.getElementById('news-tag-filter');
         if (tagFilterContainer) {
-
             const getFilterState = () => {
                 const activeBtn = tagFilterContainer.querySelector('.tag-filter-btn.is-active');
                 const category = (activeBtn ? activeBtn.dataset.value : null) || 'all';
                 const allCards = Array.from(newsContainer.querySelectorAll('.news-card'));
-                const matchingCards = allCards.filter(card =>
+                const matchingCards = allCards.filter((card) => (
                     category === 'all' || card.dataset.category === category
-                );
+                ));
                 return { category, isFiltering: category !== 'all', matchingCards };
             };
 
@@ -183,63 +172,84 @@ export async function initNewsPage() {
 
             const applyFilter = () => {
                 const { isFiltering, matchingCards } = getFilterState();
-                if (!isFiltering) { resetToAll(); return; }
+                if (!isFiltering) {
+                    resetToAll();
+                    return;
+                }
                 renderFilter(matchingCards);
             };
 
             tagFilterContainer.addEventListener('click', (e) => {
                 const btn = e.target.closest('.tag-filter-btn');
                 if (!btn) return;
-                tagFilterContainer.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.remove('is-active'));
+                tagFilterContainer.querySelectorAll('.tag-filter-btn').forEach((b) => b.classList.remove('is-active'));
                 btn.classList.add('is-active');
                 applyFilter();
             });
         }
     }
 
-    /* -------------------------------------------------------
-       2. ニュースカルーセル (index.html)
-       ------------------------------------------------------- */
     const track = document.getElementById('news-carousel-track');
     if (track && getNewsData()) {
-        // フィルタリング
-        const visibleNews = getNewsData().filter(item => shouldShowItem(item));
-        const carouselItems = visibleNews.slice(0, 5); // 最新5件
+        const visibleNews = getNewsData().filter((item) => shouldShowItem(item));
+        const carouselItems = visibleNews.slice(0, 5);
 
         carouselItems.forEach((item, i) => {
             const card = document.createElement('a');
-            const pageUrl = item.linkPath ? fixPath(item.linkPath) : (item.id ? fixPath(`news/article/?id=${item.id}`) : (item.link || '#'));
+            const pageUrl = item.linkPath
+                ? fixPath(item.linkPath)
+                : (item.id ? fixPath(`news/article/?id=${item.id}`) : (item.link || '#'));
             const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
+            const title = item.title || 'News';
+            const desc = item.desc || '';
+            const category = item.category || DEFAULT_CATEGORY;
 
             card.href = pageUrl;
             card.className = 'news-card-slide';
 
-            // 3日以内の判定、または先頭要素
             const itemDate = new Date(item.date);
             const now = new Date();
             const diffTime = Math.abs(now - itemDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             const isNew = diffDays <= 3 || i === 0;
             const badgeHtml = isNew ? '<div class="news-badge-new">NEW!</div>' : '';
+            const mediaHtml = imgUrl
+                ? `<img class="news-card-slide__image" src="${imgUrl}" alt="" loading="lazy">`
+                : '<div class="news-card-slide__image-placeholder" aria-hidden="true">NO IMAGE</div>';
 
             card.innerHTML = `
                 ${badgeHtml}
-                <img src="${imgUrl}" alt="" loading="lazy">
-                <div class="content">
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-                        <span class="news-date" style="margin:0;">${item.date}</span>
-                        <span class="news-tag-label" style="margin:0;">${item.category}</span>
-                    </div>
-                    <div class="title">${item.title}</div>
-                    <div style="font-size:0.85em; text-align:right; margin-top:auto; font-weight:bold;">もっとみる &rarr;</div>
+                <div class="news-card-slide__media">
+                    ${mediaHtml}
                 </div>
-                <!-- Watermark Logo -->
+                <div class="news-card-slide__content">
+                    <div class="news-card-slide__meta">
+                        <span class="news-date">${item.date}</span>
+                        <span class="news-tag-label">${category}</span>
+                    </div>
+                    <div class="news-card-slide__title">${title}</div>
+                    <div class="news-card-slide__desc">${desc}</div>
+                    <div class="news-card-slide__cta">MORE &rarr;</div>
+                </div>
                 <div class="watermark-logo"></div>
             `;
+
+            const media = card.querySelector('.news-card-slide__media');
+            const image = card.querySelector('.news-card-slide__image');
+            if (media && image) {
+                image.addEventListener('error', () => {
+                    image.remove();
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'news-card-slide__image-placeholder';
+                    placeholder.setAttribute('aria-hidden', 'true');
+                    placeholder.textContent = 'NO IMAGE';
+                    media.appendChild(placeholder);
+                }, { once: true });
+            }
+
             track.appendChild(card);
         });
 
-        // カルーセルの動作ロジック
         const initCarousel = () => {
             const prevBtn = document.getElementById('carousel-prev');
             const nextBtn = document.getElementById('carousel-next');
@@ -272,14 +282,21 @@ export async function initNewsPage() {
                 update();
             });
 
-            // Swipe
             let touchStartX = 0;
             let touchEndX = 0;
-            track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
             track.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
-                if (touchEndX < touchStartX - 50) { currentIndex = (currentIndex + 1) % total; update(); }
-                if (touchEndX > touchStartX + 50) { currentIndex = (currentIndex - 1 + total) % total; update(); }
+                if (touchEndX < touchStartX - 50) {
+                    currentIndex = (currentIndex + 1) % total;
+                    update();
+                }
+                if (touchEndX > touchStartX + 50) {
+                    currentIndex = (currentIndex - 1 + total) % total;
+                    update();
+                }
             }, { passive: true });
         };
 

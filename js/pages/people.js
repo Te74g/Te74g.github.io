@@ -6,7 +6,7 @@
 import { State, updateState } from '../app/state.js';
 import { getUrlParam, updateUrlParam, removeUrlParam, fixPath } from '../app/url.js';
 import { getMembersData, getSiteConfig } from '../app/data.js';
-import { shouldShowItem, isMemberVisible, getMemberDisplayInfo, getPinClass, getMemberBackground, getMemberFrame } from '../app/member-utils.js';
+import { shouldShowItem, isMemberVisible, getMemberDisplayInfo, getPinClass, getMemberBackground, getMemberFrame, normalizePathList } from '../app/member-utils.js';
 
 export async function initPeoplePage() {
     // Wait for Manifest
@@ -116,13 +116,17 @@ export async function initPeoplePage() {
 
     const createMemberCard = (m, form, formIndex, revealLevel) => {
         const link = document.createElement('a');
+        const formProfileImages = normalizePathList(form && form.profileImages);
+        const memberProfileImages = normalizePathList(m.profileImages);
+        const formImage = normalizePathList(form && form.image)[0];
+        const memberImage = normalizePathList(m.image)[0];
         const effectiveMember = form ? {
             ...m,
             name: m.name,
             pickupName: m.pickupName || m.name,
             tagLabel: m.tagLabel,
-            profileImages: (form.profileImages && form.profileImages.length > 0) ? form.profileImages : m.profileImages,
-            image: form.image || m.image,
+            profileImages: formProfileImages.length > 0 ? formProfileImages : memberProfileImages,
+            image: formImage || memberImage || m.image,
         } : m;
 
         const pinClass = getPinClass(m.tags);
@@ -138,9 +142,11 @@ export async function initPeoplePage() {
             const url = m.link || getProfileHref(m.id, form && formIndex !== undefined ? formIndex : null);
             link.href = resolveHref(url);
             const displayName = effectiveMember.pickupName || effectiveMember.name;
-            const targetImage = (effectiveMember.profileImages && effectiveMember.profileImages.length > 0)
-                ? effectiveMember.profileImages[Math.floor(Math.random() * effectiveMember.profileImages.length)]
-                : effectiveMember.image;
+            const profileImages = normalizePathList(effectiveMember.profileImages);
+            const fallbackImage = normalizePathList(effectiveMember.image)[0];
+            const targetImage = profileImages.length > 0
+                ? profileImages[Math.floor(Math.random() * profileImages.length)]
+                : fallbackImage;
 
             const bgPath = getMemberBackground(m.tags);
             const bgStyle = bgPath ? `style="background-image: url('${fixPath(bgPath)}'); background-size: cover; background-position: center;"` : '';
@@ -149,7 +155,7 @@ export async function initPeoplePage() {
 
             link.innerHTML = `
                 <div class="cheki-visual" ${bgStyle}>
-                    <img src="${fixPath(targetImage)}" alt="${effectiveMember.name}" class="cheki-img" loading="lazy">
+                    <img src="${fixPath(targetImage || 'assets/member/silhouette.webp')}" alt="${effectiveMember.name}" class="cheki-img" loading="lazy">
                     <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                     ${frameHtml}
                 </div>
@@ -160,7 +166,10 @@ export async function initPeoplePage() {
             link.href = resolveHref(url);
             link.classList.add('silhouette-mode');
             const displayInfo = getMemberDisplayInfo ? getMemberDisplayInfo(m) : null;
-            const silhouetteImg = displayInfo && displayInfo.imagePath ? displayInfo.imagePath[0] : (castConfig.placeholderImage || m.image);
+            const silhouetteImg = normalizePathList(displayInfo && displayInfo.imagePath)[0]
+                || normalizePathList(castConfig.placeholderImage)[0]
+                || normalizePathList(m.image)[0]
+                || 'assets/member/silhouette.webp';
             const bgPath = getMemberBackground(m.tags);
             const bgStyle = bgPath ? `style="background-image: url('${fixPath(bgPath)}'); background-size: cover; background-position: center;"` : '';
 

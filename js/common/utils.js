@@ -4,6 +4,39 @@
  */
 
 (function () {
+    const normalizePathList = (value) => {
+        const extractPath = (entry) => {
+            if (typeof entry === 'string') {
+                return entry.trim();
+            }
+            if (entry && typeof entry === 'object') {
+                const candidate = entry.repoPath || entry.path || entry.src || entry.url || '';
+                return typeof candidate === 'string' ? candidate.trim() : '';
+            }
+            return '';
+        };
+
+        if (Array.isArray(value)) {
+            return value.map(extractPath).filter(Boolean);
+        }
+
+        if (typeof value === 'string') {
+            const trimmed = value.trim();
+            if (!trimmed) return [];
+            return trimmed.split(/[\r\n,]+/).map((part) => part.trim()).filter(Boolean);
+        }
+
+        if (value && typeof value === 'object') {
+            const one = extractPath(value);
+            return one ? [one] : [];
+        }
+
+        return [];
+    };
+
+    const firstPath = (value) => normalizePathList(value)[0] || null;
+    window.normalizePathList = normalizePathList;
+
     /**
      * fixPath
      * Adjusts relative paths based on the current page's location.
@@ -96,10 +129,14 @@
         };
 
         // 画像パスを決定
-        if (member.profileImages && member.profileImages.length > 0) {
-            info.imagePath = member.profileImages;
-        } else if (member.image) {
-            info.imagePath = [member.image];
+        const normalizedProfileImages = normalizePathList(member.profileImages);
+        if (normalizedProfileImages.length > 0) {
+            info.imagePath = normalizedProfileImages;
+        } else {
+            const image = firstPath(member.image);
+            if (image) {
+                info.imagePath = [image];
+            }
         }
 
         switch (level) {
@@ -177,7 +214,6 @@
                 const webpPath = window.imageManifest[key];
                 if (webpPath) {
                     cleanPath = webpPath;
-                    console.info(`[WebP Swap] ${path} -> ${cleanPath}`); // Debug info
                 }
             }
         }
@@ -289,7 +325,6 @@
 
                 // Only replace if different to avoid reloading same image if already set
                 if (img.getAttribute('src') !== newSrc) {
-                    console.info(`[WebP Replace] ${img.getAttribute('src')} -> ${newSrc}`); // Debug info
                     img.setAttribute('src', newSrc);
                 }
             }

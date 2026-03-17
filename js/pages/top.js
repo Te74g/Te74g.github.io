@@ -16,7 +16,8 @@ import {
     getMemberBackground,
     getMemberDisplayInfo,
     getMemberFrame,
-    isMemberVisible
+    isMemberVisible,
+    normalizePathList
 } from '../app/member-utils.js';
 
 // Global start time equivalent for loader duration check
@@ -26,6 +27,18 @@ const initTime = Date.now();
 const cfg = getSiteConfig();
 const membersData = getMembersData();
 updateState('home', { skipAnimation: false });
+
+let openingTimerId = null;
+let openingStarted = false;
+let openingFinished = false;
+let skipTapHandler = null;
+
+function cleanupSkipListener() {
+    if (!skipTapHandler) return;
+    document.removeEventListener('click', skipTapHandler);
+    document.removeEventListener('touchend', skipTapHandler);
+    skipTapHandler = null;
+}
 
 // =======================================================
 // 1. Data Injection (Loader, Hero, About)
@@ -131,6 +144,9 @@ function spawnSparkle(targetRect) {
 }
 
 async function runOpeningSequence() {
+    if (openingFinished || openingStarted) return;
+    openingStarted = true;
+
     const loader = document.getElementById('opening-loader-overlay');
     const hero = document.getElementById('hero-section');
     const skipHint = document.getElementById('skip-hint');
@@ -180,18 +196,27 @@ async function runOpeningSequence() {
 }
 
 function finishSequence() {
+    if (openingFinished) return;
+    openingFinished = true;
+
+    if (openingTimerId !== null) {
+        clearTimeout(openingTimerId);
+        openingTimerId = null;
+    }
+    cleanupSkipListener();
+
     const loader = document.getElementById('opening-loader-overlay');
     const hero = document.getElementById('hero-section');
     const charEl = document.querySelector('.hero-character');
     const chars = document.querySelectorAll('.hero-subtitle .char');
-    const scroll = document.querySelector('.scroll-down');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     const skipHint = document.getElementById('skip-hint');
 
     if (loader) loader.style.display = 'none';
     if (hero) hero.classList.add('animate-start');
     if (charEl) charEl.classList.add('with-shadow');
     chars.forEach(c => c.classList.add('is-visible'));
-    if (scroll) scroll.classList.add('is-visible');
+    if (scrollIndicator) scrollIndicator.classList.add('is-visible');
 
     document.body.classList.remove('is-preloading');
 
@@ -202,22 +227,27 @@ function finishSequence() {
 }
 
 function setupSkip() {
-    const skipHint = document.createElement('div');
-    skipHint.id = 'skip-hint';
-    skipHint.textContent = 'ダブルタップでスキップ';
-    skipHint.style.cssText = [
-        'position:fixed', 'bottom:24px', 'right:24px',
-        'font-size:0.72rem', 'color:rgba(255,255,255,0.55)',
-        'background:rgba(0,0,0,0.28)', 'padding:5px 12px',
-        'border-radius:20px', 'pointer-events:none',
-        'display:none', 'z-index:9999',
-        'backdrop-filter:blur(4px)', 'transition:opacity 0.4s',
-        'letter-spacing:0.05em'
-    ].join(';');
-    document.body.appendChild(skipHint);
+    let skipHint = document.getElementById('skip-hint');
+    if (!skipHint) {
+        skipHint = document.createElement('div');
+        skipHint.id = 'skip-hint';
+        skipHint.textContent = 'Double-tap to skip';
+        skipHint.style.cssText = [
+            'position:fixed', 'bottom:24px', 'right:24px',
+            'font-size:0.72rem', 'color:rgba(255,255,255,0.55)',
+            'background:rgba(0,0,0,0.28)', 'padding:5px 12px',
+            'border-radius:20px', 'pointer-events:none',
+            'display:none', 'z-index:9999',
+            'backdrop-filter:blur(4px)', 'transition:opacity 0.4s',
+            'letter-spacing:0.05em'
+        ].join(';');
+        document.body.appendChild(skipHint);
+    }
+
+    if (skipTapHandler) return;
 
     let lastTapTime = 0;
-    const handleTap = () => {
+    skipTapHandler = () => {
         const now = Date.now();
         if (now - lastTapTime < 300 && now - lastTapTime > 50) {
             updateState('home', { skipAnimation: true });
@@ -228,26 +258,27 @@ function setupSkip() {
             lastTapTime = now;
         }
     };
-    document.addEventListener('click', handleTap);
-    document.addEventListener('touchend', handleTap, { passive: true });
+    document.addEventListener('click', skipTapHandler);
+    document.addEventListener('touchend', skipTapHandler, { passive: true });
 }
 
 // =======================================================
-// 3. Scroll Morphing (from legacy kv-scroll.js)
+// 3. Scroll Morphing — .hero-bg の clip-path を制御
 // =======================================================
 function setupScrollMorph() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const hero = document.getElementById('hero-section');
     const zone = document.getElementById('kv-scroll-zone');
+    const heroBg = document.querySelector('.hero-bg');
     const content = document.querySelector('.hero-content');
-    if (!hero || !zone) return;
+    if (!zone || !heroBg) return;
 
     let ticking = false;
     const update = () => {
-        const travel = zone.offsetHeight - window.innerHeight;
+        const zoneTravel = zone.offsetHeight - window.innerHeight;
+        const travel = Math.max(zoneTravel, window.innerHeight * 0.82);
         if (travel <= 0) {
-            hero.style.clipPath = 'none';
+            heroBg.style.clipPath = 'none';
             ticking = false;
             return;
         }
@@ -255,7 +286,7 @@ function setupScrollMorph() {
         const eased = rawP < 0.5 ? 2 * rawP * rawP : -1 + (4 - 2 * rawP) * rawP;
         const radius = 38 + (150 - 38) * eased;
 
-        hero.style.clipPath = rawP >= 1 ? 'none' : `circle(${radius.toFixed(1)}% at 50% 50%)`;
+        heroBg.style.clipPath = rawP >= 1 ? 'none' : `circle(${radius.toFixed(1)}% at 50% 50%)`;
 
         if (content) {
             const opacity = Math.max(0, 1 - rawP / 0.4);
@@ -272,6 +303,66 @@ function setupScrollMorph() {
     }, { passive: true });
     window.addEventListener('resize', update, { passive: true });
     update();
+}
+
+// =======================================================
+// 3b. Section Observer — body.is-{section} クラス管理
+// =======================================================
+function setupSectionObserver() {
+    const sections = document.querySelectorAll('[data-section]');
+    if (!sections.length) return;
+
+    const SECTION_CLASSES = ['is-news', 'is-pickup', 'is-about'];
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.dataset.section;
+                SECTION_CLASSES.forEach(cls => document.body.classList.remove(cls));
+                document.body.classList.add(`is-${id}`);
+            }
+        });
+    }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+}
+
+// =======================================================
+// 3c. Hero Particles — circle 外の暗部に金色粒子を浮遊
+// =======================================================
+function spawnHeroParticles() {
+    const layer = document.getElementById('hero-deco-layer');
+    if (!layer) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const count = 14;
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'deco-particle';
+
+        // circle 外側（半径 45〜48%付近）に配置
+        const angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.8;
+        const r = 0.44 + Math.random() * 0.06; // 44〜50% → circle(38%) の外
+        const cx = 50 + Math.cos(angle) * r * 100;
+        const cy = 50 + Math.sin(angle) * r * 100;
+
+        const size = 2 + Math.random() * 4;      // 2〜6px
+        const dur  = 3.5 + Math.random() * 4;    // 3.5〜7.5s
+        const del  = -(Math.random() * dur);      // ランダム位相（最初から途中から流れて見える）
+        const dx   = (Math.random() - 0.5) * 70; // 横移動
+        const dy   = -(35 + Math.random() * 65); // 上昇
+
+        p.style.cssText = `
+            left: ${cx.toFixed(1)}%;
+            top:  ${cy.toFixed(1)}%;
+            width: ${size.toFixed(1)}px;
+            height: ${size.toFixed(1)}px;
+            --dx: ${dx.toFixed(0)}px;
+            --dy: ${dy.toFixed(0)}px;
+            animation: particle-float-${i % 2 === 0 ? 'a' : 'b'} ${dur.toFixed(1)}s ease-in-out ${del.toFixed(2)}s infinite;
+        `;
+        layer.appendChild(p);
+    }
 }
 
 // =======================================================
@@ -312,7 +403,7 @@ function buildLegacyFeatures() {
         });
 
         const buildCard = (member, isToday) => {
-            const images = member.profileImages || [];
+            const images = normalizePathList(member.profileImages);
             const silPath = fixPath ? fixPath('assets/member/silhouette.webp') : 'assets/member/silhouette.webp';
             let imgBase, imgHover;
 
@@ -320,8 +411,9 @@ function buildLegacyFeatures() {
                 imgBase = images[0] ? (fixPath ? fixPath(images[0]) : images[0]) : silPath;
                 imgHover = images[1] ? (fixPath ? fixPath(images[1]) : images[1]) : imgBase;
             } else {
-                imgBase = member.silhouetteImage
-                    ? (fixPath ? fixPath(member.silhouetteImage) : member.silhouetteImage)
+                const silhouetteImage = normalizePathList(member.silhouetteImage)[0];
+                imgBase = silhouetteImage
+                    ? (fixPath ? fixPath(silhouetteImage) : silhouetteImage)
                     : (images[0] ? (fixPath ? fixPath(images[0]) : images[0]) : silPath);
                 imgHover = imgBase;
             }
@@ -428,7 +520,9 @@ function buildLegacyFeatures() {
                 pickupContainer.appendChild(wrapper);
 
                 const displayInfo = getMemberDisplayInfo ? getMemberDisplayInfo(m, castConfig) : null;
-                const effectiveImagePaths = displayInfo?.imagePath || m.profileImages || (m.image ? [m.image] : []);
+                const effectiveImagePaths = normalizePathList(displayInfo?.imagePath).length > 0
+                    ? normalizePathList(displayInfo?.imagePath)
+                    : (normalizePathList(m.profileImages).length > 0 ? normalizePathList(m.profileImages) : normalizePathList(m.image));
 
                 let images = [];
                 if (effectiveImagePaths && effectiveImagePaths.length > 0) {
@@ -497,16 +591,26 @@ function buildLegacyFeatures() {
 // Main Execution
 // =======================================================
 export async function initHomePage() {
+    openingStarted = false;
+    openingFinished = false;
+    cleanupSkipListener();
+    if (openingTimerId !== null) {
+        clearTimeout(openingTimerId);
+        openingTimerId = null;
+    }
+
     injectData();
     setupSkip();
     setupScrollMorph();
+    setupSectionObserver();
+    spawnHeroParticles();
     buildLegacyFeatures();
 
     const MIN_DISPLAY_TIME = 2000;
     const elapsed = Date.now() - initTime;
     const remainingTime = Math.max(0, MIN_DISPLAY_TIME - elapsed);
 
-    setTimeout(() => {
+    openingTimerId = setTimeout(() => {
         runOpeningSequence();
     }, remainingTime);
 }

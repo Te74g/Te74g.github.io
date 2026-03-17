@@ -1,75 +1,28 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('Top Preview - Links and Motion', () => {
+test.describe('Top Preview Route', () => {
     test.beforeEach(async ({ page }) => {
         await page.addInitScript(() => {
             window.sessionStorage.setItem('maintenanceBypass', 'true');
         });
     });
 
-    test('injects content and keeps key links valid', async ({ page }) => {
-        await page.goto('/pages/top_preview.html', { waitUntil: 'networkidle' });
+    test('redirects to root and renders the production top page', async ({ page }) => {
+        await page.goto('/pages/top_preview.html', { waitUntil: 'domcontentloaded' });
+        await page.waitForLoadState('networkidle');
 
-        const kvImg = page.locator('#top-kv-img');
-        const logoImg = page.locator('#top-logo-img');
-        await expect(kvImg).toHaveAttribute('src', /.+/);
-        await expect(logoImg).toHaveAttribute('src', /.+/);
-
-        const castCards = page.locator('#top-cast-grid .top-cast-card');
-        const newsCards = page.locator('#top-latest-cards .top-news-card');
-        await expect(castCards).toHaveCount(4);
-        const newsCount = await newsCards.count();
-        expect(newsCount).toBeGreaterThanOrEqual(1);
-        expect(newsCount).toBeLessThanOrEqual(3);
-
-        const castHref = await castCards.first().getAttribute('href');
-        const newsHref = await newsCards.first().getAttribute('href');
-        expect(castHref).toMatch(/\/cast\/[^/]+\/$/);
-        expect(newsHref).toMatch(/(?:^|\.{2}\/)news\/(?:article\/\?id=.*)?$/);
-
-        await expect(page.locator('a.top-btn--primary')).toHaveAttribute('href', /(?:^|\.{2}\/)cast\/$/);
-        await expect(page.locator('a.top-btn--secondary')).toHaveAttribute('href', /(?:^|\.{2}\/)schedule\/$/);
-        await expect(page.locator('#top-guide a[href$=\"news/\"]')).toBeVisible();
+        await expect(page).toHaveURL(/\/$/);
+        await expect(page.locator('#hero-section')).toBeVisible();
+        await expect(page.locator('.scroll-indicator')).toBeVisible();
     });
 
-    test('updates KV transform on scroll (morph animation works)', async ({ page }) => {
-        await page.goto('/pages/top_preview.html', { waitUntil: 'networkidle' });
+    test('preserves query and hash when redirecting', async ({ page }) => {
+        await page.goto('/pages/top_preview.html?from=preview#peek', { waitUntil: 'domcontentloaded' });
+        await page.waitForLoadState('networkidle');
 
-        const before = await page.locator('#top-kv').evaluate((el) => getComputedStyle(el).transform);
-
-        await page.evaluate(() => {
-            const hero = document.getElementById('top-hero');
-            if (!hero) return;
-            const travel = hero.offsetHeight - window.innerHeight;
-            window.scrollTo(0, hero.offsetTop + travel * 0.72);
-        });
-        await page.waitForTimeout(200);
-
-        const after = await page.locator('#top-kv').evaluate((el) => getComputedStyle(el).transform);
-        expect(after).not.toBe(before);
-    });
-
-    test('latest card is not blocked by KV layer after reveal', async ({ page }) => {
-        await page.goto('/pages/top_preview.html', { waitUntil: 'networkidle' });
-
-        await page.evaluate(() => {
-            const hero = document.getElementById('top-hero');
-            if (!hero) return;
-            const travel = hero.offsetHeight - window.innerHeight;
-            window.scrollTo(0, hero.offsetTop + travel * 0.72);
-        });
-        await page.waitForTimeout(250);
-
-        const topCard = page.locator('#top-latest-cards .top-news-card').first();
-        await expect(topCard).toBeVisible();
-
-        const hitTestOk = await topCard.evaluate((el) => {
-            const rect = el.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-            const top = document.elementFromPoint(x, y);
-            return top === el || el.contains(top);
-        });
-        expect(hitTestOk).toBeTruthy();
+        const current = new URL(page.url());
+        expect(current.pathname).toBe('/');
+        expect(current.searchParams.get('from')).toBe('preview');
+        expect(current.hash).toBe('#peek');
     });
 });

@@ -5,6 +5,42 @@
  * - "Dip to White" Cross-fade animation.
  * - Supports options for indicators and Mobile Touch behavior.
  */
+const normalizePathList = (value) => {
+    if (window.normalizePathList) {
+        return window.normalizePathList(value);
+    }
+
+    const extractPath = (entry) => {
+        if (typeof entry === 'string') {
+            return entry.trim();
+        }
+        if (entry && typeof entry === 'object') {
+            const candidate = entry.repoPath || entry.path || entry.src || entry.url || '';
+            return typeof candidate === 'string' ? candidate.trim() : '';
+        }
+        return '';
+    };
+
+    if (Array.isArray(value)) {
+        return value.map(extractPath).filter(Boolean);
+    }
+
+    if (typeof value === 'string') {
+        const trimmed = value.trim();
+        if (!trimmed) return [];
+        return trimmed.split(/[\r\n,]+/).map((part) => part.trim()).filter(Boolean);
+    }
+
+    if (value && typeof value === 'object') {
+        const one = extractPath(value);
+        return one ? [one] : [];
+    }
+
+    return [];
+};
+
+const firstPath = (value) => normalizePathList(value)[0] || null;
+
 class ProfileImageSwitcher {
     constructor(container, images, options = {}) {
         this.container = container;
@@ -49,12 +85,14 @@ class ProfileImageSwitcher {
                 let effectiveMember = member;
                 if (member.forms && member.forms.length > 0) {
                     const firstForm = member.forms[0];
+                    const formProfileImages = normalizePathList(firstForm.profileImages);
+                    const memberProfileImages = normalizePathList(member.profileImages);
+                    const formImage = firstPath(firstForm.image);
+                    const memberImage = firstPath(member.image);
                     effectiveMember = {
                         ...member,
-                        profileImages: (firstForm.profileImages && firstForm.profileImages.length > 0)
-                            ? firstForm.profileImages
-                            : member.profileImages,
-                        image: firstForm.image || member.image,
+                        profileImages: formProfileImages.length > 0 ? formProfileImages : memberProfileImages,
+                        image: formImage || memberImage || member.image,
                     };
                 }
 
@@ -62,16 +100,23 @@ class ProfileImageSwitcher {
                 let images = [];
                 if (revealLevel === 2) {
                     // シルエット画像を使用
-                    const silhouetteImg = displayInfo && displayInfo.imagePath
-                        ? displayInfo.imagePath[0]
-                        : (window.siteConfig?.castDisplay?.placeholderImage || effectiveMember.image);
-                    images = [window.fixPath(silhouetteImg)];
+                    const silhouetteImg = firstPath(displayInfo && displayInfo.imagePath)
+                        || firstPath(window.siteConfig?.castDisplay?.placeholderImage)
+                        || firstPath(effectiveMember.image)
+                        || firstPath(effectiveMember.profileImages);
+                    if (silhouetteImg) {
+                        images = [window.fixPath ? window.fixPath(silhouetteImg) : silhouetteImg];
+                    }
                 } else if (revealLevel >= 3) {
                     // 完全公開: フォームの画像を優先して使用
-                    if (effectiveMember.profileImages && effectiveMember.profileImages.length > 0) {
-                        images = effectiveMember.profileImages.map(p => window.fixPath(p));
-                    } else if (effectiveMember.image) {
-                        images = [window.fixPath(effectiveMember.image)];
+                    const profileImages = normalizePathList(effectiveMember.profileImages);
+                    if (profileImages.length > 0) {
+                        images = profileImages.map((p) => (window.fixPath ? window.fixPath(p) : p));
+                    } else {
+                        const fallbackImage = firstPath(effectiveMember.image);
+                        if (fallbackImage) {
+                            images = [window.fixPath ? window.fixPath(fallbackImage) : fallbackImage];
+                        }
                     }
                 }
                 // revealLevel 0-1 はプロフィールページにリダイレクトされるはずなので処理不要
@@ -194,8 +239,12 @@ class ProfileImageSwitcher {
             this.handleTouch(e);
         }, { passive: true });
 
+        let touchMoveTicking = false;
         this.container.addEventListener('touchmove', (e) => {
-            this.handleTouch(e);
+            if (!touchMoveTicking) {
+                touchMoveTicking = true;
+                requestAnimationFrame(() => { this.handleTouch(e); touchMoveTicking = false; });
+            }
         }, { passive: true });
     }
 
@@ -223,6 +272,8 @@ class ProfileImageSwitcher {
         }
     }
 }
+
+window.ProfileImageSwitcher = ProfileImageSwitcher;
 
 // Auto-init on load
 window.addEventListener('DOMContentLoaded', async () => {

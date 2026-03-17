@@ -58,7 +58,7 @@ test.describe('Footer links', () => {
           }
         }
 
-        const url = new URL(href, `${baseURL}${route}`);
+        const url = new URL(href, page.url());
         const response = await request.get(url.toString());
         if (!response.ok()) {
           failures.push(`${route}: ${href} -> HTTP ${response.status()} (${url.toString()})`);

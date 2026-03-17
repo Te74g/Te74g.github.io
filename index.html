@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
+<body id="top">
 <div id="opening-loader-overlay">
   <div class="loader-logo-container">
     <div class="logo-wrapper">
@@ -33,6 +34,10 @@
   <div id="kv-scroll-zone">
     <!-- Hero Section -->
     <section id="hero-section">
+      <!-- 背景レイヤー: circle clip-path をJSが制御 -->
+      <div class="hero-bg"></div>
+      <!-- 装飾パーティクルレイヤー: circle 外の暗部に金色粒子が浮遊（JSが注入） -->
+      <div class="hero-deco-layer" id="hero-deco-layer" aria-hidden="true"></div>
       <!-- Flash Overlay -->
       <div class="hero-flash"></div>
 
@@ -40,15 +45,19 @@
         <img class="hero-character" src="./assets/opening/Tatie3.webp" alt="Character">
         <img class="hero-logo" src="./assets/logo/aniamemoria_logo.webp" alt="AniameMoria">
         <p class="hero-subtitle">AniameMoria</p>
-
-        <!-- Scroll Down Indicator -->
-        <div class="scroll-down">
-          <span>SCROLL</span>
-          <div class="scroll-down-arrow"></div>
-        </div>
       </div>
+
       <!-- Cast Reveal Hero Overlay: Desktop only (right side of hero) -->
       <div id="cast-reveal-hero" style="display:none;"></div>
+
+      <!-- Scroll Indicator: SVG 円形プログレス -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <svg viewBox="0 0 36 36" width="36" height="36">
+          <circle class="scroll-indicator-bg" cx="18" cy="18" r="16"/>
+          <circle class="scroll-indicator-progress" cx="18" cy="18" r="16"/>
+        </svg>
+        <span>SCROLL</span>
+      </div>
     </section>
   </div><!-- /#kv-scroll-zone -->
 
@@ -67,7 +76,7 @@
     </section>
 
     <!-- News Section (Carousel) -->
-    <section id="news-section" class="section u-pb-xs">
+    <section id="news-section" data-section="news" class="section u-pb-xs">
       <div class="container" style="max-width: 1000px;">
         <header class="section-head reveal" style="margin-bottom: 10px;">
           <h2 class="section-title cafe-signboard">News</h2>
@@ -103,7 +112,7 @@
     </div>
 
     <!-- Random Pickup Section -->
-    <section class="section u-pt-xs random-pickup-section">
+    <section data-section="pickup" class="section u-pt-xs random-pickup-section">
       <div class="container">
         <header class="section-head reveal" style="margin-bottom: 30px;">
           <h2 class="section-title cafe-signboard">Random Pickup</h2>
@@ -124,7 +133,7 @@
     </div>
 
     <!-- About Section -->
-    <section id="about-section" class="section u-pt-md u-pb-lg">
+    <section id="about-section" data-section="about" class="section u-pt-md u-pb-lg">
       <div class="container">
         <header class="section-head reveal">
           <h2 class="section-title cafe-signboard">About</h2>
@@ -177,9 +186,9 @@
 
     /* Top Divider for News Section (Washi/Torn Effect) */
     .news-overlap {
-      margin-top: -15vh;
-      /* Pull up over Hero */
-      padding-top: 80px;
+      margin-top: calc(-1 * (var(--home-next-peek-gap) + var(--home-next-visible)));
+      /* Pull up over Hero and keep the next section peeking in the first viewport */
+      padding-top: 86px;
       /* Text clearance */
 
       /* Jagged Torn Edge using Clip-path */
@@ -506,9 +515,6 @@
 <!-- Data Files -->
 <script src="./data/members.js"></script>
 <script src="./data/news.js"></script>
-<script src="./data/events.js"></script>
-<script src="./data/gallery.js"></script>
-<script src="./data/links.js"></script>
 <script src="./data/site.js"></script>
 <script type="module" src="./js/bootstrap/home.bootstrap.js"></script>
 </body>
