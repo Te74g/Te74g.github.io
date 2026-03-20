@@ -23,22 +23,27 @@
     <main id="main" class="profile-page">
         <section class="section profile-section">
             <div class="container profile-container">
-                <div class="profile-layout-grid">
-                    <article class="reveal profile-visual-area profile-panel">
+                <div class="profile-layout-grid profile-surface">
+                    <article class="reveal profile-visual-area">
                         <div class="cheki-visual profile-visual-card">
                             <div class="profile-bg-texture"></div>
                             <div class="profile-switcher-container"></div>
                             <img src="" id="profile-sign-img" class="profile-sign" alt="サイン">
                         </div>
-                        <div id="dynamic-motif-container" class="profile-motif"></div>
+                        <section class="profile-related-inline profile-related-inline--left">
+                            <h2 class="related-label">関連キャスト</h2>
+                            <div class="related-slots" id="dynamic-related-cast"></div>
+                        </section>
                     </article>
 
-                    <article class="reveal profile-text-area profile-panel">
-                        <div id="dynamic-tags-container" class="profile-tags"></div>
+                    <article class="reveal profile-text-area">
+                        <div class="profile-meta-row">
+                            <div id="dynamic-tags-container" class="profile-tags"></div>
+                            <div id="dynamic-motif-container" class="profile-motif"></div>
+                        </div>
                         <div class="profile-heading">
-                            <div class="profile-divider profile-divider--top"></div>
+                            <p class="profile-overline">PROFILE</p>
                             <h1 class="profile-name">プロフィール</h1>
-                            <div class="profile-divider profile-divider--bottom"></div>
                         </div>
 
                         <div class="parchment-frame">
@@ -59,13 +64,6 @@
                             <a href="../../cast/" class="btn btn--ghost btn--sm">一覧に戻る</a>
                         </div>
                     </article>
-
-                    <aside class="reveal profile-related-area profile-panel">
-                        <div class="related-cast">
-                            <h2 class="related-label">関連キャスト</h2>
-                            <div class="related-slots" id="dynamic-related-cast"></div>
-                        </div>
-                    </aside>
                 </div>
             </div>
         </section>

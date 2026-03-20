@@ -76,23 +76,17 @@ export function renderTags(activeMember, baseMember) {
 export function renderMotif(activeMember, revealContext) {
     const motifContainer = document.getElementById('dynamic-motif-container');
     if (!motifContainer) return;
-    if (!activeMember.motifAnimal || !activeMember.motifIcon) {
+    if (!activeMember.motifAnimal) {
         motifContainer.style.display = 'none';
         motifContainer.innerHTML = '';
         return;
     }
 
     const showMotif = revealContext.level >= 3 || (revealContext.displayInfo && revealContext.displayInfo.showMotif);
-    const iconPath = showMotif
-        ? resolvePath(activeMember.motifIcon)
-        : resolvePath('assets/member/silhouette.webp');
     const animalText = showMotif ? activeMember.motifAnimal : '???';
 
     motifContainer.innerHTML = `
-        <div class="origin-card" style="--origin-image: url('${iconPath}')">
-            <span class="origin-label">変身元</span>
-            <span class="origin-value">${animalText}</span>
-        </div>
+        <span class="tag tag--species">種族: ${animalText}</span>
     `;
     motifContainer.style.display = 'block';
 }
@@ -107,6 +101,70 @@ function buildCondensationOverlayHtml(baseMember, revealContext) {
     `;
 }
 
+let introLayoutHooksAttached = false;
+
+function updateIntroductionLayout() {
+    const frame = document.querySelector('.parchment-frame');
+    const textArea = document.querySelector('.profile-text-area');
+    if (!frame || !textArea) return;
+
+    const goalsSection = document.querySelector('.goals-section');
+    const socialContainer = document.querySelector('.social-icons-container');
+    const actions = document.querySelector('.profile-actions');
+
+    const style = window.getComputedStyle(frame);
+    const frameMarginBottom = Number.parseFloat(style.marginBottom) || 0;
+
+    const frameTop = frame.offsetTop;
+    const goalsHeight = goalsSection && goalsSection.style.display !== 'none' ? goalsSection.offsetHeight : 0;
+    const socialHeight = socialContainer && socialContainer.childElementCount > 0 ? socialContainer.offsetHeight : 0;
+    const actionsHeight = actions ? actions.offsetHeight : 0;
+
+    // Keep the "夢" block visible and stable by reserving space under the intro frame.
+    const reservedBottom = goalsHeight + socialHeight + actionsHeight + 28;
+    const available = textArea.clientHeight - frameTop - frameMarginBottom - reservedBottom;
+    const minHeight = 190;
+    const hardMax = 430;
+    const computedMax = Math.min(hardMax, Math.max(minHeight, Math.floor(available)));
+
+    frame.style.maxHeight = `${computedMax}px`;
+
+    let overflow = frame.scrollHeight - frame.clientHeight;
+    if (overflow > 0 && overflow <= 34 && computedMax < hardMax) {
+        const expanded = Math.min(hardMax, computedMax + Math.ceil(overflow) + 12);
+        frame.style.maxHeight = `${expanded}px`;
+        overflow = frame.scrollHeight - frame.clientHeight;
+    }
+
+    const needsScroll = overflow > 14;
+    frame.classList.toggle('is-scrollable', needsScroll);
+    if (!needsScroll) {
+        frame.scrollTop = 0;
+    }
+}
+
+function syncIntroductionScrollState() {
+    if (!introLayoutHooksAttached) {
+        introLayoutHooksAttached = true;
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(updateIntroductionLayout);
+        }, { passive: true });
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                requestAnimationFrame(updateIntroductionLayout);
+            }).catch(() => {});
+        }
+    }
+
+    requestAnimationFrame(() => {
+        updateIntroductionLayout();
+        setTimeout(() => {
+            requestAnimationFrame(updateIntroductionLayout);
+        }, 140);
+    });
+}
+
 function renderIntroduction(baseMember, revealContext, overlayHtml) {
     const introEl = document.getElementById('dynamic-intro-text');
     if (!introEl || !baseMember.introduction) return;
@@ -114,6 +172,7 @@ function renderIntroduction(baseMember, revealContext, overlayHtml) {
     const shouldShowIntro = revealContext.level >= 3 || (revealContext.displayInfo && revealContext.displayInfo.showIntro);
     if (shouldShowIntro) {
         introEl.innerHTML = baseMember.introduction;
+        syncIntroductionScrollState();
         return;
     }
 
@@ -124,6 +183,7 @@ function renderIntroduction(baseMember, revealContext, overlayHtml) {
                 ${overlayHtml}
             </div>
         `;
+        syncIntroductionScrollState();
     }
 }
 
@@ -289,9 +349,22 @@ function renderSign(baseMember) {
 
 function renderRelatedCasts(baseMember, allMembers, revealContext) {
     const relatedContainer = document.getElementById('dynamic-related-cast');
-    if (!relatedContainer || revealContext.level < 3) return;
+    const relatedSection = document.querySelector('.profile-related-inline');
+    if (!relatedContainer || !relatedSection) return;
+    if (revealContext.level < 3) {
+        relatedSection.style.display = 'none';
+        relatedContainer.innerHTML = '';
+        return;
+    }
 
     const relatedMembers = getRelatedMembers(baseMember, allMembers);
+    if (relatedMembers.length === 0) {
+        relatedSection.style.display = 'none';
+        relatedContainer.innerHTML = '';
+        return;
+    }
+    relatedSection.style.display = 'grid';
+
     relatedContainer.innerHTML = relatedMembers.map((relatedMember) => {
         const profileImages = normalizePathList(relatedMember.profileImages);
         const fallbackImage = normalizePathList(relatedMember.image)[0];
