@@ -386,17 +386,16 @@
 
 .cheki-card {
     display: block;
-    background: linear-gradient(180deg, rgba(245, 233, 214, 0.98), rgba(230, 212, 185, 0.96));
-    padding: 12px 12px 56px 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
-    transition: transform var(--transition-mid), box-shadow var(--transition-mid), filter var(--transition-mid);
+    background: #fff;
+    padding: 14px 14px 64px 14px;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     text-decoration: none;
     color: #1a1a1a;
     position: relative;
     transform-origin: center bottom;
     cursor: pointer;
-    border-radius: 6px;
-    border: 1px solid rgba(120, 84, 50, 0.18);
+    border-radius: 4px;
     max-width: 380px;
     margin-inline: auto;
     width: 100%;
@@ -404,19 +403,19 @@
 
 /* トレイのホバーインタラクション (Grid全体がhoverされている時、個別のカードを少し後ろに隠す) */
 .cheki-grid:hover .cheki-card {
-    transform: scale(0.985) translateY(2px);
-    opacity: 0.9;
-    filter: brightness(0.96);
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.16);
+    transform: scale(0.96) translateY(4px);
+    opacity: 0.85;
+    filter: brightness(0.9);
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* その中で実際にhover/focusされているカードだけ前に出す */
 .cheki-grid .cheki-card:hover,
 .cheki-grid .cheki-card:focus-visible {
-    transform: scale(1.02) translateY(-4px) !important;
+    transform: scale(1.05) translateY(-8px) !important;
     opacity: 1 !important;
-    filter: brightness(1.03) !important;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3) !important;
+    filter: brightness(1.05) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
     z-index: 20;
     outline: none;
 }
@@ -429,12 +428,12 @@
     /* Pin sits on top edge */
     left: 50%;
     transform: translateX(-50%);
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     /* Red Pin Style (Default) */
     background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
-    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.34), inset -2px -2px 4px rgba(0, 0, 0, 0.16);
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.2);
     z-index: 20;
     pointer-events: none;
 }
@@ -505,7 +504,7 @@
 
 .cheki-name {
     position: absolute;
-    bottom: 20px;
+    bottom: 11px;
     left: 0;
     right: 0;
     text-align: center;
@@ -513,7 +512,7 @@
     font-weight: 700;
     font-size: 1.5rem;
     letter-spacing: 0.05em;
-    color: #2e2118;
+    color: #222;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -521,7 +520,7 @@
 }
 
 .cheki-card:nth-child(3n+1) {
-    transform: translateY(3px) rotate(-0.8deg);
+    transform: translateY(4px) rotate(-1deg);
 }
 
 .cheki-card:nth-child(3n+2) {
@@ -529,7 +528,7 @@
 }
 
 .cheki-card:nth-child(3n+0) {
-    transform: translateY(3px) rotate(0.8deg);
+    transform: translateY(4px) rotate(1deg);
 }
 
 
@@ -561,7 +560,7 @@
 @media (max-width: 1024px) {
     .cheki-name {
         font-size: 1.25rem;
-        bottom: 12px;
+        bottom: 9px;
     }
 
     .cheki-card {
@@ -578,7 +577,7 @@
 
     .cheki-name {
         font-size: 1rem;
-        bottom: 8px;
+        bottom: 6px;
     }
 
     .cheki-tag-badge {
