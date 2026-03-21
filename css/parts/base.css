@@ -18,8 +18,8 @@ body {
 
     background-color: var(--bg);
 
-    line-height: 1.8;
-    letter-spacing: 0.04em;
+    line-height: 1.78;
+    letter-spacing: 0.02em;
 
     /* Prevent JS DOM injection stutter (FOUC) */
     animation: pageFadeIn 0.8s ease-out forwards;
@@ -80,7 +80,7 @@ a:not([class]):hover {
 
 :focus-visible {
     box-shadow: var(--focus);
-    outline: 2px solid rgba(57, 198, 255, 0.55);
+    outline: 2px solid rgba(213, 172, 113, 0.56);
     outline-offset: 2px;
     border-radius: 14px;
 }

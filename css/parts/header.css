@@ -6,28 +6,25 @@
     right: 0;
     width: 100%;
     z-index: 50;
-    background: rgba(30, 20, 15, 0.85);
-    /* 濃い茶色の半透明帯 */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    /* Faint bottom border */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    /* soft shadow */
-    transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+    background: rgba(19, 13, 10, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(220, 182, 124, 0.16);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .site-header.is-elevated {
-    background: rgba(20, 15, 13, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+    background: rgba(17, 12, 9, 0.95);
+    border-bottom: 1px solid rgba(220, 182, 124, 0.24);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
 }
 
 .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 0;
+    padding: 12px 0;
     gap: 12px;
 }
 
@@ -39,7 +36,7 @@
 }
 
 .brand-logo {
-    height: 48px;
+    height: 46px;
     width: auto;
     object-fit: contain;
     display: block;
@@ -48,8 +45,7 @@
 /* PC Nav */
 .pc-nav {
     display: flex;
-    gap: 4px;
-    /* ナビ項目間隔を詰めてコンパクトに */
+    gap: 6px;
     align-items: center;
     justify-content: center;
     flex: 1;
@@ -57,12 +53,11 @@
 
 .nav-item {
     font-weight: 700;
-    color: #fffaf0;
-    /* アイボリー寄りの白 */
-    padding: 10px 16px;
-    transition: color 0.2s ease, text-shadow 0.2s ease, background 0.2s ease;
+    color: #f5e8d1;
+    padding: 9px 14px;
+    transition: color var(--transition-fast), text-shadow var(--transition-fast), background var(--transition-fast);
     font-family: 'Zen Old Mincho', serif;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     white-space: nowrap;
 
     background: transparent;
@@ -72,29 +67,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
+    border-radius: 999px;
 }
 
 /* ライン（下線）の共通設定 */
 .nav-item::after {
     content: '';
     position: absolute;
-    bottom: 2px;
+    bottom: 4px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 1px;
-    background: rgba(230, 215, 170, 0.8);
-    /* 淡い琥珀色 */
-    transition: width 0.2s ease, box-shadow 0.2s ease;
+    background: rgba(224, 188, 131, 0.92);
+    transition: width var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .nav-item:hover {
     text-decoration: none;
-    color: #fffaf0;
-    background: rgba(255, 255, 255, 0.04);
-    /* hover時に少し明るく */
-    text-shadow: 0 0 10px rgba(230, 215, 170, 0.4);
+    color: #fff4df;
+    background: rgba(255, 255, 255, 0.06);
+    text-shadow: 0 0 8px rgba(224, 188, 131, 0.3);
     box-shadow: none;
     transform: none;
     /* 立体感を消す */
@@ -102,22 +95,20 @@
 
 /* ホバー時の下線（アクティブの少し弱い版） */
 .nav-item:hover::after {
-    width: 60%;
-    box-shadow: 0 0 6px rgba(230, 215, 170, 0.3);
+    width: 62%;
+    box-shadow: 0 0 6px rgba(224, 188, 131, 0.32);
 }
 
 .nav-item.is-active {
     color: #fff;
-    text-shadow: 0 0 12px rgba(230, 215, 170, 0.6);
-    /* ぼやけた淡い発光 */
+    text-shadow: 0 0 10px rgba(224, 188, 131, 0.5);
     background: transparent;
 }
 
 .nav-item.is-active::after {
-    width: 80%;
-    background: rgba(230, 215, 170, 1);
-    box-shadow: 0 0 8px rgba(230, 215, 170, 0.7);
-    /* アクティブ項目下の細いラインと発光 */
+    width: 78%;
+    background: rgba(233, 198, 143, 0.96);
+    box-shadow: 0 0 8px rgba(224, 188, 131, 0.56);
 }
 
 /* Header Socials */
@@ -133,14 +124,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: transparent;
     border: none;
-    color: rgba(255, 250, 240, 0.85);
-    /* アイボリー寄りの白 */
-    transition: all .2s ease;
+    color: rgba(255, 241, 218, 0.9);
+    transition: color var(--transition-fast), background var(--transition-fast);
     box-shadow: none;
     /* 立体感を消す */
 }
@@ -152,8 +142,7 @@
     background: rgba(255, 255, 255, 0.08);
     /* hoverは少し明るく */
     box-shadow: none;
-    text-shadow: 0 0 10px rgba(230, 215, 170, 0.5);
-    /* 弱いグロー */
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.4);
 }
 
 /* Menu Socials (Mobile) */
@@ -186,11 +175,13 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 12px;
+    padding: 9px 12px;
     border-radius: 999px;
-    border: 1px solid rgba(207, 170, 107, 0.3);
-    background: var(--paper);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(220, 182, 124, 0.34);
+    background: rgba(39, 28, 21, 0.86);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 6px 14px rgba(0, 0, 0, 0.24);
     cursor: pointer;
     font-weight: 700;
     color: var(--ink);
@@ -198,7 +189,7 @@
     z-index: 102;
     /* オーバーレイより前面に出す */
     /* アニメーション設定 */
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all var(--transition-mid);
     overflow: hidden;
     height: 48px;
     /* 高さを固定して安定させる */
@@ -278,7 +269,7 @@ body.nav-open .menu-close {
     inset: 0;
     z-index: 100;
     /* 背景を暗いすりガラス風にする */
-    background-color: rgba(20, 15, 13, 0.90);
+    background-color: rgba(17, 12, 9, 0.94);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     display: none;
@@ -335,21 +326,20 @@ body.nav-open .menu-close {
     justify-content: space-between;
     align-items: flex-end;
     gap: 12px;
-    padding: 16px 24px;
+    padding: 14px 20px;
     border-radius: 4px;
     text-decoration: none;
     font-family: 'Zen Old Mincho', serif;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: #fffaf0;
 
     background: transparent;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    /* 項目間の区切り線として薄いライン */
     box-shadow: none;
 
     position: relative;
-    transition: all .2s ease;
+    transition: all var(--transition-fast);
 }
 
 .menu-link:hover {
@@ -359,7 +349,7 @@ body.nav-open .menu-close {
     background: rgba(255, 255, 255, 0.04);
     border-color: rgba(230, 215, 170, 0.4);
     box-shadow: none;
-    text-shadow: 0 0 10px rgba(230, 215, 170, 0.4);
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.34);
 }
 
 .menu-link.is-active {
@@ -367,7 +357,7 @@ body.nav-open .menu-close {
     border-bottom: 1px solid rgba(230, 215, 170, 0.8);
     box-shadow: none;
     color: #fff;
-    text-shadow: 0 0 10px rgba(230, 215, 170, 0.5);
+    text-shadow: 0 0 10px rgba(230, 215, 170, 0.36);
 }
 
 .menu-link__jp {
@@ -409,51 +399,15 @@ body.nav-open .menu-close {
 
     .nav-item {
         padding: 6px 10px;
-        /* パディングを減らす */
         font-size: 0.9rem;
-        /*文字サイズを少し下げる */
     }
 
     .brand-logo {
         height: 40px;
-        /* ブランドロゴを少し小さく */
     }
 }
 
 /* Dark Mode Overrides for Header Applied Globally */
 .brand-logo {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-}
-
-.site-header {
-    background: rgba(20, 15, 12, 0.85);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-}
-
-.site-header.is-elevated {
-    background: rgba(15, 10, 8, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-}
-
-.menu {
-    background-color: rgba(20, 15, 12, 0.95) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-}
-
-.menu-link {
-    background: transparent;
-}
-
-.menu-link.is-active {
-    background: rgba(230, 215, 170, 0.06);
-}
-
-/* Menu Button Dark Mode */
-.menu-btn {
-    background: rgba(30, 30, 30, 0.85);
-    border-color: rgba(255, 255, 255, 0.25);
-    color: var(--ink);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.42));
 }

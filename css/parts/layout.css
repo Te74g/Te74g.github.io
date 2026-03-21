@@ -11,12 +11,12 @@ body {
 body::before {
     content: "";
     position: fixed;
-    top: -20vh;
+    top: -16vh;
     left: 50%;
     transform: translateX(-50%);
-    width: 150vw;
-    height: 120vh;
-    background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.1) 0%, transparent 70%);
+    width: 140vw;
+    height: 106vh;
+    background: radial-gradient(ellipse at 50% 0%, rgba(207, 170, 107, 0.08) 0%, transparent 72%);
     pointer-events: none;
     z-index: 0;
 }
@@ -75,7 +75,7 @@ body.is-preloading {
 
 /* ===== Section ===== */
 .section {
-    padding: 24px 0 24px 0;
+    padding: 22px 0;
 }
 
 /* motif-container: above shadows (z-index 2 is frame, 3 is sign) */
@@ -104,38 +104,36 @@ body.is-preloading {
 
 /* Section Headers */
 .section-head {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
 }
 
 .section-title {
-    margin: 0 0 12px;
+    margin: 0;
     font-weight: 700;
     font-family: 'Zen Old Mincho', serif;
-    font-size: clamp(24px, 3vw, 32px);
-    letter-spacing: 0.15em;
+    font-size: clamp(24px, 2.7vw, 34px);
+    letter-spacing: 0.11em;
     color: var(--ink);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(207, 170, 107, 0.3);
-    /* Subtle gold glow */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.44);
 }
 
 .section-lead {
     margin: 0;
-    color: #d7ccc8;
-    /* Pale Brown/Gold for Dark Wood */
-    font-family: 'Zen Old Mincho', serif;
+    color: var(--muted);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
     font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    text-transform: uppercase;
-    opacity: 0.8;
+    gap: 12px;
+    opacity: 0.86;
 }
 
 .related-label {
@@ -228,27 +226,27 @@ body.is-preloading {
 
 /* Unified Heading Signboard (all pages) */
 .cafe-signboard {
-    --heading-ornament-width: clamp(76px, 12.6vw, 184px);
-    --heading-ornament-gap: clamp(8px, 1.2vw, 14px);
+    --heading-ornament-width: clamp(62px, 10vw, 126px);
+    --heading-ornament-gap: clamp(8px, 1.1vw, 12px);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     position: relative;
     margin: 0;
-    padding: 0.01em 0.1em;
+    padding: 0.04em 0.14em;
     background: none;
     border: none;
     border-radius: 0;
     box-shadow: none;
-    color: #f5ead8;
+    color: var(--ink);
     font-family: 'Zen Old Mincho', serif;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    font-size: clamp(1.56rem, 3.1vw, 2.28rem);
-    line-height: 1.12;
+    letter-spacing: 0.11em;
+    font-size: clamp(1.62rem, 2.9vw, 2.32rem);
+    line-height: 1.15;
     text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.55),
-        0 0 16px rgba(207, 170, 107, 0.16);
+        0 2px 8px rgba(0, 0, 0, 0.45),
+        0 0 12px rgba(207, 170, 107, 0.2);
 }
 
 .cafe-signboard::before,
@@ -260,7 +258,7 @@ body.is-preloading {
     aspect-ratio: 217 / 66;
     pointer-events: none;
     background: url("../../assets/common/heading-ornament.png") center / contain no-repeat;
-    opacity: 0.92;
+    opacity: 0.74;
     transform: translateY(-50%);
 }
 
@@ -275,15 +273,15 @@ body.is-preloading {
 
 @media (max-width: 768px) {
     .cafe-signboard {
-        font-size: clamp(1.08rem, 5.9vw, 1.52rem);
-        --heading-ornament-width: clamp(42px, 16vw, 86px);
+        font-size: clamp(1.06rem, 5.7vw, 1.44rem);
+        --heading-ornament-width: clamp(38px, 14vw, 72px);
         --heading-ornament-gap: clamp(5px, 1.6vw, 8px);
-        padding: 0.01em 0.1em;
+        padding: 0.03em 0.08em;
     }
 
     .cafe-signboard::before,
     .cafe-signboard::after {
-        opacity: 0.9;
+        opacity: 0.68;
     }
 }
 /* Cafe Separator (Between Sections) */
@@ -481,36 +479,36 @@ body.is-preloading {
 
 /* News: 情報的・控えめ */
 #news-section .section-title {
-    font-size: clamp(19px, 2.2vw, 25px);
+    font-size: clamp(20px, 2.25vw, 26px);
 }
 
 #news-section .section-lead {
-    opacity: 0.5;
-    font-size: 0.82rem;
+    opacity: 0.7;
+    font-size: 0.84rem;
 }
 
 /* Pickup: 主役・最大強調 */
 .random-pickup-section .section-title {
-    font-size: clamp(28px, 3.8vw, 42px);
+    font-size: clamp(28px, 3.5vw, 40px);
     text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.9),
-        0 0 28px rgba(207, 170, 107, 0.6);
+        0 2px 10px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(207, 170, 107, 0.36);
 }
 
 .random-pickup-section .section-lead {
-    color: rgba(207, 170, 107, 0.88);
-    opacity: 1;
-    letter-spacing: 0.3em;
+    color: rgba(224, 190, 135, 0.9);
+    opacity: 0.9;
+    letter-spacing: 0.16em;
 }
 
 /* About: 参照的・最も控えめ */
 #about-section .section-title {
     font-size: clamp(18px, 1.9vw, 23px);
-    opacity: 0.8;
+    opacity: 0.86;
 }
 
 #about-section .section-lead {
-    opacity: 0.4;
+    opacity: 0.66;
     font-size: 0.8rem;
 }
 

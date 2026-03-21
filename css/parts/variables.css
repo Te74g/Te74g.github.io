@@ -4,45 +4,33 @@
     /* Site header height — sync with .header-inner padding + brand-logo height */
 
     /* Base Colors (Rich Dark Wood Theme) */
-    --bg: #1a1311;
-    /* Very dark brown/black */
-    --paper: #281e19;
-    /* Lighter dark wood for cards */
-    --ink: #cfc7bd;
-    /* Warm off-white for highly readable text */
-    --muted: rgba(207, 199, 189, 0.65);
-    /* Adjusted to match new ink */
-    --line: rgba(207, 170, 107, 0.15);
-    /* Subtlest gold lines */
-    --line-strong: rgba(207, 170, 107, 0.35);
-    /* Stronger gold lines */
+    --bg: #17110e;
+    --paper: #261b15;
+    --paper-soft: #30231b;
+    --ink: #efe4d1;
+    --muted: rgba(219, 196, 162, 0.72);
+    --line: rgba(210, 169, 105, 0.2);
+    --line-strong: rgba(220, 182, 124, 0.45);
 
     /* Thematic Golden Accents Tiers */
-    --gold-main: #cfaa6b;
-    /* Primary accent, strong borders */
-    --gold-sub: rgba(207, 170, 107, 0.4);
-    /* Secondary borders, inactive states */
-    --gold-shadow: rgba(207, 170, 107, 0.15);
-    /* Inner glows and subtle highlights */
+    --gold-main: #d5ac71;
+    --gold-sub: rgba(213, 172, 113, 0.42);
+    --gold-shadow: rgba(213, 172, 113, 0.16);
 
     /* Legacy mapping for compatibility */
     --accent-gold: var(--gold-main);
     --accent-glow: var(--gold-shadow);
 
     /* Semantic Colors */
-    --a: #d9534f;
-    /* Muted Red */
+    --a: #d96f62;
     --b: var(--gold-main);
-    /* Gold */
-    --c: #a59aca;
-    /* Muted Purple */
+    --c: #9f93c6;
     --d: var(--gold-main);
-    /* Gold */
 
     /* Shadows: Deep, soft, and tinted warm brown (NOT pure black) */
-    --shadow: 0 15px 40px rgba(30, 15, 5, 0.7);
-    --shadow-strong: 0 20px 50px rgba(30, 15, 5, 0.9);
-    --shadow-hover: 0 25px 60px rgba(30, 15, 5, 0.8), 0 0 25px var(--gold-shadow);
+    --shadow: 0 12px 28px rgba(17, 8, 4, 0.48);
+    --shadow-strong: 0 20px 40px rgba(17, 8, 4, 0.6);
+    --shadow-hover: 0 16px 34px rgba(17, 8, 4, 0.56), 0 0 16px rgba(213, 172, 113, 0.15);
 
     /* 代替セクション背景色（ダークモード：薄墨桜的な暗色） */
     --bg-alt: rgba(232, 107, 121, 0.08);
@@ -59,9 +47,13 @@
     /* Ichimatsu */
 
     --r-lg: 12px;
-    /* 丸みを少し抑える */
     --r-md: 8px;
     --r-sm: 6px;
 
-    --focus: 0 0 0 4px rgba(56, 161, 219, 0.25);
+    --focus: 0 0 0 4px rgba(213, 172, 113, 0.22);
+
+    --surface-glass: linear-gradient(160deg, rgba(40, 29, 22, 0.88), rgba(25, 18, 14, 0.82));
+    --surface-glass-soft: linear-gradient(165deg, rgba(46, 34, 26, 0.78), rgba(28, 20, 16, 0.72));
+    --transition-fast: 180ms ease;
+    --transition-mid: 260ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }

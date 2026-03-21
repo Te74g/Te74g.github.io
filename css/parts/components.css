@@ -2,41 +2,46 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 16px;
+    padding: 11px 18px;
     border-radius: 999px;
-    border: 1px solid rgba(207, 170, 107, 0.4);
-    /* Gold border */
-    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(170deg, rgba(49, 35, 25, 0.9), rgba(31, 22, 16, 0.9));
     color: var(--ink);
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), var(--shadow);
-    /* Deep recess effect */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 8px 18px rgba(0, 0, 0, 0.24);
     font-weight: 700;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    letter-spacing: 0.03em;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
 
 .btn:hover {
     text-decoration: none;
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), var(--shadow-hover);
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        var(--shadow-hover);
+    border-color: rgba(225, 185, 124, 0.76);
+    color: #fff1db;
 }
 
 .btn:active {
-    transform: translateY(-1px) scale(0.98);
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), var(--shadow);
+    transform: translateY(0);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn--primary {
-    background: linear-gradient(135deg, rgba(207, 170, 107, 0.2), rgba(207, 170, 107, 0.05));
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
+    background: linear-gradient(180deg, rgba(124, 84, 50, 0.96), rgba(78, 53, 33, 0.96));
+    border-color: rgba(220, 182, 124, 0.72);
+    color: #fff2de;
 }
 
 .btn--ghost {
-    background: rgba(255, 255, 255, 0.40);
-    border-color: var(--line);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(220, 182, 124, 0.34);
 }
 
 .btn--sm {
@@ -48,35 +53,35 @@
 .chip {
     display: inline-flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 7px 11px;
     border-radius: 999px;
-    border: 1px solid var(--line-strong);
-    background: var(--paper);
-    box-shadow: var(--shadow);
+    border: 1px solid rgba(220, 182, 124, 0.36);
+    background: rgba(41, 29, 22, 0.8);
     font-weight: 900;
     font-size: 12px;
+    color: var(--ink);
 }
 
 .chip--a {
-    background: rgba(255, 79, 216, 0.16);
+    background: rgba(217, 111, 98, 0.2);
 }
 
 .chip--b {
-    background: rgba(57, 198, 255, 0.18);
+    background: rgba(213, 172, 113, 0.22);
 }
 
 .chip--c {
-    background: rgba(124, 92, 255, 0.16);
+    background: rgba(159, 147, 198, 0.2);
 }
 
 /* Notice */
 .notice {
     border-radius: var(--r-lg);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    /* Glassmorphism border */
-    background: var(--paper);
-    box-shadow: var(--shadow), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-    /* Inner light */
+    border: 1px solid rgba(220, 182, 124, 0.28);
+    background: var(--surface-glass-soft);
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     padding: 14px 14px;
     position: relative;
     overflow: hidden;
@@ -90,7 +95,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at top right, rgba(230, 180, 34, 0.05), transparent 60%);
+    background: radial-gradient(circle at top right, rgba(213, 172, 113, 0.1), transparent 58%);
     pointer-events: none;
 }
 
@@ -149,23 +154,22 @@
 /* Card (Generic) */
 .card {
     border-radius: var(--r-lg);
-    border: 1px solid rgba(207, 170, 107, 0.15);
-    /* Very thin gold edge */
-    background: rgba(20, 15, 13, 0.6);
-    /* Translucent dark background */
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow), inset 0 0 0 1px rgba(0, 0, 0, 0.8);
-    /* Embossed edge */
+    border: 1px solid rgba(220, 182, 124, 0.2);
+    background: var(--surface-glass);
+    backdrop-filter: blur(6px);
+    box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
     padding: 14px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
     position: relative;
     overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover), inset 0 0 0 1px rgba(207, 170, 107, 0.3);
-    /* Gold inner glow */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border-color: rgba(220, 182, 124, 0.36);
 }
 
 .card-top {
@@ -184,7 +188,7 @@
 .card-desc {
     margin: 0 0 12px;
     color: var(--muted);
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .card-actions {
@@ -204,14 +208,16 @@
     text-decoration: none;
     padding: 6px 10px;
     border-radius: 999px;
-    border: 2px solid var(--line);
-    background: rgba(255, 79, 216, 0.10);
-    box-shadow: 3px 3px 0 rgba(31, 31, 31, 0.10);
+    border: 1px solid rgba(220, 182, 124, 0.34);
+    background: rgba(62, 44, 32, 0.72);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    color: var(--ink);
 }
 
 .more:hover {
     text-decoration: none;
     transform: translateY(-1px);
+    border-color: rgba(220, 182, 124, 0.6);
 }
 
 /* Tags */
@@ -220,29 +226,29 @@
     align-items: center;
     padding: 6px 10px;
     border-radius: 999px;
-    border: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 2px 8px rgba(31, 31, 31, 0.05);
-    /* Soft drop */
+    border: 1px solid rgba(220, 182, 124, 0.24);
+    background: rgba(42, 30, 23, 0.8);
+    box-shadow: none;
     font-weight: 900;
     font-size: 12px;
+    color: var(--ink);
 }
 
 .tag--soft {
-    background: rgba(57, 198, 255, 0.14);
+    background: rgba(69, 48, 33, 0.74);
 }
 
 .tag--open {
-    background: rgba(57, 198, 255, 0.18);
+    background: rgba(102, 73, 47, 0.82);
 }
 
 .tag--soon {
-    background: rgba(255, 210, 74, 0.24);
+    background: rgba(122, 92, 56, 0.84);
 }
 
 .tag--closed {
-    background: rgba(31, 31, 31, 0.06);
-    color: rgba(31, 31, 31, 0.65);
+    background: rgba(38, 28, 21, 0.7);
+    color: rgba(239, 228, 209, 0.66);
 }
 
 .tag--link {
@@ -252,8 +258,9 @@
 }
 
 .tag--link:hover {
-    opacity: 0.72;
+    opacity: 1;
     transform: translateY(-1px);
+    border-color: rgba(220, 182, 124, 0.5);
 }
 
 /* Meta */
@@ -283,15 +290,13 @@
 .empty {
     margin-top: 24px;
     border-radius: 12px;
-    border: 1px solid rgba(207, 170, 107, 0.4);
-    background: rgba(26, 19, 17, 0.60);
-    /* Translucent dark wood */
+    border: 1px solid rgba(220, 182, 124, 0.34);
+    background: var(--surface-glass);
     backdrop-filter: blur(12px);
     padding: 48px 24px;
     box-shadow:
-        inset 0 0 0 1px #1a1311,
-        inset 0 0 40px rgba(0, 0, 0, 0.5),
-        0 8px 24px rgba(0, 0, 0, 0.5);
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 12px 24px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -302,16 +307,16 @@
 
 .empty-icon {
     font-size: 32px;
-    color: var(--accent-gold);
+    color: var(--gold-main);
     opacity: 0.8;
     margin-bottom: 8px;
-    text-shadow: 0 2px 8px rgba(207, 170, 107, 0.3);
+    text-shadow: 0 2px 8px rgba(213, 172, 113, 0.25);
 }
 
 .empty-title {
     margin: 0;
     font-weight: 700;
-    color: var(--accent-gold);
+    color: var(--gold-main);
     font-size: 1.2rem;
     letter-spacing: 0.1em;
 }
@@ -319,7 +324,7 @@
 .empty-desc {
     margin: 0;
     color: var(--ink);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.6;
     max-width: 400px;
     font-size: 0.95rem;
@@ -328,9 +333,11 @@
 /* CTA */
 .cta {
     border-radius: 12px;
-    border: 1px solid rgba(207, 170, 107, 0.3);
-    background: linear-gradient(135deg, rgba(207, 170, 107, 0.1), rgba(0, 0, 0, 0.4));
-    box-shadow: var(--shadow-strong), inset 0 0 0 1px #1a1311, inset 0 0 15px rgba(207, 170, 107, 0.1);
+    border: 1px solid rgba(220, 182, 124, 0.28);
+    background: var(--surface-glass-soft);
+    box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     padding: 24px;
     display: flex;
     align-items: center;
@@ -342,7 +349,7 @@
 .cta-title {
     margin: 0 0 8px;
     font-weight: 700;
-    color: var(--accent-gold);
+    color: var(--gold-main);
     font-size: 1.1rem;
     letter-spacing: 0.05em;
 }
@@ -379,17 +386,17 @@
 
 .cheki-card {
     display: block;
-    background: #fff;
-    padding: 14px 14px 64px 14px;
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    background: linear-gradient(180deg, rgba(245, 233, 214, 0.98), rgba(230, 212, 185, 0.96));
+    padding: 12px 12px 56px 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+    transition: transform var(--transition-mid), box-shadow var(--transition-mid), filter var(--transition-mid);
     text-decoration: none;
     color: #1a1a1a;
     position: relative;
     transform-origin: center bottom;
     cursor: pointer;
-    border-radius: 4px;
-    /* 紙っぽくエッジをシャープ寄りに */
+    border-radius: 6px;
+    border: 1px solid rgba(120, 84, 50, 0.18);
     max-width: 380px;
     margin-inline: auto;
     width: 100%;
@@ -397,19 +404,19 @@
 
 /* トレイのホバーインタラクション (Grid全体がhoverされている時、個別のカードを少し後ろに隠す) */
 .cheki-grid:hover .cheki-card {
-    transform: scale(0.96) translateY(4px);
-    opacity: 0.85;
-    filter: brightness(0.9);
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(0.985) translateY(2px);
+    opacity: 0.9;
+    filter: brightness(0.96);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.16);
 }
 
 /* その中で実際にhover/focusされているカードだけ前に出す */
 .cheki-grid .cheki-card:hover,
 .cheki-grid .cheki-card:focus-visible {
-    transform: scale(1.05) translateY(-8px) !important;
+    transform: scale(1.02) translateY(-4px) !important;
     opacity: 1 !important;
-    filter: brightness(1.05) !important;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4) !important;
+    filter: brightness(1.03) !important;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3) !important;
     z-index: 20;
     outline: none;
 }
@@ -422,12 +429,12 @@
     /* Pin sits on top edge */
     left: 50%;
     transform: translateX(-50%);
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     /* Red Pin Style (Default) */
     background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.34), inset -2px -2px 4px rgba(0, 0, 0, 0.16);
     z-index: 20;
     pointer-events: none;
 }
@@ -506,7 +513,7 @@
     font-weight: 700;
     font-size: 1.5rem;
     letter-spacing: 0.05em;
-    color: #222;
+    color: #2e2118;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -514,18 +521,15 @@
 }
 
 .cheki-card:nth-child(3n+1) {
-    transform: translateY(4px) rotate(-1deg);
-    /* ほんの少しずらして弧を描くように */
+    transform: translateY(3px) rotate(-0.8deg);
 }
 
 .cheki-card:nth-child(3n+2) {
     transform: translateY(0px) rotate(0deg);
-    /* 中央は真っ直ぐ */
 }
 
 .cheki-card:nth-child(3n+0) {
-    transform: translateY(4px) rotate(1deg);
-    /* 左右対称に */
+    transform: translateY(3px) rotate(0.8deg);
 }
 
 
