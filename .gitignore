@@ -14,3 +14,37 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# 管理ツール（Electron app）
+admin-tool/node_modules/
+admin-tool/dist/
+admin-tool/dist*/
+admin-tool/release/
+admin-tool/release*/
+admin-tool/*.zip
+admin-tool/*.exe
+admin-tool/.env
+admin-tool/main.js        # GitHub PAT を含むため git 管理外
+
+# 管理ツール・運営版（Electron app）
+admin-tool-owner/node_modules/
+admin-tool-owner/dist/
+admin-tool-owner/dist*/
+admin-tool-owner/release/
+admin-tool-owner/release*/
+admin-tool-owner/*.zip
+admin-tool-owner/*.exe
+admin-tool-owner/.env
+admin-tool-owner/main.js  # GitHub PAT を含むため git 管理外
+
+# テスト生成物
+playwright-report/
+test-results/
+
+# Local utility projects / temporary artifacts (not part of site publish)
+admin-tool/
+admin-tool-owner/
+accessory/
+tmp_gallery_heading_target.png
+tests/snap_gallery_heading_target.spec.js
+assets/news/2026-03-15/Test.png

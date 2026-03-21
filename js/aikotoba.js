@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="perf-strip" aria-hidden="true"></div>
                 <div id="aikotoba-list" class="aikotoba-grid reveal"></div>
                 <div style="margin-top: 40px; text-align: center;">
-                    <a href="../index.html" class="btn btn--primary">トップへ戻る</a>
+                    <a href="../" class="btn btn--primary">トップへ戻る</a>
                 </div>
             </div>
         </section>

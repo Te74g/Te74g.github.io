@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tooltest — あにあめもりあ</title>
+  <!-- スタブ: news_loader.js が window.__newsId を優先して読む -->
+  <script>window.__newsId = 'testvol1';</script>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main id="main"></main>
+  <div id="footer-placeholder"></div>
+
+  <script src="../../data/site.js"></script>
+  <script src="../../data/news.js"></script>
+  <script src="../../js/common/utils.js"></script>
+  <script src="../../js/common-layout.js"></script>
+  <script>renderLayout('../../');</script>
+  <script src="../../js/news_loader.js"></script>
+</body>
+</html>

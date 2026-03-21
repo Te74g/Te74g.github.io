@@ -1,11 +1,26 @@
-/* =============================================
-   ALBUM BOOK — Photo Book with 3D Page Flip
-   =============================================
-   index.html の Gallery セクションで使用。
-   gallery/index.html のポラロイドビューへ「もっと見る」でリンク。
-   ============================================= */
 
-/* ---- Scene (outer wrapper, spotlight bg) ---- */
+
+#album-section .section-head {
+    position: relative;
+    margin-bottom: 14px;
+    padding-top: 0;
+}
+
+#album-section .section-lead {
+    margin-top: 11px;
+    color: rgba(233, 215, 188, 0.74);
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    text-transform: none;
+}
+
+@media (max-width: 768px) {
+    #album-section .section-lead {
+        margin-top: 9px;
+        font-size: 0.72rem;
+    }
+}
+
 .album-scene {
     display: flex;
     flex-direction: column;
@@ -15,7 +30,6 @@
     background: radial-gradient(ellipse at 50% 30%, rgba(207, 170, 107, 0.07) 0%, transparent 60%);
 }
 
-/* ---- Wrapper (book + nav arrows) ---- */
 .album-wrapper {
     display: flex;
     align-items: center;
@@ -23,7 +37,6 @@
     position: relative;
 }
 
-/* ---- Book container (perspective context) ---- */
 .album-book {
     position: relative;
     display: flex;
@@ -37,7 +50,6 @@
     filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 36px rgba(207, 170, 107, 0.09));
 }
 
-/* ---- Pages (base style) ---- */
 .album-page {
     width: 260px;
     min-height: 340px;
@@ -51,7 +63,6 @@
     overflow: hidden;
 }
 
-/* Grain texture via pseudo element */
 .album-page::before {
     content: '';
     position: absolute;
@@ -61,14 +72,12 @@
     z-index: 0;
 }
 
-/* Left page */
 .album-page-left {
     border-radius: 4px 0 0 4px;
     background: linear-gradient(to right, #f4edd9 80%, #e5d9c0 100%);
     box-shadow: inset -6px 0 12px rgba(0, 0, 0, 0.22);
 }
 
-/* Right page shell (becomes visible BEHIND the turner after flip) */
 .album-page-right {
     width: 260px;
     min-height: 340px;
@@ -84,7 +93,6 @@
     overflow: hidden;
 }
 
-/* Page curl hint on right page corner */
 .album-page-right::after {
     content: '';
     position: absolute;
@@ -98,7 +106,6 @@
     z-index: 1;
 }
 
-/* ---- Spine ---- */
 .album-spine {
     width: 14px;
     background: linear-gradient(
@@ -111,14 +118,13 @@
     );
     min-height: 340px;
     position: relative;
-    z-index: 15; /* ターナー(z:10)より前面に固定 → めくり中もスパインが常に見え「ポッ」と現れない */
+    z-index: 15; 
     box-shadow:
         2px 0 6px rgba(0, 0, 0, 0.4),
         -2px 0 6px rgba(0, 0, 0, 0.4);
     flex-shrink: 0;
 }
 
-/* Spine stitch line */
 .album-spine::after {
     content: '';
     position: absolute;
@@ -135,7 +141,6 @@
     transform: translateX(-50%);
 }
 
-/* ---- Right-side wrapper (positions the turner over right page) ---- */
 .album-right-wrap {
     position: relative;
     width: 260px;
@@ -143,7 +148,6 @@
     flex-shrink: 0;
 }
 
-/* ---- Page Turner (3D flip element) ---- */
 .album-page-turner {
     position: absolute;
     inset: 0;
@@ -161,7 +165,6 @@
     transition: none;
 }
 
-/* ---- Turner faces ---- */
 .turner-front,
 .turner-back {
     position: absolute;
@@ -176,14 +179,12 @@
     overflow: hidden;
 }
 
-/* Front face: same styling as right page */
 .turner-front {
     border-radius: 0 4px 4px 0;
     background: linear-gradient(to left, #f4edd9 80%, #e5d9c0 100%);
     box-shadow: inset 6px 0 12px rgba(0, 0, 0, 0.22);
 }
 
-/* Back face: will be visible after flip (becomes the NEW left page) */
 .turner-back {
     transform: rotateY(180deg);
     border-radius: 4px 0 0 4px;
@@ -191,9 +192,6 @@
     box-shadow: inset -6px 0 12px rgba(0, 0, 0, 0.22);
 }
 
-/* Back face content — no mirror correction needed:
-   parent rotateY(-180deg, origin:left) + self rotateY(+180deg, origin:center)
-   の組み合わせでは content は自然に正向きに配置されるため scaleX(-1) は不要 */
 .turner-back-inner {
     width: 100%;
     height: 100%;
@@ -204,7 +202,6 @@
     padding: 0;
 }
 
-/* ---- Photo Mount (photo on a page) ---- */
 .album-photo-mount {
     position: relative;
     width: 100%;
@@ -213,7 +210,6 @@
     cursor: zoom-in;
 }
 
-/* ---- Zoom hint overlay (circle + icon, 右下に小さく) ---- */
 .album-photo-zoom {
     position: absolute;
     inset: 0;
@@ -231,14 +227,12 @@
     opacity: 1;
 }
 
-/* Touch devices: always show at reduced opacity */
 @media (hover: none) {
     .album-photo-zoom {
         opacity: 0.65;
     }
 }
 
-/* Circle button (小さめ・半透明・色反転) */
 .album-photo-zoom-icon {
     width: 20px;
     height: 20px;
@@ -255,7 +249,6 @@
     transform: scale(1.12);
 }
 
-/* CSS "+" via pseudo-elements */
 .album-photo-zoom-icon::before,
 .album-photo-zoom-icon::after {
     content: '';
@@ -277,7 +270,6 @@
     height: 8px;
 }
 
-/* Corner tape — top-left */
 .album-photo-mount::before {
     content: '';
     position: absolute;
@@ -292,7 +284,6 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Corner tape — bottom-right */
 .album-photo-mount::after {
     content: '';
     position: absolute;
@@ -324,7 +315,6 @@
     filter: sepia(0) contrast(1);
 }
 
-/* ---- Title Page ---- */
 .album-title-page {
     display: flex;
     flex-direction: column;
@@ -339,7 +329,6 @@
     height: 100%;
 }
 
-/* Decorative inset border */
 .album-title-border {
     position: absolute;
     inset: 14px;
@@ -380,14 +369,12 @@
     margin: 4px 0 0;
 }
 
-/* ---- Blank page ---- */
 .page-blank {
     width: 100%;
     height: 100%;
     min-height: 290px;
 }
 
-/* ---- Navigation Arrows ---- */
 .album-nav {
     background: rgba(15, 10, 5, 0.6);
     border: 1px solid rgba(207, 170, 107, 0.28);
@@ -404,7 +391,7 @@
     flex-shrink: 0;
     backdrop-filter: blur(6px);
     line-height: 1;
-    padding-bottom: 2px; /* visual centering of ‹ › */
+    padding-bottom: 2px; 
 }
 
 .album-nav:hover {
@@ -420,7 +407,6 @@
     pointer-events: none;
 }
 
-/* ---- Page Indicator (dots) ---- */
 .album-page-indicator {
     display: flex;
     justify-content: center;
@@ -450,7 +436,6 @@
     transform: scale(1.35);
 }
 
-/* ---- Album Selector (thumbnail row) ---- */
 .album-selector {
     display: flex;
     justify-content: center;
@@ -497,7 +482,6 @@
     filter: sepia(0.2);
 }
 
-/* ---- Empty State ---- */
 .album-empty {
     display: flex;
     flex-direction: column;
@@ -519,7 +503,6 @@
     color: rgba(207, 170, 107, 0.4);
 }
 
-/* ---- Responsive ---- */
 @media (max-width: 720px) {
     .album-page,
     .album-page-right,
@@ -534,7 +517,7 @@
     }
 
     .album-page-turner {
-        /* inherits inset: 0 from .album-right-wrap */
+        
     }
 
     .album-photo-mount {
@@ -589,9 +572,6 @@
     .album-wrapper { gap: 8px; }
 }
 
-/* =============================================
-   ALBUM LIGHTBOX (#album-lb)
-   ============================================= */
 #album-lb {
     position: fixed;
     inset: 0;
@@ -628,7 +608,7 @@
         0 40px 100px rgba(0, 0, 0, 0.8);
     cursor: zoom-out;
     border-radius: 2px;
-    /* Scale in on open */
+    
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     transform: scale(0.92);
 }
@@ -637,7 +617,7 @@
     transform: scale(1);
 }
 
-/* Scroll lock */
 body.album-lb-open {
     overflow: hidden;
 }
+

@@ -5,7 +5,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
-    /* scroll-snap-type removed */
+    /* scroll-snap-type は独自スクロール処理と競合するため除外 */
 }
 
 body {
@@ -40,12 +40,25 @@ body.nav-open {
     overflow: hidden;
 }
 
-/* メニュー表示中は背景コンテンツをぼかして暗くする */
+/* メニュー表示中は背景コンテンツを操作不能にする */
 body.nav-open main,
 body.nav-open .site-footer {
-    filter: blur(8px) brightness(0.7);
     pointer-events: none;
-    transition: filter 0.3s ease;
+}
+
+/* メニュー開閉オーバーレイ（blur の代替・GPU 負荷なし） */
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 49;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+body.nav-open .nav-backdrop {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 

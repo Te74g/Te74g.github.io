@@ -8,15 +8,15 @@
 // =======================================================
 (function () {
     // メンテナンスページ自身はスキップ
-    if (window.location.pathname.includes('maintenance.html')) return;
+    if (window.location.pathname.includes('/maintenance/') || window.location.pathname.includes('maintenance.html')) return;
 
     // メンテナンスモードの裏技解除フラグ（セッション中有効）またはデバッグモードが立っていればスキップ
     if (sessionStorage.getItem('maintenanceBypass') === 'true' || sessionStorage.getItem('debugMode') === 'true') return;
 
     // siteConfigのメンテナンスモードをチェック
     if (window.siteConfig?.maintenanceMode) {
-        // 相対パスでmaintenance.htmlにリダイレクト
-        const basePath = window.fixPath ? window.fixPath('maintenance.html') : './maintenance.html';
+        // fixPath 未読込ページでも誤って /{section}/maintenance/ へ飛ばないよう絶対パスを使う
+        const basePath = window.fixPath ? window.fixPath('maintenance/') : '/maintenance/';
         window.location.href = basePath;
     }
 })();

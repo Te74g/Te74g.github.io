@@ -3,6 +3,38 @@
  * Extracted member-related logic from legacy utils.js
  */
 
+export const normalizePathList = (value) => {
+    const extractPath = (entry) => {
+        if (typeof entry === 'string') {
+            return entry.trim();
+        }
+        if (entry && typeof entry === 'object') {
+            const candidate = entry.repoPath || entry.path || entry.src || entry.url || '';
+            return typeof candidate === 'string' ? candidate.trim() : '';
+        }
+        return '';
+    };
+
+    if (Array.isArray(value)) {
+        return value.map(extractPath).filter(Boolean);
+    }
+
+    if (typeof value === 'string') {
+        const trimmed = value.trim();
+        if (!trimmed) return [];
+        return trimmed.split(/[\r\n,]+/).map((part) => part.trim()).filter(Boolean);
+    }
+
+    if (value && typeof value === 'object') {
+        const one = extractPath(value);
+        return one ? [one] : [];
+    }
+
+    return [];
+};
+
+const firstPath = (value) => normalizePathList(value)[0] || null;
+
 export const shouldShowItem = (item) => {
     if (!item) return false;
     const isDebugMode = sessionStorage.getItem('debugMode') === 'true';
@@ -58,10 +90,14 @@ export const getMemberDisplayInfo = (member, siteConfig) => {
         showMotif: true,
     };
 
-    if (member.profileImages && member.profileImages.length > 0) {
-        info.imagePath = member.profileImages;
-    } else if (member.image) {
-        info.imagePath = [member.image];
+    const normalizedProfileImages = normalizePathList(member.profileImages);
+    if (normalizedProfileImages.length > 0) {
+        info.imagePath = normalizedProfileImages;
+    } else {
+        const image = firstPath(member.image);
+        if (image) {
+            info.imagePath = [image];
+        }
     }
 
     switch (level) {

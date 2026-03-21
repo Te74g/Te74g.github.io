@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あにあめもりあ | プロフィール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../../assets/favicon/multi_favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/styles.css" />
+</head>
+
+<body id="top">
+    <div id="fixed-page-background" class="bg-texture" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">本文へスキップ</a>
+
+    <div id="header-placeholder"></div>
+
+    <main id="main" class="profile-page">
+        <section class="section profile-section">
+            <div class="container profile-container">
+                <div class="profile-layout-grid profile-surface">
+                    <article class="reveal profile-visual-area">
+                        <div class="cheki-visual profile-visual-card">
+                            <div class="profile-bg-texture"></div>
+                            <div class="profile-switcher-container"></div>
+                            <img src="" id="profile-sign-img" class="profile-sign" alt="サイン">
+                        </div>
+                        <section class="profile-related-inline profile-related-inline--left">
+                            <h2 class="related-label">関連キャスト</h2>
+                            <div class="related-slots" id="dynamic-related-cast"></div>
+                        </section>
+                    </article>
+
+                    <article class="reveal profile-text-area">
+                        <div class="profile-meta-row">
+                            <div id="dynamic-tags-container" class="profile-tags"></div>
+                            <div id="dynamic-motif-container" class="profile-motif"></div>
+                        </div>
+                        <div class="profile-heading">
+                            <p class="profile-overline">PROFILE</p>
+                            <h1 class="profile-name">プロフィール</h1>
+                        </div>
+
+                        <div class="parchment-frame">
+                            <p id="dynamic-intro-text">読み込み中...</p>
+                            <div class="watermark-logo"></div>
+                        </div>
+
+                        <div class="goals-section">
+                            <h2 class="goals-title">夢</h2>
+                            <div id="dynamic-goals-container">
+                                <div class="goals-text">読み込み中...</div>
+                            </div>
+                        </div>
+
+                        <div class="social-icons-container" id="dynamic-socials-container"></div>
+
+                        <div class="profile-actions">
+                            <a href="../../cast/" class="btn btn--ghost btn--sm">一覧に戻る</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../../data/site.js"></script>
+    <script src="../../data/members.js"></script>
+    <script src="../../js/common/utils.js"></script>
+    <script src="../../js/common-layout.js"></script>
+    <script>
+        renderLayout('../../');
+    </script>
+    <script src="../../js/ui.js"></script>
+    <script src="../../js/profile_switcher.js"></script>
+    <script src="../../js/profile_loader.js"></script>
+
+</body>
+
+</html>

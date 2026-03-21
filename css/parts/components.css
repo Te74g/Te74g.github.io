@@ -368,7 +368,13 @@
     padding: 10px 0;
 }
 
-/* Responsive queries removed to force 3 columns as requested */
+/* タブレット: 2列 */
+@media (max-width: 920px) and (min-width: 601px) {
+    .cheki-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
 
 
 .cheki-card {
@@ -563,7 +569,7 @@
 @media (max-width: 600px) {
     .cheki-grid {
         gap: 14px;
-        /* Reduced gap for mobile 3-col layout */
+        /* モバイル幅では gap を縮小（2列レイアウト継続） */
     }
 
     .cheki-name {
