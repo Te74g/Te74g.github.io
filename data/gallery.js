@@ -19,7 +19,12 @@ window.galleryData = [
         date: '2026.03.22',
         thumb: 'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.png',
         images: [
+            'assets/gallery/2026322/VRChat_2026-03-22_21-25-38.354_3840x2160.png',
             'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_21-39-04.746_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_21-39-31.828_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_21-52-38.757_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_21-55-37.681_3840x2160.png',
             'assets/gallery/2026322/VRChat_2026-03-22_21-57-48.847_3840x2160.png',
             'assets/gallery/2026322/VRChat_2026-03-22_21-58-28.198_3840x2160.png',
             'assets/gallery/2026322/VRChat_2026-03-22_22-01-14.764_3840x2160.png',
@@ -30,6 +35,6 @@ window.galleryData = [
             'assets/gallery/2026322/VRChat_2026-03-22_22-35-25.106_3840x2160.png',
             'assets/gallery/2026322/VRChat_2026-03-22_22-36-49.796_3840x2160.png'
         ],
-        desc: '人間さん大好き'
+        desc: '第一回あにあめもりあ'
     }
 ];
