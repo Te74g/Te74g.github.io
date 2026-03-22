@@ -7,7 +7,7 @@ window.newsData = [
         "id": "grand_open_20260308",
         "hidden": false,
         "title": "人間さん、ようこそ「あにあめもりあ」へ！",
-        "date": "2026.03.08",
+        "date": "2026.03.22",
         "category": "お知らせ",
         "image": "assets/news/2026-03-08/grand_open.webp",
         "imagePath": "assets/news/2026-03-08/grand_open.webp",

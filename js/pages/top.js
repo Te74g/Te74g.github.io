@@ -9,6 +9,7 @@ import { sleep, fadeIn } from '../app/motion.js';
 import { State, updateState } from '../app/state.js';
 import { getSiteConfig, getMembersData } from '../app/data.js';
 import { fixPath } from '../app/url.js';
+import { initNewsPage } from './news.js';
 import {
     shouldShowItem,
     getRevealLevel,
@@ -606,6 +607,7 @@ export async function initHomePage() {
     setupScrollMorph();
     setupSectionObserver();
     spawnHeroParticles();
+    await initNewsPage();
     buildLegacyFeatures();
 
     const MIN_DISPLAY_TIME = 2000;
