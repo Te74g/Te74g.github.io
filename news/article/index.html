@@ -20,31 +20,28 @@
     <div id="header-placeholder"></div>
 
     <main id="main">
-        <section class="section">
-            <div class="container" style="max-width: 800px;">
-                <article class="reveal">
+        <section class="section news-article-section">
+            <div class="container news-article-container">
+                <article class="news-article">
 
-                    <header id="dynamic-article-header" class="section-head reveal"
-                        style="text-align: center; margin-bottom: 40px;">
+                    <header id="dynamic-article-header" class="news-article-header">
                         <!-- JS Injected -->
                     </header>
 
-                    <div id="dynamic-article-image">
+                    <div id="dynamic-article-image" class="news-article-image">
                         <!-- JS Injected -->
                     </div>
 
-                    <div class="parchment-frame reveal" style="margin-top: 24px;">
+                    <div class="news-article-content-frame">
                         <div id="dynamic-article-content">
                             <!-- JS Injected -->
                             <p>読み込み中...</p>
                         </div>
-                        <!-- Watermark -->
                         <div class="watermark-logo"></div>
                     </div>
 
-                    <div style="margin-top: 40px; text-align: center;">
+                    <div class="news-article-actions">
                         <a href="../" class="btn btn--ghost">ニュース一覧に戻る</a>
-                        <!-- If needed, a link to news list page (index.html#news or similar) -->
                     </div>
                 </article>
             </div>
@@ -69,7 +66,8 @@
     <script src="../../data/links.js"></script>
     <!-- Common UI Script -->
     <script src="../../js/ui.js"></script>
-    <script src="../../js/news_loader.js"></script>
+    <script src="../../js/news_loader.js?v=20260323b"></script>
 </body>
 
 </html>
+

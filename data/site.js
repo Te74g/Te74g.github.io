@@ -63,7 +63,7 @@ window.siteConfig = {
     // =======================================================
 
     // メンテナンスモード（true にするとサイト全体が maintenance.html にリダイレクト）
-    maintenanceMode: true,
+    maintenanceMode: false,
 
     // キャスト表示制御
     castDisplay: {

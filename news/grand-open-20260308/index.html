@@ -10,7 +10,23 @@
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main id="main"></main>
+  <main id="main">
+    <section class="section news-article-section">
+      <div class="container news-article-container">
+        <article class="news-article">
+          <header id="dynamic-article-header" class="news-article-header"></header>
+          <div id="dynamic-article-image" class="news-article-image"></div>
+          <div class="news-article-content-frame">
+            <div id="dynamic-article-content"><p>読み込み中...</p></div>
+            <div class="watermark-logo"></div>
+          </div>
+          <div class="news-article-actions">
+            <a href="../../news/" class="btn btn--ghost">ニュース一覧に戻る</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
   <div id="footer-placeholder"></div>
 
   <script src="../../data/site.js"></script>
@@ -18,6 +34,6 @@
   <script src="../../js/common/utils.js"></script>
   <script src="../../js/common-layout.js"></script>
   <script>renderLayout('../../');</script>
-  <script src="../../js/news_loader.js"></script>
+  <script src="../../js/news_loader.js?v=20260323b"></script>
 </body>
 </html>

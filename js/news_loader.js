@@ -46,10 +46,10 @@ function renderNotFound(id) {
     if (!main) return;
     const safeId = id ? `<code>${id}</code>` : '<code>(none)</code>';
     main.innerHTML = `
-        <section class="section">
-            <div class="container" style="max-width: 760px; text-align: center;">
-                <div class="parchment-frame">
-                    <h1 class="cafe-signboard" style="margin-bottom: 16px;">記事が見つかりませんでした</h1>
+        <section class="section news-article-section">
+            <div class="container news-article-container" style="max-width: 760px; text-align: center;">
+                <div class="news-article-content-frame">
+                    <h1 class="news-article-title" style="margin-bottom: 16px;">記事が見つかりませんでした</h1>
                     <p style="margin-bottom: 8px;">指定されたID: ${safeId}</p>
                     <p style="margin-bottom: 20px;">移行時の旧IDの可能性があります。ニュース一覧から最新記事をご確認ください。</p>
                     <a class="btn btn--ghost" href="${window.fixPath ? window.fixPath('news/') : '/news/'}">ニュース一覧へ</a>
@@ -59,42 +59,90 @@ function renderNotFound(id) {
     `;
 }
 
+function ensureArticleScaffold() {
+    const main = document.querySelector('main');
+    if (!main) return null;
+
+    let headerEl = document.getElementById('dynamic-article-header');
+    let imageContainer = document.getElementById('dynamic-article-image');
+    let contentEl = document.getElementById('dynamic-article-content');
+
+    if (headerEl && imageContainer && contentEl) {
+        const revealTargets = [
+            main.querySelector('.news-article'),
+            headerEl,
+            main.querySelector('.news-article-content-frame')
+        ];
+        revealTargets.forEach((el) => {
+            if (!el) return;
+            el.classList.remove('reveal');
+            el.classList.add('is-visible');
+        });
+        return { headerEl, imageContainer, contentEl };
+    }
+
+    main.innerHTML = `
+        <section class="section news-article-section">
+            <div class="container news-article-container">
+                <article class="news-article">
+                    <header id="dynamic-article-header" class="news-article-header"></header>
+                    <div id="dynamic-article-image" class="news-article-image"></div>
+                    <div class="news-article-content-frame">
+                        <div id="dynamic-article-content"></div>
+                        <div class="watermark-logo"></div>
+                    </div>
+                    <div class="news-article-actions">
+                        <a href="${window.fixPath ? window.fixPath('news/') : '/news/'}" class="btn btn--ghost">ニュース一覧に戻る</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    `;
+
+    headerEl = document.getElementById('dynamic-article-header');
+    imageContainer = document.getElementById('dynamic-article-image');
+    contentEl = document.getElementById('dynamic-article-content');
+    return { headerEl, imageContainer, contentEl };
+}
+
 function renderArticle(article) {
     document.title = `あにあめもりあ | ${article.title || 'ニュース'}`;
 
-    const headerEl = document.getElementById('dynamic-article-header');
+    const scaffold = ensureArticleScaffold();
+    if (!scaffold) return;
+
+    const { headerEl, imageContainer, contentEl } = scaffold;
     if (headerEl) {
         const dateText = article.date || '';
         const dateIso = typeof dateText === 'string' ? dateText.replace(/\./g, '-') : '';
         const category = article.category || 'その他';
         headerEl.innerHTML = `
-            <h1 class="cafe-signboard" style="font-size: clamp(1.1rem, 3vw, 1.4rem); line-height: 1.5; margin-bottom: 0;">
-                ${article.title || ''}
-            </h1>
-            <div class="cafe-separator"><span class="cafe-separator-icon"></span></div>
-            <div style="margin-bottom: 10px; color: var(--muted); font-weight: 700; font-family: 'Zen Old Mincho', serif; letter-spacing: 0.1em;">
-                ${dateText ? `<time datetime="${dateIso}">${dateText}</time>` : ''}
-                <span class="tag tag--soft" style="margin-left: 10px;">${category}</span>
+            <div class="news-article-title-banner">
+                <span class="news-article-title-ornament" aria-hidden="true"></span>
+                <h1 class="news-article-title">${article.title || ''}</h1>
+                <span class="news-article-title-ornament" aria-hidden="true"></span>
+            </div>
+            <div class="news-article-meta">
+                ${dateText ? `<time datetime="${dateIso}" class="news-article-date">${dateText}</time>` : ''}
+                <span class="news-article-category">${category}</span>
             </div>
         `;
     }
 
-    const imageContainer = document.getElementById('dynamic-article-image');
     if (imageContainer) {
         const rawPath = article.imagePath || article.image;
         if (rawPath) {
             const imgPath = window.fixPath ? window.fixPath(rawPath) : rawPath;
             imageContainer.innerHTML = `
-                <div style="margin-bottom: 32px;">
-                    <img src="${imgPath}" alt="記事画像" style="width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow);">
-                </div>
+                <figure class="news-article-figure">
+                    <img src="${imgPath}" alt="${article.title || '記事画像'}" class="news-article-main-image">
+                </figure>
             `;
         } else {
             imageContainer.innerHTML = '';
         }
     }
 
-    const contentEl = document.getElementById('dynamic-article-content');
     if (contentEl) {
         contentEl.innerHTML = article.content || '<p>本文がありません。</p>';
     }

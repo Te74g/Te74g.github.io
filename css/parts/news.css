@@ -846,3 +846,204 @@
         height: 36px;
     }
 }
+
+/* Article page */
+.news-article-section {
+    padding-top: 30px;
+}
+
+.news-article-container {
+    max-width: 980px;
+}
+
+.news-article {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news-article-header {
+    text-align: center;
+}
+
+.news-article-title-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(221, 188, 141, 0.34);
+    background: linear-gradient(145deg, rgba(14, 10, 8, 0.95), rgba(30, 19, 14, 0.9));
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.news-article-title-ornament {
+    flex: 1;
+    max-width: 150px;
+    min-width: 36px;
+    height: 1px;
+    position: relative;
+    background: linear-gradient(90deg, rgba(228, 198, 149, 0.08), rgba(228, 198, 149, 0.65), rgba(228, 198, 149, 0.08));
+}
+
+.news-article-title-ornament::before,
+.news-article-title-ornament::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border: 1px solid rgba(228, 198, 149, 0.55);
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.news-article-title-ornament::before {
+    left: -2px;
+}
+
+.news-article-title-ornament::after {
+    right: -2px;
+}
+
+.news-article-title {
+    margin: 0;
+    font-family: 'Zen Old Mincho', 'Noto Serif JP', serif;
+    font-size: clamp(1.2rem, 2.7vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+    color: #f4e7cf;
+}
+
+.news-article-meta {
+    margin-top: 12px;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.news-article-date {
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    color: rgba(231, 201, 156, 0.85);
+}
+
+.news-article-category {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 2px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(221, 188, 141, 0.44);
+    background: rgba(220, 184, 133, 0.12);
+    color: #f0dfc3;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.news-article-image {
+    margin-top: 2px;
+}
+
+.news-article-figure {
+    margin: 0;
+    padding: 20px;
+    border-radius: 14px;
+    background: rgba(35, 28, 24, 0.62);
+    border: 1px solid rgba(223, 190, 143, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(223, 190, 143, 0.06);
+}
+
+.news-article-main-image {
+    width: 100%;
+    max-height: 620px;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid rgba(223, 190, 143, 0.22);
+}
+
+.news-article-content-frame {
+    position: relative;
+    padding: clamp(20px, 2.8vw, 32px);
+    border-radius: 14px;
+    border: 1px solid rgba(223, 190, 143, 0.26);
+    background: linear-gradient(165deg, rgba(28, 20, 15, 0.9), rgba(18, 13, 10, 0.88));
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+}
+
+#dynamic-article-content {
+    font-size: 1.02rem;
+    line-height: 2;
+    color: rgba(244, 233, 212, 0.95);
+}
+
+#dynamic-article-content p {
+    margin: 0 0 1.15em;
+}
+
+#dynamic-article-content a {
+    color: #f2d39e;
+    text-underline-offset: 2px;
+}
+
+#dynamic-article-content img {
+    width: min(100%, 680px);
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(223, 190, 143, 0.26);
+}
+
+.news-article-actions {
+    margin-top: 2px;
+    text-align: center;
+}
+
+@media (max-width: 860px) {
+    .news-article-title-banner {
+        padding: 12px 14px;
+        border-radius: 14px;
+    }
+
+    .news-article-figure {
+        padding: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .news-article-section {
+        padding-top: 18px;
+    }
+
+    .news-article {
+        gap: 14px;
+    }
+
+    .news-article-title-ornament {
+        max-width: 82px;
+    }
+
+    .news-article-title {
+        font-size: clamp(1rem, 6vw, 1.3rem);
+        letter-spacing: 0.02em;
+    }
+
+    .news-article-meta {
+        margin-top: 10px;
+        gap: 8px;
+    }
+
+    #dynamic-article-content {
+        font-size: 0.96rem;
+        line-height: 1.95;
+    }
+
+    .news-article-content-frame {
+        padding: 16px;
+    }
+}

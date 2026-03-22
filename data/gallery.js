@@ -14,5 +14,22 @@
  * --------------------------------------------------------------------------
  */
 window.galleryData = [
-
+    {
+        title: '初営業！',
+        date: '2026.03.22',
+        thumb: 'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.png',
+        images: [
+            'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_21-57-48.847_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_21-58-28.198_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-01-14.764_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-02-27.976_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-26-10.940_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-26-14.394_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-26-25.904_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-35-25.106_3840x2160.png',
+            'assets/gallery/2026322/VRChat_2026-03-22_22-36-49.796_3840x2160.png'
+        ],
+        desc: '人間さん大好き'
+    }
 ];
