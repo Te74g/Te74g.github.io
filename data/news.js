@@ -10,8 +10,8 @@ window.newsData = [
         title: '🌸【次回開催日のお知らせ】🌸',
         date: '2026.03.23',
         category: 'お知らせ',
-        image: 'assets/news/2026-03-14/329.png',
-        imagePath: 'assets/news/2026-03-14/329.png',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
         desc: '情報収集型ロールプレイイベント【あにあめもりあ】の次回開催日が確定しました。',
         content: `
             <p>
@@ -43,8 +43,8 @@ window.newsData = [
         title: '🌸【イベント開催のお知らせ】🌸',
         date: '2026.03.22',
         category: 'お知らせ',
-        image: 'assets/news/2026-03-14/event.png',
-        imagePath: 'assets/news/2026-03-14/event.png',
+        image: 'assets/news/2026-03-14/event.webp',
+        imagePath: 'assets/news/2026-03-14/event.webp',
         desc: '情報収集型ロールプレイイベント【あにあめもりあ】の初開催日が確定しました。',
         content: `
             <p>

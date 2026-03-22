@@ -314,7 +314,7 @@ function renderEventContent(eventItem, normalizePath) {
                     ${posterHtml}
                     <div class="event-col-content">
                         ${galleryHtml}
-                        <div id="dynamic-event-content-injected" style="display:flex; flex-direction:column; gap:24px; margin-top:24px;">
+                        <div id="dynamic-event-content-injected" class="event-detail-stack">
                             ${descriptionHtml}
                             ${detailsHtml}
                         </div> 
@@ -324,11 +324,28 @@ function renderEventContent(eventItem, normalizePath) {
         } else {
             imageContainer.innerHTML = `
                 ${galleryHtml}
-                <div id="dynamic-event-content-injected" style="display:flex; flex-direction:column; gap:24px; margin-top:24px;">
+                <div id="dynamic-event-content-injected" class="event-detail-stack">
                     ${descriptionHtml}
                     ${detailsHtml}
                 </div>
             `;
+        }
+
+        // Normalize embedded relative paths inside HTML strings (details/description)
+        const injected = imageContainer.querySelector('#dynamic-event-content-injected');
+        if (injected) {
+            injected.querySelectorAll('img[src]').forEach((img) => {
+                const raw = img.getAttribute('src');
+                if (!raw) return;
+                if (/^(https?:|\/\/|data:|blob:)/i.test(raw)) return;
+
+                let clean = raw.trim();
+                while (clean.startsWith('../')) clean = clean.slice(3);
+                while (clean.startsWith('./')) clean = clean.slice(2);
+                if (!clean.startsWith('assets/')) return;
+
+                img.setAttribute('src', normalizePath(clean));
+            });
         }
     }
 

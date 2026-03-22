@@ -257,7 +257,7 @@ body.is-preloading {
     width: var(--heading-ornament-width);
     aspect-ratio: 217 / 66;
     pointer-events: none;
-    background: url("../../assets/common/heading-ornament.png") center / contain no-repeat;
+    background: url("../../assets/common/heading-ornament.webp") center / contain no-repeat;
     opacity: 0.74;
     transform: translateY(-50%);
 }
