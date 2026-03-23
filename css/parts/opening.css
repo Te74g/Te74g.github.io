@@ -292,10 +292,13 @@ body.is-about .scroll-indicator {
    Animation Classes (JS triggered)
    ========================================= */
 
-/* Skip all animations */
-.is-skipped *:not(.scroll-indicator-progress),
-.is-skipped *:not(.scroll-indicator-progress)::before,
-.is-skipped *:not(.scroll-indicator-progress)::after {
+/* Skip acceleration should only affect opening area, not whole page */
+body#top.is-skipped #opening-loader-overlay *:not(.scroll-indicator-progress),
+body#top.is-skipped #opening-loader-overlay *:not(.scroll-indicator-progress)::before,
+body#top.is-skipped #opening-loader-overlay *:not(.scroll-indicator-progress)::after,
+body#top.is-skipped #hero-section *:not(.scroll-indicator-progress),
+body#top.is-skipped #hero-section *:not(.scroll-indicator-progress)::before,
+body#top.is-skipped #hero-section *:not(.scroll-indicator-progress)::after {
     animation-duration: 0.3s !important;
     animation-delay: 0s !important;
     transition-duration: 0.3s !important;

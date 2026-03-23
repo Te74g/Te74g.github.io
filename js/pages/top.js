@@ -222,6 +222,7 @@ function finishSequence() {
     if (scrollIndicator) scrollIndicator.classList.add('is-visible');
 
     document.body.classList.remove('is-preloading');
+    document.body.classList.remove('is-skipped');
 
     if (skipHint) {
         skipHint.style.opacity = '0';
@@ -273,7 +274,6 @@ function setupScrollMorph() {
 
     const zone = document.getElementById('kv-scroll-zone');
     const heroBg = document.querySelector('.hero-bg');
-    const content = document.querySelector('.hero-content');
     if (!zone || !heroBg) return;
 
     let ticking = false;
@@ -290,11 +290,6 @@ function setupScrollMorph() {
         const radius = 38 + (150 - 38) * eased;
 
         heroBg.style.clipPath = rawP >= 1 ? 'none' : `circle(${radius.toFixed(1)}% at 50% 50%)`;
-
-        if (content) {
-            const opacity = Math.max(0, 1 - rawP / 0.4);
-            content.style.opacity = opacity.toFixed(3);
-        }
         ticking = false;
     };
 
@@ -596,6 +591,8 @@ function buildLegacyFeatures() {
 export async function initHomePage() {
     openingStarted = false;
     openingFinished = false;
+    updateState('home', { skipAnimation: false });
+    document.body.classList.remove('is-skipped');
     cleanupSkipListener();
     if (openingTimerId !== null) {
         clearTimeout(openingTimerId);
