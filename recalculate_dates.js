@@ -26,7 +26,7 @@ content = content.replace(/,\s*,/g, ',');
 // March 13: kirara
 // March 12: sakura
 // March 11: nagi
-// March 10: faria
+// March 10: philia
 // March 9: rei
 // March 8: wikira, hinekure
 
@@ -41,7 +41,7 @@ const scheduleItems = [
     { dates: '2026-03-13', ids: ['kirara'] },
     { dates: '2026-03-12', ids: ['sakura'] },
     { dates: '2026-03-11', ids: ['nagi'] },
-    { dates: '2026-03-10', ids: ['faria'] },
+    { dates: '2026-03-10', ids: ['philia'] },
     { dates: '2026-03-09', ids: ['rei'] },
     { dates: '2026-03-08', ids: ['wikira', 'hinekure'] },
 ];

@@ -7,7 +7,7 @@ const revealDates = {
     'hinekure': '2026-03-06',
     'wikira': '2026-03-06',
     'rei': '2026-03-07',
-    'faria': '2026-03-08',
+    'philia': '2026-03-08',
     'nagi': '2026-03-09',
     'sakura': '2026-03-10',
     'uruhunojon': '2026-03-11',

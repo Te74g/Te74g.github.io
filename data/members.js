@@ -102,7 +102,7 @@ window.membersData = [
         ]
     },
     {
-        "id": "faria",
+        "id": "philia",
         "revealDate": "2026-03-10",
         "name": "フィリア",
         "tagLabel": "飼育",
