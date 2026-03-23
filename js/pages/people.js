@@ -106,6 +106,54 @@ export async function initPeoplePage() {
         return fixPath(href);
     };
 
+    const CARD_IMG_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
+    let cardImageObserver = null;
+
+    const toCardVariantPath = (sourcePath) => {
+        if (!sourcePath) return sourcePath;
+        if (!/\.webp$/i.test(sourcePath)) return sourcePath;
+        if (/silhouette|_card\.webp$/i.test(sourcePath)) return sourcePath;
+        if (!/assets\/member\//i.test(sourcePath)) return sourcePath;
+        if (!/profile/i.test(sourcePath)) return sourcePath;
+        return sourcePath.replace(/\.webp$/i, '_card.webp');
+    };
+
+    const ensureCardImageObserver = () => {
+        if (cardImageObserver) return;
+        cardImageObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const img = entry.target;
+                const src = img.getAttribute('data-src');
+                if (src) {
+                    img.src = src;
+                    img.removeAttribute('data-src');
+                    img.dataset.loaded = '1';
+                }
+                cardImageObserver.unobserve(img);
+            });
+        }, {
+            root: null,
+            rootMargin: '300px 0px',
+            threshold: 0.01
+        });
+    };
+
+    const observeLazyCardImages = () => {
+        ensureCardImageObserver();
+        document.querySelectorAll('img.js-lazy-card-image[data-src]').forEach((img) => {
+            if (img.dataset.loaded === '1') return;
+            cardImageObserver.observe(img);
+        });
+    };
+
+    const buildLazyCardImage = (sourcePath, altText, extraClass = '') => {
+        const preferred = toCardVariantPath(sourcePath || 'assets/member/silhouette.webp');
+        const resolved = fixPath(preferred);
+        const classes = ['cheki-img', 'js-lazy-card-image', extraClass].filter(Boolean).join(' ');
+        return `<img src="${CARD_IMG_PLACEHOLDER}" data-src="${resolved}" alt="${altText}" class="${classes}" loading="lazy" decoding="async" fetchpriority="low">`;
+    };
+
     const getProfileHref = (memberId, formIndex) => {
         const base = `cast/${memberId}/`;
         if (typeof formIndex === 'number' && formIndex > 0) {
@@ -144,9 +192,8 @@ export async function initPeoplePage() {
             const displayName = effectiveMember.pickupName || effectiveMember.name;
             const profileImages = normalizePathList(effectiveMember.profileImages);
             const fallbackImage = normalizePathList(effectiveMember.image)[0];
-            const targetImage = profileImages.length > 0
-                ? profileImages[Math.floor(Math.random() * profileImages.length)]
-                : fallbackImage;
+            // 一覧カードは軽量優先: ランダム profileImages ではなく代表画像を先に使う
+            const targetImage = fallbackImage || profileImages[0];
 
             const bgPath = getMemberBackground(m.tags);
             const bgStyle = bgPath ? `style="background-image: url('${fixPath(bgPath)}'); background-size: cover; background-position: center;"` : '';
@@ -155,7 +202,7 @@ export async function initPeoplePage() {
 
             link.innerHTML = `
                 <div class="cheki-visual" ${bgStyle}>
-                    <img src="${fixPath(targetImage || 'assets/member/silhouette.webp')}" alt="${effectiveMember.name}" class="cheki-img" loading="lazy">
+                    ${buildLazyCardImage(targetImage, effectiveMember.name)}
                     <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                     ${frameHtml}
                 </div>
@@ -175,7 +222,7 @@ export async function initPeoplePage() {
 
             link.innerHTML = `
                 <div class="cheki-visual silhouette-mode" ${bgStyle}>
-                    <img src="${fixPath(silhouetteImg)}" alt="${effectiveMember.name}" class="cheki-img silhouette" loading="lazy">
+                    ${buildLazyCardImage(silhouetteImg, effectiveMember.name, 'silhouette')}
                     <span class="cheki-tag-badge">${effectiveMember.tagLabel}</span>
                 </div>
                 <div class="cheki-name">${effectiveMember.name}</div>
@@ -188,7 +235,7 @@ export async function initPeoplePage() {
             const comingSoonName = castConfig.comingSoonName || '???';
             link.innerHTML = `
                 <div class="cheki-visual coming-soon">
-                    <img src="${fixPath(comingSoonImg)}" alt="Coming Soon" class="cheki-img" loading="lazy">
+                    ${buildLazyCardImage(comingSoonImg, 'Coming Soon')}
                     <span class="cheki-tag-badge">???</span>
                     <div class="coming-soon-overlay">Coming Soon</div>
                 </div>
@@ -204,7 +251,7 @@ export async function initPeoplePage() {
                 link.classList.add('preparing');
                 link.innerHTML = `
                     <div class="cheki-visual preparing">
-                        <img src="${fixPath(placeholderImage)}" alt="準備中" class="cheki-img silhouette" loading="lazy">
+                        ${buildLazyCardImage(placeholderImage, '準備中', 'silhouette')}
                         <span class="cheki-tag-badge">${m.tagLabel}</span>
                         <div class="preparing-overlay">${preparingText}</div>
                     </div>
@@ -396,6 +443,8 @@ export async function initPeoplePage() {
                 flatGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);">${NOT_FOUND_MSG}</p>`;
             }
         }
+
+        observeLazyCardImages();
     };
 
     // --- Interaction Events ---

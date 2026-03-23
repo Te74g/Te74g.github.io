@@ -134,6 +134,7 @@ class ProfileImageSwitcher {
 
     init() {
         this.container.innerHTML = '';
+        this.currentIndex = Math.floor(Math.random() * this.images.length);
 
         // 1. Create Track
         this.track = document.createElement('div');
@@ -141,14 +142,26 @@ class ProfileImageSwitcher {
 
         // 2. Render Slides
         this.slides = [];
-        this.images.forEach((src) => {
+        this.images.forEach((src, index) => {
             const slide = document.createElement('div');
             slide.className = 'profile-slide';
 
             const img = document.createElement('img');
-            img.src = src;
             img.className = 'profile-slide-image';
             img.draggable = false;
+            img.loading = 'lazy';
+            img.decoding = 'async';
+            img.setAttribute('data-src', src);
+
+            if (index === this.currentIndex) {
+                img.src = src;
+                img.dataset.loaded = '1';
+                img.fetchPriority = 'high';
+            } else {
+                img.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
+                img.dataset.loaded = '0';
+                img.fetchPriority = 'low';
+            }
             slide.appendChild(img);
 
             this.track.appendChild(slide);
@@ -171,7 +184,6 @@ class ProfileImageSwitcher {
         }
 
         // 4. Random Init
-        this.currentIndex = Math.floor(Math.random() * this.images.length);
         this.slides[this.currentIndex].classList.add('is-active');
         if (this.dots) this.updateIndicators();
 
@@ -180,6 +192,18 @@ class ProfileImageSwitcher {
             this.setupDesktopEvents();
             this.setupMobileEvents();
         }
+    }
+
+    ensureSlideLoaded(index) {
+        const slide = this.slides[index];
+        if (!slide) return;
+        const img = slide.querySelector('img');
+        if (!img) return;
+        if (img.dataset.loaded === '1') return;
+        const src = img.getAttribute('data-src');
+        if (!src) return;
+        img.src = src;
+        img.dataset.loaded = '1';
     }
 
     updateIndicators() {
@@ -192,6 +216,7 @@ class ProfileImageSwitcher {
 
     updateSlide() {
         if (this.transitionTimeout) clearTimeout(this.transitionTimeout);
+        this.ensureSlideLoaded(this.currentIndex);
 
         // Flash IN (Brightness UP)
         this.container.classList.add('is-flashing');

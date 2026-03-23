@@ -365,15 +365,23 @@ function renderRelatedCasts(baseMember, allMembers, revealContext) {
     }
     relatedSection.style.display = 'grid';
 
+    const toCardVariantPath = (sourcePath) => {
+        if (!sourcePath) return sourcePath;
+        if (!/\.webp$/i.test(sourcePath)) return sourcePath;
+        if (/silhouette|_card\.webp$/i.test(sourcePath)) return sourcePath;
+        if (!/assets\/member\//i.test(sourcePath)) return sourcePath;
+        if (!/profile/i.test(sourcePath)) return sourcePath;
+        return sourcePath.replace(/\.webp$/i, '_card.webp');
+    };
+
     relatedContainer.innerHTML = relatedMembers.map((relatedMember) => {
+        const primaryImage = normalizePathList(relatedMember.image)[0];
         const profileImages = normalizePathList(relatedMember.profileImages);
-        const fallbackImage = normalizePathList(relatedMember.image)[0];
-        const imgPath = profileImages.length > 0
-            ? profileImages[Math.floor(Math.random() * profileImages.length)]
-            : (fallbackImage || 'assets/member/silhouette.webp');
+        // 関連キャストは初期速度優先で軽量な代表画像を使う
+        const imgPath = toCardVariantPath(primaryImage || profileImages[0] || 'assets/member/silhouette.webp');
         return `
             <a href="${getProfileHref(relatedMember.id)}" class="cast-slot" title="${relatedMember.name}">
-                <img src="${resolvePath(imgPath)}" alt="${relatedMember.name}">
+                <img src="${resolvePath(imgPath)}" alt="${relatedMember.name}" loading="lazy" decoding="async" fetchpriority="low">
             </a>
         `;
     }).join('');
