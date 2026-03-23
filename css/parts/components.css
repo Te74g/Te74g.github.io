@@ -1,4 +1,4 @@
-.btn {
+﻿.btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -571,6 +571,7 @@
 /* Mobile: Compact View */
 @media (max-width: 600px) {
     .cheki-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
         /* モバイル幅では gap を縮小（2列レイアウト継続） */
     }
@@ -586,6 +587,38 @@
 
     .cheki-card {
         padding: 8px 8px 40px 8px;
+        max-width: none;
+    }
+}
+
+/* Very narrow phones: single column for stability */
+@media (max-width: 420px) {
+    .cheki-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cheki-card {
+        width: min(100%, 320px);
+        margin-inline: auto;
+    }
+}
+
+/* Touch devices: disable desktop hover-stack behavior */
+@media (hover: none) and (pointer: coarse) {
+    .cheki-grid:hover .cheki-card {
+        transform: none;
+        opacity: 1;
+        filter: none;
+        box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .cheki-grid .cheki-card:hover,
+    .cheki-grid .cheki-card:focus-visible {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+        box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15) !important;
     }
 }
 
