@@ -15,6 +15,13 @@
     rel="stylesheet">
   <link rel="icon" href="../assets/favicon/multi_favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../css/styles.css" />
+  <script src="../data/site.js"></script>
+  <script>
+    // メンテ解除済みならトップへ自動リダイレクト
+    if (window.siteConfig && window.siteConfig.maintenanceMode === false) {
+      window.location.replace('../');
+    }
+  </script>
 </head>
 <body id="top" class="bg-texture">
   <a class="skip-link" href="#main">本文へスキップ</a>
