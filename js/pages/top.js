@@ -269,35 +269,43 @@ function setupSkip() {
 // =======================================================
 // 3. Scroll Morphing — .hero-bg の clip-path を制御
 // =======================================================
+// setupScrollMorph: scroll に連動してビネットの穴を 100%→42% に縮小
+// 42% で止める = 閉じ切らず「額縁」として残る
+// コンテンツボードが news-overlap clip-path (ボロ切れエッジ) でスクロールしてくる際に
+// 額縁の下から滑り込むように見える
 function setupScrollMorph() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const zone = document.getElementById('kv-scroll-zone');
-    const heroBg = document.querySelector('.hero-bg');
-    if (!zone || !heroBg) return;
+    const vignette = document.querySelector('.hero-vignette');
+    if (!vignette) return;
+
+    const MIN_RADIUS = 42; // 閉じ切らず 42% で停止
+
+    const setVignette = (r) => {
+        if (r >= 99.9) {
+            vignette.style.background = 'none';
+        } else {
+            const r1 = r.toFixed(1);
+            const r2 = (r + 0.5).toFixed(1);
+            vignette.style.background =
+                `radial-gradient(circle at 50% 50%, transparent ${r1}%, var(--bg) ${r2}%)`;
+        }
+    };
+
+    // スクロール量に応じた travel: 画面高さの 30% でアニメーション完了
+    const getTravelPx = () => window.innerHeight * 0.3;
 
     let ticking = false;
     const update = () => {
-        const zoneTravel = zone.offsetHeight - window.innerHeight;
-        const travel = Math.max(zoneTravel, window.innerHeight * 0.82);
-        if (travel <= 0) {
-            heroBg.style.clipPath = 'none';
-            ticking = false;
-            return;
-        }
-        const rawP = Math.max(0, Math.min(1, window.scrollY / travel));
-        const eased = rawP < 0.5 ? 2 * rawP * rawP : -1 + (4 - 2 * rawP) * rawP;
-        const radius = 38 + (150 - 38) * eased;
-
-        heroBg.style.clipPath = rawP >= 1 ? 'none' : `circle(${radius.toFixed(1)}% at 50% 50%)`;
+        const rawP = Math.max(0, Math.min(1, window.scrollY / getTravelPx()));
+        // ease-out: 最初に素早く額縁が現れ、徐々に落ち着く
+        const eased = 1 - (1 - rawP) * (1 - rawP);
+        setVignette(100 - (100 - MIN_RADIUS) * eased);
         ticking = false;
     };
 
     window.addEventListener('scroll', () => {
-        if (!ticking) {
-            ticking = true;
-            requestAnimationFrame(update);
-        }
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
     }, { passive: true });
     window.addEventListener('resize', update, { passive: true });
     update();

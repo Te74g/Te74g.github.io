@@ -34,18 +34,21 @@
   <div id="kv-scroll-zone">
     <!-- Hero Section -->
     <section id="hero-section">
-      <!-- 背景レイヤー: circle clip-path をJSが制御 -->
+      <!-- 背景レイヤー: 常時全面表示 -->
       <div class="hero-bg"></div>
-      <!-- 装飾パーティクルレイヤー: circle 外の暗部に金色粒子が浮遊（JSが注入） -->
-      <div class="hero-deco-layer" id="hero-deco-layer" aria-hidden="true"></div>
-      <!-- Flash Overlay -->
-      <div class="hero-flash"></div>
 
       <div class="hero-content">
         <img class="hero-character" src="./assets/opening/Tatie3.webp" alt="Character">
         <img class="hero-logo" src="./assets/logo/aniamemoria_logo.webp" alt="AniameMoria">
         <p class="hero-subtitle">AniameMoria</p>
       </div>
+
+      <!-- 円形ビネット: 暗いリング+穴 → 最上レイヤー, JSが穴サイズを制御 -->
+      <div class="hero-vignette" aria-hidden="true"></div>
+      <!-- 装飾パーティクルレイヤー: 暗いリング内に金色粒子が浮遊（JSが注入） -->
+      <div class="hero-deco-layer" id="hero-deco-layer" aria-hidden="true"></div>
+      <!-- Flash Overlay -->
+      <div class="hero-flash"></div>
 
       <!-- Cast Reveal Hero Overlay: Desktop only (right side of hero) -->
       <div id="cast-reveal-hero" style="display:none;"></div>
@@ -169,11 +172,11 @@
       position: relative;
     }
 
-    /* Apply Texture to Sections to cover Hero */
-    /* Apply Texture to Sections to cover Hero */
-    /* Apply Texture to Sections to cover Hero */
+    /* すりガラス: 半透明 + ブラーで fixed hero をぼかして透かす */
     .bg-texture {
-      background-color: var(--bg);
+      background-color: rgba(26, 19, 17, 0.60);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     /* Content Board Wrapper */
@@ -191,37 +194,9 @@
       padding-top: 86px;
       /* Text clearance */
 
-      /* Jagged Torn Edge using Clip-path */
-      /* Pattern: High-Low-High-Low... organic random-ish */
-      clip-path: polygon(0% 40px,
-          2% 25px,
-          5% 45px,
-          8% 20px,
-          12% 50px,
-          15% 30px,
-          20% 55px,
-          23% 35px,
-          28% 60px,
-          32% 25px,
-          35% 50px,
-          40% 30px,
-          45% 55px,
-          50% 25px,
-          55% 50px,
-          58% 30px,
-          62% 55px,
-          68% 25px,
-          72% 50px,
-          75% 35px,
-          80% 55px,
-          85% 30px,
-          88% 50px,
-          92% 25px,
-          95% 45px,
-          100% 20px,
-          100% 100%,
-          0% 100%);
-      /* Ensure background is visible */
+      /* グラデーションでヒーローからコンテンツへスムーズに移行 */
+      mask-image: linear-gradient(to bottom, transparent 0%, black 120px);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 120px);
     }
 
     .section {
