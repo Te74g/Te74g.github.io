@@ -594,8 +594,8 @@
 /* Random Pickup: size-controlled grid on small screens */
 @media (max-width: 900px) {
     .random-pickup-section .cheki-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
         justify-items: stretch;
         overflow: visible;
     }
@@ -603,12 +603,20 @@
     .random-pickup-section .cheki-card {
         width: 100%;
         max-width: none;
+        padding: 8px 8px 38px 8px;
     }
-}
 
-@media (max-width: 420px) {
-    .random-pickup-section .cheki-grid {
-        grid-template-columns: 1fr;
+    .random-pickup-section .cheki-name {
+        font-size: 0.72rem;
+        bottom: 5px;
+        letter-spacing: 0.02em;
+        padding: 0 4px;
+    }
+
+    .random-pickup-section .cheki-tag-badge {
+        font-size: 11px;
+        padding: 4px 8px;
+        border-bottom-left-radius: 6px;
     }
 }
 
