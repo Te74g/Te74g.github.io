@@ -573,7 +573,7 @@
     .cheki-grid {
         grid-template-columns: 1fr;
         gap: 14px;
-        /* モバイル幅では gap を縮小（2列レイアウト継続） */
+        /* モバイル幅では gap を縮小（1列レイアウト） */
     }
 
     .cheki-name {
@@ -588,6 +588,19 @@
     .cheki-card {
         padding: 8px 8px 40px 8px;
         max-width: none;
+    }
+}
+
+/* Random Pickup: force single column on small screens */
+@media (max-width: 900px) {
+    .random-pickup-section .cheki-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 16px;
+    }
+
+    .random-pickup-section .cheki-card {
+        width: min(100%, 360px);
     }
 }
 
