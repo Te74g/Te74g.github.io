@@ -22,7 +22,6 @@ const menus = [
 // [label, slug, url]
 const sns = [
   ['X', 'x', 'https://x.com/ANIAMEMORIA'],
-  ['YouTube', 'youtube', '#'],
   ['VRChat', 'vrchat', 'https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06'],
 ];
 
@@ -161,4 +160,3 @@ export async function renderLayout() {
     });
   }
 }
-
