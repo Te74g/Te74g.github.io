@@ -398,7 +398,7 @@ window.membersData = [
         "name": "あき",
         "pickupName": "あき",
         "tagLabel": "妖怪",
-        "tags": "妖怪 野生 キャスト",
+        "tags": "妖怪 飼育 キャスト",
         "revealLevel": 3,
         "profileImages": [
             "assets/member/あき/profile1.webp",
@@ -407,12 +407,12 @@ window.membersData = [
         ],
         "silhouetteImage": "assets/member/あき/profile1_silhouette.webp",
         "goals": [
-            "いたずら三昧"
+            "いたずら上手"
         ],
         "motifAnimal": "狐",
         "motifIcon": "assets/motif/real_fox.webp",
-        "section": "妖怪区画",
-        "introduction": "人里近い草むらや林に住む妖狐。<br>\n        いたずら好きでねこじゃらしで気を引いたり、隙を見てくすぐったりするのが好き。<br><br>\n        狐たちの住処に迷い込んだ店長にスカウトされてあにあめもりあで働くことに。<br>\n        実は情報収集は二の次で、人にいたずらをすることを目的としている。<br><br>\n        近年は人が道端の草花に興味を持たず、手元の板ばかり見ていることからこの板をライバル視している。",
+        "section": "妖怪紹介",
+        "introduction": "自称、ねこじゃらしの妖怪。<br>\n        元々は狐だったが自分でもよくわかっていない様子。<br><br>\n        狐たちの住処に迷い込んだ店長にスカウトされてあにあめもりあで働くことに。<br>\n        情報収集のかたわら、いたずらが大好きなので、人間にちょっかいをかけることも。<br><br>\n        ごはんが好きで、よく人里に下りてカレーを注文する。<br>\n        近頃の悩みは人が道端の草花に興味を持たないこと。<br>\n        人々の関心を独占するスマートフォンをライバル視している。",
         "socials": [
             {
                 "type": "twitter",
