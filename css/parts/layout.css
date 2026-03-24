@@ -7,6 +7,24 @@ body {
     text-size-adjust: 100%;
 }
 
+/* ===== コンテンツ保護: テキスト選択・画像ドラッグ禁止 ===== */
+* {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* フォーム入力欄は選択可能に戻す */
+input, textarea, [contenteditable] {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+/* 画像ドラッグ禁止 */
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
 /* Global Spotlight Ambient Lighting Effect (Warm Gold) */
 body::before {
     content: "";
