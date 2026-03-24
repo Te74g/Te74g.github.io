@@ -407,7 +407,7 @@ window.membersData = [
         ],
         "silhouetteImage": "assets/member/あき/profile1_silhouette.webp",
         "goals": [
-            "いたずら上手"
+            "いたずら三昧"
         ],
         "motifAnimal": "狐",
         "motifIcon": "assets/motif/real_fox.webp",
