@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:3001/assets/member/%E3%83%93%E3%83%8E/profile1.webp\")",
+      "Bash(python3 -c \":*)",
+      "Bash(grep -r opening.css /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)",
+      "Bash(grep -r home.css /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)",
+      "Bash(grep -r pages/ /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)",
+      "Bash(grep -r \"data_site\\\\|data_members\\\\|data_news\\\\|data_\" /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)",
+      "Bash(grep -r renderLayout /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html)",
+      "Bash(find /c/Users/user/Desktop/unti/Te74g.github.io/assets -type f -name *.webp -o -name *.jpg -o -name *.png)",
+      "Bash(grep -r \"function getRevealLevel\\\\|const getRevealLevel\\\\|export.*getRevealLevel\" /c/Users/user/Desktop/unti/Te74g.github.io --include=*.js)",
+      "Bash(grep -r \"window.renderLayout\\\\|renderLayout\\(\" /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)"
+    ]
+  }
+}
