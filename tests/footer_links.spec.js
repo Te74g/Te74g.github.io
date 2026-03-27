@@ -101,7 +101,7 @@ test.describe('Footer links', () => {
   });
 
   test('legal page content is visible without ui.js reveal init', async ({ page }) => {
-    const legalRoutes = ['/privacy/', '/terms/', '/contact/', '/pages/privacy.html', '/pages/terms.html', '/pages/contact.html'];
+    const legalRoutes = ['/privacy/', '/terms/', '/contact/'];
 
     for (const route of legalRoutes) {
       await page.goto(route, { waitUntil: 'networkidle' });

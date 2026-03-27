@@ -24,7 +24,7 @@ test.describe('Smoke Tests - General Routing & Interaction', () => {
 
     test('People Page - URL tags filter rendering correctly without halting', async ({ page }) => {
         // Direct navigation with the tag "飼育"
-        await page.goto('/pages/people.html?tag=飼育');
+        await page.goto('/cast/?tag=飼育');
 
         // Wait for the tag buttons to render and expect "飼育" to be the only active one
         const activeBtn = page.locator('.tag-filter-btn.is-active');
@@ -37,7 +37,7 @@ test.describe('Smoke Tests - General Routing & Interaction', () => {
     });
 
     test('People Page - Click filtering does not freeze or reset inappropriately', async ({ page }) => {
-        await page.goto('/pages/people.html');
+        await page.goto('/cast/');
 
         // Initially all should be active
         let activeBtn = page.locator('.tag-filter-btn.is-active');

@@ -11,7 +11,8 @@
       "Bash(grep -r renderLayout /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html)",
       "Bash(find /c/Users/user/Desktop/unti/Te74g.github.io/assets -type f -name *.webp -o -name *.jpg -o -name *.png)",
       "Bash(grep -r \"function getRevealLevel\\\\|const getRevealLevel\\\\|export.*getRevealLevel\" /c/Users/user/Desktop/unti/Te74g.github.io --include=*.js)",
-      "Bash(grep -r \"window.renderLayout\\\\|renderLayout\\(\" /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)"
+      "Bash(grep -r \"window.renderLayout\\\\|renderLayout\\(\" /c/Users/user/Desktop/unti/Te74g.github.io --include=*.html --include=*.js)",
+      "Bash(grep -n \"pages/\" tests/*.spec.js)"
     ]
   }
 }

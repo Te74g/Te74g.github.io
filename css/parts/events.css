@@ -219,7 +219,7 @@
     box-shadow:
         inset 0 0 30px rgba(139, 69, 19, 0.05),
         0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
     color: #e0e0e0;
 }
@@ -522,7 +522,7 @@
     border: 2px solid transparent;
     opacity: 0.6;
     transform: scale(0.95);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: border-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     scroll-snap-align: start;
@@ -637,5 +637,98 @@
 }
 
 /* Dark Mode Support for Loader - handled by JS */
+
+/* ============================================
+   event_loader.js 動的注入コンポーネント
+   ============================================ */
+
+/* 背景コンテナ（JS で #fixed-bg-container として生成） */
+#fixed-bg-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -999;
+    filter: blur(4px);
+    transform: scale(1.05);
+    pointer-events: none;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* タイトル画像 */
+.event-title-img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* タイトルテキスト（画像なし時） */
+.event-title-heading {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-weight: 900;
+    margin-bottom: 0;
+}
+
+/* 主催者情報（白テキスト版） */
+.organizer-info--light {
+    color: var(--organizer-color, inherit);
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* メイン画像クロスフェード */
+.event-main-img--back {
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    z-index: 2;
+}
+
+.event-main-img--front {
+    position: relative;
+    z-index: 3;
+    opacity: 1;
+}
+
+/* parchment-frame の margin-top ゼロ修飾子 */
+.parchment-frame--notop {
+    margin-top: 0;
+}
+
+/* 主催者 SNS リンク */
+.event-social-links {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+}
+
+.event-social-links-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.event-social-links-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.event-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.event-social-btn--x    { background: #000; color: #fff; }
+.event-social-btn--note { background: #fff; color: #333; border: 1px solid #ddd; }
+.event-social-btn--link { background: #333; color: #fff; }
 
 /* End of file */

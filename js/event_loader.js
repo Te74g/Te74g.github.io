@@ -110,22 +110,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!bgContainer) {
                 bgContainer = document.createElement('div');
                 bgContainer.id = 'fixed-bg-container';
-                bgContainer.style.position = 'fixed';
-                bgContainer.style.top = '0';
-                bgContainer.style.left = '0';
-                bgContainer.style.width = '100VW';
-                bgContainer.style.height = '100VH';
-                bgContainer.style.zIndex = '-999';
-                bgContainer.style.filter = 'blur(4px)';
-                bgContainer.style.transform = 'scale(1.05)';
-                bgContainer.style.pointerEvents = 'none';
                 document.body.prepend(bgContainer);
             }
-            bgContainer.style.backgroundImage = `url('${bgPath}')`;
-            bgContainer.style.backgroundSize = 'cover';
-            bgContainer.style.backgroundPosition = 'center';
-            bgContainer.style.backgroundAttachment = 'fixed';
-            bgContainer.style.backgroundRepeat = 'no-repeat';
+            bgContainer.style.setProperty('background-image', `url('${bgPath}')`);
         }
 
         // Update Progress: Background Ready (40%)
@@ -207,13 +194,13 @@ function renderEventContent(eventItem, normalizePath) {
 
             let imgHtml = '';
             if (titleImgDarkPath) {
-                imgHtml = `<img src="${titleImgDarkPath}" alt="${eventItem.name}" style="max-width: 300px; width: 100%; height: auto; display: block;">`;
+                imgHtml = `<img src="${titleImgDarkPath}" alt="${eventItem.name}" class="event-title-img">`;
             } else {
-                imgHtml = `<img src="${titleImgPath}" alt="${eventItem.name}" style="max-width: 300px; width: 100%; height: auto; display: block;">`;
+                imgHtml = `<img src="${titleImgPath}" alt="${eventItem.name}" class="event-title-img">`;
             }
             titleContainer.innerHTML = imgHtml;
         } else {
-            titleContainer.innerHTML = `<h1 style="font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; margin-bottom: 0;">${eventItem.name}</h1>`;
+            titleContainer.innerHTML = `<h1 class="event-title-heading">${eventItem.name}</h1>`;
         }
         layoutWrapper.appendChild(titleContainer);
 
@@ -230,11 +217,9 @@ function renderEventContent(eventItem, normalizePath) {
             }
 
             if (eventItem.headerTextColor) {
-                organizerContainer.style.color = eventItem.headerTextColor;
-                if (eventItem.headerTextColor === 'white' || eventItem.headerTextColor === '#fff' || eventItem.headerTextColor === '#ffffff') {
-                    organizerContainer.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                    organizerContainer.style.background = 'rgba(0, 0, 0, 0.4)';
-                }
+                organizerContainer.style.setProperty('--organizer-color', eventItem.headerTextColor);
+                const isLight = ['white', '#fff', '#ffffff'].includes(eventItem.headerTextColor.toLowerCase());
+                if (isLight) organizerContainer.classList.add('organizer-info--light');
             }
             layoutWrapper.appendChild(organizerContainer);
         }
@@ -265,9 +250,8 @@ function renderEventContent(eventItem, normalizePath) {
             galleryHtml += `
                 <div class="event-image-container">
                     <div id="event-bg-layer" class="event-image-bg" style="background-image: url('${mainImgPath}');"></div>
-                    <img id="event-img-a" class="event-main-img" src="" alt="" style="position: absolute; top: 0; left: 0; opacity: 0; z-index: 2;">
-                    <img id="event-img-b" class="event-main-img" src="${mainImgPath}" alt="${eventItem.name}"
-                        style="position: relative; z-index: 3; opacity: 1;"
+                    <img id="event-img-a" class="event-main-img event-main-img--back" src="" alt="">
+                    <img id="event-img-b" class="event-main-img event-main-img--front" src="${mainImgPath}" alt="${eventItem.name}"
                         onclick="if(window.Lightbox) window.Lightbox.open(window.currentEventImages, 0)">
                     <div class="event-progress-container">
                         <div id="event-progress-bar" class="event-progress-bar"></div>
@@ -296,9 +280,9 @@ function renderEventContent(eventItem, normalizePath) {
         // Description & Details
         let descriptionHtml = '';
         if (eventItem.description) {
-            descriptionHtml = `<div class="parchment-frame" style="margin-top:0;">${eventItem.description}<div class="watermark-logo"></div></div>`;
+            descriptionHtml = `<div class="parchment-frame parchment-frame--notop">${eventItem.description}<div class="watermark-logo"></div></div>`;
         } else if (eventItem.content) {
-            descriptionHtml = `<div class="parchment-frame" style="margin-top:0;">${eventItem.content}<div class="watermark-logo"></div></div>`;
+            descriptionHtml = `<div class="parchment-frame parchment-frame--notop">${eventItem.content}<div class="watermark-logo"></div></div>`;
         }
 
         let detailsHtml = '';
@@ -388,23 +372,22 @@ window.switchEventImage = function (element, src, index, isManual = true) {
     if (!imgA || !imgB) return;
 
     let frontImg, backImg;
-    if (imgA.style.zIndex === '3') { frontImg = imgA; backImg = imgB; } else { frontImg = imgB; backImg = imgA; }
+    if (imgA.classList.contains('event-main-img--front')) { frontImg = imgA; backImg = imgB; } else { frontImg = imgB; backImg = imgA; }
 
     backImg.src = src;
 
     const performSwap = () => {
-        backImg.style.transition = 'none';
-        backImg.style.opacity = '1';
-        if (bgLayer) bgLayer.style.backgroundImage = `url('${src}')`;
+        backImg.style.setProperty('transition', 'none');
+        backImg.style.setProperty('opacity', '1');
+        if (bgLayer) bgLayer.style.setProperty('background-image', `url('${src}')`);
         void backImg.offsetWidth;
-        backImg.style.transition = '';
-        frontImg.style.opacity = '0';
+        backImg.style.removeProperty('transition');
+        frontImg.style.setProperty('opacity', '0');
 
         setTimeout(() => {
-            backImg.style.zIndex = '3';
-            backImg.style.position = 'relative';
-            frontImg.style.zIndex = '2';
-            frontImg.style.position = 'absolute';
+            backImg.classList.replace('event-main-img--back', 'event-main-img--front');
+            frontImg.classList.replace('event-main-img--front', 'event-main-img--back');
+            frontImg.style.removeProperty('opacity');
             backImg.onclick = () => { if (window.Lightbox) window.Lightbox.open(window.currentEventImages, index); };
             frontImg.onclick = null;
         }, 350);
@@ -413,9 +396,8 @@ window.switchEventImage = function (element, src, index, isManual = true) {
     if (backImg.complete) performSwap(); else backImg.onload = performSwap;
 
     const thumbs = document.querySelectorAll('.thumbnail-item');
-    thumbs.forEach(thumb => { thumb.style.borderColor = 'transparent'; thumb.style.opacity = '0.6'; });
-    element.style.borderColor = 'var(--primary)';
-    element.style.opacity = '1';
+    thumbs.forEach(thumb => thumb.classList.remove('is-active'));
+    element.classList.add('is-active');
 
     // Scroll thumbnail into view only if manually clicked (User request: prevent auto-scroll)
     if (isManual) {
@@ -429,7 +411,7 @@ document.addEventListener('animationend', (e) => {
         const thumbs = document.querySelectorAll('.thumbnail-item');
         let currentIndex = 0;
         thumbs.forEach((thumb, i) => {
-            if (thumb.style.borderColor === 'var(--primary)') currentIndex = i;
+            if (thumb.classList.contains('is-active')) currentIndex = i;
         });
         const nextIndex = (currentIndex + 1) % thumbs.length;
         const nextThumb = thumbs[nextIndex];
@@ -442,34 +424,26 @@ document.addEventListener('animationend', (e) => {
 // Helper: Render Organizer Social Icons
 function renderOrganizerSocials(socials) {
     if (!socials || socials.length === 0) return '';
-    let html = '<div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--line);">';
-    html += '<p style="font-size: 0.9rem; font-weight: bold; margin-bottom: 8px;">主催者リンク</p>';
-    html += '<div style="display: flex; gap: 10px; flex-wrap: wrap;">';
+    let html = '<div class="event-social-links">';
+    html += '<p class="event-social-links-label">主催者リンク</p>';
+    html += '<div class="event-social-links-row">';
 
     socials.forEach(s => {
         let iconHtml = '';
-        let colorStyle = 'background:#333; color:#fff;';
+        let btnClass = 'event-social-btn event-social-btn--link';
         const type = s.type.toLowerCase();
 
         if (type === 'twitter' || type === 'x') {
-            colorStyle = 'background:#000; color:#fff;';
+            btnClass = 'event-social-btn event-social-btn--x';
             iconHtml = '<svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
         } else if (type === 'note') {
-            colorStyle = 'background:#fff; color:#333; border:1px solid #ddd;';
+            btnClass = 'event-social-btn event-social-btn--note';
             iconHtml = '<img src="../assets/icon/note_icon.svg" alt="note" style="width:16px;height:16px;" onerror="this.src=\'../assets/icon/link_icon.svg\'">';
         } else {
             iconHtml = '🔗';
         }
 
-        html += `
-            <a href="${s.url}" target="_blank" rel="noopener" style="
-                display:flex; align-items:center; justify-content:center;
-                width:36px; height:36px; border-radius:50%; ${colorStyle}
-                text-decoration:none;
-            ">
-                ${iconHtml}
-            </a>
-        `;
+        html += `<a href="${s.url}" target="_blank" rel="noopener" class="${btnClass}">${iconHtml}</a>`;
     });
 
     html += '</div></div>';

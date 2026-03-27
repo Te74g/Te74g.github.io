@@ -189,7 +189,7 @@
     z-index: 102;
     /* オーバーレイより前面に出す */
     /* アニメーション設定 */
-    transition: all var(--transition-mid);
+    transition: background var(--transition-mid), border-color var(--transition-mid), backdrop-filter var(--transition-mid), box-shadow var(--transition-mid);
     overflow: hidden;
     height: 48px;
     /* 高さを固定して安定させる */
@@ -339,7 +339,7 @@ body.nav-open .menu-close {
     box-shadow: none;
 
     position: relative;
-    transition: all var(--transition-fast);
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .menu-link:hover {
