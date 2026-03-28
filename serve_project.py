@@ -32,6 +32,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         base = os.getcwd()
         return os.path.join(base, *words)
 
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
+
     def log_message(self, format, *args):
         pass  # suppress logs
 
