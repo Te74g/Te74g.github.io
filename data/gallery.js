@@ -15,7 +15,7 @@
  */
 window.galleryData = [
     {
-        title: '初営業！',
+        title: '第一回あにあめもりあ',
         date: '2026.03.22',
         thumb: 'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.webp',
         images: [
@@ -35,6 +35,33 @@ window.galleryData = [
             'assets/gallery/2026322/VRChat_2026-03-22_22-35-25.106_3840x2160.webp',
             'assets/gallery/2026322/VRChat_2026-03-22_22-36-49.796_3840x2160.webp'
         ],
-        desc: '第一回あにあめもりあ'
+        desc: '初営業！'
+    },
+    {
+        title: '第二回あにあめもりあ',
+        date: '2026.03.29',
+        thumb: 'assets/gallery/2026329/1Top.webp',
+        images: [
+            'assets/gallery/2026329/1Top.webp',
+            'assets/gallery/2026329/2VRChat_2026-03-29_22-09-49.656_1920x1080.webp',
+            'assets/gallery/2026329/3VRChat_2026-03-29_22-24-25.956_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_20-59-32.905_2160x3840.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-22-02.942_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-23-11.754_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-24-22.639_2560x1440.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-38-38.117_2560x1440.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-40-05.845_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-51-29.648_2560x1440.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-52-28.590_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_21-53-41.836_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_22-20-08.836_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_22-20-14.184_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_22-20-21.449_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_22-26-58.94840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_22-28-41.557_3840x2160.webp',
+            'assets/gallery/2026329/VRChat_2026-03-29_22-47-20.447_3840x2160.webp',
+            'assets/gallery/2026329/ZVRChat_2026-03-29_22-26-58.947_3840x2160.webp'
+        ],
+        desc: '来てくれてありがとう！'
     }
 ];

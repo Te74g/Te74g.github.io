@@ -39,7 +39,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass  # suppress logs
 
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    httpd.allow_reuse_address = True
+class ThreadedServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
+with ThreadedServer(("", PORT), Handler) as httpd:
     print(f"Serving at http://localhost:{PORT}")
     httpd.serve_forever()

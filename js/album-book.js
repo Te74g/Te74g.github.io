@@ -141,7 +141,7 @@ export async function initGalleryPage() {
                     <div class="album-photo-zoom" aria-hidden="true">
                         <div class="album-photo-zoom-icon"></div>
                     </div>
-                    <img src="${src}" alt="" loading="lazy" decoding="async">
+                    <img src="${src}" alt="">
                 </div>`;
         }
 
@@ -156,9 +156,33 @@ export async function initGalleryPage() {
         /* ----------------------------------------------------------
            Load an album at a given spread (no animation)
            ---------------------------------------------------------- */
+        function updateSectionBg() {
+            const pages = getPages(currentAlbum);
+            const ri = currentSpread * 2 + 1;
+            const li = currentSpread * 2;
+            const photoPage = (pages[ri] && pages[ri].type === 'photo') ? pages[ri]
+                            : (pages[li] && pages[li].type === 'photo') ? pages[li]
+                            : null;
+            if (photoPage) {
+                const src = (typeof fixPath === 'function') ? fixPath(photoPage.src) : photoPage.src;
+                scene.style.setProperty('--album-bg', `url('${src}')`);
+            } else {
+                scene.style.removeProperty('--album-bg');
+            }
+        }
+
+        function preloadAlbumImages(albumIdx) {
+            const album = albums[albumIdx];
+            (album.images || []).forEach(src => {
+                const img = new Image();
+                img.src = (typeof fixPath === 'function') ? fixPath(src) : src;
+            });
+        }
+
         function loadAlbum(albumIdx, spreadIdx) {
             currentAlbum = albumIdx;
             currentSpread = spreadIdx;
+            preloadAlbumImages(albumIdx);
 
             const pages = getPages(albumIdx);
             const li = spreadIdx * 2;
@@ -175,6 +199,7 @@ export async function initGalleryPage() {
             updateNav();
             buildIndicator();
             updateSelector();
+            updateSectionBg();
         }
 
         /* ----------------------------------------------------------
@@ -225,6 +250,7 @@ export async function initGalleryPage() {
                     isAnimating = false;
                     updateNav();
                     buildIndicator();
+                    updateSectionBg();
                 }, 800);
 
             } else if (currentAlbum < albums.length - 1) {
@@ -256,6 +282,7 @@ export async function initGalleryPage() {
                 currentSpread = ps;
                 updateNav();
                 buildIndicator();
+                updateSectionBg();
 
             } else if (currentAlbum > 0) {
                 // Move to previous album, last spread
@@ -310,8 +337,8 @@ export async function initGalleryPage() {
                 btn.className = 'album-select-btn' + (idx === 0 ? ' is-active' : '');
                 btn.setAttribute('aria-label', album.title);
                 btn.setAttribute('title', album.title);
-                const thumbSrc = (typeof window.fixPath === 'function')
-                    ? window.fixPath(album.thumb || (album.images && album.images[0]) || '')
+                const thumbSrc = (typeof fixPath === 'function')
+                    ? fixPath(album.thumb || (album.images && album.images[0]) || '')
                     : (album.thumb || '');
                 btn.innerHTML = `<img src="${thumbSrc}" alt="${escHtml(album.title)}" loading="lazy">`;
                 btn.addEventListener('click', () => {
@@ -339,7 +366,9 @@ export async function initGalleryPage() {
             if (isAnimating) return;
             const mount = e.target.closest('.album-photo-mount[data-src]');
             if (!mount) return;
-            lb.open(mount.dataset.src);
+            const album = albums[currentAlbum];
+            const allSrcs = (album.images || []).map(s => (typeof fixPath === 'function') ? fixPath(s) : s);
+            lb.open(mount.dataset.src, allSrcs);
         });
 
         /* ----------------------------------------------------------
@@ -376,11 +405,12 @@ export async function initGalleryPage() {
 
     /* ----------------------------------------------------------
        Lightbox factory (singleton — created once per page)
+       Supports prev/next navigation and touch swipe
        ---------------------------------------------------------- */
     function createLightbox() {
         // Reuse if already in DOM
         const existing = document.getElementById('album-lb');
-        if (existing) return makeLbAPI(existing);
+        if (existing) { existing.remove(); }
 
         const el = document.createElement('div');
         el.id = 'album-lb';
@@ -389,37 +419,76 @@ export async function initGalleryPage() {
         el.setAttribute('aria-label', '画像を拡大表示');
         el.innerHTML = `
             <div class="album-lb-backdrop"></div>
+            <button class="album-lb-nav album-lb-prev" aria-label="前の写真">‹</button>
             <img class="album-lb-img" src="" alt="">
+            <button class="album-lb-nav album-lb-next" aria-label="次の写真">›</button>
+            <div class="album-lb-counter"></div>
         `;
         document.body.appendChild(el);
+
+        let srcs = [];
+        let currentIdx = 0;
+
+        const backdrop = el.querySelector('.album-lb-backdrop');
+        const img = el.querySelector('.album-lb-img');
+        const prevNav = el.querySelector('.album-lb-prev');
+        const nextNav = el.querySelector('.album-lb-next');
+        const counter = el.querySelector('.album-lb-counter');
+
+        function show(idx) {
+            if (idx < 0 || idx >= srcs.length) return;
+            currentIdx = idx;
+            img.src = srcs[idx];
+            backdrop.style.setProperty('--lb-bg', `url('${srcs[idx]}')`);
+            counter.textContent = `${idx + 1} / ${srcs.length}`;
+            prevNav.style.visibility = idx > 0 ? '' : 'hidden';
+            nextNav.style.visibility = idx < srcs.length - 1 ? '' : 'hidden';
+        }
 
         function close() {
             el.classList.remove('is-open');
             document.body.classList.remove('album-lb-open');
             setTimeout(() => {
                 if (!el.classList.contains('is-open')) {
-                    el.querySelector('.album-lb-img').src = '';
+                    img.src = '';
                 }
             }, 350);
         }
 
         el.querySelector('.album-lb-backdrop').addEventListener('click', close);
-        el.querySelector('.album-lb-img').addEventListener('click', close);
+        img.addEventListener('click', e => { e.stopPropagation(); close(); });
+        prevNav.addEventListener('click', e => { e.stopPropagation(); show(currentIdx - 1); });
+        nextNav.addEventListener('click', e => { e.stopPropagation(); show(currentIdx + 1); });
+
+        // Keyboard
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && el.classList.contains('is-open')) close();
+            if (!el.classList.contains('is-open')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowLeft') show(currentIdx - 1);
+            if (e.key === 'ArrowRight') show(currentIdx + 1);
         });
 
-        return makeLbAPI(el);
+        // Touch swipe
+        let swipeX = null;
+        el.addEventListener('touchstart', e => { swipeX = e.touches[0].clientX; }, { passive: true });
+        el.addEventListener('touchend', e => {
+            if (swipeX === null) return;
+            const dx = e.changedTouches[0].clientX - swipeX;
+            swipeX = null;
+            if (Math.abs(dx) < 40) return;
+            if (dx < 0) show(currentIdx + 1);
+            else show(currentIdx - 1);
+        }, { passive: true });
 
-        function makeLbAPI(el) {
-            return {
-                open(src) {
-                    el.querySelector('.album-lb-img').src = src;
-                    el.classList.add('is-open');
-                    document.body.classList.add('album-lb-open');
-                }
-            };
-        }
+        return {
+            open(src, allSrcs) {
+                srcs = allSrcs || [src];
+                const idx = srcs.indexOf(src);
+                el.classList.add('is-open');
+                document.body.classList.add('album-lb-open');
+                show(idx >= 0 ? idx : 0);
+            }
+        };
     }
 
 }
