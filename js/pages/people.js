@@ -89,11 +89,15 @@ export async function initPeoplePage() {
     // --- DOM Construction (一回だけ描く) ---
     const visibleMembers = membersData.filter(m => shouldShowItem(m));
     const grouped = {};
+    const orderedSections = [...SECTION_ORDER];
     SECTION_ORDER.forEach(sec => grouped[sec] = []);
 
     visibleMembers.forEach(member => {
         const sec = member.section || 'その他';
-        if (!grouped[sec]) grouped[sec] = [];
+        if (!grouped[sec]) {
+            grouped[sec] = [];
+            orderedSections.push(sec);
+        }
         grouped[sec].push(member);
     });
 
@@ -272,7 +276,7 @@ export async function initPeoplePage() {
 
     // Construct the DOM for all sections ONCE
     const sectionElements = {};
-    SECTION_ORDER.forEach(sec => {
+    orderedSections.forEach(sec => {
         const list = grouped[sec];
         if (!list || list.length === 0) return;
 

@@ -124,6 +124,14 @@
     z-index: 1;
 }
 
+.album-page-right:has(.page-blank)::after {
+    opacity: 0;
+}
+
+.album-right-wrap:has(.album-page-turner.is-turning) .album-page-right::after {
+    opacity: 0;
+}
+
 .album-spine {
     width: 14px;
     background: linear-gradient(
@@ -700,4 +708,3 @@ body.album-lb-open {
     .album-lb-prev { left: 8px; }
     .album-lb-next { right: 8px; }
 }
-

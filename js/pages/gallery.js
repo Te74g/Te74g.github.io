@@ -48,7 +48,7 @@ export async function initGalleryPage() {
 
                 card.innerHTML = `
                     <div class="gallery-polaroid-photo">
-                        <img src="${thumbUrl}" alt="${item.title}" loading="lazy">
+                        <img src="${thumbUrl}" alt="${item.title}" loading="lazy" decoding="async" fetchpriority="low">
                         ${count > 0 ? `<div class="gallery-polaroid-count">${count}枚</div>` : ''}
                     </div>
                     <div class="gallery-polaroid-caption">
@@ -85,6 +85,7 @@ export async function initGalleryPage() {
 
     let currentImageIndex = 0;
     let currentImages = [];
+    let renderedImagesKey = '';
 
     // Zoom & Pan State
     let zoomScale = 1;
@@ -107,7 +108,7 @@ export async function initGalleryPage() {
         if (mTitle) mTitle.textContent = item.title;
         if (mDesc) mDesc.textContent = (item.date ? item.date + ' ' : '') + (item.desc || '');
 
-        renderSlides();
+        renderSlides(true);
 
         // Show Modal
         modal.style.display = 'flex';
@@ -127,28 +128,37 @@ export async function initGalleryPage() {
         setTimeout(() => {
             modal.style.display = 'none';
             track.innerHTML = '';
+            renderedImagesKey = '';
         }, 300);
         document.body.style.overflow = '';
         document.body.classList.remove('lightbox-open');
     }
 
-    function renderSlides() {
+    function renderSlides(forceRebuild = false) {
         if (!track) return;
-        track.innerHTML = '';
+        const nextKey = currentImages.join('|');
 
-        currentImages.forEach((src, i) => {
-            const slide = document.createElement('div');
-            slide.className = 'gallery-slide';
-            if (i === currentImageIndex) slide.classList.add('is-active');
+        if (forceRebuild || renderedImagesKey !== nextKey) {
+            track.innerHTML = '';
 
-            const img = document.createElement('img');
-            img.src = fixPath(src);
-            img.alt = '';
-            img.draggable = false;
+            currentImages.forEach((src, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'gallery-slide';
+                if (i === currentImageIndex) slide.classList.add('is-active');
 
-            slide.appendChild(img);
-            track.appendChild(slide);
-        });
+                const img = document.createElement('img');
+                img.src = fixPath(src);
+                img.alt = '';
+                img.draggable = false;
+                img.decoding = 'async';
+                img.loading = i === currentImageIndex ? 'eager' : 'lazy';
+
+                slide.appendChild(img);
+                track.appendChild(slide);
+            });
+
+            renderedImagesKey = nextKey;
+        }
 
         updateNav();
         resetZoom();

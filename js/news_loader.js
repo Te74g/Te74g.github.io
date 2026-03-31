@@ -41,18 +41,104 @@ function findArticleById(id) {
     return list.find((item) => item && typeof item.id === 'string' && item.id.toLowerCase() === lower) || null;
 }
 
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function sanitizeStyle(value) {
+    return String(value || '')
+        .replace(/expression\s*\([^)]*\)/gi, '')
+        .replace(/url\s*\(\s*(['"]?)javascript:[^)]*\)/gi, '')
+        .trim();
+}
+
+function sanitizeHtml(html) {
+    const allowedTags = new Set([
+        'A', 'B', 'BLOCKQUOTE', 'BR', 'DIV', 'EM', 'FIGCAPTION', 'FIGURE',
+        'H2', 'H3', 'H4', 'HR', 'I', 'IMG', 'LI', 'OL', 'P', 'SPAN',
+        'STRONG', 'U', 'UL'
+    ]);
+    const allowedAttrs = new Set(['alt', 'class', 'href', 'rel', 'src', 'style', 'target', 'title']);
+    const urlAttrs = new Set(['href', 'src']);
+
+    const template = document.createElement('template');
+    template.innerHTML = String(html || '');
+
+    Array.from(template.content.querySelectorAll('*')).forEach((el) => {
+        if (!allowedTags.has(el.tagName)) {
+            el.replaceWith(...Array.from(el.childNodes));
+            return;
+        }
+
+        Array.from(el.attributes).forEach((attr) => {
+            const name = attr.name.toLowerCase();
+            const value = attr.value || '';
+
+            if (name.startsWith('on')) {
+                el.removeAttribute(attr.name);
+                return;
+            }
+
+            if (!allowedAttrs.has(name)) {
+                el.removeAttribute(attr.name);
+                return;
+            }
+
+            if (name === 'style') {
+                const cleanStyle = sanitizeStyle(value);
+                if (cleanStyle) {
+                    el.setAttribute('style', cleanStyle);
+                } else {
+                    el.removeAttribute(attr.name);
+                }
+                return;
+            }
+
+            if (urlAttrs.has(name)) {
+                const trimmed = value.trim();
+                const isSafeUrl = /^(https?:|mailto:|tel:|\/|\.\/|\.\.\/|#)/i.test(trimmed);
+                if (!trimmed || !isSafeUrl || /^\s*javascript:/i.test(trimmed)) {
+                    el.removeAttribute(attr.name);
+                }
+            }
+        });
+
+        if (el.tagName === 'A' && !el.getAttribute('rel')) {
+            el.setAttribute('rel', 'noopener noreferrer');
+        }
+
+        if (el.tagName === 'IMG') {
+            el.setAttribute('loading', 'lazy');
+            el.setAttribute('decoding', 'async');
+            if (!el.getAttribute('alt')) {
+                el.setAttribute('alt', '');
+            }
+        }
+    });
+
+    return template.innerHTML;
+}
+
 function renderNotFound(id) {
     const main = document.querySelector('main');
     if (!main) return;
-    const safeId = id ? `<code>${id}</code>` : '<code>(none)</code>';
+
+    const safeId = escapeHtml(id || '(none)');
+    const newsIndexHref = window.fixPath ? window.fixPath('news/') : '/news/';
+
     main.innerHTML = `
         <section class="section news-article-section">
             <div class="container news-article-container" style="max-width: 760px; text-align: center;">
                 <div class="news-article-content-frame">
                     <h1 class="news-article-title" style="margin-bottom: 16px;">記事が見つかりませんでした</h1>
-                    <p style="margin-bottom: 8px;">指定されたID: ${safeId}</p>
-                    <p style="margin-bottom: 20px;">移行時の旧IDの可能性があります。ニュース一覧から最新記事をご確認ください。</p>
-                    <a class="btn btn--ghost" href="${window.fixPath ? window.fixPath('news/') : '/news/'}">ニュース一覧へ</a>
+                    <p style="margin-bottom: 8px;">指定されたID: <code>${safeId}</code></p>
+                    <p style="margin-bottom: 20px;">移行時の旧IDの可能性があります。ニュース一覧から最新記事を確認してください。</p>
+                    <a class="btn btn--ghost" href="${newsIndexHref}">ニュース一覧へ</a>
                 </div>
             </div>
         </section>
@@ -81,6 +167,7 @@ function ensureArticleScaffold() {
         return { headerEl, imageContainer, contentEl };
     }
 
+    const newsIndexHref = window.fixPath ? window.fixPath('news/') : '/news/';
     main.innerHTML = `
         <section class="section news-article-section">
             <div class="container news-article-container">
@@ -92,7 +179,7 @@ function ensureArticleScaffold() {
                         <div class="watermark-logo"></div>
                     </div>
                     <div class="news-article-actions">
-                        <a href="${window.fixPath ? window.fixPath('news/') : '/news/'}" class="btn btn--ghost">ニュース一覧に戻る</a>
+                        <a href="${newsIndexHref}" class="btn btn--ghost">ニュース一覧に戻る</a>
                     </div>
                 </article>
             </div>
@@ -106,45 +193,53 @@ function ensureArticleScaffold() {
 }
 
 function renderArticle(article) {
-    document.title = `あにあめもりあ | ${article.title || 'ニュース'}`;
+    const articleTitle = article.title || 'ニュース';
+    const articleDate = article.date || '';
+    const articleCategory = article.category || 'その他';
+    const articleDateIso = typeof articleDate === 'string' ? articleDate.replace(/\./g, '-') : '';
+
+    document.title = `あにあめもりあ | ${articleTitle}`;
 
     const scaffold = ensureArticleScaffold();
     if (!scaffold) return;
 
     const { headerEl, imageContainer, contentEl } = scaffold;
     if (headerEl) {
-        const dateText = article.date || '';
-        const dateIso = typeof dateText === 'string' ? dateText.replace(/\./g, '-') : '';
-        const category = article.category || 'その他';
         headerEl.innerHTML = `
             <div class="news-article-title-banner">
                 <span class="news-article-title-ornament" aria-hidden="true"></span>
-                <h1 class="news-article-title">${article.title || ''}</h1>
+                <h1 class="news-article-title">${escapeHtml(articleTitle)}</h1>
                 <span class="news-article-title-ornament" aria-hidden="true"></span>
             </div>
             <div class="news-article-meta">
-                ${dateText ? `<time datetime="${dateIso}" class="news-article-date">${dateText}</time>` : ''}
-                <span class="news-article-category">${category}</span>
+                ${articleDate ? `<time datetime="${escapeHtml(articleDateIso)}" class="news-article-date">${escapeHtml(articleDate)}</time>` : ''}
+                <span class="news-article-category">${escapeHtml(articleCategory)}</span>
             </div>
         `;
     }
 
     if (imageContainer) {
+        imageContainer.innerHTML = '';
         const rawPath = article.imagePath || article.image;
         if (rawPath) {
             const imgPath = window.fixPath ? window.fixPath(rawPath) : rawPath;
-            imageContainer.innerHTML = `
-                <figure class="news-article-figure">
-                    <img src="${imgPath}" alt="${article.title || '記事画像'}" class="news-article-main-image">
-                </figure>
-            `;
-        } else {
-            imageContainer.innerHTML = '';
+            const figure = document.createElement('figure');
+            figure.className = 'news-article-figure';
+
+            const img = document.createElement('img');
+            img.src = imgPath;
+            img.alt = articleTitle;
+            img.className = 'news-article-main-image';
+            img.loading = 'lazy';
+            img.decoding = 'async';
+
+            figure.appendChild(img);
+            imageContainer.appendChild(figure);
         }
     }
 
     if (contentEl) {
-        contentEl.innerHTML = article.content || '<p>本文がありません。</p>';
+        contentEl.innerHTML = sanitizeHtml(article.content || '<p>本文がありません。</p>');
     }
 }
 

@@ -17,7 +17,7 @@ window.galleryData = [
     {
         title: '第一回あにあめもりあ',
         date: '2026.03.22',
-        thumb: 'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.webp',
+        thumb: 'assets/gallery/2026322/thumb.webp',
         images: [
             'assets/gallery/2026322/VRChat_2026-03-22_21-25-38.354_3840x2160.webp',
             'assets/gallery/2026322/VRChat_2026-03-22_21-26-38.787_3840x2160.webp',
@@ -40,7 +40,7 @@ window.galleryData = [
     {
         title: '第二回あにあめもりあ',
         date: '2026.03.29',
-        thumb: 'assets/gallery/2026329/1Top.webp',
+        thumb: 'assets/gallery/2026329/thumb.webp',
         images: [
             'assets/gallery/2026329/1Top.webp',
             'assets/gallery/2026329/2VRChat_2026-03-29_22-09-49.656_1920x1080.webp',

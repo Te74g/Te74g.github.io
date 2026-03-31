@@ -275,18 +275,23 @@ function setupSkip() {
 // 額縁の下から滑り込むように見える
 function setupScrollMorph() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(max-width: 900px)').matches) return;
 
     const vignette = document.querySelector('.hero-vignette');
     if (!vignette) return;
 
     const MIN_RADIUS = 42; // 閉じ切らず 42% で停止
-
+    let lastRadius = null;
     const setVignette = (r) => {
-        if (r >= 99.9) {
+        const snapped = Math.round(r * 2) / 2;
+        if (lastRadius === snapped) return;
+        lastRadius = snapped;
+
+        if (snapped >= 99.9) {
             vignette.style.background = 'none';
         } else {
-            const r1 = r.toFixed(1);
-            const r2 = (r + 0.5).toFixed(1);
+            const r1 = snapped.toFixed(1);
+            const r2 = (snapped + 0.5).toFixed(1);
             vignette.style.background =
                 `radial-gradient(circle at 50% 50%, transparent ${r1}%, var(--bg) ${r2}%)`;
         }
@@ -340,8 +345,9 @@ function spawnHeroParticles() {
     const layer = document.getElementById('hero-deco-layer');
     if (!layer) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(max-width: 900px)').matches) return;
 
-    const count = 14;
+    const count = 10;
     for (let i = 0; i < count; i++) {
         const p = document.createElement('div');
         p.className = 'deco-particle';
@@ -468,10 +474,19 @@ function buildLegacyFeatures() {
         }
 
         if (html) {
-            revealBanner.innerHTML = html;
-            revealSection.style.display = '';
             const heroOverlay = document.getElementById('cast-reveal-hero');
-            if (heroOverlay) {
+            const useInlineBanner = window.matchMedia('(max-width: 768px)').matches || !heroOverlay;
+
+            if (useInlineBanner) {
+                revealBanner.innerHTML = html;
+                revealSection.style.display = '';
+                if (heroOverlay) {
+                    heroOverlay.innerHTML = '';
+                    heroOverlay.style.display = 'none';
+                }
+            } else {
+                revealBanner.innerHTML = '';
+                revealSection.style.display = 'none';
                 heroOverlay.innerHTML = html;
                 heroOverlay.style.display = '';
             }
@@ -540,7 +555,7 @@ function buildLegacyFeatures() {
                         visualDiv.classList.add('profile-switcher');
                         new ProfileImageSwitcher(visualDiv, images, { showIndicators: false });
                     } else {
-                        visualDiv.innerHTML = `<img src="${images[0]}" alt="${m.name}" class="cheki-img"><span class="cheki-tag-badge">${m.tagLabel}</span>`;
+                        visualDiv.innerHTML = `<img src="${images[0]}" alt="${m.name}" class="cheki-img">`;
                     }
                     const badgeText = m.tagLabel.split(/[\s/／]+/)[0] || m.tagLabel;
                     const badge = document.createElement('span');

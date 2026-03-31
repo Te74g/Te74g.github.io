@@ -11,6 +11,30 @@ const DEFAULT_CATEGORY = '\u305D\u306E\u4ED6';
 const EMPTY_NEWS_MSG = '\u73FE\u5728\u304A\u77E5\u3089\u305B\u306F\u3042\u308A\u307E\u305B\u3093\u3002';
 const NOT_FOUND_MSG = '\u8A72\u5F53\u3059\u308B\u30CB\u30E5\u30FC\u30B9\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002';
 
+function parseNewsDate(dateText) {
+    if (typeof dateText !== 'string' || dateText.trim() === '') return null;
+
+    const normalized = dateText.trim().match(/^(\d{4})[./-](\d{1,2})[./-](\d{1,2})$/);
+    if (normalized) {
+        const [, year, month, day] = normalized;
+        return new Date(Number(year), Number(month) - 1, Number(day));
+    }
+
+    const parsed = new Date(dateText);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function isRecentNews(dateText, featured = false) {
+    const itemDate = parseNewsDate(dateText);
+    if (!itemDate) return featured;
+
+    const now = new Date();
+    const itemMidnight = new Date(itemDate.getFullYear(), itemDate.getMonth(), itemDate.getDate());
+    const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const diffDays = Math.abs((nowMidnight - itemMidnight) / (1000 * 60 * 60 * 24));
+    return diffDays <= 3 || featured;
+}
+
 export async function initNewsPage() {
     if (window.manifestPromise) {
         try {
@@ -36,11 +60,7 @@ export async function initNewsPage() {
             a.className = index === 0 ? 'news-card news-card--featured' : 'news-card';
             a.dataset.category = item.category || DEFAULT_CATEGORY;
 
-            const itemDate = new Date(item.date);
-            const now = new Date();
-            const diffTime = Math.abs(now - itemDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            const isNew = diffDays <= 3 || index === 0;
+            const isNew = isRecentNews(item.date, index === 0);
             const badgeHtml = isNew ? '<div class="news-badge-new">NEW!</div>' : '';
 
             a.innerHTML = `
@@ -207,11 +227,7 @@ export async function initNewsPage() {
             card.href = pageUrl;
             card.className = 'news-card-slide';
 
-            const itemDate = new Date(item.date);
-            const now = new Date();
-            const diffTime = Math.abs(now - itemDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            const isNew = diffDays <= 3 || i === 0;
+            const isNew = isRecentNews(item.date, i === 0);
             const badgeHtml = isNew ? '<div class="news-badge-new">NEW!</div>' : '';
             const mediaHtml = imgUrl
                 ? `<img class="news-card-slide__image" src="${imgUrl}" alt="" loading="lazy">`
