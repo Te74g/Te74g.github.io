@@ -125,6 +125,7 @@ function castStubHtml(id, name) {
   <title>${name} — あにあめもりあ</title>
   <!-- スタブ: profile_loader.js が window.__memberId を優先して読む -->
   <script>window.__memberId = '${id}';</script>
+  <link rel="icon" href="/assets/favicon/multi_favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -179,6 +180,7 @@ function newsStubHtml(id, slug, title) {
   <title>${title} — あにあめもりあ</title>
   <!-- スタブ: news_loader.js が window.__newsId を優先して読む -->
   <script>window.__newsId = '${id}';</script>
+  <link rel="icon" href="/assets/favicon/multi_favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -232,6 +234,7 @@ function blogStubHtml(id, slug, title) {
   <title>${title} — あにあめもりあ</title>
   <!-- スタブ: blog_loader.js が window.__blogId を優先して読む -->
   <script>window.__blogId = '${id}';<\/script>
+  <link rel="icon" href="/assets/favicon/multi_favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -263,3 +266,4 @@ if (!CAST_ONLY && !BLOG_ONLY) generateNewsStubs();
 if (!CAST_ONLY && !NEWS_ONLY) generateBlogStubs();
 
 console.log('\n完了。');
+

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * gallery.js
  * Gallery generation and Lightbox logic
  * Depends on: utils.js, data_gallery.js
@@ -7,6 +7,7 @@
 import { fixPath } from '../app/url.js';
 import { getGalleryData } from '../app/data.js';
 import { shouldShowItem } from '../app/member-utils.js';
+import { isRecentContent } from '../app/freshness.js';
 
 export async function initGalleryPage() {
     // Wait for Manifest
@@ -45,8 +46,10 @@ export async function initGalleryPage() {
 
                 const thumbUrl = fixPath(item.thumb || (item.images && item.images[0]) || '');
                 const count = item.images ? item.images.length : 0;
+                const badgeHtml = isRecentContent(item.date) ? '<div class="news-badge-new">NEW!</div>' : '';
 
                 card.innerHTML = `
+                    ${badgeHtml}
                     <div class="gallery-polaroid-photo">
                         <img src="${thumbUrl}" alt="${item.title}" loading="lazy" decoding="async" fetchpriority="low">
                         ${count > 0 ? `<div class="gallery-polaroid-count">${count}枚</div>` : ''}
@@ -295,3 +298,4 @@ export async function initGalleryPage() {
     });
 
 }
+
