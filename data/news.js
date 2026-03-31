@@ -4,6 +4,40 @@
  */
 window.newsData = [
     {
+        id: 'event_notice_20260405',
+        hidden: false,
+        linkPath: 'news/event-notice-20260405/',
+        title: '🌸【第3回開催のお知らせ】🌸',
+        date: '2026.03.30',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第3回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第3回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年4月5日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xで告知を見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
         id: 'event_notice_20260329',
         hidden: false,
         linkPath: 'news/event-notice-20260329/',
@@ -111,6 +145,7 @@ window.newsData = [
 // Legacy article-stub IDs that remained after migration.
 // Map old IDs to a valid canonical article to avoid blank/not-found UX.
 window.newsIdAliases = {
+    'event-notice-20260405': 'event_notice_20260405',
     'event-notice-20260329': 'event_notice_20260329',
     'event-notice-20260322': 'event_notice_20260322',
     'grand-open-20260308': 'grand_open_20260308',
