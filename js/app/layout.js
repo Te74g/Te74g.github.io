@@ -42,8 +42,23 @@ const resolvePath = (path) => {
   return path;
 };
 
+function ensureFavicon() {
+  const href = '/assets/favicon/multi_favicon.ico';
+  let icon = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+  if (!icon) {
+    icon = document.createElement('link');
+    icon.setAttribute('rel', 'icon');
+    icon.setAttribute('type', 'image/x-icon');
+    document.head.appendChild(icon);
+  }
+  if (!icon.getAttribute('href')) {
+    icon.setAttribute('href', href);
+  }
+}
+
 export async function renderLayout() {
   if (window.location.pathname.includes('/maintenance/') || window.location.pathname.includes('maintenance.html')) return;
+  ensureFavicon();
 
   const depth = getUrlDepth();
   let navRootPath = '';

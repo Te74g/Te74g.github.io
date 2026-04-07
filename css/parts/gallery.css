@@ -39,14 +39,30 @@
     z-index: 1;
 }
 
-.gallery-polaroid .news-badge-new {
-    top: 16px;
-    left: -40px;
-    width: 124px;
-    padding: 5px 0;
-    font-size: 0.72rem;
-    transform: rotate(-45deg) scale(0.88);
+.gallery-new-tape {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 6;
+    width: 58px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    transform: rotate(0deg);
     transform-origin: center;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 42%),
+        linear-gradient(180deg, #f34b3f 0%, #be251d 100%);
+    color: #fff8ef;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 0.52rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    text-shadow: 0 1px 2px rgba(70, 0, 0, 0.45);
+    box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    pointer-events: none;
 }
 
 /* 4種のランダム傾き ＋ 縦方向ずれでバラバラ感を強調 */
@@ -217,11 +233,12 @@
         padding: 12px 12px 40px;
     }
 
-    .gallery-polaroid .news-badge-new {
-        top: 12px;
-        left: -44px;
-        width: 116px;
-        font-size: 0.68rem;
+    .gallery-new-tape {
+        top: 7px;
+        left: 7px;
+        width: 52px;
+        height: 20px;
+        font-size: 0.48rem;
     }
 }
 

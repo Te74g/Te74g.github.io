@@ -95,6 +95,6 @@ window.galleryData = [
             'assets/gallery/20260405/VRChat_2026-04-05_23-58-59.055_3840x2160.webp',
             'assets/gallery/20260405/z.webp'
         ],
-        desc: '来てくれてありがとう！'
+        desc: 'ご来店ありがとうございました！'
     }
 ];

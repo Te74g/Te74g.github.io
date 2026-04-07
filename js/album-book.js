@@ -1,6 +1,14 @@
 import { fixPath } from './app/url.js';
 import { getGalleryData } from './app/data.js';
 
+function galleryTime(item) {
+    const match = String(item?.date || '').match(/^(\d{4})\.(\d{2})\.(\d{2})$/);
+    if (!match) return 0;
+
+    const [, year, month, day] = match;
+    return Date.UTC(Number(year), Number(month) - 1, Number(day));
+}
+
 /**
  * album-book.js
  * 3D page-flip album book for index.html Gallery section.
@@ -39,7 +47,7 @@ export async function initGalleryPage() {
         const albums = allData.filter(item => {
             if (typeof window.shouldShowItem === 'function') return window.shouldShowItem(item);
             return !item.hidden;
-        });
+        }).sort((a, b) => galleryTime(b) - galleryTime(a));
 
         if (albums.length === 0) {
             scene.innerHTML = `
@@ -124,8 +132,10 @@ export async function initGalleryPage() {
             }
             if (page.type === 'title') {
                 const a = page.album;
+                const newTape = a === albums[0] ? '<span class="album-new-tape">NEW!</span>' : '';
                 return `
                     <div class="album-title-page">
+                        ${newTape}
                         <div class="album-title-border"></div>
                         <span class="album-title-label">Memory</span>
                         <p class="album-title-name">${escHtml(a.title)}</p>

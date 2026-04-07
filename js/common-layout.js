@@ -42,7 +42,23 @@
     return path;
   };
 
+  const ensureFavicon = () => {
+    const href = '/assets/favicon/multi_favicon.ico';
+    let icon = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+    if (!icon) {
+      icon = document.createElement('link');
+      icon.setAttribute('rel', 'icon');
+      icon.setAttribute('type', 'image/x-icon');
+      document.head.appendChild(icon);
+    }
+    if (!icon.getAttribute('href')) {
+      icon.setAttribute('href', href);
+    }
+  };
+
   window.renderLayout = function renderLayout(rootPath) {
+    ensureFavicon();
+
     const navRootPath = rootPath;
     const logoDark = resolvePath(rootPath + 'assets/logo/aniamemoria_logo_darktheme.webp');
     const vrchatLogo = resolvePath(rootPath + 'assets/logo/VRChat Logo Black.webp');

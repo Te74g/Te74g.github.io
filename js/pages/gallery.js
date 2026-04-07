@@ -7,7 +7,14 @@
 import { fixPath } from '../app/url.js';
 import { getGalleryData } from '../app/data.js';
 import { shouldShowItem } from '../app/member-utils.js';
-import { isRecentContent } from '../app/freshness.js';
+
+function galleryTime(item) {
+    const match = String(item?.date || '').match(/^(\d{4})\.(\d{2})\.(\d{2})$/);
+    if (!match) return 0;
+
+    const [, year, month, day] = match;
+    return Date.UTC(Number(year), Number(month) - 1, Number(day));
+}
 
 export async function initGalleryPage() {
     // Wait for Manifest
@@ -25,7 +32,10 @@ export async function initGalleryPage() {
 
     if (galleryContainer) {
         // フィルタリング
-        displayGalleryData = (getGalleryData() || []).filter(item => shouldShowItem(item));
+        displayGalleryData = (getGalleryData() || [])
+            .filter(item => shouldShowItem(item))
+            .slice()
+            .sort((a, b) => galleryTime(b) - galleryTime(a));
 
         // データが空の場合
         if (displayGalleryData.length === 0) {
@@ -46,7 +56,7 @@ export async function initGalleryPage() {
 
                 const thumbUrl = fixPath(item.thumb || (item.images && item.images[0]) || '');
                 const count = item.images ? item.images.length : 0;
-                const badgeHtml = isRecentContent(item.date) ? '<div class="news-badge-new">NEW!</div>' : '';
+                const badgeHtml = index === 0 ? '<div class="gallery-new-tape">NEW!</div>' : '';
 
                 card.innerHTML = `
                     ${badgeHtml}
