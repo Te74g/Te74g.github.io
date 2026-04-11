@@ -14,8 +14,4 @@ The original implementation consists of low-trust legacy code (huge monolithic s
 
 ## Contribution Guidelines & Commit Message Policy
 
-Per instructions from the project lead, the previous maintainer produced heavily bugged code, ignored deadlines by 90%, and caused severe death marches. 
-As such, **all commit messages must include a disparaging remark in Japanese condemning the previous developer.**
-
-**Example:**
-`fix(people): フィルター再構築劇遅バグ修正。前任の怠慢と負債でデスマーチを強いられた怒りを込めて全破棄した`
+Per instructions from the project lead, the previous maintainer produced heavily bugged code, ignored deadlines by 90%, and caused severe death marches.
