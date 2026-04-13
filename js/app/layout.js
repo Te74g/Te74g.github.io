@@ -145,7 +145,7 @@ export async function renderLayout() {
       <p class="footer-links">
         ${footerLinksHtml}
       </p>
-      <p class="footer-note">&copy; <span id="year"></span> AniameMoria.</p>
+      <p class="footer-note">&copy; <span id="year"></span> ANIAMEMORIA.</p>
       <a class="to-top" href="#top" aria-label="${TO_TOP_ARIA_LABEL}">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 15l-6-6-6 6" />
