@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ==========================================================================
  * ギャラリー一覧 (data_gallery.js)
  * ==========================================================================
@@ -96,5 +96,37 @@ window.galleryData = [
             'assets/gallery/20260405/z.webp'
         ],
         desc: 'ご来店ありがとうございました！'
+    },
+    {
+        title: '第四回あにあめもりあ',
+        date: '2026.04.12',
+        thumb: 'assets/gallery/20260412/0.png',
+        images: [
+            'assets/gallery/20260412/0.png',
+            'assets/gallery/20260412/1.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-13-00.367_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-13-13.271_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-13-18.617_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-13-22.309_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-13-25.704_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-13-28.782_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-23-28.360_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-25-19.560_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-34-33.518_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-36-31.690_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-40-14.733_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_21-53-41.860_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-18-31.963_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-18-45.074_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-19-20.317_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-19-27.423_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-19-37.352_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-19-46.392_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-19-55.917_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-20-04.304_3840x2160.png',
+            'assets/gallery/20260412/VRChat_2026-04-12_22-35-44.937_3840x2160.png'
+        ],
+        desc: 'たくさん学べて嬉しかった！'
     }
 ];
+
