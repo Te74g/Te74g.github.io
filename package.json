@@ -7,7 +7,8 @@
     "test": "playwright test",
     "lint": "eslint js/**/*.js",
     "lint:fix": "eslint js/**/*.js --fix",
-    "verify": "node scripts/verify.js"
+    "check:gallery-assets": "node scripts/check-gallery-assets.js",
+    "verify": "node scripts/verify.js && node scripts/check-gallery-assets.js"
   },
   "dependencies": {
     "sharp": "^0.34.5"
