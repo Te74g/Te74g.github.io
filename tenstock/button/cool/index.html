@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button × Cool × 6 — tenstock</title>
+  <link rel="stylesheet" href="../../_shared/base.css">
+  <link rel="stylesheet" href="../../_shared/mood.css">
+  <link rel="stylesheet" href="../../_shared/motion-primitives.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="mood-cool pilot-stage">
+  <header class="pilot-header">
+    <nav class="ts-nav"><a href="../../home.html">tenstock</a> / <a href="../">button</a> / cool</nav>
+    <h1>Button × Cool × 6</h1>
+    <p class="pilot-subtitle">
+      real button-interaction motions · hover #01 · idle ∞ on #02–#05 · click #06
+    </p>
+  </header>
+
+  <section class="pilot-grid">
+
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <button class="btn-cool btn-cool--01" type="button">Action</button>
+      </div>
+      <p class="pilot-label">#01 hover underline reveal</p>
+    </article>
+
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <button class="btn-cool btn-cool--02" type="button">
+          <span class="btn-pulse-inner">Action</span>
+        </button>
+      </div>
+      <p class="pilot-label">#02 asymmetric double-pulse</p>
+    </article>
+
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <button class="btn-cool btn-cool--03" type="button">Action</button>
+      </div>
+      <p class="pilot-label">#03 subliminal breath</p>
+    </article>
+
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <button class="btn-cool btn-cool--04" type="button">Action</button>
+      </div>
+      <p class="pilot-label">#04 pulse glow</p>
+    </article>
+
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <button class="btn-cool btn-cool--05" type="button">Action</button>
+      </div>
+      <p class="pilot-label">#05 light flicker</p>
+    </article>
+
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <button class="btn-cool btn-cool--06" type="button">
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-particle" aria-hidden="true"></span>
+          <span class="btn-label">Click</span>
+        </button>
+      </div>
+      <p class="pilot-label">#06 click particle burst (8-direction)</p>
+    </article>
+
+  </section>
+
+  <footer class="pilot-footer">
+    <p><a href="./source.md">source.md</a> — cell spec &amp; variant catalog</p>
+    <p>#01 requires hover-capable device · #02-#05 always animating · #06 fires on click</p>
+  </footer>
+
+  <script>
+  /* #06 click particle burst — add .is-burst, strip + reflow, remove. */
+  (function () {
+    document.querySelectorAll('.btn-cool--06').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.classList.remove('is-burst');
+        /* force reflow so animation restarts on repeated clicks */
+        void btn.offsetWidth;
+        btn.classList.add('is-burst');
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

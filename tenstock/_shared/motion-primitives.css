@@ -1,0 +1,261 @@
+/* ==========================================================================
+   tenstock / motion-primitives.css
+   --------------------------------------------------------------------------
+   Pure @keyframes library shared across cells.
+
+   Signature easings used by many keyframes:
+     - snap:  cubic-bezier(0.77, 0.02, 0.25, 0.97)
+     - drop:  cubic-bezier(0.04, 0.91, 0.51, 0.97)
+
+   Sections:
+     §entrance    — clip-path / slide / scale / bounce / drop / width / tile
+     §curtain     — 3-strip shrink with container tilt
+     §ambient     — ink spread (environmental)
+     §interact    — hover / click / idle-infinite button primitives
+     §particle    — 8-direction radial click burst
+     §experimental— less-proven primitives, kept for future composition
+   ========================================================================== */
+
+
+/* ========================================================================
+   §entrance — button / panel entrance library (14 families)
+   Each family is a structurally distinct motion — not a direction tweak.
+   Used by any cell whose trigger is "fires once on page-load / scroll-in".
+   ======================================================================== */
+
+/* Background mask: bottom-right circular wipe reveal */
+@keyframes ts-clip-corner-br {
+    0%   { clip-path: circle(0% at 80% 80%); }
+    100% { clip-path: circle(112% at 80% 80%); }
+}
+
+/* Content mask: top-left circular wipe reveal (paired) */
+@keyframes ts-clip-corner-tl {
+    0%   { clip-path: circle(0% at 20% 20%); }
+    100% { clip-path: circle(112% at 20% 20%); }
+}
+
+/* Foreground: center-origin circle grow (68% target, not full) */
+@keyframes ts-clip-center {
+    0%   { clip-path: circle(0%); }
+    100% { clip-path: circle(68%); }
+}
+
+/* Shadow lift: filter-only animation, no transform */
+@keyframes ts-shadow-rise {
+    0%   { filter: drop-shadow(rgba(0, 0, 0, 0.04) 0px 0px 0px); }
+    100% { filter: drop-shadow(rgba(0, 0, 0, 0.04) 0px 4px 10px); }
+}
+
+/* Grid tile: scale + opacity 2-track. Paired with nth-child stagger delays.
+   Companion stagger pattern (apply to the parent):
+     &:nth-child(4n) { animation-delay: 0.54s; }
+     &:nth-child(3n) { animation-delay: 0s; }
+     &:nth-child(2n) { animation-delay: 0.18s; }
+     &              { animation-delay: 0.36s; } */
+@keyframes ts-tile-grid {
+    0%   { opacity: 0; transform: scale(0.3); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Slide from above (-101% avoids sub-pixel artifacts at exactly -100%) */
+@keyframes ts-slide-from-top {
+    0%   { transform: translateY(-101%); }
+    100% { transform: translateY(0%); }
+}
+
+/* Slide from below (101% canonical) */
+@keyframes ts-slide-from-bottom {
+    0%   { transform: translateY(101%); }
+    100% { transform: translateY(0%); }
+}
+
+/* Width overshoot: 0 → 105 → 100. Apply to fixed-width container. */
+@keyframes ts-width-overshoot {
+    0%   { width: 0%; }
+    50%  { width: 105%; }
+    100% { width: 100%; }
+}
+
+/* Height overshoot: 28→135→125 (px values are container-specific). */
+@keyframes ts-height-overshoot {
+    0%   { height: 28px; }
+    50%  { height: 135px; }
+    100% { height: 125px; }
+}
+
+/* Light sweep across: ::before overlay translateX(101%→-101%) */
+@keyframes ts-light-sweep {
+    0%   { transform: translateX(101%); }
+    100% { transform: translateX(-101%); }
+}
+
+/* Soft overshoot: 0.5 → 1.04 → 1, opacity 0→1→1 */
+@keyframes ts-scale-soft {
+    0%   { transform: scale(0.5); opacity: 0; }
+    50%  { transform: scale(1.04); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* 4-beat bounce: scale+rotate 5-stop */
+@keyframes ts-bounce-4beat {
+    0%   { transform: scale(0.7); opacity: 0; }
+    40%  { transform: scale(1.2) rotate(4deg); opacity: 1; }
+    60%  { transform: scale(1); opacity: 1; }
+    80%  { transform: scale(1.05) rotate(-2deg); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Pop rotate 3-stop: opacity 0→1→1, scale 0.4→1.15→1, rotate 6→-2→0 */
+@keyframes ts-pop-rotate {
+    0%   { opacity: 0; transform: scale(0.4) rotate(6deg); }
+    50%  { opacity: 1; transform: scale(1.15) rotate(-2deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Softer pop-rotate (scale 1.06 instead of 1.15) */
+@keyframes ts-pop-rotate-soft {
+    0%   { opacity: 0; transform: scale(0.4) rotate(6deg); }
+    50%  { opacity: 1; transform: scale(1.06) rotate(-2deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Big drop composite: translateY+scale+rotate → identity. 2-stop. Pair
+   with ts-fade-in via multi-animation for combined opacity + drop. */
+@keyframes ts-big-drop {
+    0%   { transform: translateY(150%) scale(1.25) rotate(20deg); }
+    100% { transform: translate(0px) scale(1) rotate(0deg); }
+}
+
+/* Contract-to-settle: starts BIG (1.4), shrinks past unity (0.94), settles */
+@keyframes ts-contract {
+    0%   { transform: scale(1.4); opacity: 0; }
+    50%  { transform: scale(0.94); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Generic opacity fade — often composed with another motion */
+@keyframes ts-fade-in {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+
+/* ========================================================================
+   §curtain — 3-strip shrink with container tilt (OP transition)
+   Width 33.33%→0% and rotate 10deg are calibrated numbers, not variables.
+   ======================================================================== */
+
+@keyframes ts-curtain-tilt  { from { transform: rotate(0deg); }    to { transform: rotate(10deg); } }
+@keyframes ts-curtain-strip { from { width: 33.33%; }              to { width: 0%; } }
+
+
+/* ========================================================================
+   §ambient — environmental / decorative
+   Radial expansion with fade-out.
+   ======================================================================== */
+
+@keyframes ts-ink-spread { from { transform: scale(0); opacity: 0.9; } to { transform: scale(2); opacity: 0; } }
+
+
+/* ========================================================================
+   §interact — button hover / click / idle-infinite primitives
+   ======================================================================== */
+
+/* Outer pulse — intended to run at 1.2s ease-in-out infinite.
+   Includes translateX(-50%) scaffold for absolute-centered layouts.
+   Non-absolute layouts should use a local derivative with the scaffold
+   stripped (keeping only the scale values). */
+@keyframes ts-pulse-outer {
+    from, 30%, to { transform: translateX(-50%) scale(1); }
+    15%           { transform: translateX(-50%) scale(1.05); }
+}
+
+/* Inner pulse — intended to run at 0.65s ease-in-out infinite.
+   Together with ts-pulse-outer, creates an asymmetric heartbeat. */
+@keyframes ts-pulse-inner {
+    from, 50%, to { transform: scale(1); }
+    25%           { transform: scale(1.2); }
+}
+
+/* Subliminal breath R — 0.8% scale + 0.07deg skewX.
+   Below individual perception threshold; paired with -L on adjacent element
+   to create "alive" ambient signal. 4s ease-in-out infinite. */
+@keyframes ts-breath-r {
+    from, to { transform: scale(1, 1); }
+    50%      { transform: scale(1.008, 1.004) skewX(0.07deg); }
+}
+
+/* Subliminal breath L — mirror of -R (opposite skew, identical scale). */
+@keyframes ts-breath-l {
+    from, to { transform: scale(1, 1); }
+    50%      { transform: scale(1.008, 1.004) skewX(-0.09deg); }
+}
+
+/* Pulse glow — opacity 0.5 ↔ 1 sine. 4s ease-in-out infinite.
+   Gentle "alive" signal for borders / text / ring. */
+@keyframes ts-glow {
+    0%   { opacity: 0.5; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Light flicker — visible 55%→70% only (15% of cycle). 8s ease-in-out infinite.
+   Irregular "easy-to-miss spike" signal. */
+@keyframes ts-flicker {
+    0%, 50%, 75%, 100% { opacity: 0; }
+    55%, 70%           { opacity: 1; }
+}
+
+
+/* ========================================================================
+   §particle — 8-direction radial click burst
+   Core trick: rotate() × translateY() ordering. rotate first rotates the
+   coordinate system; translateY then moves along the rotated axis. With
+   --rotate set to 0°/45°/.../315° across 8 elements, a single keyframe
+   produces a radial burst. --translate-y is the travel distance.
+   ======================================================================== */
+
+@keyframes ts-particle-travel {
+    0%   { transform: rotate(var(--rotate, 0)) translateY(0); }
+    100% { transform: rotate(var(--rotate, 0)) translateY(var(--translate-y, 0px)); }
+}
+
+/* Particle fade-in — 0s→0.3s, scales up from 0 to 1 inside ::before */
+@keyframes ts-particle-grow {
+    0%   { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+/* Particle fade-out — starts at (0.7s + delay), shrinks to 0 for cleanup */
+@keyframes ts-particle-shrink {
+    0%   { transform: scale(1); }
+    100% { transform: scale(0); }
+}
+
+
+/* ========================================================================
+   §experimental — less-proven primitives kept for future composition
+   Cells should prefer §entrance / §interact / §particle primitives unless
+   a specific effect requires them.
+   ======================================================================== */
+
+/* Eyelid blink (paired) */
+@keyframes ts-eyelid-top    { from { transform: translateY(0); }  to { transform: translateY(-101%); } }
+@keyframes ts-eyelid-bottom { from { transform: translateY(0); }  to { transform: translateY(101%); } }
+
+/* 5-stop overshoot — preserves --transform scaffold for composed layouts */
+@keyframes ts-overshoot-5stop {
+    0%   { transform: translate(var(--translate, 0)) scale(0.8);   opacity: 0; }
+    30%  { transform: translate(var(--translate, 0)) scale(1.08);  opacity: 1; }
+    50%  { transform: translate(var(--translate, 0)) scale(1);     opacity: 1; }
+    75%  { transform: translate(var(--translate, 0)) scale(1.012); opacity: 1; }
+    100% { transform: translate(var(--translate, 0)) scale(1);     opacity: 1; }
+}
+
+/* ±0.4% subliminal sway (paired) */
+@keyframes ts-sway-right { 0%, 100% { transform: translateX(0); }   50% { transform: translateX(0.4%); } }
+@keyframes ts-sway-left  { 0%, 100% { transform: translateX(0); }   50% { transform: translateX(-0.4%); } }
+
+/* Presence-hint fade (cubic-bezier(0, 0, 0.18, 1.02) overshoot) */
+@keyframes ts-kehai-fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }

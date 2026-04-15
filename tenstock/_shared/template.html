@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<!--
+  template.html — starting skeleton for per-cell gallery pages.
+  Copy this into /tenstock/<component>/<mood>/index.html and fill in.
+  Placeholders: {{COMPONENT}} {{MOOD}} {{MOOD_JA}} {{COUNT}} {{VARIANTS}}
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{COMPONENT}} × {{MOOD}} × {{COUNT}} — tenstock</title>
+  <link rel="stylesheet" href="../../_shared/base.css">
+  <link rel="stylesheet" href="../../_shared/mood.css">
+  <link rel="stylesheet" href="../../_shared/motion-primitives.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="mood-{{MOOD}} pilot-stage">
+  <header class="pilot-header">
+    <nav class="ts-nav">
+      <a href="../../home.html">tenstock</a> / <a href="../">{{COMPONENT}}</a> / {{MOOD}}
+    </nav>
+    <h1>{{COMPONENT}} × {{MOOD}} × {{COUNT}}</h1>
+    <p class="pilot-subtitle">{{MOOD_JA}} mood · {{COUNT}} variants</p>
+  </header>
+
+  <section class="pilot-grid">
+    <!-- repeat pilot-cell × {{COUNT}}, one per variant:
+    <article class="pilot-cell">
+      <div class="pilot-stage-inner">
+        <!-- variant markup -->
+      </div>
+      <p class="pilot-label">#NN name / axis</p>
+    </article>
+    -->
+    {{VARIANTS}}
+  </section>
+
+  <footer class="pilot-footer">
+    <p><a href="./source.md">source.md</a> — cell spec, sources, variant catalog</p>
+  </footer>
+</body>
+</html>

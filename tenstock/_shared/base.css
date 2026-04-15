@@ -1,0 +1,161 @@
+/* ==========================================================================
+   tenstock / base.css
+   Reset + typography + gallery grid primitives
+   --------------------------------------------------------------------------
+   NOT a mood. Structural only. Mood-specific tokens live in mood.css.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+/* ---- root layout (gallery landing / section index) -------------------- */
+
+.ts-root {
+    background: #0f1014;
+    color: #e8eaed;
+    padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+}
+
+.ts-header { max-width: 72rem; margin: 0 auto 3rem; }
+.ts-title { font-size: clamp(2rem, 5vw, 3rem); margin: 0; letter-spacing: 0.02em; }
+.ts-subtitle { color: #a8abb5; margin: 0.25rem 0 0; font-size: 1.05rem; }
+.ts-meta { color: #72757f; margin: 0.25rem 0 0; font-size: 0.85rem; }
+
+.ts-section { max-width: 72rem; margin: 0 auto 3rem; }
+.ts-section h2 { font-size: 1.25rem; margin: 0 0 1rem; color: #d8dae0; font-weight: 500; }
+
+/* component tile grid */
+.ts-grid--components { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 0.75rem; }
+.ts-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5rem;
+    padding: 1rem;
+    border: 1px solid #2a2c35;
+    border-radius: 2px;
+    background: #16181e;
+    color: #e8eaed;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    position: relative;
+}
+.ts-tile:hover { background: #1e2029; border-color: #4a4d5a; }
+.ts-tile--pending { color: #5c5f6a; cursor: default; pointer-events: none; }
+.ts-tile--active { border-color: #4d7bff; }
+.ts-badge {
+    position: absolute; top: 0.5rem; right: 0.5rem;
+    font-size: 0.7rem; padding: 0.15rem 0.5rem;
+    background: #4d7bff; color: #0f1014;
+    border-radius: 2px; letter-spacing: 0;
+}
+
+/* mood tile grid */
+.ts-grid--moods { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.75rem; }
+.ts-mood {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 6rem; padding: 1rem; border-radius: 2px;
+    text-decoration: none; font-weight: 600; letter-spacing: 0.04em;
+    transition: transform 180ms ease;
+}
+.ts-mood span { display: block; font-size: 0.8rem; font-weight: 400; margin-top: 0.25rem; opacity: 0.8; }
+.ts-mood:hover { transform: translateY(-2px); }
+.ts-mood--cool    { background: #0a0e27; color: #00d9ff; }
+.ts-mood--cute    { background: #fff0f3; color: #ff4d6d; }
+.ts-mood--elegant { background: #faf6f0; color: #7a2e4d; }
+.ts-mood--modern  { background: #ffffff; color: #2d3436; border: 1px solid #d0d3d9; }
+.ts-mood--retro   { background: #f4e4c1; color: #8b4513; }
+.ts-mood--fantasy { background: #f4eef7; color: #6a4c93; }
+
+.ts-footer { max-width: 72rem; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid #2a2c35; color: #72757f; }
+.ts-footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; }
+.ts-footer a { color: #a8abb5; }
+
+/* ---- section landing layout (button/index.html etc.) ------------------ */
+
+.ts-section-root {
+    background: #0f1014;
+    color: #e8eaed;
+    padding: 2rem clamp(1rem, 4vw, 3rem);
+    min-height: 100vh;
+}
+.ts-nav { font-size: 0.85rem; color: #72757f; margin-bottom: 1.5rem; }
+.ts-nav a { color: #a8abb5; text-decoration: none; }
+.ts-nav a:hover { color: #e8eaed; }
+.ts-section-title { font-size: 2rem; margin: 0 0 0.5rem; }
+.ts-section-desc { color: #a8abb5; margin: 0 0 2rem; }
+
+.ts-mood-index { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 0.75rem; max-width: 72rem; }
+.ts-mood-index a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 1.25rem; text-decoration: none; border-radius: 2px;
+    font-weight: 600; transition: transform 180ms ease;
+}
+.ts-mood-index a:hover { transform: translateY(-2px); }
+.ts-mood-index .count { font-size: 0.75rem; font-weight: 400; opacity: 0.7; }
+.ts-mood-index a.pending { opacity: 0.35; pointer-events: none; }
+
+/* ---- pilot grid (cell 12-variant display) ---------------------------- */
+
+.pilot-stage {
+    padding: 2rem clamp(1rem, 4vw, 3rem);
+    min-height: 100vh;
+    background: var(--color-bg, #0f1014);
+    color: var(--color-text, #e8eaed);
+}
+.pilot-header { max-width: 72rem; margin: 0 auto 2rem; }
+.pilot-header h1 { font-size: 1.75rem; margin: 0.5rem 0 0.25rem; }
+.pilot-subtitle { color: var(--color-text, #a8abb5); opacity: 0.7; margin: 0; font-size: 0.9rem; }
+
+.pilot-grid {
+    max-width: 72rem; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1rem;
+}
+.pilot-cell {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    padding: 1.5rem 1rem 1rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+}
+.pilot-stage-inner {
+    min-height: 6rem;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+.pilot-label { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); margin: 0; text-align: center; letter-spacing: 0.03em; }
+
+.pilot-footer { max-width: 72rem; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.85rem; }
+
+/* ---- responsive breakpoints (Mobile 375, PC 1440 targets) ------------- */
+
+@media (max-width: 600px) {
+    .ts-title { font-size: 1.75rem; }
+    .pilot-grid { grid-template-columns: 1fr; }
+    .pilot-stage-inner { min-height: 5rem; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

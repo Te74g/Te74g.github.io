@@ -1,0 +1,125 @@
+/* ==========================================================================
+   tenstock / mood.css
+   6 mood palettes as CSS custom properties
+   --------------------------------------------------------------------------
+   Apply with body class: .mood-cool / .mood-cute / .mood-elegant / ...
+   Standard easings available per mood:
+     --easeIn:        cubic-bezier(0.4, 0, 0.25, 1)
+     --easeOut:       cubic-bezier(0.4, 0, 0.6, 1)
+     --easeInOut:     cubic-bezier(0.25, 0.46, 0.45, 0.94)
+     --easeInOutExpo: cubic-bezier(0.34, 1.56, 0.64, 1)   (overshoot)
+   ========================================================================== */
+
+/* ===== Cool (かっこいい) ========================================== */
+.mood-cool {
+    --color-bg:        #0a0e27;
+    --color-surface:   #141838;
+    --color-primary:   #1a1a2e;
+    --color-secondary: #16213e;
+    --color-accent:    #00d9ff;
+    --color-text:      #e8eaed;
+    --color-muted:     #8a8fa5;
+
+    --ease-default: cubic-bezier(0.7, 0, 0.3, 1);        /* snap */
+    --ease-in:      cubic-bezier(0.9, 0, 0.9, 0.1);       /* hard-in */
+    --ease-out:     cubic-bezier(0.1, 0.9, 0.1, 1);       /* hard-out */
+
+    --dur-fast:    150ms;
+    --dur-default: 200ms;
+    --dur-slow:    300ms;
+}
+
+/* ===== Cute (かわいい) ============================================ */
+.mood-cute {
+    --color-bg:        #fff0f3;
+    --color-surface:   #ffe0e8;
+    --color-primary:   #ff8fa3;
+    --color-secondary: #ffc0cb;
+    --color-accent:    #ff4d6d;
+    --color-text:      #4a2c34;
+    --color-muted:     #a87a84;
+
+    --ease-default: cubic-bezier(0.34, 1.56, 0.64, 1);    /* easeInOutExpo / overshoot */
+    --ease-in:      cubic-bezier(0.45, 0, 0.55, 1);
+    --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+
+    --dur-fast:    200ms;
+    --dur-default: 400ms;
+    --dur-slow:    600ms;
+}
+
+/* ===== Elegant (エレガント) ======================================= */
+.mood-elegant {
+    --color-bg:        #faf6f0;
+    --color-surface:   #f0e8d8;
+    --color-primary:   #7a2e4d;
+    --color-secondary: #c9a961;
+    --color-accent:    #5c1f35;
+    --color-text:      #2e1a1f;
+    --color-muted:     #8a6a75;
+
+    --ease-default: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* easeInOut */
+    --ease-in:      cubic-bezier(0.3, 0, 0.5, 1);
+    --ease-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+    --dur-fast:    300ms;
+    --dur-default: 600ms;
+    --dur-slow:    900ms;
+}
+
+/* ===== Modern (モダン) ============================================ */
+.mood-modern {
+    --color-bg:        #ffffff;
+    --color-surface:   #f2f3f5;
+    --color-primary:   #2d3436;
+    --color-secondary: #636e72;
+    --color-accent:    #fdcb6e;
+    --color-text:      #2d3436;
+    --color-muted:     #636e72;
+
+    --ease-default: cubic-bezier(0.4, 0, 0.25, 1);        /* easeIn */
+    --ease-in:      cubic-bezier(0.5, 0, 0.5, 1);
+    --ease-out:     cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    --dur-fast:    120ms;
+    --dur-default: 250ms;
+    --dur-slow:    400ms;
+}
+
+/* ===== Retro (レトロ) ============================================ */
+.mood-retro {
+    --color-bg:        #f4e4c1;
+    --color-surface:   #e9d5a1;
+    --color-primary:   #8b4513;
+    --color-secondary: #d4a574;
+    --color-accent:    #c73e1d;
+    --color-text:      #3d2817;
+    --color-muted:     #8b6f47;
+
+    --ease-default: steps(4, end);                         /* stepped */
+    --ease-in:      steps(3, start);
+    --ease-out:     steps(5, end);
+
+    --dur-fast:    250ms;
+    --dur-default: 500ms;
+    --dur-slow:    800ms;
+}
+
+/* ===== Fantasy (ファンタジー) ==================================== */
+.mood-fantasy {
+    --color-bg:        #f4eef7;
+    --color-surface:   #e8d5f2;
+    --color-primary:   #6a4c93;
+    --color-secondary: #b392d4;
+    --color-accent:    #e8d5f2;
+    --color-text:      #2d1b3d;
+    --color-muted:     #8a7a9d;
+
+    --ease-default: cubic-bezier(0.4, 0, 0.6, 1);          /* easeOut / floating */
+    --ease-in:      cubic-bezier(0.3, 0, 0.7, 0.5);
+    --ease-out:     cubic-bezier(0.2, 0.8, 0.4, 1);
+
+    --dur-fast:    350ms;
+    --dur-default: 700ms;
+    --dur-slow:    1200ms;
+}

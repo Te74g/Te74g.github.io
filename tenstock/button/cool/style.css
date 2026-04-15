@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Button × Cool × 6 — pilot cell styles
+   Depends on: _shared/base.css + _shared/mood.css + _shared/motion-primitives.css
+   --------------------------------------------------------------------------
+   Scope: real button-interaction motions only.
+     - hover (desktop-gated): fires when pointer enters the button
+     - idle-infinite:         runs persistently from page load
+     - click:                 fires on user commit
+   Entrance motions (fire once on load to establish presence) are a different
+   category and live in a separate cell, not here.
+
+     #01 hover         — underline reveal from center
+     #02 idle ∞        — asymmetric double-pulse (outer 1.2s / inner 0.65s)
+     #03 idle ∞        — subliminal breath (0.8% scale, 0.07deg skew)
+     #04 idle ∞        — pulse glow (opacity 0.5↔1, 4s)
+     #05 idle ∞        — light flicker (visible 55–70% only, 8s)
+     #06 click         — 8-direction particle burst
+
+   Count: 6. Honest count for "real button-interaction motions" within the
+   current primitive library; additional variants that require hover/click
+   triggers will be composed from future primitives, not padded here.
+
+   All referenced @keyframes live in _shared/motion-primitives.css.
+   This file only composes them onto the .btn-cool skeleton.
+   ========================================================================== */
+
+/* ---- shared skeleton ------------------------------------------------ */
+
+.btn-cool {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    border: 2px solid var(--color-accent);
+    background: transparent;
+    color: var(--color-accent);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    cursor: pointer;
+    /* Cool mood shared transition for color / bg / border changes. */
+    transition:
+        color var(--dur-default, 200ms) var(--ease-default, ease),
+        background var(--dur-default, 200ms) var(--ease-default, ease),
+        border-color var(--dur-default, 200ms) var(--ease-default, ease);
+}
+
+/* ==========================================================================
+   #01  hover underline reveal
+   Default: underline hidden at scaleX(0). On hover (desktop-gated via
+   @media (hover: hover) to avoid sticky-hover on touch), underline fills
+   from the button's horizontal center outward via translateX(-50%) scaleX(1).
+   ========================================================================== */
+.btn-cool--01 {
+    overflow: visible;   /* underline sits below the border */
+}
+.btn-cool--01::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 240ms cubic-bezier(0.77, 0.02, 0.25, 0.97);
+}
+@media (hover: hover) {
+    .btn-cool--01:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+}
+
+/* ==========================================================================
+   #02  asymmetric double-pulse
+   Outer pulse (.btn-cool--02 itself) runs at 1.2s with a 15% peak at
+   scale 1.05; inner pulse (.btn-pulse-inner child) runs at 0.65s with a
+   25% peak at scale 1.2. The independent periods create a heartbeat that
+   never quite repeats — "alive but not metronomic".
+
+   Note: the shared §interact primitive ts-pulse-outer includes a
+   translateX(-50%) scaffold for absolute-centered layouts. This pilot's
+   button is inline-flex, so we use a local derivative that drops the
+   translateX scaffold and keeps only the scale values.
+   ========================================================================== */
+.btn-cool--02 {
+    animation: ts-btn-cool-pulse-outer 1.2s ease-in-out infinite;
+}
+@keyframes ts-btn-cool-pulse-outer {
+    from, 30%, to { transform: scale(1); }
+    15%           { transform: scale(1.05); }
+}
+.btn-cool--02 .btn-pulse-inner {
+    display: inline-block;
+    animation: ts-pulse-inner 0.65s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   #03  subliminal breath (4s infinite)
+   0.8% scale + 0.07deg skew — below individual perception threshold.
+   Adjacent pairing with the mirror variant (ts-breath-l) produces a
+   stronger "alive" signal; this cell uses the single R variant only.
+   ========================================================================== */
+.btn-cool--03 {
+    animation: ts-breath-r 4s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   #04  pulse glow (4s infinite)
+   Opacity 0.5 ↔ 1 steady sinewave — gentle "alive" signal across border,
+   text, and any currentColor-inheriting elements.
+   ========================================================================== */
+.btn-cool--04 {
+    animation: ts-glow 4s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   #05  light flicker (8s infinite)
+   Visible only during 55%→70% of each cycle (15% of the time). Creates an
+   easy-to-miss spike — useful for rare CTAs where persistent motion would
+   fatigue. Not recommended for primary buttons.
+   ========================================================================== */
+.btn-cool--05 {
+    animation: ts-flicker 8s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   #06  click particle burst (8-direction)
+   8 .btn-particle spans, each with --rotate at 0°/45°/.../315°.
+   On .is-burst (added by JS on click), all 8 fire:
+     - ts-particle-travel 0.8s: rotate × translateY(-55px) radial scatter
+     - ::before ts-particle-grow 0.3s + ts-particle-shrink 0.4s
+       (two-phase: appear fast, then shrink delayed 0.7s+delay)
+   nth-child(2n) gets larger size (15px) + later delay (0.25s) → "big/small
+   in two waves" fireworks feel.
+   Cool mood: particle color = var(--color-accent) at 0.5 alpha.
+   ========================================================================== */
+.btn-cool--06 {
+    overflow: visible;   /* particles fly outside button bounds */
+    isolation: isolate;
+}
+.btn-cool--06 .btn-particle {
+    position: absolute;
+    top: calc(50% - (var(--size, 7px) / 2));
+    left: calc(50% - (var(--size, 7px) / 2));
+    width:  var(--size, 7px);
+    height: var(--size, 7px);
+    border-radius: 50%;
+    --delay: 0.15s;
+    --translate-y: -55px;
+    --size: 7px;
+    opacity: 0;
+    pointer-events: none;
+}
+.btn-cool--06 .btn-particle:nth-child(2n) { --delay: 0.25s; --size: 15px; }
+.btn-cool--06 .btn-particle:nth-child(1) { --rotate:   0deg; }
+.btn-cool--06 .btn-particle:nth-child(2) { --rotate:  45deg; }
+.btn-cool--06 .btn-particle:nth-child(3) { --rotate:  90deg; }
+.btn-cool--06 .btn-particle:nth-child(4) { --rotate: 135deg; }
+.btn-cool--06 .btn-particle:nth-child(5) { --rotate: 180deg; }
+.btn-cool--06 .btn-particle:nth-child(6) { --rotate: 225deg; }
+.btn-cool--06 .btn-particle:nth-child(7) { --rotate: 270deg; }
+.btn-cool--06 .btn-particle:nth-child(8) { --rotate: 315deg; }
+
+.btn-cool--06 .btn-particle::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.5;
+    transform: scale(0);
+}
+
+.btn-cool--06.is-burst .btn-particle {
+    opacity: 1;
+    animation: ts-particle-travel 0.8s cubic-bezier(0.96, 0.02, 0.04, 0.98) var(--delay, 0s) both;
+}
+.btn-cool--06.is-burst .btn-particle::before {
+    animation:
+        ts-particle-grow   0.3s cubic-bezier(0.63, -0.01, 0.29, 1) var(--delay, 0s) both,
+        ts-particle-shrink 0.4s cubic-bezier(0.63, -0.01, 0.29, 1) calc(0.7s + var(--delay, 0s)) forwards;
+}
+
+/* ==========================================================================
+   Mobile adjustments
+   ========================================================================== */
+@media (max-width: 600px) {
+    .btn-cool {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    /* #01 underline width follows button; no size override needed. */
+    /* #06 particles: shorten travel on small screens so they don't fly too far. */
+    .btn-cool--06 .btn-particle {
+        --translate-y: -42px;
+    }
+}
+
+/* ==========================================================================
+   Reduced motion
+   --------------------------------------------------------------------------
+   #01 hover underline: keep the transition (user-initiated, not infinite).
+   #02-#05 infinite motions: stop.
+   #06 click burst: stop (still shows button, just no particles).
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .btn-cool--02,
+    .btn-cool--02 .btn-pulse-inner,
+    .btn-cool--03,
+    .btn-cool--04,
+    .btn-cool--05,
+    .btn-cool--06.is-burst .btn-particle,
+    .btn-cool--06.is-burst .btn-particle::before {
+        animation: none !important;
+    }
+}
