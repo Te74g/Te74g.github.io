@@ -4,6 +4,39 @@
  */
 window.newsData = [
     {
+        id: 'cast_recruit_20260421',
+        hidden: false,
+        linkPath: 'news/cast-recruit-20260421/',
+        title: '✨【イベントキャスト公募のお知らせ】✨',
+        date: '2026.04.19',
+        category: '公募',
+        categories: ['\u516c\u52df', '\u304a\u77e5\u3089\u305b'],
+        image: 'assets/news/2kisei/HGMMKIoaoAAQLoL.jpeg',
+        imagePath: 'assets/news/2kisei/HGMMKIoaoAAQLoL.jpeg',
+        imageMode: 'portrait',
+        desc: 'ロールプレイイベント「🌸あにあめもりあ🌸」二期生の公募を行います。',
+        content: `
+            <p>
+                この度、ロールプレイイベント<br>
+                【🌸あにあめもりあ🌸】二期生の公募を行います！🐈
+            </p>
+
+            <p>
+                添付されているポスターをご一読の上、<br>
+                キャスト募集フォームよりご応募ください🥳🎶
+            </p>
+
+            <p>
+                （4/30/23ː59 締め切り予定）
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <span>✅募集フォームはこちら🐕🐾</span>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfys1PWDx-DaDwTLyo8_tLBfaXl0vEbAxMTpGDrC9mnclhgEQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn btn--primary">キャスト募集フォームを開く</a>
+            </p>
+        `
+    },
+    {
         id: 'event_notice_20260412',
         hidden: false,
         linkPath: 'news/event-notice-20260412/',

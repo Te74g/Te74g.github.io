@@ -12,6 +12,19 @@ const DEFAULT_CATEGORY = '\u305D\u306E\u4ED6';
 const EMPTY_NEWS_MSG = '\u73FE\u5728\u304A\u77E5\u3089\u305B\u306F\u3042\u308A\u307E\u305B\u3093\u3002';
 const NOT_FOUND_MSG = '\u8A72\u5F53\u3059\u308B\u30CB\u30E5\u30FC\u30B9\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002';
 
+const getItemCategories = (item) => {
+    const categories = Array.isArray(item?.categories) && item.categories.length
+        ? item.categories
+        : [item?.category || DEFAULT_CATEGORY];
+    return categories.map((category) => category || DEFAULT_CATEGORY);
+};
+
+const renderCategoryLabels = (item, className) => (
+    getItemCategories(item)
+        .map((category) => `<span class="${className}">${category}</span>`)
+        .join('')
+);
+
 export async function initNewsPage() {
     if (window.manifestPromise) {
         try {
@@ -35,7 +48,9 @@ export async function initNewsPage() {
 
             a.href = pageUrl;
             a.className = index === 0 ? 'news-card news-card--featured' : 'news-card';
-            a.dataset.category = item.category || DEFAULT_CATEGORY;
+            const categories = getItemCategories(item);
+            a.dataset.category = categories[0] || DEFAULT_CATEGORY;
+            a.dataset.categories = categories.join('|');
 
             const isNew = isRecentContent(item.date, index === 0);
             const badgeHtml = isNew ? '<div class="news-badge-new">NEW!</div>' : '';
@@ -48,7 +63,7 @@ export async function initNewsPage() {
                 <div class="news-card-body">
                     <div class="news-card-meta">
                         <span class="news-card-date">${item.date}</span>
-                        <span class="news-card-category">${item.category || DEFAULT_CATEGORY}</span>
+                        ${renderCategoryLabels(item, 'news-card-category')}
                     </div>
                     <p class="news-card-title">${item.title}</p>
                     <p class="news-card-desc">${item.desc || ''}</p>
@@ -121,7 +136,7 @@ export async function initNewsPage() {
                 const category = (activeBtn ? activeBtn.dataset.value : null) || 'all';
                 const allCards = Array.from(newsContainer.querySelectorAll('.news-card'));
                 const matchingCards = allCards.filter((card) => (
-                    category === 'all' || card.dataset.category === category
+                    category === 'all' || (card.dataset.categories || card.dataset.category || '').split('|').includes(category)
                 ));
                 return { category, isFiltering: category !== 'all', matchingCards };
             };
@@ -199,7 +214,6 @@ export async function initNewsPage() {
             const imgUrl = item.imagePath ? fixPath(item.imagePath) : (item.image || '');
             const title = item.title || 'News';
             const desc = item.desc || '';
-            const category = item.category || DEFAULT_CATEGORY;
 
             card.href = pageUrl;
             card.className = 'news-card-slide';
@@ -218,7 +232,7 @@ export async function initNewsPage() {
                 <div class="news-card-slide__content">
                     <div class="news-card-slide__meta">
                         <span class="news-date">${item.date}</span>
-                        <span class="news-tag-label">${category}</span>
+                        ${renderCategoryLabels(item, 'news-tag-label')}
                     </div>
                     <div class="news-card-slide__title">${title}</div>
                     <div class="news-card-slide__desc">${desc}</div>

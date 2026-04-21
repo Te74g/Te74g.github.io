@@ -192,10 +192,17 @@ function ensureArticleScaffold() {
     return { headerEl, imageContainer, contentEl };
 }
 
+function getArticleCategories(article) {
+    const categories = Array.isArray(article?.categories) && article.categories.length
+        ? article.categories
+        : [article?.category || 'その他'];
+    return categories.map((category) => category || 'その他');
+}
+
 function renderArticle(article) {
     const articleTitle = article.title || 'ニュース';
     const articleDate = article.date || '';
-    const articleCategory = article.category || 'その他';
+    const articleCategories = getArticleCategories(article);
     const articleDateIso = typeof articleDate === 'string' ? articleDate.replace(/\./g, '-') : '';
 
     document.title = `あにあめもりあ | ${articleTitle}`;
@@ -213,7 +220,7 @@ function renderArticle(article) {
             </div>
             <div class="news-article-meta">
                 ${articleDate ? `<time datetime="${escapeHtml(articleDateIso)}" class="news-article-date">${escapeHtml(articleDate)}</time>` : ''}
-                <span class="news-article-category">${escapeHtml(articleCategory)}</span>
+                ${articleCategories.map((category) => `<span class="news-article-category">${escapeHtml(category)}</span>`).join('')}
             </div>
         `;
     }
@@ -225,11 +232,17 @@ function renderArticle(article) {
             const imgPath = window.fixPath ? window.fixPath(rawPath) : rawPath;
             const figure = document.createElement('figure');
             figure.className = 'news-article-figure';
+            if (article.imageMode === 'portrait') {
+                figure.classList.add('news-article-figure--portrait');
+            }
 
             const img = document.createElement('img');
             img.src = imgPath;
             img.alt = articleTitle;
             img.className = 'news-article-main-image';
+            if (article.imageMode === 'portrait') {
+                img.classList.add('news-article-main-image--portrait');
+            }
             img.loading = 'lazy';
             img.decoding = 'async';
 
