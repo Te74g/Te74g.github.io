@@ -127,6 +127,31 @@ window.galleryData = [
             'assets/gallery/20260412/VRChat_2026-04-12_22-35-44.937_3840x2160.png'
         ],
         desc: 'たくさん学べて嬉しかった！'
+    },
+    {
+        title: '第五回あにあめもりあ',
+        date: '2026.04.19',
+        thumb: 'assets/gallery/20260419/0.png',
+        images: [
+            'assets/gallery/20260419/0.png',
+            'assets/gallery/20260419/1.png',
+            'assets/gallery/20260419/10.png',
+            'assets/gallery/20260419/11.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-23-35.236_3840x2160_1.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-25-01.333_1920x1080.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-26-22.785_3840x2160.png',
+            'assets/gallery/20260419/VRChat_2026-q04-19_21-26-22.785_3840x2160.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-38-31.888_3840x2160_1.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-39-36.738_1920x1080.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-54-47.765_1920x1080.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-56-19.824_3840x2160_1.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_21-59-07.402_3840x2160.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_22-05-05.246_3840x2160.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_22-05-10.314_3840x2160.png',
+            'assets/gallery/20260419/VRChat_2026-04-19_22-05-14.259_3840x2160.png',
+            'assets/gallery/20260419/ZVRChat_2026-04-19_22-35-21.640_1920x1080.png'
+        ],
+        desc: '祝第五回！お越しいただきありがとうございます'
     }
 ];
 
