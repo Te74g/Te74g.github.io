@@ -39,6 +39,15 @@
   <main class="t3-main">
     <h1 class="t3-sr">あにあめもりあ Top3</h1>
 
+    <div class="t3-handoff" aria-hidden="true">
+      <div class="t3-handoff__fixed t3-handoff__fixed--dark">
+        <div class="t3-handoff__fixed-inner t3-handoff__fixed-inner--dark"></div>
+      </div>
+      <div class="t3-handoff__fixed t3-handoff__fixed--light">
+        <div class="t3-handoff__fixed-inner t3-handoff__fixed-inner--light"></div>
+      </div>
+    </div>
+
     <section id="top3-op" class="t3-op" data-top3-section="op" aria-label="オープニング">
       <div class="t3-op__loading" aria-hidden="true">
         <div class="t3-op__loading-frame">
@@ -117,84 +126,8 @@
     </section>
 
     <section id="top3-pickup" class="t3-pickup" data-top3-section="pickup" aria-labelledby="top3-pickup-title">
-      <div class="t3-pickup__stage" aria-hidden="true">
-        <img class="t3-pickup__bg" src="assets/top3/bg-bar.webp" alt="">
-        <img class="t3-pickup__shade" src="assets/top3/op/kv-shadow-overlay.webp" alt="">
-        <img class="t3-pickup__light" src="assets/top3/op/kv-light-overlay.webp" alt="">
-      </div>
-
-      <div class="t3-pickup__inner" data-pickup-root>
-        <img class="t3-pickup__board" src="assets/top3/pickup/album-hires/album-board.png" alt="" aria-hidden="true">
-        <img class="t3-pickup__bind t3-pickup__bind--sweep" src="assets/top3/transition/logo-derived/logo-awaji-wide-sweep.png" alt="" aria-hidden="true">
-        <header class="t3-pickup__head">
-          <img id="top3-pickup-title" class="t3-pickup__title" src="assets/top3/pickup/title-pickup.svg" alt="Pickup Cast キャスト案内">
-        </header>
-
-        <div class="t3-pickup__body">
-          <aside class="t3-pickup-guide" aria-label="案内役 てん">
-            <img class="t3-pickup-guide__art" src="assets/top3/pickup/guide-ten-ledger.png" alt="">
-            <img class="t3-pickup-guide__plate" src="assets/top3/pickup/ledger-tab-gold.png" alt="" aria-hidden="true">
-            <p class="t3-pickup-guide__note">今日の案内帳をひらきます。</p>
-          </aside>
-
-          <div class="t3-pickup__rail-wrap">
-            <div class="t3-pickup__rail" aria-label="ピックアップキャスト">
-              <a class="t3-pickup-card" href="cast2/momo/" aria-label="もものキャスト紹介を見る" style="--t3-card-delay: 0.04s">
-                <span class="t3-pickup-card__field" aria-hidden="true">
-                  <img class="t3-pickup-card__circle" src="assets/top3/pickup/card-circle.svg" alt="">
-                  <img class="t3-pickup-card__glow t3-pickup-card__glow--base" src="assets/top3/pickup/card-glow.svg" alt="">
-                  <img class="t3-pickup-card__glow t3-pickup-card__glow--max" src="assets/top3/pickup/card-glow-max.svg" alt="">
-                  <img class="t3-pickup-card__chara t3-pickup-card__chara--base" src="assets/cast-page/sd/sd-momo-pixel.png" alt="">
-                  <img class="t3-pickup-card__chara t3-pickup-card__chara--hover" src="assets/member/もも/profile2_card.webp" alt="">
-                </span>
-                <span class="t3-pickup-card__meta">
-                  <span class="t3-pickup-card__zone">運営部 / 猫</span>
-                  <strong class="t3-pickup-card__name">もも</strong>
-                  <span class="t3-pickup-card__role">副店長</span>
-                </span>
-              </a>
-
-              <a class="t3-pickup-card" href="cast2/nagi/" aria-label="凪のキャスト紹介を見る" style="--t3-card-delay: 0.12s">
-                <span class="t3-pickup-card__field" aria-hidden="true">
-                  <img class="t3-pickup-card__circle" src="assets/top3/pickup/card-circle.svg" alt="">
-                  <img class="t3-pickup-card__glow t3-pickup-card__glow--base" src="assets/top3/pickup/card-glow.svg" alt="">
-                  <img class="t3-pickup-card__glow t3-pickup-card__glow--max" src="assets/top3/pickup/card-glow-max.svg" alt="">
-                  <img class="t3-pickup-card__chara t3-pickup-card__chara--base" src="assets/cast-page/sd/sd-nagi-pixel.png" alt="">
-                  <img class="t3-pickup-card__chara t3-pickup-card__chara--hover" src="assets/member/凪/profile1_card.webp" alt="">
-                </span>
-                <span class="t3-pickup-card__meta">
-                  <span class="t3-pickup-card__zone">飼育区画 / 犬</span>
-                  <strong class="t3-pickup-card__name">凪</strong>
-                  <span class="t3-pickup-card__role">飼育</span>
-                </span>
-              </a>
-
-              <a class="t3-pickup-card" href="cast2/philia/" aria-label="フィリアのキャスト紹介を見る" style="--t3-card-delay: 0.2s">
-                <span class="t3-pickup-card__field" aria-hidden="true">
-                  <img class="t3-pickup-card__circle" src="assets/top3/pickup/card-circle.svg" alt="">
-                  <img class="t3-pickup-card__glow t3-pickup-card__glow--base" src="assets/top3/pickup/card-glow.svg" alt="">
-                  <img class="t3-pickup-card__glow t3-pickup-card__glow--max" src="assets/top3/pickup/card-glow-max.svg" alt="">
-                  <img class="t3-pickup-card__chara t3-pickup-card__chara--base" src="assets/cast-page/sd/sd-philia-pixel.png" alt="">
-                  <img class="t3-pickup-card__chara t3-pickup-card__chara--hover" src="assets/member/フィリア/profile1_card.webp" alt="">
-                </span>
-                <span class="t3-pickup-card__meta">
-                  <span class="t3-pickup-card__zone">飼育区画 / カーバンクル</span>
-                  <strong class="t3-pickup-card__name">フィリア</strong>
-                  <span class="t3-pickup-card__role">飼育</span>
-                </span>
-              </a>
-
-            </div>
-          </div>
-        </div>
-
-        <aside id="top3-pickup-preview" class="t3-pickup-preview" aria-live="polite">
-          <img class="t3-pickup-preview__tie" src="assets/top3/transition/logo-derived/logo-awaji-fastener.png" alt="" aria-hidden="true">
-          <p class="t3-pickup-preview__role" data-pickup-preview-role>&#21103;&#24215;&#38263;&#32;&#47;&#32;&#36939;&#21942;&#37096;</p>
-          <h3 class="t3-pickup-preview__name" data-pickup-preview-name>&#12418;&#12418;</h3>
-          <p class="t3-pickup-preview__text" data-pickup-preview-text>&#33853;&#12385;&#30528;&#12356;&#12383;&#31354;&#27671;&#12391;&#22580;&#12434;&#25972;&#12360;&#12427;&#12289;&#12354;&#12395;&#12354;&#12417;&#12418;&#12426;&#12354;&#12398;&#21103;&#24215;&#38263;&#12290;</p>
-          <a class="t3-pickup-preview__more" href="cast2/momo/" data-pickup-preview-link>&#12418;&#12387;&#12392;&#35211;&#12427;</a>
-        </aside>
+      <div class="t3-pickup-reset" data-pickup-root>
+        <h2 id="top3-pickup-title" class="t3-pickup-reset__sr">Pickup Cast キャスト案内</h2>
       </div>
     </section>
   </main>
@@ -222,62 +155,6 @@
       link.addEventListener('click', () => {
         body.classList.remove('t3-menu-open');
         burger?.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    const decodeText = (value) => {
-      const textarea = document.createElement('textarea');
-      textarea.innerHTML = value;
-      return textarea.value;
-    };
-
-    const pickupCopy = {
-      'cast2/momo/': {
-        name: '&#12418;&#12418;',
-        role: '&#21103;&#24215;&#38263;&#32;&#47;&#32;&#36939;&#21942;&#37096;',
-        text: '&#33853;&#12385;&#30528;&#12356;&#12383;&#31354;&#27671;&#12391;&#22580;&#12434;&#25972;&#12360;&#12427;&#12289;&#12354;&#12395;&#12354;&#12417;&#12418;&#12426;&#12354;&#12398;&#21103;&#24215;&#38263;&#12290;'
-      },
-      'cast2/nagi/': {
-        name: '&#20970;',
-        role: '&#39164;&#32946;&#21306;&#30011;&#32;&#47;&#32;&#29356;',
-        text: '&#21427;&#12375;&#12356;&#35347;&#32244;&#12434;&#36234;&#12360;&#12390;&#12365;&#12383;&#12289;&#38972;&#12428;&#12427;&#29356;&#12398;&#12461;&#12515;&#12473;&#12488;&#12290;'
-      },
-      'cast2/philia/': {
-        name: '&#12501;&#12451;&#12522;&#12450;',
-        role: '&#39164;&#32946;&#21306;&#30011;&#32;&#47;&#32;&#12459;&#12540;&#12496;&#12531;&#12463;&#12523;',
-        text: '&#24681;&#12434;&#36820;&#12377;&#26053;&#12398;&#36884;&#20013;&#12391;&#24215;&#12395;&#31435;&#12388;&#12289;&#23453;&#30707;&#12434;&#25345;&#12388;&#12459;&#12540;&#12496;&#12531;&#12463;&#12523;&#12290;'
-      }
-    };
-
-    const pickupRoot = document.querySelector('[data-pickup-root]');
-    const pickupCards = document.querySelectorAll('.t3-pickup-card');
-    const previewName = document.querySelector('[data-pickup-preview-name]');
-    const previewRole = document.querySelector('[data-pickup-preview-role]');
-    const previewText = document.querySelector('[data-pickup-preview-text]');
-    const previewLink = document.querySelector('[data-pickup-preview-link]');
-
-    const setPickupCard = (card) => {
-      const href = card.getAttribute('href');
-      const copy = pickupCopy[href];
-      if (!copy) return;
-      pickupCards.forEach((item) => {
-        const selected = item === card;
-        item.classList.toggle('is-selected', selected);
-        item.setAttribute('aria-pressed', String(selected));
-      });
-      pickupRoot?.classList.add('has-pickup-selection');
-      if (previewName) previewName.textContent = decodeText(copy.name);
-      if (previewRole) previewRole.textContent = decodeText(copy.role);
-      if (previewText) previewText.textContent = decodeText(copy.text);
-      if (previewLink) previewLink.setAttribute('href', href);
-    };
-
-    pickupCards.forEach((card, index) => {
-      card.setAttribute('aria-controls', 'top3-pickup-preview');
-      card.setAttribute('aria-pressed', 'false');
-      card.addEventListener('click', (event) => {
-        event.preventDefault();
-        setPickupCard(card);
       });
     });
 
