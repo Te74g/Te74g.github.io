@@ -41,6 +41,16 @@ export const shouldShowItem = (item) => {
     if (item.hidden) {
         return isDebugMode;
     }
+    if (typeof item.date === 'string' && !isDebugMode) {
+        const m = item.date.match(/^(\d{4})\.(\d{1,2})\.(\d{1,2})$/);
+        if (m) {
+            const releaseIso = `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}T00:00:00+09:00`;
+            const releaseTime = new Date(releaseIso);
+            if (!isNaN(releaseTime) && releaseTime > new Date()) {
+                return false;
+            }
+        }
+    }
     return true;
 };
 

@@ -4,6 +4,890 @@
  */
 window.newsData = [
     {
+        id: 'event_notice_20261011',
+        hidden: false,
+        linkPath: 'news/event-notice-20261011/',
+        title: '🌸【第30回開催のお知らせ】🌸',
+        date: '2026.10.05',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第30回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第30回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年10月11日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20261004',
+        hidden: false,
+        linkPath: 'news/event-notice-20261004/',
+        title: '🌸【第29回開催のお知らせ】🌸',
+        date: '2026.09.28',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第29回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第29回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年10月4日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260927',
+        hidden: false,
+        linkPath: 'news/event-notice-20260927/',
+        title: '🌸【第28回開催のお知らせ】🌸',
+        date: '2026.09.21',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第28回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第28回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年9月27日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260920',
+        hidden: false,
+        linkPath: 'news/event-notice-20260920/',
+        title: '🌸【第27回開催のお知らせ】🌸',
+        date: '2026.09.14',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第27回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第27回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年9月20日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260913',
+        hidden: false,
+        linkPath: 'news/event-notice-20260913/',
+        title: '🌸【第26回開催のお知らせ】🌸',
+        date: '2026.09.07',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第26回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第26回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年9月13日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260906',
+        hidden: false,
+        linkPath: 'news/event-notice-20260906/',
+        title: '🌸【第25回開催のお知らせ】🌸',
+        date: '2026.08.31',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第25回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第25回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年9月6日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260830',
+        hidden: false,
+        linkPath: 'news/event-notice-20260830/',
+        title: '🌸【第24回開催のお知らせ】🌸',
+        date: '2026.08.24',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第24回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第24回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年8月30日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260823',
+        hidden: false,
+        linkPath: 'news/event-notice-20260823/',
+        title: '🌸【第23回開催のお知らせ】🌸',
+        date: '2026.08.17',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第23回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第23回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年8月23日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260816',
+        hidden: false,
+        linkPath: 'news/event-notice-20260816/',
+        title: '🌸【第22回開催のお知らせ】🌸',
+        date: '2026.08.10',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第22回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第22回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年8月16日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260809',
+        hidden: false,
+        linkPath: 'news/event-notice-20260809/',
+        title: '🌸【第21回開催のお知らせ】🌸',
+        date: '2026.08.03',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第21回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第21回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年8月9日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260802',
+        hidden: false,
+        linkPath: 'news/event-notice-20260802/',
+        title: '🌸【第20回開催のお知らせ】🌸',
+        date: '2026.07.27',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第20回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第20回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年8月2日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260726',
+        hidden: false,
+        linkPath: 'news/event-notice-20260726/',
+        title: '🌸【第19回開催のお知らせ】🌸',
+        date: '2026.07.20',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第19回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第19回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年7月26日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260719',
+        hidden: false,
+        linkPath: 'news/event-notice-20260719/',
+        title: '🌸【第18回開催のお知らせ】🌸',
+        date: '2026.07.13',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第18回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第18回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年7月19日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260712',
+        hidden: false,
+        linkPath: 'news/event-notice-20260712/',
+        title: '🌸【第17回開催のお知らせ】🌸',
+        date: '2026.07.06',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第17回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第17回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年7月12日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260705',
+        hidden: false,
+        linkPath: 'news/event-notice-20260705/',
+        title: '🌸【第16回開催のお知らせ】🌸',
+        date: '2026.06.29',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第16回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第16回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年7月5日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260628',
+        hidden: false,
+        linkPath: 'news/event-notice-20260628/',
+        title: '🌸【第15回開催のお知らせ】🌸',
+        date: '2026.06.22',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第15回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第15回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年6月28日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260621',
+        hidden: false,
+        linkPath: 'news/event-notice-20260621/',
+        title: '🌸【第14回開催のお知らせ】🌸',
+        date: '2026.06.15',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第14回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第14回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年6月21日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260614',
+        hidden: false,
+        linkPath: 'news/event-notice-20260614/',
+        title: '🌸【第13回開催のお知らせ】🌸',
+        date: '2026.06.08',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第13回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第13回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年6月14日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260607',
+        hidden: false,
+        linkPath: 'news/event-notice-20260607/',
+        title: '🌸【第12回開催のお知らせ】🌸',
+        date: '2026.06.01',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第12回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第12回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年6月7日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260531',
+        hidden: false,
+        linkPath: 'news/event-notice-20260531/',
+        title: '🌸【第11回開催のお知らせ】🌸',
+        date: '2026.05.25',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第11回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第11回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年5月31日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260524',
+        hidden: false,
+        linkPath: 'news/event-notice-20260524/',
+        title: '🌸【第10回開催のお知らせ】🌸',
+        date: '2026.05.18',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第10回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第10回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年5月24日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260517',
+        hidden: false,
+        linkPath: 'news/event-notice-20260517/',
+        title: '🌸【第9回開催のお知らせ】🌸',
+        date: '2026.05.11',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第9回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第9回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年5月17日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260510',
+        hidden: false,
+        linkPath: 'news/event-notice-20260510/',
+        title: '🌸【第8回開催のお知らせ】🌸',
+        date: '2026.05.04',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第8回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第8回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年5月10日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260503',
+        hidden: false,
+        linkPath: 'news/event-notice-20260503/',
+        title: '🌸【第7回開催のお知らせ】🌸',
+        date: '2026.04.27',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第7回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第7回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年5月3日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260426',
+        hidden: false,
+        linkPath: 'news/event-notice-20260426/',
+        title: '🌸【第6回開催のお知らせ】🌸',
+        date: '2026.04.20',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第6回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第6回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年4月26日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
+        id: 'event_notice_20260419',
+        hidden: false,
+        linkPath: 'news/event-notice-20260419/',
+        title: '🌸【第5回開催のお知らせ】🌸',
+        date: '2026.04.13',
+        category: 'お知らせ',
+        image: 'assets/news/2026-03-14/329.webp',
+        imagePath: 'assets/news/2026-03-14/329.webp',
+        desc: '情報収集型ロールプレイイベント【あにあめもりあ】第5回の開催日が確定しました。',
+        content: `
+            <p>
+                いつも【あにあめもりあ】を見守ってくださり、ありがとうございます。<br>
+                情報収集型ロールプレイイベント【あにあめもりあ】第5回の開催日が決定しました！
+            </p>
+
+            <p>
+                📅2026年4月19日（日）<br>
+                ⏰21:00～22:00 OPEN✨<br>
+                🌙22:00~アフター<br>
+                📍Group ID：ANYMEM.3432
+            </p>
+
+            <p>
+                人間さんのご来店を、キャスト一同楽しみにお待ちしています。<br>
+                初めましての方も、お久しぶりの方も、どうぞお気軽に遊びに来てください！
+            </p>
+
+            <p style="text-align: center; margin-top: 2em; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <a href="https://x.com/ANIAMEMORIA" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Xでお知らせを見る</a>
+                <a href="https://vrchat.com/home/group/grp_6d3e7179-6353-4e8b-9f78-c9a2430bfa06" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">VRChatグループを見る</a>
+            </p>
+        `
+    },
+    {
         id: 'cast_recruit_20260421',
         hidden: false,
         linkPath: 'news/cast-recruit-20260421/',
@@ -212,6 +1096,32 @@ window.newsData = [
 // Legacy article-stub IDs that remained after migration.
 // Map old IDs to a valid canonical article to avoid blank/not-found UX.
 window.newsIdAliases = {
+    'event-notice-20260419': 'event_notice_20260419',
+    'event-notice-20260426': 'event_notice_20260426',
+    'event-notice-20260503': 'event_notice_20260503',
+    'event-notice-20260510': 'event_notice_20260510',
+    'event-notice-20260517': 'event_notice_20260517',
+    'event-notice-20260524': 'event_notice_20260524',
+    'event-notice-20260531': 'event_notice_20260531',
+    'event-notice-20260607': 'event_notice_20260607',
+    'event-notice-20260614': 'event_notice_20260614',
+    'event-notice-20260621': 'event_notice_20260621',
+    'event-notice-20260628': 'event_notice_20260628',
+    'event-notice-20260705': 'event_notice_20260705',
+    'event-notice-20260712': 'event_notice_20260712',
+    'event-notice-20260719': 'event_notice_20260719',
+    'event-notice-20260726': 'event_notice_20260726',
+    'event-notice-20260802': 'event_notice_20260802',
+    'event-notice-20260809': 'event_notice_20260809',
+    'event-notice-20260816': 'event_notice_20260816',
+    'event-notice-20260823': 'event_notice_20260823',
+    'event-notice-20260830': 'event_notice_20260830',
+    'event-notice-20260906': 'event_notice_20260906',
+    'event-notice-20260913': 'event_notice_20260913',
+    'event-notice-20260920': 'event_notice_20260920',
+    'event-notice-20260927': 'event_notice_20260927',
+    'event-notice-20261004': 'event_notice_20261004',
+    'event-notice-20261011': 'event_notice_20261011',
     'event-notice-20260412': 'event_notice_20260412',
     'event-notice-20260405': 'event_notice_20260405',
     'event-notice-20260329': 'event_notice_20260329',
