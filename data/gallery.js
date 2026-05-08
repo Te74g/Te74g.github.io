@@ -152,6 +152,55 @@ window.galleryData = [
             'assets/gallery/20260419/ZVRChat_2026-04-19_22-35-21.640_1920x1080.png'
         ],
         desc: '祝第五回！お越しいただきありがとうございます'
+    },
+    {
+        title: '第六回あにあめもりあ',
+        date: '2026.04.26',
+        thumb: 'assets/gallery/20260426/0VRChat_2026-04-26_21-57-10.938_3840x2160_1.png',
+        images: [
+            'assets/gallery/20260426/0VRChat_2026-04-26_21-57-10.938_3840x2160_1.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-23-08.718_3840x2160_1.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-23-42.894_1920x1080.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-23-55.770_2560x1440.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-31-12.612_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-31-18.387_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-31-32.776_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-31-40.601_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-31-49.465_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-31-59.417_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-32-51.231_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-33-04.813_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-33-16.082_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-33-26.984_3840x2160.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-38-33.932_3840x2160_1.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-38-35.957_1920x1080.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-40-21.695_2560x1440.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-53-49.027_2560x1440.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_21-54-31.553_3840x2160_1.png',
+            'assets/gallery/20260426/VRChat_2026-04-26_22-04-54.285_3840x2160.png',
+            'assets/gallery/20260426/zVRChat_2026-04-26_22-02-44.649_3840x2160.png'
+        ],
+        desc: 'ご来店ありがとうございました！'
+    },
+    {
+        title: '第七回あにあめもりあ',
+        date: '2026.05.03',
+        thumb: 'assets/gallery/20260503/0VRChat_2026-05-03_21-55-09.506_3840x2160.png',
+        images: [
+            'assets/gallery/20260503/0VRChat_2026-05-03_21-55-09.506_3840x2160.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-20-51.669_3840x2160.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-21-05.077_1920x1080.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-21-42.133_2560x1440.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-35-21.823_2560x1440.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-35-41.592_3840x2160.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-50-02.098_2560x1440.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-51-30.280_1920x1080.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-51-31.560_3840x2160.png',
+            'assets/gallery/20260503/VRChat_2026-05-03_21-55-09.506_3840x2160.png',
+            'assets/gallery/20260503/].png',
+            'assets/gallery/20260503/zVRChat_2026-05-03_22-34-32.654_1920x1080.png'
+        ],
+        desc: 'ご来店ありがとうございました！'
     }
 ];
 
