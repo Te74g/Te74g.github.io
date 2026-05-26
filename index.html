@@ -32,9 +32,7 @@
 
 <main id="main">
   <div id="kv-scroll-zone">
-    <!-- Hero Section -->
     <section id="hero-section">
-      <!-- 閭梧勹繝ｬ繧､繝､繝ｼ: 蟶ｸ譎ょ・髱｢陦ｨ遉ｺ -->
       <div class="hero-bg"></div>
 
       <div class="hero-content">
@@ -43,17 +41,12 @@
         <p class="hero-subtitle">AniameMoria</p>
       </div>
 
-      <!-- 蜀・ｽ｢繝薙ロ繝・ヨ: 證励＞繝ｪ繝ｳ繧ｰ+遨ｴ 竊・譛荳翫Ξ繧､繝､繝ｼ, JS縺檎ｩｴ繧ｵ繧､繧ｺ繧貞宛蠕｡ -->
       <div class="hero-vignette" aria-hidden="true"></div>
-      <!-- 陬・｣ｾ繝代・繝・ぅ繧ｯ繝ｫ繝ｬ繧､繝､繝ｼ: 證励＞繝ｪ繝ｳ繧ｰ蜀・↓驥題牡邊貞ｭ舌′豬ｮ驕奇ｼ・S縺梧ｳｨ蜈･・・-->
       <div class="hero-deco-layer" id="hero-deco-layer" aria-hidden="true"></div>
-      <!-- Flash Overlay -->
       <div class="hero-flash"></div>
 
-      <!-- Cast Reveal Hero Overlay: Desktop only (right side of hero) -->
       <div id="cast-reveal-hero" style="display:none;"></div>
 
-      <!-- Scroll Indicator: SVG 蜀・ｽ｢繝励Ο繧ｰ繝ｬ繧ｹ -->
       <div class="scroll-indicator" aria-hidden="true">
         <svg viewBox="0 0 36 36" width="36" height="36">
           <circle class="scroll-indicator-bg" cx="18" cy="18" r="16"/>
@@ -62,12 +55,10 @@
         <span>SCROLL</span>
       </div>
     </section>
-  </div><!-- /#kv-scroll-zone -->
+  </div>
 
-  <!-- Content Board (Wrapper for continuous background) -->
   <div id="content-board" class="bg-texture news-overlap">
 
-    <!-- Today / Tomorrow Cast Banner (above News) -->
     <section id="cast-reveal-overlay" class="section u-pb-xs" style="display:none;">
       <div class="container" style="max-width: 860px;">
         <header class="section-head reveal" style="margin-bottom: 16px;">
@@ -78,7 +69,6 @@
       </div>
     </section>
 
-    <!-- News Section (Carousel) -->
     <section id="news-section" data-section="news" class="section u-pb-xs">
       <div class="container" style="max-width: 1000px;">
         <header class="section-head reveal" style="margin-bottom: 10px;">
@@ -95,7 +85,6 @@
           </button>
 
           <div class="news-carousel-track" id="news-carousel-track">
-            <!-- Items will be injected by script.js -->
           </div>
 
           <button class="carousel-nav-btn carousel-next" id="carousel-next" aria-label="Next">
@@ -109,12 +98,10 @@
       </div>
     </section>
 
-    <!-- Divider (News <-> Pickup): Balanced to be higher (closer to News, further from Pickup) -->
     <div class="cafe-separator" style="margin-top: 20px; margin-bottom: 60px;">
       <span class="cafe-separator-icon"></span>
     </div>
 
-    <!-- Random Pickup Section -->
     <section data-section="pickup" class="section u-pt-xs random-pickup-section">
       <div class="container">
         <header class="section-head reveal" style="margin-bottom: 30px;">
@@ -122,7 +109,6 @@
           <p class="section-lead">本日のピックアップキャスト（ランダム）</p>
         </header>
         <div id="random-pickup-grid" class="cheki-grid">
-          <!-- Populated by script.js -->
         </div>
         <div class="cta-actions" style="justify-content:center; margin-top:20px;">
           <a class="btn btn--ghost" href="./cast/">全員を見る</a>
@@ -147,7 +133,6 @@
             <div class="parchment-frame"
               style="margin-bottom: 0; min-height: 200px; display: flex; flex-direction: column; justify-content: center;">
               <div class="about-text-content">
-                <!-- Text populated by JS -->
               </div>
               <div class="watermark-logo"></div>
             </div>
@@ -159,67 +144,45 @@
       </div>
     </section>
 
-  </div><!-- /#content-board -->
+  </div>
 
   <style>
-    /* Parallax Fix: Content Sections must act as cover */
-    /* layout.css 縺ｮ #main { padding-top: var(--header-h) } 縺ｯID迚ｹ谿頑ｧ(0-1-0-0)縺ｮ縺溘ａ
-       繧ｿ繧､繝励そ繝ｬ繧ｯ繧ｿ main(0-0-0-1)縺ｧ縺ｯ雋縺代ｋ縲・main 縺ｧ荳頑嶌縺阪＠縺ｦ迚ｹ谿頑ｧ繧呈純縺医・
-       繧ｽ繝ｼ繧ｹ鬆・ｼ亥ｾ悟享縺｡・峨〒縺薙■繧峨ｒ蜆ｪ蜈医＆縺帙ｋ縲・*/
     #main {
       padding-top: 0;
-      /* #kv-scroll-zone (200vh) 縺碁ｫ倥＆繧呈署萓帙☆繧九◆繧∽ｸ崎ｦ・*/
       position: relative;
     }
 
-    /* 縺吶ｊ繧ｬ繝ｩ繧ｹ: 蜊企乗・ + 繝悶Λ繝ｼ縺ｧ fixed hero 繧偵⊂縺九＠縺ｦ騾上°縺・*/
     .bg-texture {
       background-color: rgba(26, 19, 17, 0.60);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
 
-    /* Content Board Wrapper */
     #content-board {
       position: relative;
       z-index: 2;
-      /* Sit above fixed Hero (-1) */
       width: 100%;
     }
 
-    /* Top Divider for News Section (Washi/Torn Effect) */
     .news-overlap {
       margin-top: calc(-1 * (var(--home-next-peek-gap) + var(--home-next-visible)));
-      /* Pull up over Hero and keep the next section peeking in the first viewport */
       padding-top: 86px;
-      /* Text clearance */
 
-      /* 繧ｰ繝ｩ繝・・繧ｷ繝ｧ繝ｳ縺ｧ繝偵・繝ｭ繝ｼ縺九ｉ繧ｳ繝ｳ繝・Φ繝・∈繧ｹ繝繝ｼ繧ｺ縺ｫ遘ｻ陦・*/
       mask-image: linear-gradient(to bottom, transparent 0%, black 120px);
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 120px);
     }
 
     .section {
       position: relative;
-      /* z-index: 2;  <-- Lowered default so Pickup can be higher if needed, or keep 2.
-           But Pickup needs to pull UP over the News padding/gap. */
       z-index: 2;
-      /* background-color: var(--bg); Replaced by .bg-texture class on element */
     }
 
-    /* Fix for 3D Carousel Gap */
     .random-pickup-section {
       margin-top: -12px;
-      /* Pull up to cover carousel extra space */
       position: relative;
       z-index: 10;
-      /* Ensure it sits on top if overlapping occurs */
     }
 
-    /* =====================================================
-       Cast Reveal Banner
-       ===================================================== */
-    /* Desktop: show as hero right-side overlay */
     #cast-reveal-hero {
       position: absolute;
       top: 50%;
@@ -228,8 +191,6 @@
       z-index: 10;
       width: min(400px, 40vw);
     }
-
-    /* Both desktop and mobile show the section above News */
 
     .cast-reveal-group {
       margin-bottom: 20px;
@@ -273,7 +234,6 @@
       justify-content: center;
     }
 
-    /* Each card */
     .cast-reveal-card {
       position: relative;
       display: flex;
@@ -298,7 +258,6 @@
       border-color: rgba(207, 170, 107, 0.6);
     }
 
-    /* Gloss shine sweep on hover */
     .cast-reveal-card::before {
       content: '';
       position: absolute;
@@ -316,7 +275,6 @@
       background-position: -50% 0;
     }
 
-    /* Left: character image panel */
     .cast-reveal-img-wrap {
       position: relative;
       width: 100px;
@@ -349,7 +307,6 @@
       opacity: 0;
     }
 
-    /* Right: text info */
     .cast-reveal-info {
       flex: 1;
       display: flex;
@@ -385,7 +342,6 @@
       margin-top: 2px;
     }
 
-    /* Tomorrow variant: muted/silhouette style 窶・warm sepia instead of cool gray */
     .cast-reveal-card.is-tomorrow {
       border-color: rgba(180, 130, 60, 0.1);
       background: linear-gradient(135deg, #23160b 0%, #170d06 100%);
@@ -408,7 +364,6 @@
       color: rgba(255, 255, 255, 0.35);
     }
 
-    /* Gold accent bar on left edge (today only 窶・horizontal cards / hero overlay) */
     .cast-reveal-card.is-today::after {
       content: '';
       position: absolute;
@@ -421,7 +376,6 @@
       z-index: 6;
     }
 
-    /* Reduced margin for tighter layout */
     .section-head {
       margin-bottom: 20px !important;
     }
@@ -430,10 +384,8 @@
     #footer-placeholder {
       position: relative;
       z-index: 2;
-      /* background-color: var(--bg); Replaced by .bg-texture */
     }
 
-    /* About Section Layout */
     .about-content {
       display: flex;
       align-items: center;
@@ -445,7 +397,6 @@
 
     .about-text {
       flex: 1;
-      /* text-align: left; handled by frame default */
       line-height: 2;
     }
 
@@ -461,7 +412,6 @@
       object-fit: contain;
     }
 
-    /* Mobile: Stack Vertical (Text Top, Image Bottom) */
     @media (max-width: 768px) {
       .bg-texture {
         backdrop-filter: none;
@@ -480,8 +430,6 @@
         display: none !important;
       }
 
-      /* Hero 蜿ｳ繧ｵ繧､繝峨が繝ｼ繝舌・繝ｬ繧､縺ｯ繝・せ繧ｯ繝医ャ繝怜ｰら畑: 繧ｹ繝槭・縺ｧ縺ｯ髱櫁｡ｨ遉ｺ */
-      /* 繝｢繝舌う繝ｫ縺ｧ縺ｯ #cast-reveal-overlay 繧ｻ繧ｯ繧ｷ繝ｧ繝ｳ(繧ｳ繝ｳ繝・Φ繝・・繝ｼ繝牙・)縺御ｻ｣繧上ｊ縺ｫ陦ｨ遉ｺ縺輔ｌ繧・*/
       #cast-reveal-hero {
         display: none !important;
       }
@@ -503,7 +451,6 @@
 </main>
 
 <div id="footer-placeholder"></div>
-<!-- Data Files -->
 <script src="./data/members.js"></script>
 <script src="./data/news.js"></script>
 <script src="./data/site.js"></script>
@@ -511,4 +458,3 @@
 </body>
 
 </html>
-

@@ -40,9 +40,6 @@
     /* Scale to hide edges */
 }
 
-/* 繧ｻ繧ｯ繧ｷ繝ｧ繝ｳ蛹ｺ蛻・ｊ逕ｻ蜒上・蟒・ｭ｢・育樟蝨ｨ縺ｯ繝懊・繝繝ｼ縺ｮ縺ｿ・・*/
-
-
 /* Optional: Dark overlay if images are too bright */
 .people-section-wrapper::before {
     content: "";
@@ -98,9 +95,6 @@
     transform: translateY(0);
 }
 
-/* =========================================
-   貅門ｙ荳ｭ繝｡繝ｳ繝舌・・医す繝ｫ繧ｨ繝・ヨ陦ｨ遉ｺ・・
-   ========================================= */
 .cheki-card.preparing {
     cursor: default;
 }
@@ -130,12 +124,8 @@
     z-index: 10;
     letter-spacing: 0.1em;
     display: none;
-    /* 譛ｪ蜈ｬ髢九く繝｣繧ｹ繝医き繝ｼ繝峨・繧ｷ繝ｫ繧ｨ繝・ヨ陦ｨ遉ｺ縺ｮ縺ｿ繝ｻ繝・く繧ｹ繝医・髱櫁｡ｨ遉ｺ */
 }
 
-/* =========================================
-   遨ｺ繧ｳ繝ｳ繝・Φ繝・｡ｨ遉ｺ
-   ========================================= */
 .empty-content {
     text-align: center;
     padding: 3rem 1rem;
@@ -143,9 +133,6 @@
     font-size: 1rem;
 }
 
-/* =========================================
-   繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ邨先棡・医ヵ繝ｩ繝・ヨ繝薙Η繝ｼ・・
-   ========================================= */
 .people-filter-results {
     padding: 16px 0 28px;
     min-height: 300px;
@@ -195,10 +182,6 @@
 
 /* Tag filter buttons use the global rich gold gradient */
 
-/* =========================================
-   繧ｭ繝｣繧ｹ繝育ｴｹ莉九・繝ｼ繧ｸ 繝倥ャ繝繝ｼ繧ｻ繧ｯ繧ｷ繝ｧ繝ｳ
-   (pages/people.html 縺ｮ inline style 遘ｻ陦悟・)
-   ========================================= */
 .people-page-section {
     padding-top: 20px;
     padding-bottom: 10px;
@@ -217,10 +200,6 @@
     text-align: center;
 }
 
-/* =========================================
-   繧ｫ繝ｼ繝峨ヵ繧｣繝ｫ繧ｿ繧｢繝九Γ繝ｼ繧ｷ繝ｧ繝ｳ
-   (js/pages/people.js 縺ｮ inline style 遘ｻ陦悟・)
-   ========================================= */
 .cheki-card.reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -228,7 +207,6 @@
         transform 0.4s ease var(--reveal-delay, 0ms);
 }
 
-/* .cheki-card.reveal.is-visible 縺ｯ layout.css 縺ｮ .reveal.is-visible 繧貞酔遲芽ｩｳ邏ｰ蠎ｦ縺ｧ荳頑嶌縺阪＠縺ｦ縺励∪縺・◆繧√√％縺薙↓譏手ｨ倥☆繧・*/
 .cheki-card.reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
