@@ -182,6 +182,10 @@
     <script>
         renderLayout('../');
     </script>
+    <script type="module">
+        import { initMenu } from '../js/common/menu.js';
+        initMenu();
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const secretTrigger = document.getElementById('debug-trigger');
