@@ -20,14 +20,11 @@ content = content.replace(/,\s*,/g, ',');
 // March 19: mugidango, aki
 // March 18: eno
 // March 17: kyosu
-// March 16: teto
 // March 15: azu
 // March 14: bino
 // March 13: kirara
-// March 12: sakura
 // March 11: nagi
 // March 10: philia
-// March 9: rei
 // March 8: wikira, hinekure
 
 const scheduleItems = [
@@ -35,14 +32,11 @@ const scheduleItems = [
     { dates: '2026-03-19', ids: ['mugidango', 'aki'] },
     { dates: '2026-03-18', ids: ['eno'] },
     { dates: '2026-03-17', ids: ['kyosu'] },
-    { dates: '2026-03-16', ids: ['teto'] },
     { dates: '2026-03-15', ids: ['azu'] },
     { dates: '2026-03-14', ids: ['bino'] },
     { dates: '2026-03-13', ids: ['kirara'] },
-    { dates: '2026-03-12', ids: ['sakura'] },
     { dates: '2026-03-11', ids: ['nagi'] },
     { dates: '2026-03-10', ids: ['philia'] },
-    { dates: '2026-03-09', ids: ['rei'] },
     { dates: '2026-03-08', ids: ['wikira', 'hinekure'] },
 ];
 

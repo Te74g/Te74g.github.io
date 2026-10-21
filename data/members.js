@@ -76,32 +76,6 @@ window.membersData = [
         ]
     },
     {
-        "id": "rei",
-        "revealDate": "2026-03-09",
-        "name": "麗（れい）",
-        "tagLabel": "飼育",
-        "tags": "飼育 キャスト",
-        "revealLevel": 3,
-        "profileImages": [
-            "assets/member/麗/profile1.webp",
-            "assets/member/麗/profile2.webp"
-        ],
-        "silhouetteImage": "assets/member/麗/profile1_silhouette.webp",
-        "goals": [
-            "家族が一番喜ぶ恩返しをすること"
-        ],
-        "motifAnimal": "柴犬",
-        "motifIcon": "assets/motif/shibainu.webp",
-        "section": "飼育区画",
-        "introduction": "18年間おだやかな人間の家族のもとで大切にされ生きている柴犬。<br><br>\n        老犬となりのんびり過ごしていたところ、面白いことを始めてみない？と人間のママから提案され店長のもとへ行くこととなった。<br><br>\n        様々な人間と話しながら「人間が何で喜ぶのか」「人間が求めているものは何か」を探求して学んだことを家族に還元したいと思っているが、老犬なのですぐに忘れてしまう。",
-        "socials": [
-            {
-                "type": "twitter",
-                "url": "https://x.com/mireiyu_dayon"
-            }
-        ]
-    },
-    {
         "id": "philia",
         "revealDate": "2026-03-10",
         "name": "フィリア",
@@ -156,37 +130,6 @@ window.membersData = [
                 "type": "twitter",
                 "url": "https://x.com/inukoro0813"
             }
-        ]
-    },
-    {
-        "id": "sakura",
-        "revealDate": "2026-03-12",
-        "name": "さくら",
-        "tagLabel": "飼育",
-        "tags": "飼育 キャスト",
-        "revealLevel": 3,
-        "profileImages": [
-            "assets/member/さくら/profile1.webp",
-            "assets/member/さくら/profile2.webp",
-            "assets/member/さくら/profile3.webp"
-        ],
-        "silhouetteImage": "assets/member/さくら/profile1_silhouette.webp",
-        "goals": [
-            "家族の役に立つこと！",
-            "人間の本当の気持ちを知りたい！"
-        ],
-        "motifAnimal": "犬（パピヨン）",
-        "motifIcon": "assets/motif/real_papillon.webp",
-        "section": "飼育区画",
-        "introduction": "それなりに裕福な家庭で、子供がなかなかできず悩んでいた夫婦にペットショップで拾われる。甘え上手で天真爛漫な性格。物覚えは良い方で少しずる賢い。<br><br>ママの膝の上がお気に入りだが、最近狭くなったように感じる。<br>パパも難しい話をすることが増えた。<br>家族に何が起きているのか知って力になりたい！と思っているところにあにあめもりあの存在を知り自ら応募。<br><br>人間のことを深く知り、家族の役に立てるようになることが目標である。",
-        "socials": [
-            {
-                "type": "twitter",
-                "url": "https://x.com/Ut4_VRC"
-            }
-        ],
-        "related": [
-            "teto"
         ]
     },
     {
@@ -268,40 +211,6 @@ window.membersData = [
                 "type": "twitter",
                 "url": "https://x.com/azuse_vrc"
             }
-        ]
-    },
-    {
-        "id": "teto",
-        "revealDate": "2026-03-16",
-        "name": "てと",
-        "tagLabel": "野生",
-        "tags": "野生 キャスト",
-        "revealLevel": 3,
-        "profileImages": [
-            "assets/member/てと/profile1.webp",
-            "assets/member/てと/profile2.webp",
-            "assets/member/てと/profile3.webp"
-        ],
-        "silhouetteImage": "assets/member/てと/profile1_silhouette.webp",
-        "goals": [
-            "美味しいものをお腹いっぱい食べること",
-            "みんなと仲良くすること",
-            "暖かい寝床でたくさん寝ること",
-            "強くなること",
-            "家族が安心して暮らせること"
-        ],
-        "motifAnimal": "狼",
-        "motifIcon": "assets/motif/real_wolf.webp",
-        "section": "野生区画",
-        "introduction": "どこかに住んでいる狼の女の子。<br>\n        人間のことを探るべく彷徨っていたところ、店長に誘われてあにあめもりあの店員になった。<br>\n        自由奔放でマイペースだけど、ちょっと人見知り。<br>\n        立派な狼になるため奮闘中！",
-        "socials": [
-            {
-                "type": "twitter",
-                "url": "https://x.com/chisatonanodayo"
-            }
-        ],
-        "related": [
-            "sakura"
         ]
     },
     {

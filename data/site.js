@@ -76,8 +76,6 @@ window.siteConfig = {
         visibleMembers: [
             "ten",      // 店長（運営部）
             "momo",     // 副店長（運営部）
-            "sakura",
-            "teto",
             "aki",
             "mugidango"
         ],
